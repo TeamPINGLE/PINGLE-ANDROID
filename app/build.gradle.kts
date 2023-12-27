@@ -41,12 +41,41 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.security)
 
     // Google
     implementation(libs.google.material)
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.google.firebase.crashlytics)
 
     // Test
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    implementation(libs.junit)
+    implementation(libs.androidx.test.ext.junit)
+    implementation(libs.espresso.core)
+
+    // Hilt
+    implementation(libs.hilt)
+    implementation(libs.hilt.compiler)
+
+    // Coil
+    implementation(libs.coil)
+
+    // Timber
+    implementation(libs.timber)
+
+    // Network
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlin.serialization.converter)
+    implementation(libs.kotlin.serialization.json)
+}
+
+ktlint {
+    android = true
+    debug = true
+    coloredOutput = true
+    verbose = true
+    outputToConsole = true
 }

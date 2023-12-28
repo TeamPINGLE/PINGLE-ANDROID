@@ -8,18 +8,25 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.pingle.domain.model.UserEntity
 import org.sopt.pingle.domain.usecase.GetDummyUserListUseCase
+import org.sopt.pingle.domain.usecase.SetDummyDataUseCase
 import org.sopt.pingle.util.view.UiState
 import javax.inject.Inject
 
 @HiltViewModel
 class DummyViewModel @Inject constructor(
+    private val setDummyDataUseCase: SetDummyDataUseCase,
     private val getDummyUserListUseCase: GetDummyUserListUseCase
 ) : ViewModel() {
     private val _dummyUserListState = MutableStateFlow<UiState<List<UserEntity>>>(UiState.Empty)
     val dummyUserState = _dummyUserListState.asStateFlow()
 
     init {
+        setDummyData()
         getDummyUserList(PAGE)
+    }
+
+    private fun setDummyData() {
+        setDummyDataUseCase(DUMMY)
     }
 
     private fun getDummyUserList(page: Int) {
@@ -37,5 +44,6 @@ class DummyViewModel @Inject constructor(
 
     companion object {
         const val PAGE = 2
+        const val DUMMY = 3
     }
 }

@@ -25,7 +25,7 @@ androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 
 # Dagger-Hilt
-dagger-hilt = "2.48"
+dagger-hilt = "2.50"
 
 # Third Party
 ktlint = "11.0.0"
@@ -41,7 +41,7 @@ kotlin-serialization-json = "1.5.1"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-androidx-activity = {group = "androidx.activity", name = "activity-ktx", version.ref = "activity"}
+androidx-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
 androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-security = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "security" }
@@ -82,7 +82,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
-dagger-hilt = { id = "dagger.hilt.android.plugin", version.ref = "dagger-hilt" }
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 
 [bundles]

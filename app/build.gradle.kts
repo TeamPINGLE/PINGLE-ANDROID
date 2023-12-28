@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,12 +7,12 @@ plugins {
 
 android {
     namespace = "org.sopt.pingle"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "org.sopt.pingle"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -18,6 +20,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -32,6 +37,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+        buildConfig = true
     }
 }
 
@@ -49,13 +59,13 @@ dependencies {
     implementation(libs.google.firebase.crashlytics)
 
     // Test
-    implementation(libs.junit)
-    implementation(libs.androidx.test.ext.junit)
-    implementation(libs.espresso.core)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 
     // Hilt
     implementation(libs.hilt)
-    implementation(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
 
     // Coil
     implementation(libs.coil)

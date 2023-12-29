@@ -20,16 +20,11 @@ class DummyViewModel @Inject constructor(
     private val _dummyUserListState = MutableStateFlow<UiState<List<UserEntity>>>(UiState.Empty)
     val dummyUserState = _dummyUserListState.asStateFlow()
 
-    init {
-        setDummyData()
-        getDummyUserList(PAGE)
-    }
-
-    private fun setDummyData() {
+    fun setDummyData() {
         setDummyDataUseCase(DUMMY)
     }
 
-    private fun getDummyUserList(page: Int) {
+    fun getDummyUserList(page: Int) {
         viewModelScope.launch {
             _dummyUserListState.value = UiState.Loading
             runCatching {

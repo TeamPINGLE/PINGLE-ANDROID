@@ -7,8 +7,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import org.sopt.pingle.data.datasourceimpl.local.DummyLocalDataSourceImpl.Companion.FILE_NAME
 import javax.inject.Singleton
+import org.sopt.pingle.data.datasourceimpl.local.DummyLocalDataSourceImpl.Companion.FILE_NAME
 
 @Module
 @InstallIn(SingletonComponent::class)

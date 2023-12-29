@@ -18,7 +18,7 @@ abstract class BindingFragment<T : ViewDataBinding>(@LayoutRes private val layou
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner

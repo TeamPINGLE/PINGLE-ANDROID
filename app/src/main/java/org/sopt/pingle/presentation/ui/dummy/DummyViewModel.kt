@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.dummy
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -10,7 +11,6 @@ import org.sopt.pingle.domain.model.UserEntity
 import org.sopt.pingle.domain.usecase.GetDummyUserListUseCase
 import org.sopt.pingle.domain.usecase.SetDummyDataUseCase
 import org.sopt.pingle.util.view.UiState
-import javax.inject.Inject
 
 @HiltViewModel
 class DummyViewModel @Inject constructor(

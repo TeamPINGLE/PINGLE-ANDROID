@@ -1,9 +1,9 @@
 package org.sopt.pingle.data.datasourceimpl.remote
 
+import javax.inject.Inject
 import org.sopt.pingle.data.datasource.remote.DummyRemoteDataSource
 import org.sopt.pingle.data.model.remote.response.ResponseGetDummyUserListDto
 import org.sopt.pingle.data.service.DummyService
-import javax.inject.Inject
 
 class DummyRemoteDataSourceImpl @Inject constructor(
     private val dummyService: DummyService

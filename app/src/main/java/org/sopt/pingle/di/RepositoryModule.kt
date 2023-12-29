@@ -5,18 +5,12 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import org.sopt.pingle.data.repository.DummyDataRepositoryImpl
 import org.sopt.pingle.data.repository.DummyRepositoryImpl
-import org.sopt.pingle.domain.repository.DummyDataRepository
 import org.sopt.pingle.domain.repository.DummyRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
-    @Binds
-    @Singleton
-    abstract fun bindsDummyDataRepository(dummyDataRepositoryImpl: DummyDataRepositoryImpl): DummyDataRepository
-
     @Binds
     @Singleton
     abstract fun bindsDummyRepository(dummyRepositoryImpl: DummyRepositoryImpl): DummyRepository

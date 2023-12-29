@@ -5,7 +5,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import org.sopt.pingle.domain.repository.DummyDataRepository
 import org.sopt.pingle.domain.repository.DummyRepository
 import org.sopt.pingle.domain.usecase.GetDummyUserListUseCase
 import org.sopt.pingle.domain.usecase.SetDummyDataUseCase
@@ -15,8 +14,8 @@ import org.sopt.pingle.domain.usecase.SetDummyDataUseCase
 class UseCaseModule {
     @Provides
     @Singleton
-    fun providesSetDummyDataUseCase(dummyDataRepository: DummyDataRepository): SetDummyDataUseCase =
-        SetDummyDataUseCase(dummyDataRepository)
+    fun providesSetDummyDataUseCase(dummyRepository: DummyRepository): SetDummyDataUseCase =
+        SetDummyDataUseCase(dummyRepository)
 
     @Provides
     @Singleton

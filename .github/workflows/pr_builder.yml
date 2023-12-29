@@ -37,6 +37,11 @@ jobs:
       - name: Touch local properties
         run: touch local.properties
 
+      - name: Decode google-services.json
+        env:
+          FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
+        run: echo $FIREBASE_SECRET > app/google-services.json
+
       - name: Access BASE_URL
         env:
           HFM_BASE_URL: ${{ secrets.BASE_URL }}
@@ -52,3 +57,23 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build -PcompileSdkVersion=34
+
+      - name: Slack Notify - Success
+        if: ${{ success() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: '#B7FF1D'
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_TITLE: '✅ PR Success ✅'
+          SLACK_USERNAME: PINGLE-ANDROID 🌀
+          SLACK_MESSAGE: 'PR이 완료되었습니다! ➿'
+
+      - name: Slack Notify - Failure
+        if: ${{ failure() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: '#B7FF1D'
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_TITLE: '❌ PR Failed ❌'
+          SLACK_USERNAME: PINGLE-ANDROID 🌀
+          SLACK_MESSAGE: '에러를 확인해 주세요 😵‍💫'

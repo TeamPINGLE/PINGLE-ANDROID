@@ -72,7 +72,7 @@ jobs:
         if: ${{ failure() }}
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_COLOR: '#B7FF1D'
+          SLACK_COLOR: '#FF9254'
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_TITLE: '❌ PR Failed ❌'
           SLACK_USERNAME: PINGLE-ANDROID 🌀

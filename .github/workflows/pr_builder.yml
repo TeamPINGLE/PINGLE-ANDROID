@@ -1,0 +1,79 @@
+name: Pingle PR Builder
+on:
+  pull_request:
+    branches: [ develop, main ]
+defaults:
+  run:
+    shell: bash
+    working-directory: .
+jobs:
+  build:
+    name: PR Checker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Change gradlew permissions
+        run: chmod +x ./gradlew
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Touch local properties
+        run: touch local.properties
+
+      - name: Decode google-services.json
+        env:
+          FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
+        run: echo $FIREBASE_SECRET > app/google-services.json
+
+      - name: Access BASE_URL
+        env:
+          HFM_BASE_URL: ${{ secrets.BASE_URL }}
+        run: echo "base.url=\"$BASE_URL\"" >> local.properties
+
+      - name: Access ACCESS_TOKEN
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: echo "access.token=\"$ACCESS_TOKEN\"" >> local.properties
+
+      - name: Lint Check
+        run: ./gradlew ktlintCheck -PcompileSdkVersion=34
+
+      - name: Build with Gradle
+        run: ./gradlew build -PcompileSdkVersion=34
+
+      - name: Slack Notify - Success
+        if: ${{ success() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: '#B7FF1D'
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_TITLE: '✅ PR Success ✅'
+          SLACK_USERNAME: PINGLE-ANDROID 🌀
+          SLACK_MESSAGE: 'PR이 완료되었습니다! ➿'
+
+      - name: Slack Notify - Failure
+        if: ${{ failure() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: '#FF9254'
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_TITLE: '❌ PR Failed ❌'
+          SLACK_USERNAME: PINGLE-ANDROID 🌀
+          SLACK_MESSAGE: '에러를 확인해 주세요 😵‍💫'

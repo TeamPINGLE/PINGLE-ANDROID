@@ -10,10 +10,12 @@ plugins {
     alias(libs.plugins.google.firebase.crashlytics)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.sentry)
 }
 
-val properties = Properties()
-properties.load(project.rootProject.file("local.properties").inputStream())
+val properties = Properties().apply {
+    load(project.rootProject.file("local.properties").inputStream())
+}
 
 android {
     namespace = "org.sopt.pingle"
@@ -29,6 +31,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", properties["base.url"].toString())
         buildConfigField("String", "ACCESS_TOKEN", properties["access.token"].toString())
+        manifestPlaceholders["IO_SENTRY_DSN"] = properties["io.sentry.dsn"] as String
     }
 
     buildTypes {
@@ -59,14 +62,7 @@ android {
 
 dependencies {
 
-    // AndroidX
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.fragment)
-    implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.security)
+    implementation(libs.bundles.androidx)
 
     // Google
     implementation(libs.google.material)
@@ -90,10 +86,8 @@ dependencies {
 
     // Network
     implementation(platform(libs.okhttp.bom))
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.logging.interceptor)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.kotlin.serialization.converter)
+    implementation(libs.bundles.okhttp)
+    implementation(libs.bundles.retrofit)
     implementation(libs.kotlin.serialization.json)
 }
 

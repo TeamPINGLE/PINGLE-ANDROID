@@ -35,6 +35,7 @@ okhttp = "4.11.0"
 retrofit = "2.9.0"
 retrofit-kotlin-serialization-converter = "1.0.0"
 kotlin-serialization-json = "1.5.1"
+sentry = "4.1.1"
 
 [libraries]
 # AndroidX
@@ -84,5 +85,17 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+sentry = { id = "io.sentry.android.gradle", version.ref = "sentry" }
 
 [bundles]
+androidx = [
+    "androidx-core-ktx",
+    "androidx-appcompat",
+    "androidx-constraintlayout",
+    "androidx-activity",
+    "androidx-fragment",
+    "androidx-lifecycle-viewmodel",
+    "androidx-security"
+]
+okhttp = ["okhttp", "okhttp-logging-interceptor"]
+retrofit = ["retrofit", "retrofit-kotlin-serialization-converter"]

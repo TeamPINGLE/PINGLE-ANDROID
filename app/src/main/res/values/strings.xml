@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Pingle</string>
+
+    <!--  category Type  -->
+    <string name="category_play">PLAY</string>
+    <string name="category_study">STUDY</string>
+    <string name="category_multi">MULTI</string>
+    <string name="category_others">OTHERS</string>
 </resources>

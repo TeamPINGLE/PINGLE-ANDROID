@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.Pingle" parent="">
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- Title -->
+    <style name="TextAppearance.title_semi_32" parent="TextAppearance.Pingle">
+        <item name="android:textSize">32dp</item>
+        <item name="android:lineHeight">45dp</item>
+        <item name="android:fontFamily">@font/suit_semibold</item>
+    </style>
+
+    <style name="TextAppearance.title_semi_30" parent="TextAppearance.Pingle">
+        <item name="android:textSize">30dp</item>
+        <item name="android:lineHeight">42dp</item>
+        <item name="android:fontFamily">@font/suit_semibold</item>
+    </style>
+
+    <style name="TextAppearance.title_semi_24" parent="TextAppearance.Pingle">
+        <item name="android:textSize">24dp</item>
+        <item name="android:lineHeight">34dp</item>
+        <item name="android:fontFamily">@font/suit_semibold</item>
+    </style>
+
+    <style name="TextAppearance.title_semi_20" parent="TextAppearance.Pingle">
+        <item name="android:textSize">20dp</item>
+        <item name="android:lineHeight">28dp</item>
+        <item name="android:fontFamily">@font/suit_semibold</item>
+    </style>
+
+    <!-- Sub -->
+    <style name="TextAppearance.sub_bold_18" parent="TextAppearance.Pingle">
+        <item name="android:textSize">18dp</item>
+        <item name="android:lineHeight">25dp</item>
+        <item name="android:fontFamily">@font/suit_bold</item>
+    </style>
+
+    <style name="TextAppearance.sub_semi_18" parent="TextAppearance.Pingle">
+        <item name="android:textSize">18dp</item>
+        <item name="android:lineHeight">25dp</item>
+        <item name="android:fontFamily">@font/suit_semibold</item>
+    </style>
+
+    <style name="TextAppearance.sub_semi_16" parent="TextAppearance.Pingle">
+        <item name="android:textSize">16dp</item>
+        <item name="android:lineHeight">22dp</item>
+        <item name="android:fontFamily">@font/suit_semibold</item>
+    </style>
+
+    <style name="TextAppearance.sub_extra_12" parent="TextAppearance.Pingle">
+        <item name="android:textSize">12dp</item>
+        <item name="android:lineHeight">17dp</item>
+        <item name="android:fontFamily">@font/suit_extrabold</item>
+    </style>
+
+    <!-- Body -->
+    <style name="TextAppearance.body_med_18" parent="TextAppearance.Pingle">
+        <item name="android:textSize">18dp</item>
+        <item name="android:lineHeight">25dp</item>
+        <item name="android:fontFamily">@font/suit_medium</item>
+    </style>
+
+    <style name="TextAppearance.body_med_16" parent="TextAppearance.Pingle">
+        <item name="android:textSize">16dp</item>
+        <item name="android:lineHeight">22dp</item>
+        <item name="android:fontFamily">@font/suit_medium</item>
+    </style>
+
+    <style name="TextAppearance.body_semi_14" parent="TextAppearance.Pingle">
+        <item name="android:textSize">14dp</item>
+        <item name="android:lineHeight">19dp</item>
+        <item name="android:fontFamily">@font/suit_semibold</item>
+    </style>
+
+    <style name="TextAppearance.body_med_14" parent="TextAppearance.Pingle">
+        <item name="android:textSize">14dp</item>
+        <item name="android:lineHeight">19dp</item>
+        <item name="android:fontFamily">@font/suit_medium</item>
+    </style>
+
+    <!-- Caption -->
+    <style name="TextAppearance.cap_bold_12" parent="TextAppearance.Pingle">
+        <item name="android:textSize">12dp</item>
+        <item name="android:lineHeight">17dp</item>
+        <item name="android:fontFamily">@font/suit_bold</item>
+    </style>
+
+    <style name="TextAppearance.cap_semi_12" parent="TextAppearance.Pingle">
+        <item name="android:textSize">12dp</item>
+        <item name="android:lineHeight">17dp</item>
+        <item name="android:fontFamily">@font/suit_semibold</item>
+    </style>
+
+    <style name="TextAppearance.cap_med_12" parent="TextAppearance.Pingle">
+        <item name="android:textSize">12dp</item>
+        <item name="android:lineHeight">17dp</item>
+        <item name="android:fontFamily">@font/suit_medium</item>
+    </style>
+
+    <style name="TextAppearance.cap_bold_10" parent="TextAppearance.Pingle">
+        <item name="android:textSize">10dp</item>
+        <item name="android:lineHeight">14dp</item>
+        <item name="android:fontFamily">@font/suit_bold</item>
+    </style>
+
+    <style name="TextAppearance.cap_semi_10" parent="TextAppearance.Pingle">
+        <item name="android:textSize">10dp</item>
+        <item name="android:lineHeight">14dp</item>
+        <item name="android:fontFamily">@font/suit_semibold</item>
+    </style>
+
+    <style name="TextAppearance.cap_med_10" parent="TextAppearance.Pingle">
+        <item name="android:textSize">10dp</item>
+        <item name="android:lineHeight">14dp</item>
+        <item name="android:fontFamily">@font/suit_medium</item>
+    </style>
+</resources>

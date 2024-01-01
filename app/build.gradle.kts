@@ -10,10 +10,12 @@ plugins {
     alias(libs.plugins.google.firebase.crashlytics)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.sentry)
 }
 
-val properties = Properties()
-properties.load(project.rootProject.file("local.properties").inputStream())
+val properties = Properties().apply {
+    load(project.rootProject.file("local.properties").inputStream())
+}
 
 android {
     namespace = "org.sopt.pingle"
@@ -29,6 +31,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", properties["base.url"].toString())
         buildConfigField("String", "ACCESS_TOKEN", properties["access.token"].toString())
+        manifestPlaceholders["IO_SENTRY_DSN"] = properties["io.sentry.dsn"] as String
     }
 
     buildTypes {

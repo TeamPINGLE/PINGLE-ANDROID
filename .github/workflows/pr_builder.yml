@@ -52,6 +52,11 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: echo "access.token=\"$ACCESS_TOKEN\"" >> local.properties
 
+      - name: Access IO_SENTRY_DSN
+        env:
+          IO_SENTRY_TOKEN: ${{ secrets.IO_SENTRY_DSN }}
+        run: echo "io.sentry.dsn=\"IO_SENTRY_DSN\"" >> local.properties
+
       - name: Lint Check
         run: ./gradlew ktlintCheck -PcompileSdkVersion=34
 

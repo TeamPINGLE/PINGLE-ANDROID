@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Pingle" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -7,4 +7,54 @@
     </style>
 
     <style name="Theme.Pingle" parent="Base.Theme.Pingle" />
+
+    <!-- Button -->
+    <style name="Theme.Pingle.Button" parent="Widget.Material3.Button">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="Theme.Pingle.Button.L" parent="Theme.Pingle.Button">
+        <item name="android:layout_height">@dimen/button_l_height</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="cornerRadius">@dimen/spacing10</item>
+    </style>
+
+    <style name="Theme.Pingle.Button.M" parent="Theme.Pingle.Button">
+        <item name="android:layout_height">@dimen/button_m_height</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="cornerRadius">@dimen/spacing10</item>
+    </style>
+
+    <style name="Theme.Pingle.Button.S" parent="Theme.Pingle.Button">
+        <item name="android:layout_height">@dimen/button_s_height</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="cornerRadius">@dimen/spacing10</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- chip -->
+    <style name="Theme.Pingle.badge" parent="">
+        <item name="chipMinTouchTargetSize">0dp</item>
+        <item name="chipEndPadding">0dp</item>
+        <item name="chipStartPadding">0dp</item>
+        <item name="android:checked">false</item>
+        <item name="chipMinHeight">0dp</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="Theme.Pingle.chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:stateListAnimator">@null</item>
+        <item name="chipMinTouchTargetSize">0dp</item>
+        <item name="chipEndPadding">0dp</item>
+        <item name="chipStartPadding">0dp</item>
+        <item name="android:checked">false</item>
+        <item name="chipMinHeight">0dp</item>
+        <item name="rippleColor">@android:color/transparent</item>
+    </style>
+
 </resources>

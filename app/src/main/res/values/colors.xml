@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- black&white -->
+    <color name="black">#080909</color>
+    <color name="white">#FFFFFF</color>
+    
+    <!-- main -->
+    <color name="pingle_green">#B7FF1D</color>
+
+    <!-- sub -->
+    <color name="pingle_orange">#FF9254</color>
+    <color name="pingle_yellow">#F2FF5E</color>
+
+    <!-- grayscale -->
+    <color name="g_01">#EDF0F4</color>
+    <color name="g_02">#DBE2E9</color>
+    <color name="g_03">#CAD1D9</color>
+    <color name="g_04">#B7BFC6</color>
+    <color name="g_05">#A0AAB2</color>
+    <color name="g_06">#7F8A96</color>
+    <color name="g_07">#626D79</color>
+    <color name="g_08">#48535C</color>
+    <color name="g_09">#363E45</color>
+    <color name="g_10">#252930</color>
+    <color name="g_11">#15181B</color>
+
+    <!-- system -->
+    <color name="alert_red">#D6392F</color>
+    
+    <!-- chip -->
+    <color name="chip_green">#252F1B</color>
+    <color name="chip_orange">#2C2421</color>
+    <color name="chip_yellow">#2B2F22</color>
+
+    <!-- badge -->
+    <color name="badge_green">#536456</color>
+    <color name="badge_orange">#5A595B</color>
+    <color name="badge_yellow">#59645C</color>
+    
+    <!-- backdrop -->
+    <color name="backdrop">#B3080909</color>
 </resources>
+

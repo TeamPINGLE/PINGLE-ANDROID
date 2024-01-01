@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing -->
+    <dimen name="spacing2">2dp</dimen>
+    <dimen name="spacing3">3dp</dimen>
+    <dimen name="spacing4">4dp</dimen>
+    <dimen name="spacing6">6dp</dimen>
+    <dimen name="spacing8">8dp</dimen>
+    <dimen name="spacing9">9dp</dimen>
+    <dimen name="spacing10">10dp</dimen>
+    <dimen name="spacing11">11dp</dimen>
+    <dimen name="spacing12">12dp</dimen>
+    <dimen name="spacing13">13dp</dimen>
+    <dimen name="spacing14">14dp</dimen>
+    <dimen name="spacing16">16dp</dimen>
+    <dimen name="spacing17">17dp</dimen>
+    <dimen name="spacing18">18dp</dimen>
+    <dimen name="spacing19">19dp</dimen>
+    <dimen name="spacing20">20dp</dimen>
+    <dimen name="spacing22">22dp</dimen>
+    <dimen name="spacing23">23dp</dimen>
+    <dimen name="spacing24">24dp</dimen>
+    <dimen name="spacing25">25dp</dimen>
+    <dimen name="spacing26">26dp</dimen>
+    <dimen name="spacing28">28dp</dimen>
+    <dimen name="spacing30">30dp</dimen>
+    <dimen name="spacing32">32dp</dimen>
+    <dimen name="spacing34">34dp</dimen>
+    <dimen name="spacing36">36dp</dimen>
+
+    <!-- Widget size -->
+    <dimen name="bottom_navi_height">60dp</dimen>
+    <dimen name="button_l_height">56dp</dimen>
+    <dimen name="button_m_height">42dp</dimen>
+    <dimen name="button_s_height">42dp</dimen>
+</resources>

@@ -4,6 +4,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:background">@color/g_09</item>
     </style>
 
     <style name="Theme.Pingle" parent="Base.Theme.Pingle" />
@@ -18,22 +19,22 @@
     </style>
 
     <style name="Theme.Pingle.Button.L" parent="Theme.Pingle.Button">
-        <item name="android:layout_height">@dimen/button_l_height</item>
-        <item name="android:layout_width">0dp</item>
+        <item name="android:height">@dimen/button_l_height</item>
         <item name="cornerRadius">@dimen/spacing10</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Sub.Semi.16</item>
     </style>
 
     <style name="Theme.Pingle.Button.M" parent="Theme.Pingle.Button">
-        <item name="android:layout_height">@dimen/button_m_height</item>
-        <item name="android:layout_width">0dp</item>
+        <item name="android:height">@dimen/button_m_height</item>
         <item name="cornerRadius">@dimen/spacing10</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Body.Semi.14</item>
     </style>
 
     <style name="Theme.Pingle.Button.S" parent="Theme.Pingle.Button">
-        <item name="android:layout_height">@dimen/button_s_height</item>
-        <item name="android:layout_width">0dp</item>
+        <item name="android:height">@dimen/button_s_height</item>
         <item name="cornerRadius">@dimen/spacing10</item>
         <item name="strokeWidth">1dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Body.Semi.14</item>
     </style>
 
     <!-- chip -->

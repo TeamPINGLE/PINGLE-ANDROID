@@ -22,6 +22,12 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         initBnvMainAllNaviItemSelectedListener()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        updateBnvMainAllNaviSelectedItemByFragment()
+    }
+
     private fun initLayout() {
         supportFragmentManager.findFragmentById(R.id.fcv_main_all_navi)
             ?: navigateToFragment<MapFragment>()
@@ -38,6 +44,16 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             }
             true
         }
+    }
+
+    private fun updateBnvMainAllNaviSelectedItemByFragment() {
+        binding.bnvMainAllNavi.selectedItemId =
+            when (supportFragmentManager.findFragmentById(R.id.fcv_main_all_navi)) {
+                is CommendFragment -> R.id.menu_all_navi_commend
+                is MyPingleFragment -> R.id.menu_all_navi_mypingle
+                is SettingFragment -> R.id.menu_all_navi_setting
+                else -> R.id.menu_all_navi_home
+            }
     }
 
     private fun navigateToPlan() {

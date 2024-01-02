@@ -6,7 +6,7 @@ import org.sopt.pingle.R
 
 enum class GroupType(
     @StringRes val groupTextRes: Int,
-    @DrawableRes val groupImageRes: Int,
+    @DrawableRes val groupImageRes: Int
 ) {
     ORIGINAL(
         R.string.on_bording_original_group,

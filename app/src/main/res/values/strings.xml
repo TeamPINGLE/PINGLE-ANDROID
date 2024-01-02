@@ -6,4 +6,9 @@
     <string name="category_study">STUDY</string>
     <string name="category_multi">MULTI</string>
     <string name="category_others">OTHERS</string>
+
+    <!-- JoinGroupSuccess -->
+    <string name="join_group_success_btn">입장하기</string>
+    <string name="join_gorup_success_title">단체 입장\n완료!</string>
+    <string name="join_group_success_description">단체명에서\n핑글 여정을 함께해보세요!</string>
 </resources>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="title"
-            type="String" />
+            name="group"
+            type="org.sopt.pingle.presentation.type.GroupType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,16 +18,15 @@
 
         <ImageView
             android:id="@+id/iv_on_bording_group"
+            image="@{group.groupImageRes}"
             android:layout_width="0dp"
             android:layout_height="96dp"
             android:layout_marginHorizontal="@dimen/spacing28"
             android:layout_marginTop="@dimen/spacing28"
-            android:background="@color/g_10"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_on_bording_group"
@@ -37,12 +37,13 @@
             android:layout_marginBottom="35dp"
             android:background="@color/g_10"
             android:gravity="center"
-            android:text="@{title}"
+            android:text="@{group.groupTextRes}"
             android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_on_bording_group" />
+            app:layout_constraintTop_toBottomOf="@id/iv_on_bording_group"
+            tools:text="@string/on_bording_original_group" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

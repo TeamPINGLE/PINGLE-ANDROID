@@ -4,7 +4,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:background">@color/g_09</item>
+        <item name="android:background">@color/g_11</item>
     </style>
 
     <style name="Theme.Pingle" parent="Base.Theme.Pingle" />

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/g_11"
+        tools:context=".presentation.ui.onbording.OnBordingActivity">
+
+        <TextView
+            android:id="@+id/tv_on_bording_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="147dp"
+            android:background="@color/g_11"
+            android:text="@string/on_bording_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.30"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/include_onbording_group_original"
+            layout="@layout/view_on_bording_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing24"
+            android:layout_marginTop="@dimen/spacing34"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_on_bording_title"
+            app:title="@{@string/on_bording_original_group}" />
+
+        <include
+            android:id="@+id/include_onbording_group_new"
+            layout="@layout/view_on_bording_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing8"
+            android:layout_marginEnd="@dimen/spacing24"
+            app:layout_constraintBottom_toBottomOf="@id/include_onbording_group_original"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/include_onbording_group_original"
+            app:layout_constraintTop_toTopOf="@id/include_onbording_group_original"
+            app:title="@{@string/on_bording_new_group}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

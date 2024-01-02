@@ -31,7 +31,7 @@
 
         <activity
             android:name=".presentation.ui.main.MainActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

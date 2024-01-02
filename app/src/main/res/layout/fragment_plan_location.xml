@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.plan.PlanLocationFragment">
+
+    <TextView
+        android:id="@+id/tv_plan_location_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing24"
+        android:layout_marginTop="@dimen/spacing28"
+        android:text="@string/plan_location_title"
+        android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_plan_location_searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing16"
+        android:layout_marginTop="@dimen/spacing24"
+        android:layout_marginEnd="@dimen/spacing16"
+        android:hint="@string/plan_location_hint"
+        android:paddingVertical="@dimen/spacing10"
+        android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+        android:textColorHint="@color/g_07"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_plan_location_title" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_plan_location_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="@dimen/spacing16"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/btn_plan_location_next"
+        app:layout_constraintTop_toBottomOf="@id/et_plan_location_searchView">
+
+        <TextView
+            android:id="@+id/tv_plan_location_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plan_location_empty"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.18"
+            android:textColor="@color/g_06"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_plan_location_empty_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing4"
+            android:text="@string/plan_location_empty_info"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+            android:textColor="@color/g_08"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_location_empty" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_plan_location_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="@dimen/spacing16"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/btn_plan_location_next"
+        app:layout_constraintTop_toBottomOf="@id/et_plan_location_searchView">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_plan_location_next"
+        style="@style/Theme.Pingle.Button.L"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing16"
+        android:layout_marginEnd="@dimen/spacing16"
+        android:backgroundTint="@color/g_08"
+        android:text="@string/plan_location_next"
+        android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+        android:textColor="@color/g_10"
+        app:layout_constraintBottom_toTopOf="@id/layout_plan_location_later"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_plan_location_later"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="73dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_plan_location_ask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing12"
+            android:text="@string/plan_location_ask"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
+            android:textColor="@color/g_06"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_plan_location_quit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing4"
+            android:layout_marginTop="@dimen/spacing12"
+            android:text="@string/plan_location_quit"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
+            android:textColor="@color/g_06"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_plan_location_ask"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

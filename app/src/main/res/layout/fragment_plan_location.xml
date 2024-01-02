@@ -26,7 +26,7 @@
 
         <EditText
             android:id="@+id/et_plan_location_searchView"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing16"
             android:layout_marginTop="@dimen/spacing24"
@@ -102,7 +102,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_plan_location_next"
             style="@style/Theme.Pingle.Button.L"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing16"
             android:layout_marginEnd="@dimen/spacing16"

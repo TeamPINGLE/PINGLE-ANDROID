@@ -1,8 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Pingle" parent="Theme.Material3.Light.NoActionBar">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/black</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:background">@color/g_09</item>
     </style>

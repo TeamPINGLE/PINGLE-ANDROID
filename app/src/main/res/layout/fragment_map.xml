@@ -12,15 +12,78 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.main.home.map.MapFragment">
 
-       <fragment
-           android:id="@+id/fragment_map_naver_map"
-           android:layout_width="0dp"
-           android:layout_height="0dp"
-           android:name="com.naver.maps.map.MapFragment"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toTopOf="parent"
-           app:layout_constraintBottom_toBottomOf="parent" />
+        <fragment
+            android:id="@+id/fragment_map_naver_map"
+            android:name="com.naver.maps.map.MapFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_map_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="29dp"
+            android:layout_marginTop="@dimen/spacing30"
+            app:chipSpacingHorizontal="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:singleSelection="true">
+
+            <org.sopt.pingle.util.component.PingleChip
+                android:id="@+id/chip_map_category_play"
+                style="@style/Theme.Pingle.Chip.All"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="PLAY" />
+
+            <org.sopt.pingle.util.component.PingleChip
+                android:id="@+id/chip_map_category_study"
+                style="@style/Theme.Pingle.Chip.All"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="STUDY" />
+
+            <org.sopt.pingle.util.component.PingleChip
+                android:id="@+id/chip_map_category_multi"
+                style="@style/Theme.Pingle.Chip.All"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="MULTI" />
+
+            <org.sopt.pingle.util.component.PingleChip
+                android:id="@+id/chip_map_category_others"
+                style="@style/Theme.Pingle.Chip.All"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/category_others" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_map_here"
+            style="@style/Theme.Pingle.Fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing8"
+            android:src="@drawable/ic_map_here_24"
+            app:layout_constraintBottom_toTopOf="@id/fab_map_list"
+            app:layout_constraintEnd_toEndOf="@id/fab_map_list" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_map_list"
+            style="@style/Theme.Pingle.Fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/spacing30"
+            android:src="@drawable/ic_map_list_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

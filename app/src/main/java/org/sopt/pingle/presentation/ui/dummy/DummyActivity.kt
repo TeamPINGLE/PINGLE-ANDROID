@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityDummyBinding
+import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.dummy.DummyViewModel.Companion.PAGE
 import org.sopt.pingle.util.base.BindingActivity
 
@@ -27,5 +28,8 @@ class DummyActivity : BindingActivity<ActivityDummyBinding>(R.layout.activity_du
     private fun initLayout() {
         dummyViewModel.setDummyData()
         dummyViewModel.getDummyUserList(PAGE)
+        binding.pingleBadgePlay.setBadgeCategoryType(CategoryType.PLAY)
+        binding.pingleChipPlay.setChipCategoryType(CategoryType.PLAY)
+        binding.pingleChipStudy.setChipCategoryType(CategoryType.STUDY)
     }
 }

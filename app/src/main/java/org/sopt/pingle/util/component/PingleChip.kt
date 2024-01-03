@@ -33,7 +33,7 @@ class PingleChip @JvmOverloads constructor(
         )
 
     fun setChipCategoryType(categoryType: CategoryType) {
-        val inactivatedOutlinedColor = R.color.g_03
+        val inactivatedOutlinedColor = R.color.g_09
         val inactivatedTextColor = R.color.g_03
         val inactivatedChipColor = R.color.g_11
 

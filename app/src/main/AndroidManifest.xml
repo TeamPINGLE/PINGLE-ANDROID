@@ -16,6 +16,11 @@
         android:theme="@style/Theme.Pingle"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".presentation.ui.onboarding.OnBoardingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name=".presentation.ui.dummy.DummyActivity"
@@ -33,7 +38,7 @@
             android:name=".presentation.ui.dummy.DummyCustomDEditTextActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name=".presentation.ui.main.MainActivity"

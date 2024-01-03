@@ -1,11 +1,18 @@
 package org.sopt.pingle.presentation.ui.main.home.map
 
 import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import com.google.android.gms.location.LocationServices
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraAnimation
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -39,10 +46,9 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 isZoomControlEnabled = false
                 isScaleBarEnabled = false
             }
-
-            locationSource = this@MapFragment.locationSource
-            locationTrackingMode = LocationTrackingMode.NoFollow
         }
+
+        checkLocationPermission()
     }
 
     private fun initLayout() {
@@ -51,6 +57,10 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryStudy.setChipCategoryType(CategoryType.STUDY)
             chipMapCategoryMulti.setChipCategoryType(CategoryType.MULTI)
             chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHER)
+
+            fabMapHere.setOnClickListener {
+                locationSource.lastLocation?.let { location -> moveMapCamera(location) }
+            }
         }
     }
 
@@ -67,6 +77,26 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         mapFragment.getMapAsync(this@MapFragment)
     }
 
+    private fun checkLocationPermission() {
+        if (LOCATION_PERMISSIONS.any {
+                ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    it
+                ) == PackageManager.PERMISSION_GRANTED
+            }) {
+        }
+
+        LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener { location ->
+            if (::naverMap.isInitialized) {
+                with(naverMap) {
+                    locationSource = this@MapFragment.locationSource
+                    locationTrackingMode = LocationTrackingMode.NoFollow
+                }
+            }
+            location?.let { moveMapCamera(it) }
+        }
+    }
+
     private fun requestLocationPermission() {
         val locationPermissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
@@ -75,6 +105,19 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
 
         locationPermissionRequest.launch(LOCATION_PERMISSIONS)
+    }
+
+    private fun moveMapCamera(location: Location) {
+        if (::naverMap.isInitialized) {
+            naverMap.moveCamera(
+                CameraUpdate.scrollTo(
+                    LatLng(
+                        location.latitude,
+                        location.longitude
+                    )
+                ).animate(CameraAnimation.Fly)
+            )
+        }
     }
 
     companion object {

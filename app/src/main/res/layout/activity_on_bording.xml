@@ -43,25 +43,26 @@
         <include
             android:id="@+id/include_on_bording_group_original"
             layout="@layout/view_on_bording_group"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing34"
+            app:group="@{group.ORIGINAL}"
             app:layout_constraintEnd_toStartOf="@+id/include_onbording_group_new"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/gl_start"
-            app:layout_constraintTop_toBottomOf="@id/tv_on_bording_title"
-            app:group="@{group.ORIGINAL}" />
+            app:layout_constraintTop_toBottomOf="@id/tv_on_bording_title" />
 
         <include
             android:id="@+id/include_onbording_group_new"
             layout="@layout/view_on_bording_group"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing8"
+            app:group="@{group.NEW}"
             app:layout_constraintBottom_toBottomOf="@id/include_on_bording_group_original"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_end"
             app:layout_constraintStart_toEndOf="@+id/include_on_bording_group_original"
-            app:layout_constraintTop_toTopOf="@id/include_on_bording_group_original"
-            app:group="@{group.NEW}" />
+            app:layout_constraintTop_toTopOf="@id/include_on_bording_group_original" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

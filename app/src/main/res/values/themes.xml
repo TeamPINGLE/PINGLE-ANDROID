@@ -57,4 +57,18 @@
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Bold.12</item>
     </style>
 
+    <style name="Theme.Pingle.Fab" parent="Widget.Design.FloatingActionButton">
+        <item name="backgroundTint">@color/white</item>
+        <item name="elevation">0dp</item>
+        <item name="fabCustomSize">50dp</item>
+        <item name="rippleColor">@color/g_04</item>
+        <item name="tint">@null</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.CornerSize50Percent</item>
+    </style>
+
+    <!-- Corner size -->
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

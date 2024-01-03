@@ -18,9 +18,16 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map) {
     private fun initMapFragment() {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.fragment_map_naver_map) as MapFragment?
-        mapFragment?.getMapAsync {
-            it.isNightModeEnabled = true
-            it.mapType = NaverMap.MapType.Navi
+        mapFragment?.getMapAsync { naverMap ->
+            with(naverMap) {
+                isNightModeEnabled = true
+                mapType = NaverMap.MapType.Navi
+            }
+
+            with(naverMap.uiSettings) {
+                isZoomControlEnabled = false
+                isScaleBarEnabled = false
+            }
         }
     }
 }

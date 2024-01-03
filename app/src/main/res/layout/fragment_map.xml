@@ -12,16 +12,15 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.main.home.map.MapFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="메인 지도"
-            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.32"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+       <fragment
+           android:id="@+id/fragment_map_naver_map"
+           android:layout_width="0dp"
+           android:layout_height="0dp"
+           android:name="com.naver.maps.map.MapFragment"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -20,14 +20,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/spacing24" />
+            app:layout_constraintGuide_begin="@dimen/spacing16" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/spacing24" />
+            app:layout_constraintGuide_end="@dimen/spacing16" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_plan"

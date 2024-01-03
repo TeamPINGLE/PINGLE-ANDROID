@@ -6,4 +6,10 @@
     <string name="category_study">STUDY</string>
     <string name="category_multi">MULTI</string>
     <string name="category_others">OTHERS</string>
+
+    <!--  plan  -->
+    <string name="plan_later_des">나중에 만드시겠어요?</string>
+    <string name="plan_close"><u>나가기</u></string>
+    <string name="plan_next">다음으로</string>
+    <string name="plan_pingle">핑글 개최하기</string>
 </resources>

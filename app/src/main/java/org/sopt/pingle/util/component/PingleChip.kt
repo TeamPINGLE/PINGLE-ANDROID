@@ -55,6 +55,5 @@ class PingleChip @JvmOverloads constructor(
                 inactivatedColorRes = inactivatedTextColor
             )
         )
-
     }
 }

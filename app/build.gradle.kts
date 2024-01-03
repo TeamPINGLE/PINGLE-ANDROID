@@ -93,6 +93,9 @@ dependencies {
 
     // Naver Map
     implementation(libs.naver.maps)
+
+    // Location
+    implementation(libs.play.services.location)
 }
 
 ktlint {

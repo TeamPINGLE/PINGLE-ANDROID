@@ -37,6 +37,7 @@ retrofit-kotlin-serialization-converter = "1.0.0"
 kotlin-serialization-json = "1.5.1"
 sentry = "4.1.1"
 naver-maps = "3.17.0"
+play-services-location = "21.0.1"
 
 [libraries]
 # AndroidX
@@ -74,7 +75,8 @@ okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-i
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-kotlin-serialization-converter" }
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization-json" }
-naver-maps = { group = "com.naver.maps", name ="map-sdk", version.ref = "naver-maps"}
+naver-maps = { group = "com.naver.maps", name = "map-sdk", version.ref = "naver-maps" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

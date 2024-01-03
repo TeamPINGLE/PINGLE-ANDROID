@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.plan
+package org.sopt.pingle.presentation.ui.main.plan
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

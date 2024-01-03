@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.plan
+package org.sopt.pingle.presentation.ui.main.plan
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

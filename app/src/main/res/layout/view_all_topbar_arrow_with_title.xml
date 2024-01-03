@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="text"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +23,7 @@
             android:layout_marginTop="@dimen/spacing32"
             android:layout_marginBottom="@dimen/spacing16"
             android:src="@drawable/ic_all_arrow_left_24"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layou_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +31,7 @@
             android:id="@+id/tv_all_topbar_arrow_with_title_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{text}"
             android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.18"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/iv_all_topbar_arrow_with_title_arrow_left"

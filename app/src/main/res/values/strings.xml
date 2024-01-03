@@ -7,6 +7,18 @@
     <string name="category_multi">MULTI</string>
     <string name="category_others">OTHERS</string>
 
+    <!--  all navi title -->
+    <string name="all_navi_home">홈</string>
+    <string name="all_navi_commend">추천</string>
+    <string name="all_navi_add">추가</string>
+    <string name="all_navi_mypingle">마이핑글</string>
+    <string name="all_navi_setting">설정</string>
+
+    <!-- OnBoarding -->
+    <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
+    <string name="on_boarding_original_group">기존 단체\n입장하기</string>
+    <string name="on_boarding_new_group">신규 단체\n개설하기</string>
+
     <!-- Plan Location -->
     <string name="plan_location_title">핑글러들과\n어디서 만날까요?</string>
     <string name="plan_location_hint">핑글이 열릴 장소 이름을 검색해보세요</string>

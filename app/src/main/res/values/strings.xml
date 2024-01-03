@@ -7,8 +7,8 @@
     <string name="category_multi">MULTI</string>
     <string name="category_others">OTHERS</string>
 
-    <!-- OnBording -->
-    <string name="on_bording_title">핑글에 오신걸\n환영합니다!</string>
-    <string name="on_bording_original_group">기존 단체\n입장하기</string>
-    <string name="on_bording_new_group">신규 단체\n개설하기</string>
+    <!-- OnBoarding -->
+    <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
+    <string name="on_boarding_original_group">기존 단체\n입장하기</string>
+    <string name="on_boarding_new_group">신규 단체\n개설하기</string>
 </resources>

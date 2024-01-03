@@ -9,11 +9,11 @@ enum class GroupType(
     @DrawableRes val groupImageRes: Int
 ) {
     ORIGINAL(
-        R.string.on_bording_original_group,
+        R.string.on_boarding_original_group,
         R.drawable.ic_launcher_background
     ),
     NEW(
-        R.string.on_bording_new_group,
+        R.string.on_boarding_new_group,
         R.drawable.ic_launcher_background
     )
 }

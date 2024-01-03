@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/spacing32"
             android:layout_marginBottom="@dimen/spacing16"
             android:src="@drawable/ic_all_arrow_left_24"
-            app:layou_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

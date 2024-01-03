@@ -6,4 +6,12 @@
     <string name="category_study">STUDY</string>
     <string name="category_multi">MULTI</string>
     <string name="category_others">OTHERS</string>
+
+    <!--  all navi title -->
+    <string name="all_navi_home">홈</string>
+    <string name="all_navi_commend">추천</string>
+    <string name="all_navi_add">추가</string>
+    <string name="all_navi_mypingle">마이핑글</string>
+    <string name="all_navi_setting">설정</string>
+
 </resources>

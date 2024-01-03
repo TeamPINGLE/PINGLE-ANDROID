@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.main.MainActivity">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_main_all_navi"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bnv_main_all_navi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnv_main_all_navi"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bottom_navi_height"
+            android:background="@color/black"
+            app:itemActiveIndicatorStyle="@android:color/transparent"
+            app:itemBackground="@android:color/transparent"
+            app:itemIconTint="@drawable/selector_all_navi_color"
+            app:itemPaddingBottom="8dp"
+            app:itemPaddingTop="7dp"
+            app:itemRippleColor="@android:color/transparent"
+            app:itemTextAppearanceActive="@style/TextAppearance.Pingle.Cap.Semi.12"
+            app:itemTextAppearanceInactive="@style/TextAppearance.Pingle.Cap.Semi.12"
+            app:itemTextColor="@drawable/selector_all_navi_color"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/all_navi_menu" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

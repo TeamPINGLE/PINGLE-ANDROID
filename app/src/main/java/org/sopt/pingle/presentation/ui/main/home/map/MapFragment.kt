@@ -35,16 +35,14 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     override fun onMapReady(naverMap: NaverMap) {
-        this.naverMap = naverMap
-
-        with(naverMap) {
+        this.naverMap = naverMap.apply {
             isNightModeEnabled = true
             mapType = NaverMap.MapType.Navi
-        }
 
-        with(naverMap.uiSettings) {
-            isZoomControlEnabled = false
-            isScaleBarEnabled = false
+            with(uiSettings) {
+                isZoomControlEnabled = false
+                isScaleBarEnabled = false
+            }
         }
     }
 }

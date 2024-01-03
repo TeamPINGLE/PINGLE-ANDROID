@@ -18,8 +18,7 @@ class PingleBadge @JvmOverloads constructor(
     private val binding: BadgePingleBinding
 
     init {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        binding = BadgePingleBinding.inflate(inflater, this, true)
+        binding = BadgePingleBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun setBadgeCategoryType(categoryType: CategoryType) {

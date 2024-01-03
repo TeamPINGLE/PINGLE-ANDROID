@@ -31,6 +31,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", properties["base.url"].toString())
         buildConfigField("String", "ACCESS_TOKEN", properties["access.token"].toString())
+        buildConfigField("String", "NAVER_MAP_CLIENT_ID", properties["naver.map.client.id"].toString())
         manifestPlaceholders["IO_SENTRY_DSN"] = properties["io.sentry.dsn"] as String
     }
 
@@ -89,6 +90,9 @@ dependencies {
     implementation(libs.bundles.okhttp)
     implementation(libs.bundles.retrofit)
     implementation(libs.kotlin.serialization.json)
+
+    // Naver Map
+    implementation(libs.naver.maps)
 }
 
 ktlint {

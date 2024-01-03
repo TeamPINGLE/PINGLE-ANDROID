@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/view_all_topbar_arrow_with_title" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing24" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing24" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_plan"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="37dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_plan"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_plan"
+            style="@style/Theme.Pingle.Button.L"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing12"
+            android:backgroundTint="@color/g_08"
+            android:textColor="@color/g_10"
+            app:layout_constraintBottom_toTopOf="@+id/layout_close"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            tools:text="다음으로" />
+
+        <LinearLayout
+            android:id="@+id/layout_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing25"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start">
+
+            <TextView
+                android:id="@+id/tv_plan_later_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/plan_later_des"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
+                android:textColor="@color/g_06" />
+
+            <TextView
+                android:id="@+id/tv_plan_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="5dp"
+                android:text="@string/plan_close"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
+                android:textColor="@color/g_06" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

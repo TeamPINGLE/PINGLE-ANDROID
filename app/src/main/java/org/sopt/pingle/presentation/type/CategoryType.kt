@@ -15,31 +15,31 @@ enum class CategoryType(
     // @DrawableRes val categoryIconRes: Int,
 ) {
     PLAY(
-        R.color.pingle_green,
-        R.color.pingle_green,
-        R.color.chip_green,
-        R.color.badge_green,
-        R.string.category_play
+        textColor = R.color.pingle_green,
+        activatedOutLinedColor = R.color.pingle_green,
+        backgroundChipColor = R.color.chip_green,
+        backgroundBadgeColor = R.color.badge_green,
+        categoryNameRes = R.string.category_play
     ),
     STUDY(
-        R.color.pingle_orange,
-        R.color.pingle_orange,
-        R.color.chip_orange,
-        R.color.badge_orange,
-        R.string.category_study
+        textColor = R.color.pingle_orange,
+        activatedOutLinedColor = R.color.pingle_orange,
+        backgroundChipColor = R.color.chip_orange,
+        backgroundBadgeColor = R.color.badge_orange,
+        categoryNameRes = R.string.category_study
     ),
     MULTI(
-        R.color.pingle_yellow,
-        R.color.pingle_yellow,
-        R.color.chip_yellow,
-        R.color.badge_yellow,
-        R.string.category_multi
+        textColor = R.color.pingle_yellow,
+        activatedOutLinedColor = R.color.pingle_yellow,
+        backgroundChipColor = R.color.chip_yellow,
+        backgroundBadgeColor = R.color.badge_yellow,
+        categoryNameRes = R.string.category_multi
     ),
     OTHER(
-        R.color.g_01,
-        R.color.g_01,
-        R.color.g_10,
-        R.color.g_07,
-        R.string.category_others
+        textColor = R.color.g_01,
+        activatedOutLinedColor = R.color.g_01,
+        backgroundChipColor = R.color.g_10,
+        backgroundBadgeColor = R.color.g_07,
+        categoryNameRes = R.string.category_others
     )
 }

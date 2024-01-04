@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import com.google.android.gms.location.LocationServices
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraAnimation
@@ -17,19 +18,23 @@ import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
+import org.sopt.pingle.presentation.mapper.toMarker
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.base.BindingFragment
 
 class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {
+    private val mapViewModel by viewModels<MapViewModel>()
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.viewModel = mapViewModel
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
         initLayout()
@@ -49,6 +54,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
 
         checkLocationPermission()
+        makeMarkers()
     }
 
     private fun initLayout() {
@@ -121,6 +127,12 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                     )
                 ).animate(CameraAnimation.Fly)
             )
+        }
+    }
+
+    private fun makeMarkers() {
+        mapViewModel.dummyPinList.map { pinEntity ->
+            pinEntity.toMarker().map = naverMap
         }
     }
 

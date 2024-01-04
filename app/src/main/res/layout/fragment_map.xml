@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="org.sopt.pingle.presentation.ui.main.home.map.MapViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

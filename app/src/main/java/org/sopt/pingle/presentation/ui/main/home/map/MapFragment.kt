@@ -6,7 +6,7 @@ import android.location.Location
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -41,13 +41,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewModel = mapViewModel
-        locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
-
+        initMap()
         initLayout()
         addListeners()
-        initNaverMap()
-        requestLocationPermission()
         collectData()
+        setLocationTrackingMode()
     }
 
     override fun onMapReady(naverMap: NaverMap) {
@@ -61,8 +59,20 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             }
         }
 
-        checkLocationPermission()
         makeMarkers()
+    }
+
+    private fun initMap() {
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.fragment_map_naver_map) as MapFragment?
+                ?: MapFragment.newInstance().also {
+                    childFragmentManager.commit {
+                        add<MapFragment>(R.id.fragment_map_naver_map)
+                        setReorderingAllowed(true)
+                    }
+                }
+
+        mapFragment.getMapAsync(this@MapFragment)
     }
 
     private fun initLayout() {
@@ -76,7 +86,9 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun addListeners() {
         binding.fabMapHere.setOnClickListener {
-            locationSource.lastLocation?.let { location -> moveMapCamera(location) }
+            if (::locationSource.isInitialized) {
+                locationSource.lastLocation?.let { location -> moveMapCamera(location) }
+            }
         }
 
         binding.cgMapCategory.setOnCheckedStateChangeListener { group, checkedIds ->
@@ -93,26 +105,18 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }.launchIn(lifecycleScope)
     }
 
-    private fun initNaverMap() {
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.fragment_map_naver_map) as MapFragment?
-                ?: MapFragment.newInstance().also {
-                    childFragmentManager.commit {
-                        add<MapFragment>(R.id.fragment_map_naver_map)
-                        setReorderingAllowed(true)
-                    }
-                }
 
-        mapFragment.getMapAsync(this@MapFragment)
-    }
-
-    private fun checkLocationPermission() {
-        if (LOCATION_PERMISSIONS.any {
-                ActivityCompat.checkSelfPermission(
+    private fun setLocationTrackingMode() {
+        if (LOCATION_PERMISSIONS.any { permission ->
+                ContextCompat.checkSelfPermission(
                     requireContext(),
-                    it
+                    permission
                 ) == PackageManager.PERMISSION_GRANTED
-            }) {
+            }
+        ) {
+            locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+        } else {
+            requestLocationPermission()
         }
 
         LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener { location ->
@@ -120,21 +124,28 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 with(naverMap) {
                     locationSource = this@MapFragment.locationSource
                     locationTrackingMode = LocationTrackingMode.NoFollow
+
                     locationOverlay.apply {
                         isVisible = true
                         icon = OverlayImage.fromResource(R.drawable.ic_map_location_overlay)
                     }
                 }
+
             }
-            location?.let { moveMapCamera(it) }
+
+            moveMapCamera(location)
         }
     }
 
     private fun requestLocationPermission() {
         val locationPermissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
-        ) {
-
+        ) { permissions ->
+            when {
+                permissions[LOCATION_PERMISSIONS[0]] == true || permissions[LOCATION_PERMISSIONS[1]] == true -> {
+                    setLocationTrackingMode()
+                }
+            }
         }
 
         locationPermissionRequest.launch(LOCATION_PERMISSIONS)

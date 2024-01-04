@@ -148,7 +148,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         location.latitude,
                         location.longitude
                     )
-                ).animate(CameraAnimation.Fly)
+                ).animate(CameraAnimation.Linear)
             )
         }
     }

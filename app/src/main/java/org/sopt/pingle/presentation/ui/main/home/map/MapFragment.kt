@@ -91,6 +91,10 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 with(naverMap) {
                     locationSource = this@MapFragment.locationSource
                     locationTrackingMode = LocationTrackingMode.NoFollow
+                    locationOverlay.apply {
+                        isVisible = true
+                        icon = OverlayImage.fromResource(R.drawable.ic_map_location_overlay)
+                    }
                 }
             }
             location?.let { moveMapCamera(it) }

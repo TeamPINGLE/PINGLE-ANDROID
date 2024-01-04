@@ -63,8 +63,11 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     }
 
     private inline fun <reified T : Fragment> navigateToFragment() {
-        supportFragmentManager.commit {
-            replace<T>(R.id.fcv_main_all_navi, T::class.java.canonicalName)
+        if (supportFragmentManager.findFragmentById(R.id.fcv_main_all_navi) !is T) {
+            supportFragmentManager.commit {
+                replace<T>(R.id.fcv_main_all_navi, T::class.java.canonicalName)
+            }
         }
     }
+
 }

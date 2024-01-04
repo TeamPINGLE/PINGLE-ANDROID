@@ -1,7 +1,10 @@
 package org.sopt.pingle.presentation.ui.main.home.map
 
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.sopt.pingle.domain.model.PinEntity
+import org.sopt.pingle.presentation.type.CategoryType
 
 class MapViewModel() : ViewModel() {
     val dummyPinList = listOf(
@@ -34,4 +37,11 @@ class MapViewModel() : ViewModel() {
             meetingCount = 2
         )
     )
+
+    private val _category = MutableStateFlow<CategoryType?>(null)
+    val category get() = _category.asStateFlow()
+
+    fun setCategory(category: CategoryType?) {
+        _category.value = category
+    }
 }

@@ -10,6 +10,8 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.LocationServices
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraAnimation
@@ -20,11 +22,15 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
 import org.sopt.pingle.presentation.mapper.toMarker
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.base.BindingFragment
+import org.sopt.pingle.util.component.PingleChip
+import org.sopt.pingle.util.fragment.showToast
 
 class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {
     private val mapViewModel by viewModels<MapViewModel>()
@@ -41,6 +47,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         addListeners()
         initNaverMap()
         requestLocationPermission()
+        collectData()
     }
 
     override fun onMapReady(naverMap: NaverMap) {
@@ -71,6 +78,19 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         binding.fabMapHere.setOnClickListener {
             locationSource.lastLocation?.let { location -> moveMapCamera(location) }
         }
+
+        binding.cgMapCategory.setOnCheckedStateChangeListener { group, checkedIds ->
+            mapViewModel.setCategory(
+                category = checkedIds.getOrNull(SINGLE_SELECTION)
+                    ?.let { group.findViewById<PingleChip>(it).categoryType })
+        }
+    }
+
+    private fun collectData() {
+        mapViewModel.category.flowWithLifecycle(lifecycle).onEach {
+            // TODO 서버 통신 구현 시 삭제 예정
+            showToast(it?.name ?: "null")
+        }.launchIn(lifecycleScope)
     }
 
     private fun initNaverMap() {
@@ -145,5 +165,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
+        private const val SINGLE_SELECTION = 0
     }
 }

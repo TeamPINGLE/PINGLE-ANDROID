@@ -28,9 +28,21 @@
     <dimen name="spacing34">34dp</dimen>
     <dimen name="spacing36">36dp</dimen>
 
-    <!-- Widget size -->
+    <!-- common -->
+    <dimen name="horizontal_margin">16dp</dimen>
+
+    <!-- bottom navi -->
     <dimen name="bottom_navi_height">60dp</dimen>
+    
+    <!-- button -->
     <dimen name="button_l_height">56dp</dimen>
     <dimen name="button_m_height">42dp</dimen>
     <dimen name="button_s_height">42dp</dimen>
+    <dimen name="button_corner_radius">10dp</dimen>
+    
+    <!-- fab -->
+    <dimen name="fab_size">50dp</dimen>
+    
+    <!-- chip -->
+    <dimen name="chip_spacing">4dp</dimen>
 </resources>

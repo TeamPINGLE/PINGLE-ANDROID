@@ -29,5 +29,5 @@
     <string name="join_group_code_invitation_hint">영문+숫자 12자리</string>
     <string name="join_group_code_invitation">초대 코드</string>
     <string name="join_group_code_guide">모임 개설자로부터 받은 초대코드를 입력해주세요.</string>
-    <string name="join_group_code_next">다음으로</string>
+    <string name="join_group_code_next">입장하기</string>
 </resources>

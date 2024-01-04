@@ -1,5 +1,6 @@
 package org.sopt.pingle.util.view
 
+import android.content.res.Resources
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import com.google.android.material.snackbar.Snackbar
@@ -33,3 +34,5 @@ class ItemDiffCallback<T : Any>(
     override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
         onContentsTheSame(oldItem, newItem)
 }
+
+fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()

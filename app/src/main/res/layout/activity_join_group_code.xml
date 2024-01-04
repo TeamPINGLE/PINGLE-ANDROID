@@ -86,10 +86,16 @@
                 app:layout_constraintGuide_end="@dimen/spacing20" />
 
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_join_group_code"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/tv_join_group_code_group_type"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/shape_border_radius_50"
+                android:backgroundTint="@color/g_10"
+                android:paddingHorizontal="@dimen/spacing10"
+                android:paddingVertical="@dimen/spacing4"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
+                android:textColor="@color/pingle_green"
                 app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
                 app:layout_constraintTop_toBottomOf="@id/gl_group_info_top"
                 tools:text="연합동아리" />
@@ -98,57 +104,58 @@
                 android:id="@+id/tv_join_group_code_group_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
                 app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
-                app:layout_constraintTop_toBottomOf="@id/chip_join_group_code"
+                app:layout_constraintTop_toBottomOf="@id/tv_join_group_code_group_type"
                 tools:text="SOPT" />
 
             <TextView
-                android:id="@+id/tv_join_group_code_open_meeting_text"
+                android:id="@+id/tv_join_group_code_meeting"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing10"
-                android:text="@string/join_group_code_open_meeting_text"
+                android:text="@string/join_group_code_meeting"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
                 android:textColor="@color/g_11"
                 app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
                 app:layout_constraintTop_toBottomOf="@id/tv_join_group_code_group_name" />
 
             <TextView
-                android:id="@+id/tv_join_group_code_total_people_number_text"
+                android:id="@+id/tv_join_group_code_participant"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing10"
-                android:text="@string/join_group_code_total_people_number_text"
+                android:text="@string/join_group_code_participant"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
                 android:textColor="@color/g_11"
                 app:layout_constraintBottom_toTopOf="@id/gl_group_info_bottom"
                 app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
-                app:layout_constraintTop_toBottomOf="@id/tv_join_group_code_open_meeting" />
+                app:layout_constraintTop_toBottomOf="@id/tv_join_group_code_meeting_count" />
 
             <TextView
-                android:id="@+id/tv_join_group_code_open_meeting"
+                android:id="@+id/tv_join_group_code_meeting_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing18"
-                android:text="@string/join_group_code_open_meeting"
+                android:text="@string/join_group_code_meeting_count"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                 android:textColor="@color/g_08"
-                app:layout_constraintBottom_toBottomOf="@id/tv_join_group_code_open_meeting_text"
-                app:layout_constraintStart_toEndOf="@id/tv_join_group_code_open_meeting_text"
-                app:layout_constraintTop_toTopOf="@id/tv_join_group_code_open_meeting_text" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_join_group_code_meeting"
+                app:layout_constraintStart_toEndOf="@id/tv_join_group_code_meeting"
+                app:layout_constraintTop_toTopOf="@id/tv_join_group_code_meeting" />
 
             <TextView
-                android:id="@+id/tv_join_group_code_total_people_number"
+                android:id="@+id/tv_join_group_code_participant_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="58dp"
-                android:text="@string/join_group_code_total_people_number"
+                android:text="@string/join_group_code_participant_count"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                 android:textColor="@color/g_08"
-                app:layout_constraintBottom_toBottomOf="@id/tv_join_group_code_total_people_number_text"
-                app:layout_constraintStart_toEndOf="@id/tv_join_group_code_total_people_number_text"
-                app:layout_constraintTop_toTopOf="@id/tv_join_group_code_total_people_number_text" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_join_group_code_participant"
+                app:layout_constraintStart_toEndOf="@id/tv_join_group_code_participant"
+                app:layout_constraintTop_toTopOf="@id/tv_join_group_code_participant" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <org.sopt.pingle.util.component.PingleEditText

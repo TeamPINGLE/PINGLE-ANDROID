@@ -7,7 +7,6 @@
     </style>
 
     <style name="Theme.Pingle" parent="Base.Theme.Pingle" />
-
     <!-- Button -->
     <style name="Theme.Pingle.Button" parent="Widget.Material3.Button">
         <item name="android:insetTop">0dp</item>
@@ -37,17 +36,7 @@
     </style>
 
     <!-- chip -->
-    <style name="Theme.Pingle.badge" parent="">
-        <item name="chipMinTouchTargetSize">0dp</item>
-        <item name="chipEndPadding">0dp</item>
-        <item name="chipStartPadding">0dp</item>
-        <item name="android:checked">false</item>
-        <item name="chipMinHeight">0dp</item>
-        <item name="rippleColor">@android:color/transparent</item>
-        <item name="android:clickable">false</item>
-    </style>
-
-    <style name="Theme.Pingle.chip" parent="Widget.MaterialComponents.Chip.Choice">
+    <style name="Theme.Pingle.Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:stateListAnimator">@null</item>
         <item name="chipMinTouchTargetSize">0dp</item>
         <item name="chipEndPadding">0dp</item>
@@ -55,6 +44,16 @@
         <item name="android:checked">false</item>
         <item name="chipMinHeight">0dp</item>
         <item name="rippleColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.Pingle.Chip.All" parent="Theme.Pingle.Chip">
+        <item name="cornerRadius">50dp</item>
+        <item name="textStartPadding">@dimen/spacing16</item>
+        <item name="textEndPadding">@dimen/spacing16</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Bold.12</item>
     </style>
 
 </resources>

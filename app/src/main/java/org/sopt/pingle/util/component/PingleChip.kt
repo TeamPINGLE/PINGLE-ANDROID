@@ -13,23 +13,23 @@ import org.sopt.pingle.presentation.type.CategoryType
 class PingleChip @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.style.Theme_Pingle_Chip_All
+    defStyleAttr: Int = R.style.Theme_Pingle_Chip,
 ) : Chip(context, attrs, defStyleAttr) {
 
     private fun setColorStateList(
         context: Context,
         activatedColorRes: Int,
-        inactivatedColorRes: Int
+        inactivatedColorRes: Int,
     ) =
         ColorStateList(
             arrayOf(
                 intArrayOf(android.R.attr.state_checked),
-                intArrayOf(-android.R.attr.state_checked)
+                intArrayOf(-android.R.attr.state_checked),
             ),
             intArrayOf(
                 ContextCompat.getColor(context, activatedColorRes),
-                ContextCompat.getColor(context, inactivatedColorRes)
-            )
+                ContextCompat.getColor(context, inactivatedColorRes),
+            ),
         )
 
     fun setChipCategoryType(categoryType: CategoryType) {
@@ -41,19 +41,19 @@ class PingleChip @JvmOverloads constructor(
         chipStrokeColor = setColorStateList(
             context = context,
             activatedColorRes = categoryType.activatedOutLinedColor,
-            inactivatedColorRes = inactivatedOutlinedColor
+            inactivatedColorRes = inactivatedOutlinedColor,
         )
         chipBackgroundColor = setColorStateList(
             context = context,
             activatedColorRes = categoryType.backgroundChipColor,
-            inactivatedColorRes = inactivatedChipColor
+            inactivatedColorRes = inactivatedChipColor,
         )
         setTextColor(
             setColorStateList(
                 context = context,
                 activatedColorRes = categoryType.textColor,
-                inactivatedColorRes = inactivatedTextColor
-            )
+                inactivatedColorRes = inactivatedTextColor,
+            ),
         )
     }
 }

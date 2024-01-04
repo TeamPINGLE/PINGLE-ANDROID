@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tv_plan_location_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing30"
-        android:layout_marginEnd="38dp"
-        android:maxLines="2"
-        android:layout_marginStart="@dimen/spacing16"
-        android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@id/imv_plan_location_check"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="장소 이름" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_plan_location_address"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing8"
-        android:layout_marginBottom="@dimen/spacing30"
-        android:layout_marginStart="@dimen/spacing16"
-        android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
-        android:textColor="@color/g_06"
-        app:layout_constraintEnd_toStartOf="@id/imv_plan_location_check"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="38dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_plan_location_name"
-        tools:text="상세 주소" />
+        <variable
+            name="planLocationItem"
+            type="org.sopt.pingle.presentation.model.PlanLocationModel" />
+    </data>
 
-    <ImageView
-        android:id="@+id/imv_plan_location_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing30"
-        android:src="@drawable/ic_all_check_default_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_plan_location_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing16"
+            android:layout_marginTop="@dimen/spacing30"
+            android:layout_marginEnd="38dp"
+            android:maxLines="2"
+            android:text="@{planLocationItem.location}"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/imv_plan_location_check"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="장소 이름" />
+
+        <TextView
+            android:id="@+id/tv_plan_location_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing16"
+            android:layout_marginTop="@dimen/spacing8"
+            android:layout_marginEnd="38dp"
+            android:layout_marginBottom="@dimen/spacing30"
+            android:text="@{planLocationItem.address}"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+            android:textColor="@color/g_06"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imv_plan_location_check"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_location_name"
+            tools:text="상세 주소" />
+
+        <ImageView
+            android:id="@+id/imv_plan_location_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing30"
+            android:src="@{planLocationItem.selected ? @drawable/ic_all_check_selected_24 : @drawable/ic_all_check_default_24, default=@drawable/ic_all_check_default_24}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

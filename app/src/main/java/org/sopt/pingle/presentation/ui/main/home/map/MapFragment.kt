@@ -94,7 +94,8 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         binding.cgMapCategory.setOnCheckedStateChangeListener { group, checkedIds ->
             mapViewModel.setCategory(
                 category = checkedIds.getOrNull(SINGLE_SELECTION)
-                    ?.let { group.findViewById<PingleChip>(it).categoryType })
+                    ?.let { group.findViewById<PingleChip>(it).categoryType }
+            )
         }
     }
 
@@ -105,14 +106,13 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }.launchIn(lifecycleScope)
     }
 
-
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-                ContextCompat.checkSelfPermission(
+            ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-            }
+        }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
         } else {
@@ -130,7 +130,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         icon = OverlayImage.fromResource(R.drawable.ic_map_location_overlay)
                     }
                 }
-
             }
 
             moveMapCamera(location)

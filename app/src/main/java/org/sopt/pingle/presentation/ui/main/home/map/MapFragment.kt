@@ -38,6 +38,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
         initLayout()
+        addListeners()
         initNaverMap()
         requestLocationPermission()
     }
@@ -63,10 +64,12 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryStudy.setChipCategoryType(CategoryType.STUDY)
             chipMapCategoryMulti.setChipCategoryType(CategoryType.MULTI)
             chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHER)
+        }
+    }
 
-            fabMapHere.setOnClickListener {
-                locationSource.lastLocation?.let { location -> moveMapCamera(location) }
-            }
+    private fun addListeners() {
+        binding.fabMapHere.setOnClickListener {
+            locationSource.lastLocation?.let { location -> moveMapCamera(location) }
         }
     }
 

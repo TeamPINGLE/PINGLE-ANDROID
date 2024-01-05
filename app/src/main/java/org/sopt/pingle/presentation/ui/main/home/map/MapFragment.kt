@@ -40,7 +40,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewModel = mapViewModel
         initMap()
         initLayout()
         addListeners()

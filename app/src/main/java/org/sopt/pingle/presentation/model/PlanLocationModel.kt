@@ -5,4 +5,5 @@ data class PlanLocationModel(
     val address: String,
     val x: Double,
     val y: Double,
+    var isSelected: Boolean,
 )

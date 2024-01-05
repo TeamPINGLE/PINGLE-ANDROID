@@ -46,4 +46,10 @@
     <string name="map_card_participate">참여하기</string>
     <string name="map_card_cancel">취소하기</string>
     <string name="map_card_completed">모집완료</string>
+
+    <!-- map cancel dialog -->
+    <string name="map_cancel_modal_title">참여를 취소하시겠어요?</string>
+    <string name="map_cancel_modal_detail">취소한 모임은 언제든 다시 신청할 수 있어요</string>
+    <string name="map_cancel_modal_button_text">취소하기</string>
+    <string name="map_cancel_modal_text_button_text">돌아가기</string>
 </resources>

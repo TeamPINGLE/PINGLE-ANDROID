@@ -33,4 +33,7 @@
     <dimen name="button_l_height">56dp</dimen>
     <dimen name="button_m_height">42dp</dimen>
     <dimen name="button_s_height">42dp</dimen>
+    
+    <dimen name="dialog_horizontal_margin">24dp</dimen>
+    <dimen name="dialog_map_horizontal_margin">24dp</dimen>
 </resources>

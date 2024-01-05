@@ -35,7 +35,7 @@ enum class CategoryType(
         backgroundBadgeColor = R.color.badge_yellow,
         categoryNameRes = R.string.category_multi
     ),
-    OTHER(
+    OTHERS(
         textColor = R.color.g_01,
         activatedOutLinedColor = R.color.g_01,
         backgroundChipColor = R.color.g_10,

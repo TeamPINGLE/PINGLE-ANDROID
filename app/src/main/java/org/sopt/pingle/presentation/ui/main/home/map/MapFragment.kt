@@ -83,7 +83,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryPlay.setChipCategoryType(CategoryType.PLAY)
             chipMapCategoryStudy.setChipCategoryType(CategoryType.STUDY)
             chipMapCategoryMulti.setChipCategoryType(CategoryType.MULTI)
-            chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHER)
+            chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
             cardMap.initLayout(mapViewModel.dummyPingle)
             cardMap.listener = object : OnPingleCardClickListener {
                 override fun onPingleCardChatBtnClickListener() {

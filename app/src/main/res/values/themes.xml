@@ -1,10 +1,9 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Pingle" parent="Theme.Material3.Light.NoActionBar">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/black</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:background">@color/g_09</item>
+        <item name="android:windowBackground">@color/g_11</item>
     </style>
 
     <style name="Theme.Pingle" parent="Base.Theme.Pingle" />
@@ -38,17 +37,7 @@
     </style>
 
     <!-- chip -->
-    <style name="Theme.Pingle.badge" parent="">
-        <item name="chipMinTouchTargetSize">0dp</item>
-        <item name="chipEndPadding">0dp</item>
-        <item name="chipStartPadding">0dp</item>
-        <item name="android:checked">false</item>
-        <item name="chipMinHeight">0dp</item>
-        <item name="rippleColor">@android:color/transparent</item>
-        <item name="android:clickable">false</item>
-    </style>
-
-    <style name="Theme.Pingle.chip" parent="Widget.MaterialComponents.Chip.Choice">
+    <style name="Theme.Pingle.Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:stateListAnimator">@null</item>
         <item name="chipMinTouchTargetSize">0dp</item>
         <item name="chipEndPadding">0dp</item>
@@ -56,6 +45,16 @@
         <item name="android:checked">false</item>
         <item name="chipMinHeight">0dp</item>
         <item name="rippleColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.Pingle.Chip.All" parent="Theme.Pingle.Chip">
+        <item name="cornerRadius">50dp</item>
+        <item name="textStartPadding">@dimen/spacing16</item>
+        <item name="textEndPadding">@dimen/spacing16</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Bold.12</item>
     </style>
 
 </resources>

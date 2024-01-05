@@ -19,6 +19,12 @@
     <string name="on_boarding_original_group">기존 단체\n입장하기</string>
     <string name="on_boarding_new_group">신규 단체\n개설하기</string>
 
+    <!--  plan  -->
+    <string name="plan_later_des">나중에 만드시겠어요?</string>
+    <string name="plan_close"><u>나가기</u></string>
+    <string name="plan_next">다음으로</string>
+    <string name="plan_pingle">핑글 개최하기</string>
+
     <!-- join group success -->
     <string name="join_group_success_btn">입장하기</string>
     <string name="join_gorup_success_title">단체 입장\n완료!</string>

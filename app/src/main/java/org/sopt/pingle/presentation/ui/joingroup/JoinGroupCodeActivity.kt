@@ -18,16 +18,17 @@ class JoinGroupCodeActivity :
     }
 
     private fun addObservers() {
-        joinViewModel.run {
-            joinGroupData.observe(this@JoinGroupCodeActivity) {
-                binding.run {
-                    tvJoinGroupCodeGroupType.text = it.keyword
-                    tvJoinGroupCodeGroupName.text = it.name
-                    tvJoinGroupCodeMeetingCount.text =
-                        getString(R.string.join_group_code_meeting_count, it.meetingCount)
-                    tvJoinGroupCodeParticipantCount.text =
-                        getString(R.string.join_group_code_participant_count, it.participantCount)
-                }
+        joinViewModel.joinGroupData.observe(this) { joinGroupData ->
+            with(binding) {
+                tvJoinGroupCodeTag.text = joinGroupData.keyword
+                tvJoinGroupCodeGroupName.text = joinGroupData.name
+                tvJoinGroupCodeMeetingCount.text =
+                    getString(R.string.join_group_code_meeting_count, joinGroupData.meetingCount)
+                tvJoinGroupCodeParticipantCount.text =
+                    getString(
+                        R.string.join_group_code_participant_count,
+                        joinGroupData.participantCount
+                    )
             }
         }
     }

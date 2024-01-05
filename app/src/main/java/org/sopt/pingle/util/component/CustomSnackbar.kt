@@ -14,12 +14,13 @@ object CustomSnackbar {
         val inflater = LayoutInflater.from(view.context)
         val binding = ViewSnackbarBinding.inflate(inflater, null, false)
 
-        binding.tvViewSnackbar.text = message
+        binding.tvSnackbar.text = message
 
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
         val snackbarLayout = snackbar.view as ViewGroup
 
         val layoutParams = snackbarLayout.layoutParams as FrameLayout.LayoutParams
+
         snackbarLayout.layoutParams = layoutParams.apply {
             width = ViewGroup.LayoutParams.MATCH_PARENT
             height = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -29,7 +30,7 @@ object CustomSnackbar {
             marginEnd = 16.toPx()
         }
 
-        snackbarLayout.run {
+        with(snackbarLayout) {
             removeAllViews()
             setPadding(0, 0, 0, 0)
             addView(binding.root)

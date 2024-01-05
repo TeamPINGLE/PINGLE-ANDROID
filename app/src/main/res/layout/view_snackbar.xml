@@ -22,7 +22,7 @@
         app:layout_constraintGuide_end="@dimen/spacing13" />
 
     <ImageView
-        android:id="@+id/iv_view_snackbar_notice"
+        android:id="@+id/iv_snackbar_notice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
@@ -32,14 +32,14 @@
         app:layout_constraintTop_toBottomOf="@id/gl_top" />
 
     <TextView
-        android:id="@+id/tv_view_snackbar"
+        android:id="@+id/tv_snackbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/gl_bottom"
-        app:layout_constraintStart_toEndOf="@id/iv_view_snackbar_notice"
+        app:layout_constraintStart_toEndOf="@id/iv_snackbar_notice"
         app:layout_constraintTop_toBottomOf="@id/gl_top"
         tools:text="잘못된 초대 코드입니다" />
 

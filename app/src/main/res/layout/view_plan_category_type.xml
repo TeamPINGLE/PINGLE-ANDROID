@@ -39,7 +39,7 @@
             android:text="@{category.categoryNameRes}"
             tools:text="PLAY"
             android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
-            android:textColor="@{category.textColor}"
+            color="@{category.textColor}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

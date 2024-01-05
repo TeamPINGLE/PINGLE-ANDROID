@@ -27,6 +27,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         // TODO 차후에 나머지 개최 프로세스 fragment 추가
         fragmentList = ArrayList()
         fragmentList.apply {
+            add(PlanCategoryFragment())
             add(PlanTitleFragment())
             add(PlanDateTimeFragment())
             add(PlanOpenChattingFragment())
@@ -37,12 +38,12 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             this.adapter = adapter
             isUserInputEnabled = false
             registerOnPageChangeCallback(object :
-                    ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                        planViewModel.setCurrentPage(position)
-                    }
-                })
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    planViewModel.setCurrentPage(position)
+                }
+            })
         }
     }
 

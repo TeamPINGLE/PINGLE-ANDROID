@@ -18,4 +18,14 @@
     <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
     <string name="on_boarding_original_group">기존 단체\n입장하기</string>
     <string name="on_boarding_new_group">신규 단체\n개설하기</string>
+
+    <!-- map card -->
+    <string name="map_card_participant">참여자</string>
+    <string name="map_card_participant_detail">%d/%d</string>
+    <string name="map_card_calender">일시</string>
+    <string name="map_card_map">장소</string>
+    <string name="map_card_chat">대화하기</string>
+    <string name="map_card_participate">참여하기</string>
+    <string name="map_card_cancel">취소하기</string>
+    <string name="map_card_completed">모집완료</string>
 </resources>

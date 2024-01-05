@@ -48,5 +48,6 @@
 
     <!-- dialog -->
     <dimen name="dialog_horizontal_margin">24dp</dimen>
+    <dimen name="dialog_all_modal_horizontal_margin">34dp</dimen>
     <dimen name="dialog_map_modal_horizontal_margin">24dp</dimen>
 </resources>

@@ -17,11 +17,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.auth.AuthActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.onboarding.OnBoardingActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".presentation.ui.dummy.DummyActivity"
             android:exported="true"
@@ -33,19 +35,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".presentation.ui.dummy.DummyCustomDEditTextActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".presentation.ui.main.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".presentation.ui.main.plan.PlanActivity"
             android:exported="false"
@@ -71,4 +70,5 @@
             android:name="io.sentry.traces.profiling.sample-rate"
             android:value="1.0" />
     </application>
+
 </manifest>

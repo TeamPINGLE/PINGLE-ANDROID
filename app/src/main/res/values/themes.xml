@@ -19,20 +19,20 @@
 
     <style name="Theme.Pingle.Button.L" parent="Theme.Pingle.Button">
         <item name="android:height">@dimen/button_l_height</item>
-        <item name="cornerRadius">@dimen/spacing10</item>
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Sub.Semi.16</item>
     </style>
 
     <style name="Theme.Pingle.Button.M" parent="Theme.Pingle.Button">
         <item name="android:height">@dimen/button_m_height</item>
-        <item name="cornerRadius">@dimen/spacing10</item>
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Body.Semi.14</item>
     </style>
 
     <style name="Theme.Pingle.Button.S" parent="Theme.Pingle.Button">
         <item name="android:height">@dimen/button_s_height</item>
         <item name="android:layout_width">@dimen/button_s_width</item>
-        <item name="cornerRadius">@dimen/spacing10</item>
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
         <item name="strokeWidth">1dp</item>
         <item name="backgroundTint">@android:color/transparent</item>
         <item name="strokeColor">@color/selector_pingle_btn_s</item>
@@ -53,12 +53,26 @@
 
     <style name="Theme.Pingle.Chip.All" parent="Theme.Pingle.Chip">
         <item name="cornerRadius">50dp</item>
-        <item name="textStartPadding">@dimen/spacing16</item>
-        <item name="textEndPadding">@dimen/spacing16</item>
+        <item name="textStartPadding">16dp</item>
+        <item name="textEndPadding">16dp</item>
         <item name="chipStrokeWidth">1dp</item>
         <item name="android:paddingVertical">8dp</item>
         <item name="android:clickable">true</item>
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Bold.12</item>
+    </style>
+
+    <style name="Theme.Pingle.Fab" parent="Widget.Design.FloatingActionButton">
+        <item name="backgroundTint">@color/white</item>
+        <item name="elevation">0dp</item>
+        <item name="fabCustomSize">@dimen/fab_size</item>
+        <item name="rippleColor">@color/g_04</item>
+        <item name="tint">@null</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.CornerSize50Percent</item>
+    </style>
+
+    <!-- Corner size -->
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

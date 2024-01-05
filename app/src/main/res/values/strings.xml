@@ -19,6 +19,24 @@
     <string name="on_boarding_original_group">기존 단체\n입장하기</string>
     <string name="on_boarding_new_group">신규 단체\n개설하기</string>
 
+    <!-- join group success -->
+    <string name="join_group_success_btn">입장하기</string>
+    <string name="join_gorup_success_title">단체 입장\n완료!</string>
+    <string name="join_group_success_description_group_name">%s에서</string>
+    <string name="join_group_success_description">핑글 여정을 함께해보세요!</string>
+
+    <!--  plan  -->
+    <string name="plan_later_des">나중에 만드시겠어요?</string>
+    <string name="plan_close"><u>나가기</u></string>
+    <string name="plan_next">다음으로</string>
+    <string name="plan_pingle">핑글 개최하기</string>
+
+    <!-- map -->
+    <string name="map_participate">참여하기</string>
+
+    <!-- map modal -->
+    <string name="map_modal_description">이 핑글에 참여할까요?</string>
+
     <!-- map card -->
     <string name="map_card_participant">참여자</string>
     <string name="map_card_participant_detail">%d/%d</string>

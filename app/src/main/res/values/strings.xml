@@ -18,4 +18,5 @@
     <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
     <string name="on_boarding_original_group">기존 단체\n입장하기</string>
     <string name="on_boarding_new_group">신규 단체\n개설하기</string>
+    <string name="auth_kakao_login">카카오로 시작하기</string>
 </resources>

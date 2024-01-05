@@ -39,5 +39,10 @@
     
     <!-- backdrop -->
     <color name="backdrop">#B3080909</color>
+
+    <!-- kakao -->
+    <color name="kakao_btn">#FEE500</color>
+    <color name="kakao_text">#191919</color>
+
 </resources>
 

@@ -6,7 +6,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupCodeBinding
 import org.sopt.pingle.util.base.BindingActivity
-import org.sopt.pingle.util.component.CustomSnackbar
 
 @AndroidEntryPoint
 class JoinGroupCodeActivity :
@@ -15,11 +14,7 @@ class JoinGroupCodeActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initLayout()
         addObservers()
-    }
-
-    private fun initLayout() {
     }
 
     private fun addObservers() {

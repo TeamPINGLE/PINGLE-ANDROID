@@ -20,10 +20,6 @@ class JoinGroupCodeActivity :
     }
 
     private fun initLayout() {
-        // TODO Snackbar 확인용
-        binding.btnJoinGroupCodeNext.setOnClickListener {
-            CustomSnackbar.makeSnackbar(binding.root, "잘못된 코드입니다.", 97)
-        }
     }
 
     private fun addObservers() {

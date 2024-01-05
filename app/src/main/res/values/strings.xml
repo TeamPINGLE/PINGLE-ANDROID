@@ -14,8 +14,14 @@
     <string name="all_navi_mypingle">마이핑글</string>
     <string name="all_navi_setting">설정</string>
 
-    <!-- OnBoarding -->
+    <!-- onBoarding -->
     <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
     <string name="on_boarding_original_group">기존 단체\n입장하기</string>
     <string name="on_boarding_new_group">신규 단체\n개설하기</string>
+
+    <!-- map -->
+    <string name="map_participate">참여하기</string>
+
+    <!-- map modal -->
+    <string name="map_modal_description">이 핑글에 참여할까요?</string>
 </resources>

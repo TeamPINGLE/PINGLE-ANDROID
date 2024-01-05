@@ -30,6 +30,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             add(PlanTitleFragment())
             add(PlanDateTimeFragment())
             add(PlanOpenChattingFragment())
+            add(PlanSummaryConfirmationFragment())
         }
 
         val adapter = PlanFragmentStateAdapter(fragmentList, this)
@@ -37,12 +38,12 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             this.adapter = adapter
             isUserInputEnabled = false
             registerOnPageChangeCallback(object :
-                    ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                        planViewModel.setCurrentPage(position)
-                    }
-                })
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    planViewModel.setCurrentPage(position)
+                }
+            })
         }
     }
 

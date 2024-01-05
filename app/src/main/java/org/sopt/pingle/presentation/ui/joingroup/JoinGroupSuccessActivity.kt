@@ -23,10 +23,6 @@ class JoinGroupSuccessActivity :
         // TODO 이전 화면에서 Intent를 통해서 groupName을 가져옴
         groupName = "SOPT"
 
-        setDescriptionTextStyle(groupName.length)
-    }
-
-    private fun setDescriptionTextStyle(groupNameCount: Int) {
         binding.tvJoinGroupSuccessDescriptionGroupName.text = SpannableString(
             getString(
                 R.string.join_group_success_description_group_name,
@@ -39,7 +35,7 @@ class JoinGroupSuccessActivity :
                     R.style.TextAppearance_Pingle_Sub_Semi_16
                 ),
                 GROUP_NAME_START,
-                groupNameCount,
+                groupName.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             setSpan(
@@ -50,7 +46,7 @@ class JoinGroupSuccessActivity :
                     )
                 ),
                 GROUP_NAME_START,
-                groupNameCount,
+                groupName.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }

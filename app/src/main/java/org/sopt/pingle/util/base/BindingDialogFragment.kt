@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
+import org.sopt.pingle.R
 
 abstract class BindingDialogFragment<T : ViewDataBinding>(@LayoutRes private val layoutResId: Int) :
     DialogFragment() {
@@ -31,7 +32,7 @@ abstract class BindingDialogFragment<T : ViewDataBinding>(@LayoutRes private val
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
-        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(R.color.backdrop)
         dialog?.setCancelable(false)
         dialog?.setCanceledOnTouchOutside(true)
     }

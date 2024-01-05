@@ -128,7 +128,7 @@ fun PingleEntity.convertToCalenderDetail(): String {
 
     return buildString {
         append("${localDate.year}년 ${localDate.monthValue}월 ${localDate.dayOfMonth}일\n")
-        append("${startTime.format(DateTimeFormatter.ofPattern("HH:mm"))}~")
+        append("${startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} ~ ")
         append("${endTime.format(DateTimeFormatter.ofPattern("HH:mm"))}")
     }
 }

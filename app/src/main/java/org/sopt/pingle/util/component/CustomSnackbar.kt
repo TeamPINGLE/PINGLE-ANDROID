@@ -27,7 +27,6 @@ object CustomSnackbar {
             bottomMargin = botMarin.toPx()
             marginStart = 16.toPx()
             marginEnd = 16.toPx()
-
         }
 
         snackbarLayout.run {

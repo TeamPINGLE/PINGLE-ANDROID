@@ -91,12 +91,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 }
 
                 override fun onPingleCardParticipateBtnClickListener() {
-                    when(mapViewModel.dummyPingle.isParticipating) {
+                    when (mapViewModel.dummyPingle.isParticipating) {
                         true -> showMapCancelModalDialogFragment()
                         false -> showMapModalDialogFragment()
                     }
                 }
-
             }
         }
     }
@@ -192,7 +191,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             detail = stringOf(R.string.map_cancel_modal_detail),
             buttonText = stringOf(R.string.map_cancel_modal_button_text),
             textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
-            clickBtn = { mapViewModel.cancelPingle()},
+            clickBtn = { mapViewModel.cancelPingle() },
             clickTextBtn = { },
             onDialogClosed = { binding.cardMap.initLayout(mapViewModel.dummyPingle) }
         ).show(childFragmentManager, MAP_CANCEL_MODAL)

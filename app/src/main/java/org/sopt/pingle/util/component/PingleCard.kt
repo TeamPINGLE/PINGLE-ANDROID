@@ -9,15 +9,15 @@ import android.text.style.TextAppearanceSpan
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.CardPingleBinding
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.view.colorOf
 import org.sopt.pingle.util.view.stringOf
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 @SuppressLint("CustomViewStyleable")
 class PingleCard @JvmOverloads constructor(
@@ -67,7 +67,6 @@ class PingleCard @JvmOverloads constructor(
                     text = stringOf(R.string.map_card_completed)
                     setTextAppearance(R.style.TextAppearance_Pingle_Sub_Semi_16)
                 }
-
             } else {
                 with(tvCardTopInfoParticipantDetail) {
                     val participantDetail = context.getString(
@@ -105,7 +104,6 @@ class PingleCard @JvmOverloads constructor(
                     }
                 }
             }
-
         }
     }
 

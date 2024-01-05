@@ -27,14 +27,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/dialog_map_horizontal_margin" />
+                app:layout_constraintGuide_begin="@dimen/dialog_map_modal_horizontal_margin" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gl_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/dialog_map_horizontal_margin" />
+                app:layout_constraintGuide_end="@dimen/dialog_map_modal_horizontal_margin" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_map_modal_pingle_info"

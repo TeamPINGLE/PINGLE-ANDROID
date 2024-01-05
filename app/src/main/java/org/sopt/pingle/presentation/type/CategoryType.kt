@@ -41,5 +41,10 @@ enum class CategoryType(
         backgroundChipColor = R.color.g_10,
         backgroundBadgeColor = R.color.g_07,
         categoryNameRes = R.string.category_others
-    )
+    );
+
+    companion object {
+        fun fromString(categoryName: String) =
+            CategoryType.values().first() { it.name == categoryName }
+    }
 }

@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import org.sopt.pingle.databinding.BadgePingleBinding
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.util.view.colorOf
+import org.sopt.pingle.util.view.stringOf
 
 @SuppressLint("CustomViewStyleable")
 class PingleBadge @JvmOverloads constructor(
@@ -23,10 +25,10 @@ class PingleBadge @JvmOverloads constructor(
 
     fun setBadgeCategoryType(categoryType: CategoryType) {
         with(binding.tvBadgePingleText) {
-            text = context.getText(categoryType.categoryNameRes)
-            setTextColor(context.getColor(categoryType.textColor))
+            text = stringOf(categoryType.categoryNameRes)
+            setTextColor(colorOf(categoryType.textColor))
             backgroundTintList =
-                ColorStateList.valueOf(context.getColor(categoryType.backgroundBadgeColor))
+                ColorStateList.valueOf(colorOf(categoryType.backgroundBadgeColor))
         }
     }
 }

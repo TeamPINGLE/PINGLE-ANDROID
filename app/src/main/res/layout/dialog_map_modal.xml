@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dialog_horizontal_margin"
+            android:background="@drawable/shape_border_radius_15"
+            android:backgroundTint="@color/g_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/dialog_map_modal_horizontal_margin" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/dialog_map_modal_horizontal_margin" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_map_modal_pingle_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/shape_border_radius_15"
+                android:backgroundTint="@color/g_09"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_map_modal_pingle_info_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="16dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_map_modal_pingle_info_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="16dp" />
+
+                <org.sopt.pingle.util.component.PingleBadge
+                    android:id="@+id/badge_map_modal_pingle_info_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing25"
+                    app:layout_constraintEnd_toEndOf="@id/gl_map_modal_pingle_info_end"
+                    app:layout_constraintStart_toStartOf="@id/gl_map_modal_pingle_info_start"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="STUDY" />
+
+                <TextView
+                    android:id="@+id/tv_map_modal_pingle_info_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.18"
+                    app:layout_constraintEnd_toEndOf="@id/gl_map_modal_pingle_info_end"
+                    app:layout_constraintStart_toStartOf="@id/gl_map_modal_pingle_info_start"
+                    app:layout_constraintTop_toBottomOf="@id/badge_map_modal_pingle_info_category"
+                    tools:text="강남 모각작팟"
+                    tools:textColor="@color/pingle_orange" />
+
+                <TextView
+                    android:id="@+id/tv_map_modal_pingle_info_owner_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="25dp"
+                    android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                    android:textColor="@color/g_03"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/gl_map_modal_pingle_info_end"
+                    app:layout_constraintStart_toStartOf="@id/gl_map_modal_pingle_info_start"
+                    app:layout_constraintTop_toBottomOf="@id/tv_map_modal_pingle_info_name"
+                    tools:text="박소현" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_map_modal_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/map_modal_description"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/layout_map_modal_pingle_info" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_map_modal"
+                style="@style/Theme.Pingle.Button.M"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="21dp"
+                android:backgroundTint="@color/g_01"
+                android:text="@string/map_participate"
+                android:textColor="@color/g_10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_map_modal_description" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

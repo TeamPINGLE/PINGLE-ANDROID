@@ -3,7 +3,7 @@ package org.sopt.pingle.presentation.ui.main.plan
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanLocationBinding
 import org.sopt.pingle.util.base.BindingFragment
@@ -23,14 +23,11 @@ class PlanLocationFragment :
 
     private fun initLayout() {
         binding.rvPlanLocationList.apply {
-            addItemDecoration(
-                DividerItemDecoration(
-                    requireContext(),
-                    DividerItemDecoration.HORIZONTAL,
-                ),
-            )
-            this.layoutManager = layoutManager
+            this.layoutManager = LinearLayoutManager(context)
             adapter = planLocationAdapter
+            addItemDecoration(
+                PlanLocationDivider(1, R.color.g_09),
+            )
         }
         planLocationAdapter.submitList(planLocationViewModel.mockPlanLocationList)
     }

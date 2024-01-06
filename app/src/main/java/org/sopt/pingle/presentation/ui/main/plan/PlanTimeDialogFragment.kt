@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.NumberPicker
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.DialogTimePickerBinding
+import org.sopt.pingle.presentation.type.MeridiemType
 import org.sopt.pingle.util.base.BindingBottomSheetDialogFragment
 
 class PlanTimeDialogFragment(
@@ -30,7 +31,7 @@ class PlanTimeDialogFragment(
             descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS // editText 설정 해제
             minValue = 0
             maxValue = 1
-            displayedValues = arrayOf("오전", "오후")
+            displayedValues = arrayOf(MeridiemType.AM.name, MeridiemType.PM.name)
         }
 
         val hoursPicker = binding.npTimePickerHour

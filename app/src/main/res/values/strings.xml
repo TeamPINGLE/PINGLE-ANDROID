@@ -24,6 +24,8 @@
     <string name="plan_close"><u>나가기</u></string>
     <string name="plan_next">다음으로</string>
     <string name="plan_pingle">핑글 개최하기</string>
+    <string name="plan_time_am">오전</string>
+    <string name="plan_time_pm">오후</string>
 
     <!-- join group success -->
     <string name="join_group_success_btn">입장하기</string>

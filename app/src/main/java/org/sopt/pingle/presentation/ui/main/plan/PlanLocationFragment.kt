@@ -12,9 +12,10 @@ class PlanLocationFragment :
     BindingFragment<FragmentPlanLocationBinding>(R.layout.fragment_plan_location) {
     private val planLocationViewModel by viewModels<PlanLocationViewModel>()
     private val planLocationAdapter: PlanLocationAdapter by lazy {
-        PlanLocationAdapter()
+        PlanLocationAdapter(::deleteOldPosition)
     }
 
+    private var oldPosition = -1
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
@@ -32,6 +33,18 @@ class PlanLocationFragment :
             adapter = planLocationAdapter
         }
         planLocationAdapter.submitList(planLocationViewModel.mockPlanLocationList)
+    }
+
+    private fun deleteOldPosition(position: Int) {
+        if (oldPosition == -1 && oldPosition != position) {
+            planLocationViewModel.mockPlanLocationList[position].isSelected.set(true)
+        } else if (oldPosition == position) {
+            planLocationViewModel.mockPlanLocationList[oldPosition].isSelected.set(false)
+        } else {
+            planLocationViewModel.mockPlanLocationList[position].isSelected.set(true)
+            planLocationViewModel.mockPlanLocationList[oldPosition].isSelected.set(false)
+        }
+        oldPosition = position
     }
 
     override fun onDestroyView() {

@@ -31,7 +31,11 @@ class PlanTimeDialogFragment(
             descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS // editText 설정 해제
             minValue = 0
             maxValue = 1
-            displayedValues = arrayOf(MeridiemType.AM.name, MeridiemType.PM.name)
+            displayedValues =
+                arrayOf(
+                    getString(MeridiemType.AM.meridiemStringRes),
+                    getString(MeridiemType.PM.meridiemStringRes)
+                )
         }
 
         val hoursPicker = binding.npTimePickerHour

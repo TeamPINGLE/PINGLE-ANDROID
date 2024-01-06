@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:background="@color/g_10">
+
+        <TextView
+            android:id="@+id/tv_time_picker_done"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/g_11"
+            android:paddingVertical="7dp"
+            android:paddingEnd="15dp"
+            android:text="Done"
+            android:textAlignment="textEnd"
+            android:textColor="@color/pingle_green"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <NumberPicker
+            android:id="@+id/np_time_picker_meridiem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:layout_marginStart="44dp"
+            android:theme="@style/AppTheme.NumberPicker"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_time_picker_done" />
+
+        <NumberPicker
+            android:id="@+id/np_time_picker_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.NumberPicker"
+            app:layout_constraintBottom_toBottomOf="@+id/np_time_picker_meridiem"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/np_time_picker_meridiem" />
+
+        <NumberPicker
+            android:id="@+id/np_time_picker_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="44dp"
+            android:theme="@style/AppTheme.NumberPicker"
+            app:layout_constraintBottom_toBottomOf="@+id/np_time_picker_hour"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/np_time_picker_hour" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.plan
+package org.sopt.pingle.presentation.ui.main.plan
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanLocationBinding
-import org.sopt.pingle.presentation.model.PlanLocationModel
 import org.sopt.pingle.util.base.BindingFragment
 
 class PlanLocationFragment :
@@ -32,13 +31,7 @@ class PlanLocationFragment :
             this.layoutManager = layoutManager
             adapter = planLocationAdapter
         }
-
         planLocationAdapter.submitList(planLocationViewModel.mockPlanLocationList)
-        planLocationAdapter.setItemClickListener(object : PlanLocationAdapter.ItemClickListener {
-            override fun onClick(view: View, item: PlanLocationModel) {
-                // TODO click
-            }
-        })
     }
 
     override fun onDestroyView() {

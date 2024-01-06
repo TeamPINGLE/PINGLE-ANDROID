@@ -7,7 +7,7 @@
 
         <variable
             name="planLocationItem"
-            type="org.sopt.pingle.presentation.model.PlanLocationModel" />
+            type="org.sopt.pingle.domain.model.PlanLocationEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,7 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing30"
-            android:src="@{planLocationItem.selected ? @drawable/ic_all_check_selected_24 : @drawable/ic_all_check_default_24, default=@drawable/ic_all_check_default_24}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

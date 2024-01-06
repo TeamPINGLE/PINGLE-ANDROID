@@ -3,6 +3,5 @@
     <declare-styleable name="pingleEditText">
         <attr name="title" format="reference|string" />
         <attr name="hint" format="reference|string" />
-        <attr name="etText" format="string" />
     </declare-styleable>
 </resources>

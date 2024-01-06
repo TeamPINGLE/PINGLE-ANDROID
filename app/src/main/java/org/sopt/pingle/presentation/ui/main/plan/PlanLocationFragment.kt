@@ -15,10 +15,10 @@ class PlanLocationFragment :
         PlanLocationAdapter(::deleteOldPosition)
     }
 
-    private var oldPosition = -1
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
+        addListeners()
     }
 
     private fun initLayout() {
@@ -35,16 +35,26 @@ class PlanLocationFragment :
         planLocationAdapter.submitList(planLocationViewModel.mockPlanLocationList)
     }
 
-    private fun deleteOldPosition(position: Int) {
-        if (oldPosition == -1 && oldPosition != position) {
-            planLocationViewModel.mockPlanLocationList[position].isSelected.set(true)
-        } else if (oldPosition == position) {
-            planLocationViewModel.mockPlanLocationList[oldPosition].isSelected.set(false)
-        } else {
-            planLocationViewModel.mockPlanLocationList[position].isSelected.set(true)
-            planLocationViewModel.mockPlanLocationList[oldPosition].isSelected.set(false)
+    private fun addListeners() {
+        binding.ivPlanLocationSearchBtn.setOnClickListener {
+            checkListExist()
         }
-        oldPosition = position
+    }
+
+    private fun deleteOldPosition(position: Int) {
+        planLocationViewModel.updatePlanLocationList(position)
+    }
+
+    private fun checkListExist() = if (planLocationViewModel.checkIsNull()) {
+        with(binding) {
+            rvPlanLocationList.visibility = View.INVISIBLE
+            layoutPlanLocationEmpty.visibility = View.VISIBLE
+        }
+    } else {
+        with(binding) {
+            rvPlanLocationList.visibility = View.VISIBLE
+            layoutPlanLocationEmpty.visibility = View.INVISIBLE
+        }
     }
 
     override fun onDestroyView() {

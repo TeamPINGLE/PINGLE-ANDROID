@@ -8,259 +8,252 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_card"
+            android:id="@+id/layout_card_top"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/card_horizontal_margin"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/shape_border_radius_15"
+            android:backgroundTint="@color/g_11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_card_top_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/card_horizontal_margin" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_card_top_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/card_horizontal_margin" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_card_top"
+                android:id="@+id/layout_card_top_info"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_border_radius_15"
-                android:backgroundTint="@color/g_11"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/layout_card_top_participant"
+                app:layout_constraintEnd_toStartOf="@id/layout_card_top_participant"
+                app:layout_constraintStart_toStartOf="@id/gl_card_top_start"
+                app:layout_constraintTop_toTopOf="@id/layout_card_top_participant">
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_card_top_start"
+                <org.sopt.pingle.util.component.PingleBadge
+                    android:id="@+id/badge_card_top_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="@dimen/card_horizontal_margin" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="STUDY" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_card_top_end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_end="@dimen/card_horizontal_margin" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layout_card_top_info"
+                <TextView
+                    android:id="@+id/tv_card_top_info_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toBottomOf="@id/layout_card_top_participant"
-                    app:layout_constraintEnd_toStartOf="@id/layout_card_top_participant"
-                    app:layout_constraintStart_toStartOf="@id/gl_card_top_start"
-                    app:layout_constraintTop_toTopOf="@id/layout_card_top_participant">
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="@style/TextAppearance.Pingle.Body.Bold.14"
+                    android:textColor="@color/pingle_orange"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/badge_card_top_info"
+                    tools:text="강남 모각작팟" />
 
-                    <org.sopt.pingle.util.component.PingleBadge
-                        android:id="@+id/badge_card_top_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="STUDY" />
-
-                    <TextView
-                        android:id="@+id/tv_card_top_info_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:textAppearance="@style/TextAppearance.Pingle.Body.Bold.14"
-                        android:textColor="@color/pingle_orange"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/badge_card_top_info"
-                        tools:text="강남 모각작팟" />
-
-                    <TextView
-                        android:id="@+id/tv_card_top_info_owner_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
-                        android:textColor="@color/g_03"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_card_top_info_name"
-                        tools:text="박소현" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layout_card_top_participant"
-                    android:layout_width="@dimen/card_participant_size"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="19dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/shape_oval_stroke_1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1"
-                    app:layout_constraintEnd_toStartOf="@id/gl_card_top_end"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/tv_card_top_info_participant_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="17dp"
-                        android:layout_marginTop="12dp"
-                        android:gravity="center"
-                        android:text="@string/map_card_participant"
-                        android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
-                        android:textColor="@color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_card_top_info_participant_detail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="42dp"
-                        android:gravity="center"
-                        android:textColor="@color/g_06"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_card_top_info_participant_title"
-                        tools:text="5/10" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_card_top_info_owner_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                    android:textColor="@color/g_03"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_card_top_info_name"
+                    tools:text="박소현" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_card_bottom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_border_radius_15"
-                android:backgroundTint="@color/g_11"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_card_top">
+                android:id="@+id/layout_card_top_participant"
+                android:layout_width="@dimen/card_participant_size"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/shape_oval_stroke_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toStartOf="@id/gl_card_top_end"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_card_bottom_start"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_card_top_info_participant_title"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="@dimen/card_horizontal_margin" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/gl_card_bottom_end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_end="@dimen/card_horizontal_margin" />
-
-                <ImageView
-                    android:id="@+id/iv_card_bottom_calendar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="23dp"
-                    android:src="@drawable/ic_all_calendar_24"
-                    app:layout_constraintStart_toStartOf="@id/gl_card_bottom_start"
+                    android:layout_marginHorizontal="17dp"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:text="@string/map_card_participant"
+                    android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_card_bottom_calender_title"
+                    android:id="@+id/tv_card_top_info_participant_detail"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/map_card_calender"
-                    android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
-                    android:textColor="@color/g_01"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_card_bottom_calendar"
-                    app:layout_constraintStart_toEndOf="@id/iv_card_bottom_calendar"
-                    app:layout_constraintTop_toTopOf="@id/iv_card_bottom_calendar" />
-
-                <TextView
-                    android:id="@+id/tv_card_bottom_calender_detail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="47dp"
-                    android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
-                    android:textColor="@color/g_03"
-                    app:layout_constraintEnd_toStartOf="@id/gl_card_bottom_end"
-                    app:layout_constraintStart_toEndOf="@id/tv_card_bottom_calender_title"
-                    app:layout_constraintTop_toTopOf="@id/iv_card_bottom_calendar"
-                    tools:text="2023년 12월 31일\n00:00~00:00" />
-
-                <ImageView
-                    android:id="@+id/iv_card_bottom_map"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:src="@drawable/ic_all_map_24"
-                    app:layout_constraintStart_toStartOf="@id/gl_card_bottom_start"
-                    app:layout_constraintTop_toBottomOf="@id/tv_card_bottom_calender_detail" />
-
-                <TextView
-                    android:id="@+id/tv_card_bottom_map_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/map_card_map"
-                    android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
-                    android:textColor="@color/g_01"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_card_bottom_map"
-                    app:layout_constraintStart_toEndOf="@id/iv_card_bottom_map"
-                    app:layout_constraintTop_toTopOf="@id/iv_card_bottom_map" />
-
-                <TextView
-                    android:id="@+id/tv_card_bottom_map_detail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
-                    android:textColor="@color/g_03"
-                    app:layout_constraintStart_toStartOf="@id/tv_card_bottom_calender_detail"
-                    app:layout_constraintTop_toTopOf="@id/tv_card_bottom_map_title"
-                    tools:text="햐얀집 2호점" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_card_bottom_map_chat"
-                    style="@style/Theme.Pingle.Button.S"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="11dp"
-                    android:layout_marginBottom="32dp"
-                    android:text="@string/map_card_chat"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/btn_card_bottom_map_participate"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_card_bottom_map"
-                    app:strokeColor="@color/g_03" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_card_bottom_map_participate"
-                    style="@style/Theme.Pingle.Button.M"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="@color/selector_pingle_btn_m"
-                    android:textColor="@color/g_11"
-                    app:layout_constraintBottom_toBottomOf="@id/btn_card_bottom_map_chat"
+                    android:layout_height="42dp"
+                    android:gravity="center"
+                    android:textColor="@color/g_06"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/btn_card_bottom_map_chat"
-                    app:layout_constraintTop_toTopOf="@id/btn_card_bottom_map_chat"
-                    tools:text="참여하기" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_card_top_info_participant_title"
+                    tools:text="5/10" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
-                android:id="@+id/view_card_middle_line"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_card_bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_border_radius_15"
+            android:backgroundTint="@color/g_11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_card_top">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_card_bottom_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/card_horizontal_margin" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_card_bottom_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/card_horizontal_margin" />
+
+            <ImageView
+                android:id="@+id/iv_card_bottom_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:src="@drawable/ic_all_calendar_24"
+                app:layout_constraintStart_toStartOf="@id/gl_card_bottom_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_card_bottom_calender_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/map_card_calender"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+                android:textColor="@color/g_01"
+                app:layout_constraintBottom_toBottomOf="@id/iv_card_bottom_calendar"
+                app:layout_constraintStart_toEndOf="@id/iv_card_bottom_calendar"
+                app:layout_constraintTop_toTopOf="@id/iv_card_bottom_calendar" />
+
+            <TextView
+                android:id="@+id/tv_card_bottom_calender_detail"
                 android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="21dp"
-                android:background="@color/g_07"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="47dp"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_03"
+                app:layout_constraintEnd_toStartOf="@id/gl_card_bottom_end"
+                app:layout_constraintStart_toEndOf="@id/tv_card_bottom_calender_title"
+                app:layout_constraintTop_toTopOf="@id/iv_card_bottom_calendar"
+                tools:text="2023년 12월 31일\n00:00~00:00" />
+
+            <ImageView
+                android:id="@+id/iv_card_bottom_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:src="@drawable/ic_all_map_24"
+                app:layout_constraintStart_toStartOf="@id/gl_card_bottom_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_card_bottom_calender_detail" />
+
+            <TextView
+                android:id="@+id/tv_card_bottom_map_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/map_card_map"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+                android:textColor="@color/g_01"
+                app:layout_constraintBottom_toBottomOf="@id/iv_card_bottom_map"
+                app:layout_constraintStart_toEndOf="@id/iv_card_bottom_map"
+                app:layout_constraintTop_toTopOf="@id/iv_card_bottom_map" />
+
+            <TextView
+                android:id="@+id/tv_card_bottom_map_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_03"
+                app:layout_constraintStart_toStartOf="@id/tv_card_bottom_calender_detail"
+                app:layout_constraintTop_toTopOf="@id/tv_card_bottom_map_title"
+                tools:text="햐얀집 2호점" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_card_bottom_map_chat"
+                style="@style/Theme.Pingle.Button.S"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="11dp"
+                android:layout_marginBottom="32dp"
+                android:text="@string/map_card_chat"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_card_bottom_map_participate"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_card_top" />
+                app:layout_constraintTop_toBottomOf="@id/iv_card_bottom_map"
+                app:strokeColor="@color/g_03" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_card_bottom_map_participate"
+                style="@style/Theme.Pingle.Button.M"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/selector_pingle_btn_m"
+                android:textColor="@color/g_11"
+                app:layout_constraintBottom_toBottomOf="@id/btn_card_bottom_map_chat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_card_bottom_map_chat"
+                app:layout_constraintTop_toTopOf="@id/btn_card_bottom_map_chat"
+                tools:text="참여하기" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <View
+            android:id="@+id/view_card_middle_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="21dp"
+            android:background="@color/g_07"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_card_top" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

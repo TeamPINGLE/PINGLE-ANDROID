@@ -14,10 +14,22 @@
     <string name="all_navi_mypingle">마이핑글</string>
     <string name="all_navi_setting">설정</string>
 
-    <!-- OnBoarding -->
+    <!-- on boarding -->
     <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
     <string name="on_boarding_original_group">기존 단체\n입장하기</string>
     <string name="on_boarding_new_group">신규 단체\n개설하기</string>
+
+    <!-- join group code -->
+    <string name="join_group_code_topbar">기존 단체 입장하기</string>
+    <string name="join_group_code_title">단체 정보를 확인하고\n초대 코드를 입력해주세요</string>
+    <string name="join_group_code_meeting">개설된 모임 수</string>
+    <string name="join_group_code_participant">총 인원</string>
+    <string name="join_group_code_meeting_count">%d개</string>
+    <string name="join_group_code_participant_count">%d명</string>
+    <string name="join_group_code_invitation_hint">영문+숫자 12자리</string>
+    <string name="join_group_code_invitation">초대 코드</string>
+    <string name="join_group_code_guide">모임 개설자로부터 받은 초대코드를 입력해주세요.</string>
+    <string name="join_group_code_next">입장하기</string>
 
     <!--  plan  -->
     <string name="plan_later_des">나중에 만드시겠어요?</string>

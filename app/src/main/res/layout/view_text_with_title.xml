@@ -4,10 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="view"
-            type="org.sopt.pingle.util.component.PingleEditText" />
 
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="hint"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,21 +26,19 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{title}"
             android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
             android:textColor="@color/g_03"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="제목" />
 
-        <EditText
-            android:id="@+id/et_edit_text"
+        <TextView
+            android:id="@+id/tv_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:background="@null"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLines="1"
+            android:hint="@{hint}"
             android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
             android:textColor="@color/white"
             android:textColorHint="@color/g_07"

@@ -10,11 +10,13 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.EditTextPingleBinding
 
 @SuppressLint("CustomViewStyleable")
-class PingleEditText(
+class PingleEditText @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet
-) : ConstraintLayout(context, attrs) {
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
     private lateinit var binding: EditTextPingleBinding
+    private var _etText: String? = null
 
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.pingleEditText)
@@ -33,6 +35,9 @@ class PingleEditText(
 
             val hint = getString(R.styleable.pingleEditText_hint)
             binding.etEditText.hint = hint
+
+            _etText = getString(R.styleable.pingleEditText_etText)
+            binding.etEditText.setText(_etText)
         }
     }
 }

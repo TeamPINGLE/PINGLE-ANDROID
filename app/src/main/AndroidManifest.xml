@@ -17,6 +17,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="kakaoced30632d850d78bd9c09407e072dadb" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".presentation.ui.auth.AuthActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -35,9 +50,6 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-                <data
-                    android:host="oauth"
-                    android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" />
             </intent-filter>
         </activity>
         <activity

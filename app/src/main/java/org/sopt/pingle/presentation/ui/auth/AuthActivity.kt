@@ -1,6 +1,8 @@
 package org.sopt.pingle.presentation.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -8,21 +10,12 @@ import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityAuthBinding
+import org.sopt.pingle.presentation.ui.dummy.DummyActivity
 import org.sopt.pingle.util.base.BindingActivity
 import timber.log.Timber
 
 @AndroidEntryPoint
 class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth) {
-    // TODO 서버통신할 때 주석 삭제하겠습니다.!
-    // 카카오계정으로 로그인 공통 callback 구성
-    // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
-    val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-        if (error != null) {
-            Timber.e(error, "카카오계정으로 로그인 실패")
-        } else if (token != null) {
-            Timber.i("카카오계정으로 로그인 성공 " + token.accessToken)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +23,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
         btnClickListener()
     }
 
+    // TODO 서버통신할 때 로직분리 및 주석 삭제하겠습니다.!
     private fun btnClickListener() {
         binding.btnAuthKakao.setOnClickListener {
             // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
@@ -37,6 +31,25 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
                 loginWithKakaoTalk()
             } else {
                 loginWithKakaoAccount()
+            }
+        }
+    }
+
+    // 웹 로그인 할 경우 사용됨
+    private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        if (error != null) {
+            Timber.e(error, "카카오계정으로 로그인 실패")
+
+            // 뒤로가기 경우 예외 처리
+            if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+                Timber.e(error, "유저가 로그인 취소")
+            }
+        } else if (token != null) {
+            Timber.i("카카오계정으로 로그인 성공 " + token.accessToken)
+            Log.d("카카오계정으로 로그인 성공 ", token.accessToken)
+
+            Intent(this, DummyActivity::class.java).apply {
+                startActivity(this)
             }
         }
     }
@@ -55,8 +68,8 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
                 // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                 loginWithKakaoAccount()
             } else if (token != null) {
-                getUserInfo()
                 Timber.i("카카오톡으로 로그인 성공 " + token.accessToken)
+                Log.d("카카오톡으로 로그인 성공 ", token.accessToken)
             }
         }
     }
@@ -66,7 +79,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
         UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
     }
 
-    // 사용자 정보 수집 (닉네임)
+    // 사용자 정보 수집 (닉네임만!!)
     private fun getUserInfo() {
         UserApiClient.instance.me { user, _ ->
             if (user != null) {

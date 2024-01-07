@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="planViewModel"
             type="org.sopt.pingle.presentation.ui.main.plan.PlanViewModel" />
+
         <variable
             name="categoryType"
             type="org.sopt.pingle.presentation.type.CategoryType" />
+
         <import type="org.sopt.pingle.presentation.type.CategoryType" />
     </data>
 
@@ -45,14 +48,13 @@
             app:layout_constraintTop_toBottomOf="@id/iv_plan_category_type"
             tools:text="PLAY" />
 
-
-        <!--TODO android:text="@{categoryType.categoryDescriptionRes}" -->
         <TextView
             android:id="@+id/tv_plan_category_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing3"
             android:layout_marginBottom="20dp"
+            android:text="@{categoryType.categoryDescriptionRes}"
             android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
             android:textColor="@color/g_04"
             app:layout_constraintBottom_toBottomOf="parent"

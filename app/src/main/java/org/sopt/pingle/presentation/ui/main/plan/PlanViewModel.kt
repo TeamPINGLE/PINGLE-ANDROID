@@ -32,6 +32,18 @@ class PlanViewModel : ViewModel() {
                 (currentPage == 2 && planOpenChattingLink.isNotBlank())
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
 
+    private val _location = MutableStateFlow<String?>(null)
+    val location get() = _location.asStateFlow()
+
+    private val _x = MutableStateFlow<Double?>(null)
+    val locationX get() = _x.asStateFlow()
+
+    private val _y = MutableStateFlow<Double?>(null)
+    val locationY get() = _y.asStateFlow()
+
+    private val _address = MutableStateFlow<String?>(null)
+    val address get() = _address.asStateFlow()
+
     fun setCurrentPage(position: Int) {
         _currentPage.value = position
     }
@@ -44,6 +56,12 @@ class PlanViewModel : ViewModel() {
         _selectedTimeType.value = timeType
     }
 
+    fun setPlanLocation(location: String, locationX: Double, locationY: Double, address: String) {
+        _location.value = location
+        _x.value = locationX
+        _y.value = locationY
+        _address.value = address
+    }
     companion object {
         const val FIRST_PAGE_POSITION = 0
     }

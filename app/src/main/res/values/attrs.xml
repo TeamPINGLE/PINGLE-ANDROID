@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="pingleEditText">
-        <attr name="title" format="reference|string"/>
-        <attr name="hint" format="reference|string"/>
+        <attr name="title" format="reference|string" />
+        <attr name="hint" format="reference|string" />
     </declare-styleable>
 </resources>

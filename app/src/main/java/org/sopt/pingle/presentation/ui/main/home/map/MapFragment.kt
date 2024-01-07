@@ -26,7 +26,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
-import org.sopt.pingle.presentation.mapper.toMarker
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.common.AllModalDialogFragment
 import org.sopt.pingle.util.base.BindingFragment
@@ -60,6 +59,10 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 isZoomControlEnabled = false
                 isScaleBarEnabled = false
             }
+
+            setOnMapClickListener { _, _ ->
+                mapViewModel.clearSelectedMarkerPosition()
+            }
         }
 
         makeMarkers()
@@ -84,7 +87,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryStudy.setChipCategoryType(CategoryType.STUDY)
             chipMapCategoryMulti.setChipCategoryType(CategoryType.MULTI)
             chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
-            cardMap.initLayout(mapViewModel.dummyPingle)
             cardMap.listener = object : OnPingleCardClickListener {
                 override fun onPingleCardChatBtnClickListener() {
                     startActivity(navigateToWebView(mapViewModel.dummyPingle.chatLink))
@@ -120,15 +122,25 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             // TODO 서버 통신 구현 시 삭제 예정
             showToast(it?.name ?: "null")
         }.launchIn(lifecycleScope)
+
+        mapViewModel.selectedMarkerPosition.flowWithLifecycle(lifecycle).onEach { selectedMarkerPosition ->
+            (selectedMarkerPosition == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
+                with(binding) {
+                    fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
+                    fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
+                    cardMap.visibility = if (this@run) View.INVISIBLE else View.VISIBLE
+                }
+            }
+        }.launchIn(lifecycleScope)
     }
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
         } else {
@@ -180,8 +192,18 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun makeMarkers() {
-        mapViewModel.dummyPinList.map { pinEntity ->
-            pinEntity.toMarker().map = naverMap
+        mapViewModel.markerList.value.mapIndexed { index, markerModel ->
+            markerModel.marker.apply {
+                map = naverMap
+                setOnClickListener {
+                    with(mapViewModel) {
+                        handleMarkerClick(index)
+                        // TODO 마커 상세 정보 받아오는 로직 추가
+                        binding.cardMap.initLayout(dummyPingle)
+                    }
+                    return@setOnClickListener true
+                }
+            }
         }
     }
 
@@ -218,5 +240,18 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         private const val SINGLE_SELECTION = 0
         private const val MAP_CANCEL_MODAL = "mapCancelModal"
         private const val MAP_MODAL = "mapModal"
+
+        val OVERLAY_IMAGE_PLAY_SMALL =
+            OverlayImage.fromResource(R.drawable.ic_map_marker_play_small)
+        val OVERLAY_IMAGE_STUDY_SMALL =
+            OverlayImage.fromResource(R.drawable.ic_map_marker_study_small)
+        val OVERLAY_IMAGE_MULTI_SMALL =
+            OverlayImage.fromResource(R.drawable.ic_map_marker_multi_small)
+        val OVERLAY_IMAGE_OTHER_SMALL =
+            OverlayImage.fromResource(R.drawable.ic_map_marker_other_small)
+        val OVERLAY_IMAGE_PLAY_BIG = OverlayImage.fromResource(R.drawable.ic_map_marker_play_big)
+        val OVERLAY_IMAGE_STUDY_BIG = OverlayImage.fromResource(R.drawable.ic_map_marker_study_big)
+        val OVERLAY_IMAGE_MULTI_BIG = OverlayImage.fromResource(R.drawable.ic_map_marker_multi_big)
+        val OVERLAY_IMAGE_OTHER_BIG = OverlayImage.fromResource(R.drawable.ic_map_marker_other_big)
     }
 }

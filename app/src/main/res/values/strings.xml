@@ -100,5 +100,5 @@
     <string name="plan_recruitment_description">본인을 포함하여,\n최소 1명부터 참여 인원을 선택해주세요</string>
     <string name="plan_recruitment_minus">-</string>
     <string name="plan_recruitment_plus">+</string>
-    <string name="plan_recruitment_default">1</string>
+    <string name="plan_recruitment_snackbar">최대 선택 가능 인원은 99명이에요!</string>
 </resources>

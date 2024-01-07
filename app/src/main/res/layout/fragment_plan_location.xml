@@ -35,6 +35,8 @@
             <EditText
                 android:id="@+id/et_plan_location_search"
                 android:layout_width="0dp"
+                android:maxLines="1"
+                android:inputType="text"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing16"
                 android:layout_marginTop="@dimen/spacing24"

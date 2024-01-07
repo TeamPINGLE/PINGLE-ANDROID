@@ -1,12 +1,14 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanLocationBinding
 import org.sopt.pingle.util.base.BindingFragment
+import org.sopt.pingle.util.context.hideKeyboard
 
 class PlanLocationFragment :
     BindingFragment<FragmentPlanLocationBinding>(R.layout.fragment_plan_location) {
@@ -36,6 +38,18 @@ class PlanLocationFragment :
         binding.ivPlanLocationSearchBtn.setOnClickListener {
             checkListExist()
         }
+
+        val searchListener = binding.etPlanLocationSearch
+        searchListener.setOnKeyListener(
+            View.OnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    checkListExist()
+                    requireActivity().hideKeyboard(searchListener)
+                    return@OnKeyListener true
+                }
+                false
+            },
+        )
     }
 
     private fun deleteOldPosition(position: Int) {

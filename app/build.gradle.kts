@@ -101,7 +101,7 @@ dependencies {
     // Location
     implementation(libs.play.services.location)
 
-    //progress Bar
+    // progress Bar
     implementation(libs.progress.bar)
 }
 

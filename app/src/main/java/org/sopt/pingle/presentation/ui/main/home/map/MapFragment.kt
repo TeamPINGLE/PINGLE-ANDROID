@@ -28,9 +28,13 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
 import org.sopt.pingle.presentation.mapper.toMarker
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.ui.common.AllModalDialogFragment
 import org.sopt.pingle.util.base.BindingFragment
+import org.sopt.pingle.util.component.OnPingleCardClickListener
 import org.sopt.pingle.util.component.PingleChip
+import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.showToast
+import org.sopt.pingle.util.fragment.stringOf
 
 class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {
     private val mapViewModel by viewModels<MapViewModel>()
@@ -79,7 +83,20 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryPlay.setChipCategoryType(CategoryType.PLAY)
             chipMapCategoryStudy.setChipCategoryType(CategoryType.STUDY)
             chipMapCategoryMulti.setChipCategoryType(CategoryType.MULTI)
-            chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHER)
+            chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
+            cardMap.initLayout(mapViewModel.dummyPingle)
+            cardMap.listener = object : OnPingleCardClickListener {
+                override fun onPingleCardChatBtnClickListener() {
+                    startActivity(navigateToWebView(mapViewModel.dummyPingle.chatLink))
+                }
+
+                override fun onPingleCardParticipateBtnClickListener() {
+                    when (mapViewModel.dummyPingle.isParticipating) {
+                        true -> showMapCancelModalDialogFragment()
+                        false -> showMapModalDialogFragment()
+                    }
+                }
+            }
         }
     }
 
@@ -168,6 +185,30 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
     }
 
+    private fun showMapCancelModalDialogFragment() {
+        AllModalDialogFragment(
+            title = stringOf(R.string.map_cancel_modal_title),
+            detail = stringOf(R.string.map_cancel_modal_detail),
+            buttonText = stringOf(R.string.map_cancel_modal_button_text),
+            textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
+            clickBtn = { mapViewModel.cancelPingle() },
+            clickTextBtn = { },
+            onDialogClosed = { binding.cardMap.initLayout(mapViewModel.dummyPingle) }
+        ).show(childFragmentManager, MAP_CANCEL_MODAL)
+    }
+
+    private fun showMapModalDialogFragment() {
+        with(mapViewModel.dummyPingle) {
+            MapModalDialogFragment(
+                category = CategoryType.fromString(categoryName = category),
+                name = name,
+                ownerName = ownerName,
+                clickBtn = { mapViewModel.joinPingle() },
+                onDialogClosed = { binding.cardMap.initLayout(mapViewModel.dummyPingle) }
+            ).show(childFragmentManager, MAP_MODAL)
+        }
+    }
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
         private val LOCATION_PERMISSIONS = arrayOf(
@@ -175,5 +216,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
         private const val SINGLE_SELECTION = 0
+        private const val MAP_CANCEL_MODAL = "mapCancelModal"
+        private const val MAP_MODAL = "mapModal"
     }
 }

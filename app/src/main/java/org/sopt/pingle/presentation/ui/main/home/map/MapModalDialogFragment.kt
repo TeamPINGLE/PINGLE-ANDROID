@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.home.map
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import org.sopt.pingle.R
@@ -12,7 +13,8 @@ class MapModalDialogFragment(
     private val category: CategoryType,
     private val name: String,
     private val ownerName: String,
-    private val clickBtn: () -> Unit
+    private val clickBtn: () -> Unit,
+    private val onDialogClosed: () -> Unit = {}
 ) : BindingDialogFragment<DialogMapModalBinding>(R.layout.dialog_map_modal) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -20,6 +22,11 @@ class MapModalDialogFragment(
 
         initLayout()
         addListeners()
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDialogClosed.invoke()
     }
 
     private fun initLayout() {

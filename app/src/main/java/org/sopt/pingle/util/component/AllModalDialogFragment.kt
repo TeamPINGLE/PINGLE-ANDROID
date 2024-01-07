@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.common
+package org.sopt.pingle.util.component
 
 import android.os.Bundle
 import android.view.View

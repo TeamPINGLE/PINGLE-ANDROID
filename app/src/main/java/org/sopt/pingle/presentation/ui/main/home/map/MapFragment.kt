@@ -105,7 +105,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     private fun addListeners() {
         binding.fabMapHere.setOnClickListener {
             if (::locationSource.isInitialized) {
-                locationSource.lastLocation?.let { location -> moveMapCamera(location) }
+                locationSource.lastLocation?.let { location -> moveMapCamera(LatLng(location.latitude, location.latitude)) }
             }
         }
 
@@ -123,15 +123,16 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             showToast(it?.name ?: "null")
         }.launchIn(lifecycleScope)
 
-        mapViewModel.selectedMarkerPosition.flowWithLifecycle(lifecycle).onEach { selectedMarkerPosition ->
-            (selectedMarkerPosition == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
-                with(binding) {
-                    fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
-                    fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
-                    cardMap.visibility = if (this@run) View.INVISIBLE else View.VISIBLE
+        mapViewModel.selectedMarkerPosition.flowWithLifecycle(lifecycle)
+            .onEach { selectedMarkerPosition ->
+                (selectedMarkerPosition == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
+                    with(binding) {
+                        fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
+                        fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
+                        cardMap.visibility = if (this@run) View.INVISIBLE else View.VISIBLE
+                    }
                 }
-            }
-        }.launchIn(lifecycleScope)
+            }.launchIn(lifecycleScope)
     }
 
     private fun setLocationTrackingMode() {
@@ -160,7 +161,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 }
             }
 
-            moveMapCamera(location)
+            moveMapCamera(LatLng(location.latitude, location.longitude))
         }
     }
 
@@ -178,15 +179,10 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         locationPermissionRequest.launch(LOCATION_PERMISSIONS)
     }
 
-    private fun moveMapCamera(location: Location) {
+    private fun moveMapCamera(latLng: LatLng) {
         if (::naverMap.isInitialized) {
             naverMap.moveCamera(
-                CameraUpdate.scrollTo(
-                    LatLng(
-                        location.latitude,
-                        location.longitude
-                    )
-                ).animate(CameraAnimation.Linear)
+                CameraUpdate.scrollTo(latLng).animate(CameraAnimation.Linear)
             )
         }
     }
@@ -200,6 +196,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         handleMarkerClick(index)
                         // TODO 마커 상세 정보 받아오는 로직 추가
                         binding.cardMap.initLayout(dummyPingle)
+                        moveMapCamera(position)
                     }
                     return@setOnClickListener true
                 }

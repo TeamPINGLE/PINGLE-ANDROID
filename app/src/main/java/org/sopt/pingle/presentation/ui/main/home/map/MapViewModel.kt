@@ -57,9 +57,6 @@ class MapViewModel() : ViewModel() {
         chatLink = "https://github.com/TeamPINGLE/PINGLE-ANDROID"
     )
 
-    private val _cameraPoint = MutableStateFlow<LatLng>(LatLng(DEFAULT_LAT, DEFAULT_LNG))
-    val cameraPoint get() = _cameraPoint.asStateFlow()
-
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
 
@@ -134,5 +131,9 @@ class MapViewModel() : ViewModel() {
             isParticipating = true,
             chatLink = "https://github.com/TeamPINGLE/PINGLE-ANDROID"
         )
+    }
+
+    companion object {
+        const val DEFAULT_SELECTED_MARKER_POSITION = -1
     }
 }

@@ -18,14 +18,13 @@
             android:id="@+id/tv_plan_location_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing16"
             android:layout_marginTop="@dimen/spacing30"
             android:layout_marginEnd="38dp"
             android:maxLines="2"
             android:text="@{planLocationItem.location}"
             android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/imv_plan_location_check"
+            app:layout_constraintEnd_toStartOf="@id/iv_plan_location_check"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="장소 이름" />
@@ -34,7 +33,6 @@
             android:id="@+id/tv_plan_location_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing16"
             android:layout_marginTop="@dimen/spacing8"
             android:layout_marginEnd="38dp"
             android:layout_marginBottom="@dimen/spacing30"
@@ -42,19 +40,28 @@
             android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
             android:textColor="@color/g_06"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/imv_plan_location_check"
+            app:layout_constraintEnd_toStartOf="@id/iv_plan_location_check"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_plan_location_name"
             tools:text="상세 주소" />
 
         <ImageView
-            android:id="@+id/imv_plan_location_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing30"
+            android:id="@+id/iv_plan_location_check"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/spacing14"
             android:src="@{planLocationItem.isSelected ? @drawable/ic_all_check_selected_24 : @drawable/ic_all_check_default_24}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_plan_location_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/g_09"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

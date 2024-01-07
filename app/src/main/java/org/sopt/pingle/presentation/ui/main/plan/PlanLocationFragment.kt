@@ -27,9 +27,9 @@ class PlanLocationFragment :
         binding.rvPlanLocationList.apply {
             this.layoutManager = LinearLayoutManager(context)
             adapter = planLocationAdapter
-            addItemDecoration(
+            /*addItemDecoration(
                 PlanLocationDivider(1, R.color.g_09),
-            )
+            )*/
         }
         planLocationAdapter.submitList(planLocationViewModel.mockPlanLocationList)
     }

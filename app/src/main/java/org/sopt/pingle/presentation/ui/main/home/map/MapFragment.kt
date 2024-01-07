@@ -29,9 +29,11 @@ import org.sopt.pingle.databinding.FragmentMapBinding
 import org.sopt.pingle.presentation.mapper.toMarker
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.common.AllModalDialogFragment
+import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.OnPingleCardClickListener
 import org.sopt.pingle.util.component.PingleChip
+import org.sopt.pingle.util.fragment.navigateToFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.showToast
 import org.sopt.pingle.util.fragment.stringOf
@@ -112,6 +114,10 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 category = checkedIds.getOrNull(SINGLE_SELECTION)
                     ?.let { group.findViewById<PingleChip>(it).categoryType }
             )
+        }
+
+        binding.fabMapList.setOnClickListener {
+            navigateToFragment<MainListFragment>()
         }
     }
 

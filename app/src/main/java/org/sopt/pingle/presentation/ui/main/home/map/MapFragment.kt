@@ -152,11 +152,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-                ContextCompat.checkSelfPermission(
+            ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-            }
+        }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
@@ -173,11 +173,9 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             locationPermissionRequest.launch(LOCATION_PERMISSIONS)
         }
 
-
         LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener { location ->
             moveMapCamera(LatLng(location.latitude, location.longitude))
         }
-
     }
 
     private fun moveMapCamera(latLng: LatLng) {

@@ -1,7 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.home.map
 
 import androidx.lifecycle.ViewModel
-import com.naver.maps.geometry.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.sopt.pingle.domain.model.PinEntity
@@ -82,9 +81,11 @@ class MapViewModel() : ViewModel() {
 
     fun handleMarkerClick(position: Int) {
         setMarkerIsSelected(position)
-        if (_selectedMarkerPosition.value != DEFAULT_SELECTED_MARKER_POSITION) setMarkerIsSelected(
-            _selectedMarkerPosition.value
-        )
+        if (_selectedMarkerPosition.value != DEFAULT_SELECTED_MARKER_POSITION) {
+            setMarkerIsSelected(
+                _selectedMarkerPosition.value
+            )
+        }
         _selectedMarkerPosition.value = position
     }
 

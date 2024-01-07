@@ -83,6 +83,15 @@
     <string name="map_cancel_modal_button_text">취소하기</string>
     <string name="map_cancel_modal_text_button_text">돌아가기</string>
 
+    <!-- plan Location -->
+    <string name="plan_location_title">핑글러들과\n어디서 만날까요?</string>
+    <string name="plan_location_hint">핑글이 열릴 장소 이름을 검색해보세요</string>
+    <string name="plan_location_next">다음으로</string>
+    <string name="plan_location_ask">나중에 만드시겠어요?</string>
+    <string name="plan_location_quit"><u>나가기</u></string>
+    <string name="plan_location_empty">검색 결과가 없어요</string>
+    <string name="plan_location_empty_info">다른 장소로 검색해보세요</string>
+
     <!-- plan Category -->
     <string name="plan_category_title">개최할 핑글을\n선택해주세요</string>
 </resources>

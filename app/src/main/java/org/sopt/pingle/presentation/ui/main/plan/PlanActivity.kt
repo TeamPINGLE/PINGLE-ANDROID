@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityPlanBinding
+import org.sopt.pingle.presentation.ui.main.plan.planlocation.PlanLocationFragment
 import org.sopt.pingle.util.base.BindingActivity
 
 class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan) {
@@ -31,6 +32,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             add(PlanCategoryFragment())
             add(PlanTitleFragment())
             add(PlanDateTimeFragment())
+            add(PlanLocationFragment())
             add(PlanOpenChattingFragment())
         }
 

@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan
+package org.sopt.pingle.presentation.ui.main.plan.planlocation
 
 import android.os.Bundle
 import android.view.KeyEvent

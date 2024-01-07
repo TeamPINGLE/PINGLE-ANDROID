@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan
+package org.sopt.pingle.presentation.ui.main.plan.planlocation
 
 import androidx.recyclerview.widget.DiffUtil
 import org.sopt.pingle.domain.model.PlanLocationEntity

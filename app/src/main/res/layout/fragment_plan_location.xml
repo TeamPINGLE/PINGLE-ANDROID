@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.main.plan.PlanLocationFragment">
+        tools:context=".presentation.ui.main.plan.planlocation.PlanLocationFragment">
 
         <TextView
             android:id="@+id/tv_plan_location_title"

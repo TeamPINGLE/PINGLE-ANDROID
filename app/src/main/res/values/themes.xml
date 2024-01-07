@@ -14,6 +14,8 @@
         <item name="android:insetBottom">0dp</item>
         <item name="android:minHeight">0dp</item>
         <item name="android:minWidth">0dp</item>
+        <item name="android:backgroundTint">@color/selector_all_btn_background</item>
+        <item name="android:textColor">@color/selector_all_btn_text_color</item>
         <item name="android:stateListAnimator">@null</item>
     </style>
 
@@ -31,8 +33,12 @@
 
     <style name="Theme.Pingle.Button.S" parent="Theme.Pingle.Button">
         <item name="android:height">@dimen/button_s_height</item>
+        <item name="android:layout_width">@dimen/button_s_width</item>
         <item name="cornerRadius">@dimen/button_corner_radius</item>
         <item name="strokeWidth">1dp</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="strokeColor">@color/selector_pingle_btn_s</item>
+        <item name="android:textColor">@color/selector_pingle_btn_s</item>
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Body.Semi.14</item>
     </style>
 
@@ -71,4 +77,10 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <!--  number picker  -->
+    <style name="AppTheme.NumberPicker" parent="">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
 </resources>

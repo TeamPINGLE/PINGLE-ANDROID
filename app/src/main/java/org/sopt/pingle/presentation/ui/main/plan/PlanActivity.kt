@@ -18,6 +18,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.viewModel = planViewModel
         setPlanFragmentStateAdapter()
         addListeners()
         collectData()
@@ -78,7 +79,6 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                 fragmentList.size - 1 -> {
                     binding.btnPlan.text = getString(R.string.plan_pingle)
                 }
-
                 // TODO 다른 다음으로 스트링과 합치기
                 else -> {
                     binding.btnPlan.text = getString(R.string.plan_next)

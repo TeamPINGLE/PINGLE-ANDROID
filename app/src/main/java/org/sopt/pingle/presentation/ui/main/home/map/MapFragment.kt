@@ -2,7 +2,6 @@ package org.sopt.pingle.presentation.ui.main.home.map
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -39,6 +38,15 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     private val mapViewModel by viewModels<MapViewModel>()
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
+    private val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions[LOCATION_PERMISSIONS[0]] == true || permissions[LOCATION_PERMISSIONS[1]] == true -> {
+                setLocationTrackingMode()
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,7 +55,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         initLayout()
         addListeners()
         collectData()
-        setLocationTrackingMode()
     }
 
     override fun onMapReady(naverMap: NaverMap) {
@@ -66,6 +73,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
 
         makeMarkers()
+        setLocationTrackingMode()
     }
 
     private fun initMap() {
@@ -105,7 +113,14 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     private fun addListeners() {
         binding.fabMapHere.setOnClickListener {
             if (::locationSource.isInitialized) {
-                locationSource.lastLocation?.let { location -> moveMapCamera(LatLng(location.latitude, location.latitude)) }
+                locationSource.lastLocation?.let { location ->
+                    moveMapCamera(
+                        LatLng(
+                            location.latitude,
+                            location.longitude
+                        )
+                    )
+                }
             }
         }
 
@@ -144,39 +159,25 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+
+            with(naverMap) {
+                locationSource = this@MapFragment.locationSource
+                locationTrackingMode = LocationTrackingMode.NoFollow
+
+                locationOverlay.apply {
+                    isVisible = true
+                    icon = OverlayImage.fromResource(R.drawable.ic_map_location_overlay)
+                }
+            }
         } else {
-            requestLocationPermission()
+            locationPermissionRequest.launch(LOCATION_PERMISSIONS)
         }
+
 
         LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener { location ->
-            if (::naverMap.isInitialized) {
-                with(naverMap) {
-                    locationSource = this@MapFragment.locationSource
-                    locationTrackingMode = LocationTrackingMode.NoFollow
-
-                    locationOverlay.apply {
-                        isVisible = true
-                        icon = OverlayImage.fromResource(R.drawable.ic_map_location_overlay)
-                    }
-                }
-            }
-
             moveMapCamera(LatLng(location.latitude, location.longitude))
         }
-    }
 
-    private fun requestLocationPermission() {
-        val locationPermissionRequest = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-            when {
-                permissions[LOCATION_PERMISSIONS[0]] == true || permissions[LOCATION_PERMISSIONS[1]] == true -> {
-                    setLocationTrackingMode()
-                }
-            }
-        }
-
-        locationPermissionRequest.launch(LOCATION_PERMISSIONS)
     }
 
     private fun moveMapCamera(latLng: LatLng) {

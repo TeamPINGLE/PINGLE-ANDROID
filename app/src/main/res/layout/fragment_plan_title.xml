@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="org.sopt.pingle.presentation.ui.main.plan.PlanViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +14,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_plan_date_time_title"
+            android:id="@+id/tv_plan_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing8"
@@ -22,13 +25,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <org.sopt.pingle.util.component.PingleEditText
+            android:id="@+id/et_plan_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing25"
+            app:etText="@={viewModel.planTitle}"
             app:hint="@string/plan_et_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_plan_date_time_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_plan_title"
             app:title="@string/plan_et_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

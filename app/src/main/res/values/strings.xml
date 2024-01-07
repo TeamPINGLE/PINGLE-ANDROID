@@ -39,6 +39,9 @@
     <string name="plan_time_am">오전</string>
     <string name="plan_time_pm">오후</string>
 
+    <string name="plan_open_chatting_hint">링크를 입력해주세요</string>
+    <string name="plan_open_chatting_title">채팅방 링크</string>
+
     <!-- join group success -->
     <string name="join_group_success_btn">입장하기</string>
     <string name="join_gorup_success_title">단체 입장\n완료!</string>
@@ -59,8 +62,22 @@
 
     <!-- map modal -->
     <string name="map_modal_description">이 핑글에 참여할까요?</string>
-    <string name="plan_open_chatting_hint">링크를 입력해주세요</string>
-    <string name="plan_open_chatting_title">채팅방 링크</string>
+
+    <!-- map card -->
+    <string name="map_card_participant">참여자</string>
+    <string name="map_card_participant_detail">%d/%d</string>
+    <string name="map_card_calender">일시</string>
+    <string name="map_card_map">장소</string>
+    <string name="map_card_chat">대화하기</string>
+    <string name="map_card_participate">참여하기</string>
+    <string name="map_card_cancel">취소하기</string>
+    <string name="map_card_completed">모집완료</string>
+
+    <!-- map cancel dialog -->
+    <string name="map_cancel_modal_title">참여를 취소하시겠어요?</string>
+    <string name="map_cancel_modal_detail">취소한 모임은 언제든 다시 신청할 수 있어요</string>
+    <string name="map_cancel_modal_button_text">취소하기</string>
+    <string name="map_cancel_modal_text_button_text">돌아가기</string>
 
     <!-- plan Category -->
     <string name="plan_category_title">개최할 핑글을\n선택해주세요</string>

@@ -30,7 +30,7 @@
         <item name="android:fontFamily">@font/suit_semibold</item>
     </style>
 
-    <!-- Sub -->
+    <!-- Subtitle -->
     <style name="TextAppearance.Pingle.Sub.Bold.18" parent="TextAppearance.Pingle">
         <item name="android:textSize">18dp</item>
         <item name="android:lineHeight">25dp</item>
@@ -66,6 +66,12 @@
         <item name="android:textSize">16dp</item>
         <item name="android:lineHeight">22dp</item>
         <item name="android:fontFamily">@font/suit_medium</item>
+    </style>
+
+    <style name="TextAppearance.Pingle.Body.Bold.14" parent="TextAppearance.Pingle">
+        <item name="android:textSize">14dp</item>
+        <item name="android:lineHeight">20dp</item>
+        <item name="android:fontFamily">@font/suit_bold</item>
     </style>
 
     <style name="TextAppearance.Pingle.Body.Semi.14" parent="TextAppearance.Pingle">

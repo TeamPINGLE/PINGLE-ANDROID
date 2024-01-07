@@ -50,10 +50,15 @@
     <string name="plan_start_time_title">시작 시각</string>
     <string name="plan_time_hint">00:00</string>
     <string name="plan_end_time_title">종료 시각</string>
+    <string name="plan_et_title">한줄 소개</string>
+    <string name="plan_title">개최할 핑글을\n소개해주세요!</string>
+    <string name="plan_et_hint">ex. 강남역에서 각잡고 공부할 사람?</string>
 
     <!-- map -->
     <string name="map_participate">참여하기</string>
 
     <!-- map modal -->
     <string name="map_modal_description">이 핑글에 참여할까요?</string>
+    <string name="plan_open_chatting_hint">링크를 입력해주세요</string>
+    <string name="plan_open_chatting_title">채팅방 링크</string>
 </resources>

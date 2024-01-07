@@ -97,7 +97,7 @@
 ]
     <!-- plan Recruitment -->
     <string name="plan_recruitment_title">몇 명의 핑글러들과\n만날까요?</string>
-    <string name="plan_recruitment_description">개최자를 포함하여,\n최소 1명부터 참여 인원을 선택해주세요</string>
+    <string name="plan_recruitment_description">본인을 포함하여,\n최소 1명부터 참여 인원을 선택해주세요</string>
     <string name="plan_recruitment_minus">-</string>
     <string name="plan_recruitment_plus">+</string>
     <string name="plan_recruitment_default">1</string>

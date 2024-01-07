@@ -10,5 +10,5 @@ data class PlanEntity(
     val address: String,
     val location: String,
     val maxParticipants: Int,
-    val chatLink: String,
+    val chatLink: String
 )

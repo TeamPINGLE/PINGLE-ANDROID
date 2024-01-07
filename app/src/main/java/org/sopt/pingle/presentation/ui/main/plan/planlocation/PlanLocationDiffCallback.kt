@@ -13,7 +13,7 @@ class PlanLocationDiffCallback : DiffUtil.ItemCallback<PlanLocationEntity>() {
     // Structural equality를 갖는지 판정
     override fun areContentsTheSame(
         oldItem: PlanLocationEntity,
-        newItem: PlanLocationEntity,
+        newItem: PlanLocationEntity
     ): Boolean {
         return oldItem == newItem
     }

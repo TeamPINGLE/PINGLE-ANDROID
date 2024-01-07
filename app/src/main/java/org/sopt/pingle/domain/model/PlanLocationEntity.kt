@@ -7,5 +7,5 @@ data class PlanLocationEntity(
     val address: String,
     val x: Double,
     val y: Double,
-    var isSelected: ObservableBoolean = ObservableBoolean(false),
+    var isSelected: ObservableBoolean = ObservableBoolean(false)
 )

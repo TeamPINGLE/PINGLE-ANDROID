@@ -8,16 +8,16 @@ import org.sopt.pingle.databinding.ItemPlanLocationBinding
 import org.sopt.pingle.domain.model.PlanLocationEntity
 
 class PlanLocationAdapter(
-    private val setOldItem: (Int) -> Unit,
+    private val setOldItem: (Int) -> Unit
 ) :
     ListAdapter<PlanLocationEntity, PlanLocationViewHolder>(
-        PlanLocationDiffCallback(),
+        PlanLocationDiffCallback()
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanLocationViewHolder =
         PlanLocationViewHolder(
             ItemPlanLocationBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            setOldItem,
+            setOldItem
         )
 
     override fun onBindViewHolder(holder: PlanLocationViewHolder, position: Int) {
@@ -27,7 +27,7 @@ class PlanLocationAdapter(
 
 class PlanLocationViewHolder(
     private val binding: ItemPlanLocationBinding,
-    private val setOldItem: (Int) -> Unit,
+    private val setOldItem: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: PlanLocationEntity) {
         binding.planLocationItem = item

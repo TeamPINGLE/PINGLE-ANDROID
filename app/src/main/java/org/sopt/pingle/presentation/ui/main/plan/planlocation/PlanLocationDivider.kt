@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class PlanLocationDivider(
     private val dividerHeight: Int,
-    private val dividerColor: Int = Color.TRANSPARENT,
+    private val dividerColor: Int = Color.TRANSPARENT
 ) : RecyclerView.ItemDecoration() {
     private val paint = Paint()
 
@@ -32,7 +32,7 @@ class PlanLocationDivider(
                 dividerTop.toFloat(),
                 child.right.toFloat(),
                 dividerBottom.toFloat(),
-                paint,
+                paint
             )
         }
     }
@@ -41,7 +41,7 @@ class PlanLocationDivider(
         outRect: Rect,
         view: View,
         parent: RecyclerView,
-        state: RecyclerView.State,
+        state: RecyclerView.State
     ) {
         outRect.bottom = dividerHeight
     }

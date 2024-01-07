@@ -14,7 +14,7 @@ import org.sopt.pingle.util.view.stringOf
 class PingleChip @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.style.Theme_Pingle_Chip,
+    defStyleAttr: Int = R.style.Theme_Pingle_Chip_All,
 ) : Chip(context, attrs, defStyleAttr) {
     private lateinit var _categoryType: CategoryType
     val categoryType get() = _categoryType
@@ -22,17 +22,17 @@ class PingleChip @JvmOverloads constructor(
     private fun setColorStateList(
         context: Context,
         activatedColorRes: Int,
-        inactivatedColorRes: Int,
+        inactivatedColorRes: Int
     ) =
         ColorStateList(
             arrayOf(
                 intArrayOf(android.R.attr.state_checked),
-                intArrayOf(-android.R.attr.state_checked),
+                intArrayOf(-android.R.attr.state_checked)
             ),
             intArrayOf(
                 colorOf(activatedColorRes),
                 colorOf(inactivatedColorRes)
-            )
+            ),
         )
 
     fun setChipCategoryType(categoryType: CategoryType) {
@@ -51,13 +51,13 @@ class PingleChip @JvmOverloads constructor(
         chipBackgroundColor = setColorStateList(
             context = context,
             activatedColorRes = categoryType.backgroundChipColor,
-            inactivatedColorRes = inactivatedChipColor,
+            inactivatedColorRes = inactivatedChipColor
         )
         setTextColor(
             setColorStateList(
                 context = context,
                 activatedColorRes = categoryType.textColor,
-                inactivatedColorRes = inactivatedTextColor,
+                inactivatedColorRes = inactivatedTextColor
             ),
         )
     }

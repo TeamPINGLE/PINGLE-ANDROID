@@ -45,7 +45,6 @@ class PlanViewModel : ViewModel() {
     private val _address = MutableStateFlow<String?>(null)
     val address get() = _address.asStateFlow()
 
-
     // TODO 뷰 연결 시 버튼 활성/비활성화 로직 isPlanBtnEnabled에 추가
     private val _selectedCategory = MutableStateFlow<CategoryType?>(null)
     val selectedCategory get() = _selectedCategory.asStateFlow()

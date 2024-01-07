@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.PlanType
 
 class PlanViewModel : ViewModel() {
@@ -31,6 +32,15 @@ class PlanViewModel : ViewModel() {
                 currentPage == 1 ||
                 (currentPage == 2 && planOpenChattingLink.isNotBlank())
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
+
+
+    // TODO 뷰 연결 시 버튼 활성/비활성화 로직 isPlanBtnEnabled에 추가
+    private val _selectedCategory = MutableStateFlow<CategoryType?>(null)
+    val selectedCategory get() = _selectedCategory.asStateFlow()
+
+    fun setSelectedCategory(categoryType: CategoryType) {
+        _selectedCategory.value = categoryType
+    }
 
     fun setCurrentPage(position: Int) {
         _currentPage.value = position

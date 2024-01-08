@@ -22,7 +22,7 @@ class PlanViewModel : ViewModel() {
     val planOpenChattingLink = MutableStateFlow("")
 
     // TODO Type에 맞게 수정(현재는 내가 맡은 부분 테스트를 위해 postion 값을 조정 및 임의 지정 해놓음
-    val isPlanBtnEnabled: StateFlow<Boolean> =
+    /*val isPlanBtnEnabled: StateFlow<Boolean> =
         combine(
             currentPage,
             planTitle,
@@ -31,7 +31,9 @@ class PlanViewModel : ViewModel() {
             (currentPage == PlanType.TITLE.position - 1 && planTitle.isNotBlank()) ||
                 currentPage == 1 ||
                 (currentPage == 2 && planOpenChattingLink.isNotBlank())
-        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)*/
+
+    val isPlanBtnEnabled = MutableStateFlow(true)
 
     private val _location = MutableStateFlow<String?>(null)
     val location get() = _location.asStateFlow()

@@ -1,6 +1,7 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -28,18 +29,29 @@ class PlanRecruitmentFragment :
     }
 
     private fun addListeners() {
-        binding.root.setOnClickListener { requireActivity().hideKeyboard(it) }
+        with(binding) {
+            root.setOnClickListener {
+                requireActivity().hideKeyboard(it)
+                viewModel.setSelectedRecruitment(etPlanRecruitmentInputNumber.text.toString())
+            }
 
-        binding.btnPlanRecruitmentPlus.setOnClickListener {
-            var i = viewModel.selectedRecruitment.value?.toInt()
-            i = i!! + 1
-            viewModel.incRecruitmentNum()
-        }
+            etPlanRecruitmentInputNumber.setOnKeyListener(
+                View.OnKeyListener { _, keyCode, event ->
+                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                        viewModel.setSelectedRecruitment(etPlanRecruitmentInputNumber.text.toString())
+                        return@OnKeyListener true
+                    }
+                    false
+                },
+            )
 
-        binding.btnPlanRecruitmentMinus.setOnClickListener {
-            var i = viewModel.selectedRecruitment.value?.toInt()
-            i = i!! - 1
-            viewModel.decRecruitmentNum()
+            btnPlanRecruitmentPlus.setOnClickListener {
+                viewModel.incRecruitmentNum()
+            }
+
+            btnPlanRecruitmentMinus.setOnClickListener {
+                viewModel.decRecruitmentNum()
+            }
         }
     }
 
@@ -51,7 +63,7 @@ class PlanRecruitmentFragment :
                     CustomSnackbar.makeSnackbar(
                         binding.layoutPlanRecruitment,
                         getString(R.string.plan_recruitment_snackbar),
-                        126
+                        126,
                     )
                 }
 

@@ -26,7 +26,7 @@ class PlanViewModel : ViewModel() {
         combine(
             currentPage,
             planTitle,
-            planOpenChattingLink,
+            planOpenChattingLink
         ) { currentPage, planTitle, planOpenChattingLink ->
             (currentPage == PlanType.TITLE.position - 1 && planTitle.isNotBlank()) ||
                 currentPage == 1 ||

@@ -42,7 +42,7 @@ class PlanRecruitmentFragment :
                         return@OnKeyListener true
                     }
                     false
-                },
+                }
             )
 
             btnPlanRecruitmentPlus.setOnClickListener {
@@ -63,7 +63,7 @@ class PlanRecruitmentFragment :
                     CustomSnackbar.makeSnackbar(
                         binding.layoutPlanRecruitment,
                         getString(R.string.plan_recruitment_snackbar),
-                        126,
+                        126
                     )
                 }
 

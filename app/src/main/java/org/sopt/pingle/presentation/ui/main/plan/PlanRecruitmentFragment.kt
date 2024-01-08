@@ -16,11 +16,11 @@ import org.sopt.pingle.util.context.hideKeyboard
 class PlanRecruitmentFragment :
     BindingFragment<FragmentPlanRecruitmentBinding>(R.layout.fragment_plan_recruitment) {
 
-    private val planViewModel: PlanViewModel by activityViewModels()
+    private val viewModel: PlanViewModel by activityViewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.planViewModel = planViewModel
+        binding.planViewModel = viewModel
         binding.lifecycleOwner = this
 
         addListeners()
@@ -31,25 +31,23 @@ class PlanRecruitmentFragment :
         binding.root.setOnClickListener { requireActivity().hideKeyboard(it) }
 
         binding.btnPlanRecruitmentPlus.setOnClickListener {
-            var i = planViewModel.selectedRecruitment.value?.toInt()
+            var i = viewModel.selectedRecruitment.value?.toInt()
             i = i!! + 1
-            planViewModel.selectedRecruitment.value = i.toString()
+            viewModel.incRecruitmentNum()
         }
 
         binding.btnPlanRecruitmentMinus.setOnClickListener {
-            var i = planViewModel.selectedRecruitment.value?.toInt()
+            var i = viewModel.selectedRecruitment.value?.toInt()
             i = i!! - 1
-            planViewModel.selectedRecruitment.value = i.toString()
+            viewModel.decRecruitmentNum()
         }
     }
 
     private fun collectData() {
-        planViewModel.selectedRecruitment.flowWithLifecycle(lifecycle).onEach {
+        viewModel.selectedRecruitment.flowWithLifecycle(lifecycle).onEach {
             when (it.toString()) {
                 "99" -> {
-                    binding.btnPlanRecruitmentPlus.apply {
-                        isEnabled = false
-                    }
+                    binding.btnPlanRecruitmentPlus.isEnabled = false
                     CustomSnackbar.makeSnackbar(
                         binding.layoutPlanRecruitment,
                         getString(R.string.plan_recruitment_snackbar),

@@ -26,7 +26,7 @@ class PlanViewModel : ViewModel() {
         combine(
             currentPage,
             planTitle,
-            planOpenChattingLink
+            planOpenChattingLink,
         ) { currentPage, planTitle, planOpenChattingLink ->
             (currentPage == PlanType.TITLE.position - 1 && planTitle.isNotBlank()) ||
                 currentPage == 1 ||
@@ -50,7 +50,24 @@ class PlanViewModel : ViewModel() {
     private val _selectedCategory = MutableStateFlow<CategoryType?>(null)
     val selectedCategory get() = _selectedCategory.asStateFlow()
 
-    val selectedRecruitment = MutableStateFlow<String?>("1")
+    private val _selectedRecruitment = MutableStateFlow<String?>("1")
+    val selectedRecruitment get() = _selectedRecruitment.asStateFlow()
+
+    fun incRecruitmentNum() {
+        var i = selectedRecruitment.value?.toInt()
+        i = i!! + 1
+        setSelectedRecruitment(i.toString())
+    }
+
+    fun decRecruitmentNum() {
+        var i = selectedRecruitment.value?.toInt()
+        i = i!! - 1
+        setSelectedRecruitment(i.toString())
+    }
+
+    fun setSelectedRecruitment(recruitment: String) {
+        _selectedRecruitment.value = recruitment
+    }
 
     fun setSelectedCategory(categoryType: CategoryType) {
         _selectedCategory.value = categoryType

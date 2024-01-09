@@ -2,7 +2,6 @@ package org.sopt.pingle.presentation.ui.joingroup
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import androidx.activity.viewModels
 import androidx.core.view.isVisible

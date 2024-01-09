@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.joingroup
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,6 +42,9 @@ class JoinViewModel : ViewModel() {
             }
         }
         oldPosition = newPosition
+        _joinGroupSearchBtn.value = _joinGroupSearchData.value[newPosition].isSelected.get()
+        Log.d("isSelected", _joinGroupSearchData.value[newPosition].isSelected.get().toString())
+        Log.d("BTN", _joinGroupSearchBtn.value.toString())
     }
 
     fun checkJoinGroupSearchIsEmpty() = _joinGroupSearchData.value.isEmpty()

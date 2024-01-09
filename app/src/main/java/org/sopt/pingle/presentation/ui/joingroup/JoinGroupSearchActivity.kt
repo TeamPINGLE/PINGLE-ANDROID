@@ -11,11 +11,12 @@ import org.sopt.pingle.util.context.hideKeyboard
 
 class JoinGroupSearchActivity :
     BindingActivity<ActivityJoinGroupSearchBinding>(R.layout.activity_join_group_search) {
-    private val joinGroupViewModel by viewModels<JoinViewModel>()
+    private val viewModel by viewModels<JoinViewModel>()
     private lateinit var joinGroupSearchAdapter: JoinGroupSearchAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.joinViewModel = viewModel
 
         initLayout()
         addListeners()
@@ -25,7 +26,7 @@ class JoinGroupSearchActivity :
         joinGroupSearchAdapter = JoinGroupSearchAdapter(::deleteOldPosition)
         binding.rvJoinGroupSearch.adapter = joinGroupSearchAdapter
 
-        joinGroupSearchAdapter.submitList(joinGroupViewModel.joinGroupSearchData.value)
+        joinGroupSearchAdapter.submitList(viewModel.joinGroupSearchData.value)
     }
 
     private fun addListeners() {
@@ -48,7 +49,7 @@ class JoinGroupSearchActivity :
 
     private fun checkListExist() {
         with(binding) {
-            if (joinGroupViewModel.checkJoinGroupSearchIsEmpty()) {
+            if (viewModel.checkJoinGroupSearchIsEmpty()) {
                 rvJoinGroupSearch.visibility = View.INVISIBLE
                 tvJoinGroupSearchEmpty.visibility = View.VISIBLE
             } else {
@@ -59,7 +60,7 @@ class JoinGroupSearchActivity :
     }
 
     private fun deleteOldPosition(position: Int) {
-        joinGroupViewModel.updateJoinGroupSearchList(position)
+        viewModel.updateJoinGroupSearchList(position)
     }
 
     override fun onDestroy() {

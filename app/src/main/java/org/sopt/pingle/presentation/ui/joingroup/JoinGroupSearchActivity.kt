@@ -25,7 +25,7 @@ class JoinGroupSearchActivity :
         joinGroupSearchAdapter = JoinGroupSearchAdapter(::deleteOldPosition)
         binding.rvJoinGroupSearch.adapter = joinGroupSearchAdapter
 
-        joinGroupSearchAdapter.submitList(joinGroupViewModel.mockJoinGroupSearchData)
+        joinGroupSearchAdapter.submitList(joinGroupViewModel.joinGroupSearchData.value)
     }
 
     private fun addListeners() {
@@ -53,7 +53,7 @@ class JoinGroupSearchActivity :
                 tvJoinGroupSearchEmpty.visibility = View.VISIBLE
             } else {
                 rvJoinGroupSearch.visibility = View.VISIBLE
-                tvJoinGroupSearchCreate.visibility = View.INVISIBLE
+                tvJoinGroupSearchEmpty.visibility = View.INVISIBLE
             }
         }
     }

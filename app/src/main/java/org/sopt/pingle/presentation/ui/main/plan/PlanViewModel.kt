@@ -65,7 +65,7 @@ class PlanViewModel : ViewModel() {
                 (currentPage == PlanType.TITLE.position && planTitle.isNotBlank()) ||
                 (currentPage == PlanType.DATETIME.position && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
                 (currentPage == PlanType.LOCATION.position && selectedLocation != null) ||
-                (currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && selectedRecruitment != "1") ||
+                (currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && selectedRecruitment != INVALID_RECRUIT) ||
                 (currentPage == PlanType.OPENCHATTING.position && planOpenChattingLink.isNotBlank()) ||
                 (currentPage == PlanType.SUMMARY.position)
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
@@ -119,6 +119,7 @@ class PlanViewModel : ViewModel() {
     companion object {
         const val FIRST_PAGE_POSITION = 0
         const val OLD_POSITION = -1
+        const val INVALID_RECRUIT = "1"
     }
 
     private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())

@@ -1,16 +1,10 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import org.sopt.pingle.domain.model.PlanLocationEntity
 import org.sopt.pingle.presentation.type.CategoryType
-import org.sopt.pingle.presentation.type.PlanType
 import org.sopt.pingle.util.combineAll
 
 class PlanViewModel : ViewModel() {

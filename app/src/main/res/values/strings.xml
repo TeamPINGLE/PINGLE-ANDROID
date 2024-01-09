@@ -59,7 +59,7 @@
     <string name="plan_open_chatting_title">오픈채팅방 링크를\n추가해주세요!</string>
     <string name="plan_open_chatting_hint">링크를 입력해주세요</string>
     <string name="plan_open_chatting_text_title">채팅방 링크</string>
-    <string name="plan_announcement_detail_top">PIN 과 MINGLE의 합성어로,</string>
+    <string name="plan_announcement_detail_top">%s과 %s의 합성어로,</string>
 
     <!--  plan modal -->
     <string name="plan_exit_modal_dialog_title">잠깐! 나가실건가요?</string>

@@ -45,6 +45,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             add(PlanLocationFragment())
             add(PlanRecruitmentFragment())
             add(PlanOpenChattingFragment())
+            add(PlanSummaryConfirmationFragment())
         }
 
         val adapter = PlanFragmentStateAdapter(fragmentList, this)

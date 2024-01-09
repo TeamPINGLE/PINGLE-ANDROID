@@ -6,6 +6,12 @@
     </style>
 
     <!-- Title -->
+    <style name="TextAppearance.Pingle.Title.Extra.40" parent="TextAppearance.Pingle">
+        <item name="android:textSize">40dp</item>
+        <item name="android:lineHeight">56dp</item>
+        <item name="android:fontFamily">@font/suit_extrabold</item>
+    </style>
+
     <style name="TextAppearance.Pingle.Title.Semi.32" parent="TextAppearance.Pingle">
         <item name="android:textSize">32dp</item>
         <item name="android:lineHeight">45dp</item>
@@ -34,6 +40,12 @@
     <style name="TextAppearance.Pingle.Sub.Bold.18" parent="TextAppearance.Pingle">
         <item name="android:textSize">18dp</item>
         <item name="android:lineHeight">25dp</item>
+        <item name="android:fontFamily">@font/suit_bold</item>
+    </style>
+
+    <style name="TextAppearance.Pingle.Sub.Bold.16" parent="TextAppearance.Pingle">
+        <item name="android:textSize">16dp</item>
+        <item name="android:lineHeight">22dp</item>
         <item name="android:fontFamily">@font/suit_bold</item>
     </style>
 

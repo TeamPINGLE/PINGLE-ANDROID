@@ -21,14 +21,11 @@ class PlanAnnouncementActivity :
     }
 
     private fun initLayout() {
-        val pin = "PIN"
-        val mingle = "MINGLE"
-
         binding.tvPlanAnnouncementDetailTop.text = SpannableString(
             getString(
                 R.string.plan_announcement_detail_top,
-                pin,
-                mingle
+                PIN,
+                MINGLE
             )
         ).apply {
             setSpan(
@@ -37,7 +34,7 @@ class PlanAnnouncementActivity :
                     R.style.TextAppearance_Pingle_Sub_Semi_16
                 ),
                 PIN_START,
-                pin.length,
+                PIN.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             setSpan(
@@ -48,7 +45,7 @@ class PlanAnnouncementActivity :
                     )
                 ),
                 PIN_START,
-                pin.length,
+                PIN.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             setSpan(
@@ -57,7 +54,7 @@ class PlanAnnouncementActivity :
                     R.style.TextAppearance_Pingle_Sub_Semi_16
                 ),
                 MINGLE_START,
-                MINGLE_START + mingle.length,
+                MINGLE_START + MINGLE.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             setSpan(
@@ -68,7 +65,7 @@ class PlanAnnouncementActivity :
                     )
                 ),
                 MINGLE_START,
-                MINGLE_START + mingle.length,
+                MINGLE_START + MINGLE.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
@@ -83,6 +80,8 @@ class PlanAnnouncementActivity :
     }
 
     companion object {
+        const val PIN = "PIN"
+        const val MINGLE = "MINGLE"
         const val PIN_START = 0
         const val MINGLE_START = 5
     }

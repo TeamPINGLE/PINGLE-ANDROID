@@ -132,6 +132,7 @@ class PlanViewModel : ViewModel() {
             else -> {
                 _planLocationList.value[oldPosition].isSelected.set(false)
                 _planLocationList.value[position].isSelected.set(true)
+                setPlanLocation(position)
             }
         }
         oldPosition = position
@@ -143,8 +144,13 @@ class PlanViewModel : ViewModel() {
     }
 
     private fun setIsSelected(position: Int) {
-        _planLocationList.value[position].isSelected.set(!_planLocationList.value[position].isSelected.get())
-        // TODO 서버에서 받아올 리스트에 저장.. planLocationList.value[position].isSelected.set(value)
+        val value = !_planLocationList.value[position].isSelected.get()
+        _planLocationList.value[position].isSelected.set(value)
+        if (value) {
+            setPlanLocation(position)
+        } else {
+            _selectedLocation.value = null
+        }
     }
 
     init {

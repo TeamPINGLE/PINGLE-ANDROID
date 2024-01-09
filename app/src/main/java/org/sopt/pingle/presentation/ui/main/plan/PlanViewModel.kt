@@ -125,7 +125,7 @@ class PlanViewModel : ViewModel() {
             setIsSelected(true, position)
             setPlanLocation(position)
         } else if (oldPosition == position) {
-            setIsSelected(false, oldPosition)
+            setIsSelected(!getIsSelected(oldPosition), oldPosition)
         } else {
             setIsSelected(true, position)
             setPlanLocation(position)
@@ -142,6 +142,10 @@ class PlanViewModel : ViewModel() {
     private fun setIsSelected(value: Boolean, position: Int) {
         mockPlanLocationList[position].isSelected.set(value)
         // TODO 서버에서 받아올 리스트에 저장.. planLocationList.value[position].isSelected.set(value)
+    }
+
+    private fun getIsSelected(position: Int): Boolean {
+        return mockPlanLocationList[position].isSelected.get()
     }
 
     val mockPlanLocationList = listOf<PlanLocationEntity>(

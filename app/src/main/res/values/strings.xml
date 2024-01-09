@@ -54,7 +54,7 @@
     <string name="plan_future_date_snackber">미래 날짜를 선택해주세요</string>
     <string name="plan_open_chatting_title">오픈채팅방 링크를\n추가해주세요!</string>
     <string name="plan_open_chatting_hint">링크를 입력해주세요</string>
-    <string name="plan_open_chatting_text_title">채팅방 링크!</string>
+    <string name="plan_open_chatting_text_title">채팅방 링크</string>
 
     <!--  plan modal -->
     <string name="plan_exit_modal_dialog_title">잠깐! 나가실건가요?</string>

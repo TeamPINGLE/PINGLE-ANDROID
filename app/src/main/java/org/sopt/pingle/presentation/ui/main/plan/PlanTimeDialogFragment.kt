@@ -9,7 +9,7 @@ import org.sopt.pingle.presentation.type.MeridiemType
 import org.sopt.pingle.util.base.BindingBottomSheetDialogFragment
 
 class PlanTimeDialogFragment(
-    private val onDialogClosed: (String) -> Unit
+    private val onDialogClosed: (meridiem: String, hour: Int, minute: Int) -> Unit
 ) :
     BindingBottomSheetDialogFragment<DialogTimePickerBinding>(R.layout.dialog_time_picker) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,17 +57,13 @@ class PlanTimeDialogFragment(
 
     private fun addListeners() {
         binding.tvTimePickerDone.setOnClickListener {
-            onDialogClosed("aaa")
-            // 시간 설정 후 editText에 띄우기
-//            with(binding) {
-//                val timeFormat =
-//                    String.format("%02d:%02d:00", npTimePickerHour.value, npTimePickerMinute.value)
-//                onDialogClosed(timeFormat)
-//                Log.d(
-//                    "aaa",
-//                    String.format("%02d:%02d:00", npTimePickerHour.value, npTimePickerMinute.value)
-//                )
-//            }
+            with(binding) {
+                onDialogClosed(
+                    if (npTimePickerMeridiem.value == 0) MeridiemType.AM.name else MeridiemType.PM.name,
+                    npTimePickerHour.value,
+                    npTimePickerMinute.value
+                )
+            }
             dismiss()
         }
     }

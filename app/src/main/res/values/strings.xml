@@ -42,15 +42,6 @@
     <string name="plan_pingle">핑글 개최하기</string>
     <string name="plan_time_am">오전</string>
     <string name="plan_time_pm">오후</string>
-
-    <string name="plan_open_chatting_hint">링크를 입력해주세요</string>
-    <string name="plan_open_chatting_title">채팅방 링크</string>
-
-    <!-- join group success -->
-    <string name="join_group_success_btn">입장하기</string>
-    <string name="join_gorup_success_title">단체 입장\n완료!</string>
-    <string name="join_group_success_description_group_name">%s에서</string>
-    <string name="join_group_success_description">핑글 여정을 함께해보세요!</string>
     <string name="plan_date_time_title">핑글러들과\n언제 만날까요?</string>
     <string name="plan_date_title">핑글 날짜</string>
     <string name="plan_date_hint">만날 날짜를 선택해주세요</string>
@@ -60,6 +51,15 @@
     <string name="plan_et_title">한줄 소개</string>
     <string name="plan_title">개최할 핑글을\n소개해주세요!</string>
     <string name="plan_et_hint">ex. 강남역에서 각잡고 공부할 사람?</string>
+    <string name="plan_future_date_snackber">미래 날짜를 선택해주세요</string>
+    <string name="plan_open_chatting_hint">링크를 입력해주세요</string>
+    <string name="plan_open_chatting_title">채팅방 링크</string>
+
+    <!-- join group success -->
+    <string name="join_group_success_btn">입장하기</string>
+    <string name="join_gorup_success_title">단체 입장\n완료!</string>
+    <string name="join_group_success_description_group_name">%s에서</string>
+    <string name="join_group_success_description">핑글 여정을 함께해보세요!</string>
 
     <!-- map -->
     <string name="map_participate">참여하기</string>

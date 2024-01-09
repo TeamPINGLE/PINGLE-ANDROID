@@ -27,7 +27,7 @@ class PlanSummaryConfirmationFragment :
                 tvPlanSummaryConfirmationName.text = viewModel.planTitle.value
                 tvPlanSummaryConfirmationOwnerName.text = "개최자"
                 tvPlanSummaryConfirmationCalenderDetail.text =
-                    makeDateClean(viewModel.planDate.value) + "\n" + makeTimeClean(viewModel.startTime.value) + " ~ " + makeTimeClean(
+                    convertDateFormat(viewModel.planDate.value) + "\n" + convertTimeFormat(viewModel.startTime.value) + " ~ " + convertTimeFormat(
                     viewModel.endTime.value
                 )
                 tvPlanSummaryConfirmationMapDetail.text = viewModel.selectedLocation.value?.location
@@ -39,8 +39,8 @@ class PlanSummaryConfirmationFragment :
         }
     }
 
-    private fun makeTimeClean(time: String): String = time.substring(0, 5)
-    private fun makeDateClean(date: String): String {
+    private fun convertTimeFormat(time: String): String = time.substring(0, 5)
+    private fun convertDateFormat(date: String): String {
         val year = date.substring(0, 4)
         val month = date.substring(5, 7)
         val day = date.substring(8, 10)

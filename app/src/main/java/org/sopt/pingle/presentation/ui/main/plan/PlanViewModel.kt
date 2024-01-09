@@ -55,8 +55,6 @@ class PlanViewModel : ViewModel() {
                 (currentPage == 2 && planOpenChattingLink.isNotBlank())
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
 
-    // val isPlanBtnEnabled = MutableStateFlow(true)
-
     private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
     val selectedLocation get() = _selectedLocation.asStateFlow()
 

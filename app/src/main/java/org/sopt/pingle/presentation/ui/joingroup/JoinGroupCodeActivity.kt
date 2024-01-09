@@ -23,6 +23,8 @@ class JoinGroupCodeActivity :
 
     private fun addListeners() {
         binding.btnJoinGroupCodeNext.setOnClickListener {
+            // TODO 초대코드 일치하지 않을 시
+            // CustomSnackbar.makeSnackbar(binding.root, getString(R.string.join_group_code_snackbar_message), 97)
             navigateToJoinGroupSuccess()
         }
     }

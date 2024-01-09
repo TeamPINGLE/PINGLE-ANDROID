@@ -18,14 +18,14 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     // 웹 로그인 할 경우 사용되는 콜백
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
-            Timber.e(error, "카카오계정으로 로그인 실패")
+            Timber.tag(AUTH).e(error, "카카오계정으로 로그인 실패")
 
             // 뒤로가기 경우 예외 처리
             if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                Timber.e(error, "유저가 로그인 취소")
+                Timber.tag(AUTH).e(error, "유저가 로그인 취소")
             }
         } else if (token != null) {
-            Timber.tag("Auth").i("카카오계정으로 로그인 성공 " + token.accessToken)
+            Timber.tag(AUTH).i("카카오계정으로 로그인 성공 " + token.accessToken)
 
             navigateToOnBoarding()
         }
@@ -57,7 +57,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     private fun loginWithKakaoTalk() {
         UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
             if (error != null) {
-                Timber.e(error, "카카오톡으로 로그인 실패")
+                Timber.tag(AUTH).e(error, "카카오톡으로 로그인 실패")
 
                 // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
                 // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
@@ -67,7 +67,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
                 // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                 loginWithKakaoAccount()
             } else if (token != null) {
-                Timber.tag("Auth").i("카카오톡으로 로그인 성공 " + token.accessToken)
+                Timber.tag("AUTH").i("카카오톡으로 로그인 성공 " + token.accessToken)
                 navigateToOnBoarding()
             }
         }
@@ -84,7 +84,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
             if (user != null) {
                 var userKakaoNickname = user.kakaoAccount?.profile?.nickname
             } else {
-                Timber.d("카카오 유저 정보 받기 실패")
+                Timber.tag(AUTH).d("카카오 유저 정보 받기 실패")
             }
         }
     }
@@ -93,9 +93,9 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     private fun logoutKakao() {
         UserApiClient.instance.logout { error ->
             if (error != null) {
-                Timber.e(error, "로그아웃 실패. SDK에서 토큰 삭제됨")
+                Timber.tag(AUTH).e(error, "로그아웃 실패. SDK에서 토큰 삭제됨")
             } else {
-                Timber.i("로그아웃 성공. SDK에서 토큰 삭제됨")
+                Timber.tag(AUTH).i("로그아웃 성공. SDK에서 토큰 삭제됨")
             }
         }
     }
@@ -104,9 +104,9 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     private fun deleteKakao() {
         UserApiClient.instance.unlink { error ->
             if (error != null) {
-                Timber.e(error, "연결 끊기 실패")
+                Timber.tag(AUTH).e(error, "연결 끊기 실패")
             } else {
-                Timber.i("연결 끊기 성공. SDK에서 토큰 삭제 됨")
+                Timber.tag(AUTH).i("연결 끊기 성공. SDK에서 토큰 삭제 됨")
             }
         }
     }
@@ -115,5 +115,9 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
         Intent(this, OnBoardingActivity::class.java).apply {
             startActivity(this)
         }
+    }
+
+    companion object {
+        const val AUTH = "AuthActivity"
     }
 }

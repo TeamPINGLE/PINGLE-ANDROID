@@ -17,8 +17,8 @@ class JoinGroupCodeActivity :
         super.onCreate(savedInstanceState)
         binding.joinViewModel = viewModel
 
-        addObservers()
         addListeners()
+        addObservers()
     }
 
     private fun addListeners() {
@@ -50,8 +50,12 @@ class JoinGroupCodeActivity :
     private fun navigateToJoinGroupSuccess() {
         Intent(this, JoinGroupSuccessActivity::class.java).apply {
             // TODO 서버통신시 group name 가져와서 전달하기
-            putExtra("groupName", viewModel.joinGroupData.value?.name)
+            putExtra(GROUP_NAME, viewModel.joinGroupData.value?.name)
             startActivity(this)
         }
+    }
+
+    companion object {
+        const val GROUP_NAME = "groupName"
     }
 }

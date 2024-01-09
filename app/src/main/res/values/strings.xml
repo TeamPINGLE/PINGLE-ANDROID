@@ -101,7 +101,7 @@
     <string name="map_cancel_modal_text_button_text">돌아가기</string>
 
     <!-- plan location -->
-    <string name="plan_location_title">핑글러들과\n어디서 만날까요?</string>
+    <string name="plan_location_title">함께할 친구들과\n어디서 만날까요?</string>
     <string name="plan_location_hint">핑글이 열릴 장소 이름을 검색해보세요</string>
     <string name="plan_location_next">다음으로</string>
     <string name="plan_location_ask">나중에 만드시겠어요?</string>
@@ -110,7 +110,7 @@
     <string name="plan_location_empty_info">다른 장소로 검색해보세요</string>
 
     <!-- plan category -->
-    <string name="plan_category_title">개최할 핑글을\n선택해주세요</string>
+    <string name="plan_category_title">개최할 핑글을\n선택해주세요!</string>
 
     <!-- construction -->
     <string name="construction_title">아직 공사중!</string>
@@ -126,7 +126,7 @@
     <string name="plan_summary_confirmation_recruitment_number">%s명</string>
 ]
     <!-- plan recruitment -->
-    <string name="plan_recruitment_title">몇 명의 핑글러들과\n만날까요?</string>
+    <string name="plan_recruitment_title">몇 명의 친구들과\n만날까요?</string>
     <string name="plan_recruitment_description">본인을 포함하여,\n최소 1명부터 참여 인원을 선택해주세요</string>
     <string name="plan_recruitment_minus">-</string>
     <string name="plan_recruitment_plus">+</string>

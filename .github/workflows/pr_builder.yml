@@ -57,6 +57,11 @@ jobs:
           IO_SENTRY_TOKEN: ${{ secrets.IO_SENTRY_DSN }}
         run: echo "io.sentry.dsn=\"IO_SENTRY_DSN\"" >> local.properties
 
+      - name: Access KAKAO_NATIVE_APP_KEY
+        env:
+          IO_SENTRY_TOKEN: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
+        run: echo "kakao.native.app.key=\"KAKAO_NATIVE_APP_KEY\"" >> local.properties
+
       - name: Lint Check
         run: ./gradlew ktlintCheck -PcompileSdkVersion=34
 

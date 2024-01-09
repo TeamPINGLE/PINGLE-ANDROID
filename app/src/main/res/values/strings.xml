@@ -46,7 +46,7 @@
     <string name="plan_pingle">핑글 개최하기</string>
     <string name="plan_time_am">오전</string>
     <string name="plan_time_pm">오후</string>
-    <string name="plan_date_time_title">핑글러들과\n언제 만날까요?</string>
+    <string name="plan_date_time_title">함께할 친구들과\n언제 만날까요?</string>
     <string name="plan_date_title">핑글 날짜</string>
     <string name="plan_date_hint">만날 날짜를 선택해주세요</string>
     <string name="plan_start_time_title">시작 시각</string>
@@ -56,8 +56,9 @@
     <string name="plan_title">개최할 핑글을\n소개해주세요!</string>
     <string name="plan_et_hint">ex. 강남역에서 각잡고 공부할 사람?</string>
     <string name="plan_future_date_snackber">미래 날짜를 선택해주세요</string>
+    <string name="plan_open_chatting_title">오픈채팅방 링크를\n추가해주세요!</string>
     <string name="plan_open_chatting_hint">링크를 입력해주세요</string>
-    <string name="plan_open_chatting_title">채팅방 링크</string>
+    <string name="plan_open_chatting_text_title">채팅방 링크</string>
 
     <!--  plan modal -->
     <string name="plan_exit_modal_dialog_title">잠깐! 나가실건가요?</string>

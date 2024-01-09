@@ -34,6 +34,11 @@ android {
         buildConfigField("String", "ACCESS_TOKEN", properties["access.token"].toString())
         buildConfigField(
             "String",
+            "NAVER_MAP_CLIENT_ID",
+            properties["naver.map.client.id"].toString()
+        )
+        buildConfigField(
+            "String",
             "KAKAO_NATIVE_APP_KEY",
             gradleLocalProperties(rootDir).getProperty("kakao.native.app.key")
         )
@@ -98,6 +103,15 @@ dependencies {
     implementation(libs.bundles.okhttp)
     implementation(libs.bundles.retrofit)
     implementation(libs.kotlin.serialization.json)
+
+    // Naver Map
+    implementation(libs.naver.maps)
+
+    // Location
+    implementation(libs.play.services.location)
+
+    // progress Bar
+    implementation(libs.progress.bar)
 
     // Kakao
     implementation(libs.kakao)

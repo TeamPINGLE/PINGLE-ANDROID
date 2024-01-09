@@ -1,8 +1,9 @@
 package org.sopt.pingle.presentation.ui.joingroup
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.sopt.pingle.domain.model.JoinGroupCodeEntity
 import org.sopt.pingle.domain.model.JoinGroupSearchEntity
 
@@ -10,46 +11,42 @@ class JoinViewModel : ViewModel() {
     private val _joinGroupData = MutableLiveData<JoinGroupCodeEntity>()
     val joinGroupData get() = _joinGroupData
 
-    private val _joinGroupSearchBtn = MutableLiveData(false)
-    val joinGroupSearchBtn: LiveData<Boolean> get() = _joinGroupSearchBtn
+    private var _isJoinBtn = MutableLiveData(false)
+    val isJoinBtn get() = _isJoinBtn
+
+    private val _joinGroupSearchData = MutableStateFlow<List<JoinGroupSearchEntity>>(emptyList())
+    val joinGroupSearchData get() = _joinGroupSearchData.asStateFlow()
 
     private val _joinGroupSearchEditText = MutableLiveData<String>()
     val joinGroupSearchEditText get() = _joinGroupSearchEditText
 
-    private var _isJoinBtn = MutableLiveData(false)
-    val isJoinBtn get() = _isJoinBtn
+    private val _joinGroupSearchBtn = MutableLiveData<Boolean>(false)
+    val joinGroupSearchBtn get() = _joinGroupSearchBtn
 
-    val mockJoinGroupSearchData: List<JoinGroupSearchEntity>
-    private var oldPosition = -1
+    private var oldPosition = OLD_POSTION
     fun updateJoinGroupSearchList(newPosition: Int) {
-        when {
-            oldPosition == -1 -> {
-                setIsSelected(true, newPosition)
+        when (oldPosition) {
+            OLD_POSTION -> {
+                setIsSelected(newPosition)
             }
 
-            oldPosition != newPosition -> {
-                setIsSelected(false, oldPosition)
-                setIsSelected(true, newPosition)
-            }
-
-            oldPosition == newPosition -> {
-                setIsSelected(false, oldPosition)
-                oldPosition = -1
+            newPosition -> {
+                setIsSelected(newPosition)
+                oldPosition = OLD_POSTION
             }
 
             else -> {
-                setIsSelected(false, oldPosition)
-                setIsSelected(true, newPosition)
+                _joinGroupSearchData.value[oldPosition].isSelected.set(false)
+                _joinGroupSearchData.value[newPosition].isSelected.set(true)
             }
         }
         oldPosition = newPosition
     }
 
-    fun checkJoinGroupSearchIsEmpty() = mockJoinGroupSearchData.isEmpty()
+    fun checkJoinGroupSearchIsEmpty() = _joinGroupSearchData.value.isEmpty()
 
-    private fun setIsSelected(boolean: Boolean, position: Int) {
-        mockJoinGroupSearchData[position].isSelected.set(boolean)
-        _joinGroupSearchBtn.postValue(boolean)
+    private fun setIsSelected(position: Int) {
+        _joinGroupSearchData.value[position].isSelected.set(!_joinGroupSearchData.value[position].isSelected.get())
     }
 
     init {
@@ -61,7 +58,7 @@ class JoinViewModel : ViewModel() {
             participantCount = 200
         )
 
-        mockJoinGroupSearchData = listOf(
+        _joinGroupSearchData.value = listOf(
             JoinGroupSearchEntity(
                 id = 0,
                 keyword = "연합동아리",
@@ -88,5 +85,9 @@ class JoinViewModel : ViewModel() {
                 name = "SOPT5"
             )
         )
+    }
+
+    companion object {
+        private val OLD_POSTION = -1
     }
 }

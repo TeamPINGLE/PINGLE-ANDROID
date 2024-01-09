@@ -116,8 +116,6 @@
     <string name="construction_title">아직 공사중!</string>
     <string name="construction_detail">아직 구현중인 기능이에요\n조금만 기다려주세요</string>
 
-    <!-- plan recruitment -->
-
     <!-- plan summary confirmation -->
     <string name="plan_summary_confirmation_title">핑글을 개최할\n준비 되었나요?</string>
     <string name="plan_summary_confirmation_date">일시</string>

@@ -21,7 +21,7 @@ enum class CategoryType(
         backgroundBadgeColor = R.color.badge_green,
         categoryNameRes = R.string.category_play,
         categoryDescriptionRes = R.string.category_play_detail,
-        categoryIconRes = R.drawable.ic_plan_cat_play_1000_4
+        categoryIconRes = R.drawable.img_plan_cat_play_1000_4
     ),
     STUDY(
         textColor = R.color.pingle_orange,
@@ -30,7 +30,7 @@ enum class CategoryType(
         backgroundBadgeColor = R.color.badge_orange,
         categoryNameRes = R.string.category_study,
         categoryDescriptionRes = R.string.category_study_detail,
-        categoryIconRes = R.drawable.ic_plan_cat_study_1000_6
+        categoryIconRes = R.drawable.img_plan_cat_study_1000_6
     ),
     MULTI(
         textColor = R.color.pingle_yellow,
@@ -39,7 +39,7 @@ enum class CategoryType(
         backgroundBadgeColor = R.color.badge_yellow,
         categoryNameRes = R.string.category_multi,
         categoryDescriptionRes = R.string.category_multi_detail,
-        categoryIconRes = R.drawable.ic_plan_cat_multi_1000_3
+        categoryIconRes = R.drawable.img_plan_cat_multi_1000_3
     ),
     OTHERS(
         textColor = R.color.g_01,
@@ -48,7 +48,7 @@ enum class CategoryType(
         backgroundBadgeColor = R.color.g_07,
         categoryNameRes = R.string.category_others,
         categoryDescriptionRes = R.string.category_others_detail,
-        categoryIconRes = R.drawable.ic_plan_cat_others_1000_1
+        categoryIconRes = R.drawable.img_plan_cat_others_1000_1
     );
 
     companion object {

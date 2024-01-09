@@ -61,7 +61,7 @@
             android:id="@+id/iv_plan_announcement_graphic"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_plan_announcement_graphic"
+            android:src="@drawable/img_plan_announcement_graphic"
             app:layout_constraintBottom_toTopOf="@id/btn_plan_announcement"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

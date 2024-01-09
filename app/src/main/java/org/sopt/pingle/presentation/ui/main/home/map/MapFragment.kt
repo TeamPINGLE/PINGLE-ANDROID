@@ -243,17 +243,17 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         private const val MAP_CANCEL_MODAL = "mapCancelModal"
         private const val MAP_MODAL = "mapModal"
 
-        val OVERLAY_IMAGE_PLAY_SMALL =
-            OverlayImage.fromResource(R.drawable.ic_map_marker_play_small)
-        val OVERLAY_IMAGE_STUDY_SMALL =
-            OverlayImage.fromResource(R.drawable.ic_map_marker_study_small)
-        val OVERLAY_IMAGE_MULTI_SMALL =
-            OverlayImage.fromResource(R.drawable.ic_map_marker_multi_small)
-        val OVERLAY_IMAGE_OTHER_SMALL =
-            OverlayImage.fromResource(R.drawable.ic_map_marker_other_small)
-        val OVERLAY_IMAGE_PLAY_BIG = OverlayImage.fromResource(R.drawable.ic_map_marker_play_big)
-        val OVERLAY_IMAGE_STUDY_BIG = OverlayImage.fromResource(R.drawable.ic_map_marker_study_big)
-        val OVERLAY_IMAGE_MULTI_BIG = OverlayImage.fromResource(R.drawable.ic_map_marker_multi_big)
-        val OVERLAY_IMAGE_OTHER_BIG = OverlayImage.fromResource(R.drawable.ic_map_marker_other_big)
+        val OVERLAY_IMAGE_PIN_PLAY_DEFAULT =
+            OverlayImage.fromResource(R.drawable.ic_pin_play_default)
+        val OVERLAY_IMAGE_PIN_STUDY_DEFAULT =
+            OverlayImage.fromResource(R.drawable.ic_pin_study_default)
+        val OVERLAY_IMAGE_PIN_MULTI_DEFAULT =
+            OverlayImage.fromResource(R.drawable.ic_pin_multi_default)
+        val OVERLAY_IMAGE_PIN_OTHERS_DEFAULT =
+            OverlayImage.fromResource(R.drawable.ic_pin_others_default)
+        val OVERLAY_IMAGE_PIN_PLAY_ACTIVE = OverlayImage.fromResource(R.drawable.ic_pin_play_active)
+        val OVERLAY_IMAGE_PIN_STUDY_ACTIVE = OverlayImage.fromResource(R.drawable.ic_pin_study_active)
+        val OVERLAY_IMAGE_PIN_MULTI_ACTIVE = OverlayImage.fromResource(R.drawable.ic_pin_multi_active)
+        val OVERLAY_IMAGE_PIN_OTHERS_ACTIVE = OverlayImage.fromResource(R.drawable.ic_pin_others_active)
     }
 }

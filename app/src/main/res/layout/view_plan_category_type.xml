@@ -21,12 +21,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_item_plan_location_category">
 
-        <!--TODO image="@{categoryType.categoryIconRes}" -->
         <ImageView
             android:id="@+id/iv_plan_category_type"
             android:layout_width="84dp"
             android:layout_height="84dp"
             android:layout_marginHorizontal="38dp"
+            image="@{categoryType.categoryIconRes}"
             android:layout_marginTop="@dimen/spacing13"
             android:src="@drawable/ic_all_warning_notice_24"
             app:layout_constraintDimensionRatio="1"

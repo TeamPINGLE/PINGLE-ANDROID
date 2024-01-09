@@ -73,7 +73,6 @@
             android:layout_marginTop="@dimen/spacing28"
             android:layout_marginBottom="54dp"
             android:backgroundTint="@color/g_01"
-            android:text="@string/plan_announcement_button"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

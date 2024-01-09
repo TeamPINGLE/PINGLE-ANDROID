@@ -8,8 +8,7 @@ class JoinViewModel : ViewModel() {
     private val _joinGroupData = MutableLiveData<JoinGroupCodeEntity>()
     val joinGroupData = _joinGroupData
 
-    private var _isJoinBtn = MutableLiveData(false)
-    val isJoinBtn = _isJoinBtn
+    val joinGroupCode = MutableLiveData<String>()
 
     init {
         _joinGroupData.value = JoinGroupCodeEntity(

@@ -16,26 +16,7 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth) {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        btnClickListener()
-    }
-
-    // TODO 서버통신할 때 로직분리 및 주석 삭제하겠습니다.!
-    private fun btnClickListener() {
-        binding.btnAuthKakao.setOnClickListener {
-            // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
-            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                loginWithKakaoTalk()
-            } else {
-                loginWithKakaoAccount()
-            }
-        }
-    }
-
-    // 웹 로그인 할 경우 사용됨
+    // 웹 로그인 할 경우 사용되는 콜백
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Timber.e(error, "카카오계정으로 로그인 실패")
@@ -50,6 +31,28 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
 
             Intent(this, DummyActivity::class.java).apply {
                 startActivity(this)
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // TODO KeyHash 값 가져오기
+//        val keyHash = Utility.getKeyHash(this)
+//        Timber.tag("KeyHash").d(keyHash)
+
+        addListeners()
+    }
+
+    // TODO 서버통신할 때 로직분리 및 주석 삭제하겠습니다.!
+    private fun addListeners() {
+        binding.btnAuthKakao.setOnClickListener {
+            // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
+            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
+                loginWithKakaoTalk()
+            } else {
+                loginWithKakaoAccount()
             }
         }
     }

@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/spacing24" />
+            app:layout_constraintGuide_begin="@dimen/spacing28" />
 
         <ImageView
             android:id="@+id/iv_auth_logo"
@@ -45,9 +45,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:switchTextAppearance="@style/TextAppearance.Pingle.Body.Med.16"
             android:text="@string/auth_description_1"
-            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"
             android:textColor="@color/g_02"
             app:layout_constraintStart_toEndOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/tv_auth_title" />
@@ -75,6 +74,7 @@
             android:text="@string/auth_kakao_login"
             android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
             android:textColor="@color/kakao_text"
+            app:cornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

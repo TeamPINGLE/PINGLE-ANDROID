@@ -35,14 +35,14 @@
             <EditText
                 android:id="@+id/et_plan_location_search"
                 android:layout_width="0dp"
-                android:maxLines="1"
-                android:inputType="text"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing24"
+                android:background="@drawable/shape_border_radius_8"
                 android:backgroundTint="@color/g_10"
                 android:hint="@string/plan_location_hint"
+                android:inputType="text"
+                android:maxLines="1"
                 android:paddingVertical="@dimen/spacing10"
-                android:background="@drawable/shape_border_radius_8"
                 android:paddingStart="@dimen/spacing16"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
                 android:textColor="@color/white"
@@ -103,13 +103,13 @@
             android:id="@+id/rv_plan_location_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="21dp"
             android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_plan_location_search"
-            android:layout_marginTop="21dp"
             tools:listitem="@layout/item_plan_location" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

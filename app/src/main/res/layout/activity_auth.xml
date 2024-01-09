@@ -56,7 +56,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:switchTextAppearance="@style/TextAppearance.Pingle.Body.Med.16"
             android:text="@string/auth_description_2"
             android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
             android:textColor="@color/g_02"

@@ -33,7 +33,7 @@ class PlanLocationFragment :
                 PlanLocationDivider(1, R.color.g_09),
             )*/
         }
-        planLocationAdapter.submitList(planLocationViewModel.mockPlanLocationList)
+        planLocationAdapter.submitList(planLocationViewModel.planLocationList.value)
     }
 
     private fun addListeners() {

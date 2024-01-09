@@ -104,11 +104,18 @@
     <!-- construction -->
     <string name="construction_title">아직 공사중!</string>
     <string name="construction_detail">아직 구현중인 기능이에요\n조금만 기다려주세요</string>
-]
+    ]
     <!-- plan Recruitment -->
     <string name="plan_recruitment_title">몇 명의 핑글러들과\n만날까요?</string>
     <string name="plan_recruitment_description">본인을 포함하여,\n최소 1명부터 참여 인원을 선택해주세요</string>
     <string name="plan_recruitment_minus">-</string>
     <string name="plan_recruitment_plus">+</string>
     <string name="plan_recruitment_snackbar">최대 선택 가능 인원은 99명이에요!</string>
+
+    <!-- plan Announcement -->
+    <string name="plan_announcement_title">What is\nPINGLE?</string>
+    <string name="plan_announcement_detail_top">%s과 %s의 합성어로,</string>
+    <string name="plan_announcement_detail_bottom">원하는 장소에서 사람들과 갖는 모임을 뜻해요</string>
+    <string name="plan_announcement_description">핑글에 함께할 사람들, @@들을 만나러 가볼까요?</string>
+    <string name="plan_announcement_button">핑글 개최하러 가기</string>
 </resources>

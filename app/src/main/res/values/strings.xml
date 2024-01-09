@@ -111,4 +111,13 @@
     <string name="plan_recruitment_minus">-</string>
     <string name="plan_recruitment_plus">+</string>
     <string name="plan_recruitment_snackbar">최대 선택 가능 인원은 99명이에요!</string>
+
+    <!-- setting   -->
+    <string name="setting_contact_title">문의하기</string>
+    <string name="setting_notice_title">공지사항</string>
+    <string name="setting_version_title">버전</string>
+    <string name="setting_logout_title">로그아웃</string>
+    <string name="setting_withdraw_title">탈퇴하기</string>
+    <string name="setting_title">더보기</string>
+    <string name="setting_my_group">나의 단체</string>
 </resources>

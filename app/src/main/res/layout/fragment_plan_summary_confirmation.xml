@@ -53,7 +53,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="@dimen/spacing24"
                 android:layout_marginEnd="@dimen/spacing25"
-                android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.18"
+                android:textAppearance="@style/TextAppearance.Pingle.Sub.Bold.16"
                 android:textColor="@color/pingle_orange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +115,7 @@
                 android:textColor="@color/g_03"
                 app:layout_constraintStart_toEndOf="@id/tv_plan_summary_confirmation_calender_title"
                 app:layout_constraintTop_toTopOf="@id/iv_plan_summary_confirmation_calendar"
-                tools:text="0000년 00월 00일\n오후00:00 ~ 오후 00:00" />
+                tools:text="0000년 00월 00일\n00:00 ~ 00:00" />
 
             <ImageView
                 android:id="@+id/iv_plan_summary_confirmation_map"

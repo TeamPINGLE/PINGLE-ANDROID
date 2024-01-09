@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.auth.AuthActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing28" />
+
+        <ImageView
+            android:id="@+id/iv_auth_logo"
+            android:layout_width="73dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="83dp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_auth_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/auth_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Extra.40"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/iv_auth_logo" />
+
+        <TextView
+            android:id="@+id/tv_auth_description_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/auth_description_1"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"
+            android:textColor="@color/g_02"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_auth_title" />
+
+        <TextView
+            android:id="@+id/tv_auth_description_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/auth_description_2"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            android:textColor="@color/g_02"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_auth_description_1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_auth_kakao"
+            style="@style/Theme.Pingle.Button.L"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing16"
+            android:layout_marginBottom="62dp"
+            android:backgroundTint="@color/kakao_btn"
+            android:text="@string/auth_kakao_login"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            android:textColor="@color/kakao_text"
+            app:cornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/ic_kakao_24"
+            app:layout_constraintBottom_toBottomOf="@id/btn_auth_kakao"
+            app:layout_constraintStart_toStartOf="@id/btn_auth_kakao"
+            app:layout_constraintTop_toTopOf="@id/btn_auth_kakao" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

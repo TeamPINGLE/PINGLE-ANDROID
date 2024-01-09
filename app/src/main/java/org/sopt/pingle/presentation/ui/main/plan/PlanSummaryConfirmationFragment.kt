@@ -23,7 +23,6 @@ class PlanSummaryConfirmationFragment :
         super.onViewCreated(view, savedInstanceState)
 
         initLayout()
-        observe()
     }
 
     private fun initLayout() {
@@ -32,22 +31,13 @@ class PlanSummaryConfirmationFragment :
             with(binding) {
                 badgePlanSummaryConfirmationCategory.setBadgeCategoryType(category)
                 tvPlanSummaryConfirmationName.setTextColor(colorOf((category.textColor)))
-                // tvPlanSummaryConfirmationName.text = viewModel.planTitle.value
+                tvPlanSummaryConfirmationName.text = viewModel.planTitle.value
                 tvPlanSummaryConfirmationOwnerName.text = "개최자"
                 tvPlanSummaryConfirmationCalenderDetail.text =
-                    viewModel.planDate.value.toString() + "\n" + viewModel.startTime.value + "~" + viewModel.endTime.value
-                tvPlanSummaryConfirmationMapDetail.text = viewModel.selectedLocation.value?.location.toString()
+                    viewModel.planDate.value + "\n" + viewModel.startTime.value + " ~ " + viewModel.endTime.value
+                tvPlanSummaryConfirmationMapDetail.text = viewModel.selectedLocation.value?.location
+                tvPlanSummaryConfirmationRecruitmentDetail.text = getString(R.string.plan_summary_confirmation_recruitment_number, viewModel.selectedRecruitment.value)
             }
         }
-    }
-
-    private fun observe() {
-        viewModel.selectedCategory.flowWithLifecycle(lifecycle).onEach {
-            Timber.tag("observe:categoryType").d(viewModel.selectedCategory.value?.name.toString())
-        }.launchIn(lifecycleScope)
-
-        viewModel.selectedLocation.flowWithLifecycle(lifecycle).onEach {
-            Timber.tag("observe:location").d(viewModel.selectedLocation.value.toString())
-        }.launchIn(lifecycleScope)
     }
 }

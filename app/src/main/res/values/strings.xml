@@ -110,7 +110,7 @@
     <string name="plan_summary_confirmation_date">일시</string>
     <string name="plan_summary_confirmation_location">장소</string>
     <string name="plan_summary_confirmation_recruitment">모집인원</string>
-    <string name="plan_summary_confirmation_recruitment_number">%d명</string>
+    <string name="plan_summary_confirmation_recruitment_number">%1$s명</string>
 ]
     <!-- plan Recruitment -->
     <string name="plan_recruitment_title">몇 명의 핑글러들과\n만날까요?</string>

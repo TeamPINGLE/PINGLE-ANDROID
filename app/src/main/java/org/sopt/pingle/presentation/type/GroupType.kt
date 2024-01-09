@@ -10,10 +10,10 @@ enum class GroupType(
 ) {
     ORIGINAL(
         R.string.on_boarding_original_group,
-        R.drawable.ic_launcher_background
+        R.drawable.img_search_graphic
     ),
     NEW(
         R.string.on_boarding_new_group,
-        R.drawable.ic_launcher_background
+        R.drawable.img_create_graphic
     )
 }

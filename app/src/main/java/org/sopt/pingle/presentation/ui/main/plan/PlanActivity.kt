@@ -43,6 +43,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             add(PlanTitleFragment())
             add(PlanDateTimeFragment())
             add(PlanLocationFragment())
+            add(PlanRecruitmentFragment())
             add(PlanOpenChattingFragment())
         }
 

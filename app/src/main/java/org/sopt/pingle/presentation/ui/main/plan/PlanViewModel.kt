@@ -108,82 +108,83 @@ class PlanViewModel : ViewModel() {
     }
 
     private fun setPlanLocation(position: Int) {
-        _selectedLocation.value = mockPlanLocationList[position]
-        // _selectedLocation.value = planLocationList[position]
+        _selectedLocation.value = _planLocationList.value[position]
     }
 
+    private var oldPosition = OLD_POSITION
     companion object {
         const val FIRST_PAGE_POSITION = 0
+        const val OLD_POSITION = -1
     }
 
     private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())
-    private val planLocationList get() = _planLocationList.asStateFlow()
+    val planLocationList get() = _planLocationList.asStateFlow()
 
-    private var oldPosition = -1
     fun updatePlanLocationList(position: Int) {
-        if (oldPosition == -1 && oldPosition != position) {
-            setIsSelected(true, position)
-            setPlanLocation(position)
-        } else if (oldPosition == position) {
-            setIsSelected(!getIsSelected(oldPosition), oldPosition)
-        } else {
-            setIsSelected(true, position)
-            setPlanLocation(position)
-            setIsSelected(false, oldPosition)
+        when (oldPosition){
+            OLD_POSITION -> {
+                setIsSelected(position)
+            }
+            position -> {
+                setIsSelected(position)
+                oldPosition = OLD_POSITION
+            }
+            else -> {
+                _planLocationList.value[oldPosition].isSelected.set(false)
+                _planLocationList.value[position].isSelected.set(true)
+            }
         }
         oldPosition = position
     }
 
     fun checkIsNull(): Boolean {
-        return mockPlanLocationList.isEmpty()
+        return _planLocationList.value.isEmpty()
         // TODO return planLocationList.value.isEmpty()
     }
 
-    private fun setIsSelected(value: Boolean, position: Int) {
-        mockPlanLocationList[position].isSelected.set(value)
+    private fun setIsSelected(position: Int)  {
+        _planLocationList.value[position].isSelected.set(!_planLocationList.value[position].isSelected.get())
         // TODO 서버에서 받아올 리스트에 저장.. planLocationList.value[position].isSelected.set(value)
     }
 
-    private fun getIsSelected(position: Int): Boolean {
-        return mockPlanLocationList[position].isSelected.get()
-    }
-
-    val mockPlanLocationList = listOf<PlanLocationEntity>(
-        PlanLocationEntity(
-            location = "하얀집",
-            address = "서울 중구 퇴계로6길 12",
-            x = 123.5,
-            y = 56.7
-        ),
-        PlanLocationEntity(
-            location = "하얀집2호점",
-            address = "서울 중구 퇴계로6길 12",
-            x = 123.5,
-            y = 56.7
-        ),
-        PlanLocationEntity(
-            location = "하얀집3호점",
-            address = "서울 중구 퇴계로6길 12",
-            x = 123.5,
-            y = 56.7
-        ),
-        PlanLocationEntity(
-            location = "하얀집 싫어싫어싫어",
-            address = "서울 중구 퇴계로6길 12",
-            x = 123.5,
-            y = 56.7
-        ),
-        PlanLocationEntity(
-            location = "하얀집 좋아좋아좋아",
-            address = "서울 중구 퇴계로6길 12",
-            x = 123.5,
-            y = 56.7
-        ),
-        PlanLocationEntity(
-            location = "하얀집웅시러",
-            address = "서울 중구 퇴계로6길 12",
-            x = 123.5,
-            y = 56.7
+    init {
+        _planLocationList.value = listOf(
+            PlanLocationEntity(
+                location = "하얀집",
+                address = "서울 중구 퇴계로6길 12",
+                x = 123.5,
+                y = 56.7
+            ),
+            PlanLocationEntity(
+                location = "하얀집2호점",
+                address = "서울 중구 퇴계로6길 12",
+                x = 123.5,
+                y = 56.7
+            ),
+            PlanLocationEntity(
+                location = "하얀집3호점",
+                address = "서울 중구 퇴계로6길 12",
+                x = 123.5,
+                y = 56.7
+            ),
+            PlanLocationEntity(
+                location = "하얀집 싫어싫어싫어",
+                address = "서울 중구 퇴계로6길 12",
+                x = 123.5,
+                y = 56.7
+            ),
+            PlanLocationEntity(
+                location = "하얀집 좋아좋아좋아",
+                address = "서울 중구 퇴계로6길 12",
+                x = 123.5,
+                y = 56.7
+            ),
+            PlanLocationEntity(
+                location = "하얀집웅시러",
+                address = "서울 중구 퇴계로6길 12",
+                x = 123.5,
+                y = 56.7
+            )
         )
-    )
+    }
 }

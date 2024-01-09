@@ -47,7 +47,6 @@
                     android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".presentation.ui.auth.AuthActivity"
             android:exported="false"
@@ -90,6 +89,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".presentation.ui.participant.ParticipantActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
         <meta-data
             android:name="io.sentry.dsn"
@@ -110,4 +114,5 @@
             android:name="io.sentry.traces.profiling.sample-rate"
             android:value="1.0" />
     </application>
+
 </manifest>

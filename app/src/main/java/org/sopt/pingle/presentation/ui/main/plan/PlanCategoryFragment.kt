@@ -14,11 +14,10 @@ class PlanCategoryFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initLayout()
-        addListeners()
-    }
+        binding.planViewModel = viewModel
+        binding.lifecycleOwner = this
 
-    private fun initLayout() {
+        addListeners()
     }
 
     private fun addListeners() {

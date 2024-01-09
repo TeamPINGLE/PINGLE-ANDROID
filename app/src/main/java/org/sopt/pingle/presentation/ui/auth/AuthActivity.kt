@@ -2,7 +2,6 @@ package org.sopt.pingle.presentation.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -10,7 +9,7 @@ import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityAuthBinding
-import org.sopt.pingle.presentation.ui.dummy.DummyActivity
+import org.sopt.pingle.presentation.ui.onboarding.OnBoardingActivity
 import org.sopt.pingle.util.base.BindingActivity
 import timber.log.Timber
 
@@ -26,12 +25,9 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
                 Timber.e(error, "유저가 로그인 취소")
             }
         } else if (token != null) {
-            Timber.i("카카오계정으로 로그인 성공 " + token.accessToken)
-            Log.d("카카오계정으로 로그인 성공 ", token.accessToken)
+            Timber.tag("Auth").i("카카오계정으로 로그인 성공 " + token.accessToken)
 
-            Intent(this, DummyActivity::class.java).apply {
-                startActivity(this)
-            }
+            navigateToOnBoarding()
         }
     }
 
@@ -71,8 +67,8 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
                 // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                 loginWithKakaoAccount()
             } else if (token != null) {
-                Timber.i("카카오톡으로 로그인 성공 " + token.accessToken)
-                Log.d("카카오톡으로 로그인 성공 ", token.accessToken)
+                Timber.tag("Auth").i("카카오톡으로 로그인 성공 " + token.accessToken)
+                navigateToOnBoarding()
             }
         }
     }
@@ -112,6 +108,12 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
             } else {
                 Timber.i("연결 끊기 성공. SDK에서 토큰 삭제 됨")
             }
+        }
+    }
+
+    private fun navigateToOnBoarding() {
+        Intent(this, OnBoardingActivity::class.java).apply {
+            startActivity(this)
         }
     }
 }

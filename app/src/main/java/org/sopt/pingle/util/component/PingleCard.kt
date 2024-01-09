@@ -7,6 +7,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.CardPingleBinding
 import org.sopt.pingle.domain.model.PingleEntity
@@ -14,9 +17,6 @@ import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.view.colorOf
 import org.sopt.pingle.util.view.stringOf
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 @SuppressLint("CustomViewStyleable")
 class PingleCard @JvmOverloads constructor(
@@ -66,7 +66,6 @@ class PingleCard @JvmOverloads constructor(
             }
             btnCardBottomMapParticipate.isEnabled =
                 pingleEntity.isParticipating || !pingleEntity.isCompleted()
-
 
             if (pingleEntity.isCompleted()) {
                 tvCardTopInfoParticipationStatusSlash.visibility = View.INVISIBLE

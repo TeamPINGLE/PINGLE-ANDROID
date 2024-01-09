@@ -1,10 +1,16 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import org.sopt.pingle.domain.model.PlanLocationEntity
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.type.PlanType
 import org.sopt.pingle.util.combineAll
 
 class PlanViewModel : ViewModel() {
@@ -21,35 +27,7 @@ class PlanViewModel : ViewModel() {
 
     val selectedTimeType get() = _selectedTimeType.asStateFlow()
     val planOpenChattingLink = MutableStateFlow("")
-
-    // TODO Type에 맞게 수정(현재는 내가 맡은 부분 테스트를 위해 postion 값을 조정 및 임의 지정 해놓음
-    val isPlanBtn =
-        listOf(currentPage, planTitle, planDate, startTime, endTime, planOpenChattingLink)
-            .combineAll()
-
-    // TODO 수정 예정, 테스트를 위해 position값 임의 설정
-    /*val isPlanBtnEnabled: StateFlow<Boolean> = listOf(
-        currentPage,
-        planTitle,
-        planDate,
-        startTime,
-        endTime,
-        planOpenChattingLink
-    ).combineAll()
-        .map { values ->
-            val currentPage = values[0] as Int
-            val planTitle = values[1] as String
-            val planDate = values[2] as String
-            val startTime = values[3] as String
-            val endTime = values[4] as String
-            val planOpenChattingLink = values[5] as String
-
-            (currentPage == PlanType.TITLE.position - 1 && planTitle.isNotBlank()) ||
-                (currentPage == 1 && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
-                (currentPage == 2 && planOpenChattingLink.isNotBlank())
-        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)*/
-
-    val isPlanBtnEnabled = MutableStateFlow(true)
+    val planSummary = MutableStateFlow("")
 
     private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
     val selectedLocation get() = _selectedLocation.asStateFlow()
@@ -59,6 +37,38 @@ class PlanViewModel : ViewModel() {
 
     private val _selectedRecruitment = MutableStateFlow<String?>("1")
     val selectedRecruitment get() = _selectedRecruitment.asStateFlow()
+
+    val isPlanBtnEnabled: StateFlow<Boolean> = listOf(
+        currentPage,
+        selectedCategory,
+        planTitle,
+        planDate,
+        startTime,
+        endTime,
+        selectedLocation,
+        selectedRecruitment,
+        planOpenChattingLink,
+        planSummary
+    ).combineAll()
+        .map { values ->
+            val currentPage = values[0] as Int
+            val selectedCategory = values[1] as? CategoryType
+            val planTitle = values[2] as String
+            val planDate = values[3] as String
+            val startTime = values[4] as String
+            val endTime = values[5] as String
+            val selectedLocation = values[6] as? PlanLocationEntity
+            val selectedRecruitment = values[7] as String
+            val planOpenChattingLink = values[8] as String
+
+            (currentPage == PlanType.CATEGORY.position && selectedCategory != null) ||
+                (currentPage == PlanType.TITLE.position && planTitle.isNotBlank()) ||
+                (currentPage == PlanType.DATETIME.position && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
+                (currentPage == PlanType.LOCATION.position && selectedLocation != null) ||
+                (currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && selectedRecruitment != INVALID_RECRUIT) ||
+                (currentPage == PlanType.OPENCHATTING.position && planOpenChattingLink.isNotBlank()) ||
+                (currentPage == PlanType.SUMMARY.position)
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
 
     fun incRecruitmentNum() {
         var i = selectedRecruitment.value?.toInt()
@@ -109,6 +119,7 @@ class PlanViewModel : ViewModel() {
     companion object {
         const val FIRST_PAGE_POSITION = 0
         const val OLD_POSITION = -1
+        const val INVALID_RECRUIT = "1"
     }
 
     private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())

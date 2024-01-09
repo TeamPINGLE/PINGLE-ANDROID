@@ -24,7 +24,11 @@ class JoinGroupCodeActivity :
     private fun addListeners() {
         binding.btnJoinGroupCodeNext.setOnClickListener {
             // TODO 초대코드 일치하지 않을 시
-            // CustomSnackbar.makeSnackbar(binding.root, SNACKBAR_MESSAGE, 97)
+            CustomSnackbar.makeSnackbar(
+                binding.root,
+                getString(R.string.join_group_code_snackbar_message),
+                97
+            )
             navigateToJoinGroupSuccess()
         }
     }
@@ -59,6 +63,5 @@ class JoinGroupCodeActivity :
 
     companion object {
         const val GROUP_NAME = "groupName"
-        const val SNACKBAR_MESSAGE = "초대 코드를 다시 확인해주세요!"
     }
 }

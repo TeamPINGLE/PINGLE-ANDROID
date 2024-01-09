@@ -38,6 +38,7 @@
     <string name="join_group_code_invitation">초대 코드</string>
     <string name="join_group_code_guide">단체 개설자로부터 받은 초대 코드를 입력해주세요</string>
     <string name="join_group_code_next">입장하기</string>
+    <string name="join_group_code_snackbar_message">"초대 코드를 다시 확인해주세요!"</string>
 
     <!--  plan  -->
     <string name="plan_later_des">나중에 만드시겠어요?</string>

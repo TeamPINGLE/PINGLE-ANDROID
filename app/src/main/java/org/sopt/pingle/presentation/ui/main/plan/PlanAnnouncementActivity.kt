@@ -9,6 +9,7 @@ import android.text.style.TextAppearanceSpan
 import androidx.core.content.ContextCompat
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityPlanAnnouncementBinding
+import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.util.base.BindingActivity
 
 class PlanAnnouncementActivity :
@@ -72,10 +73,16 @@ class PlanAnnouncementActivity :
     }
 
     private fun addListeners() {
-        // TODO x버튼 클릭 시 이전 액티비티로 이동 binding.ivPlanAnnouncementExitBtn.setOnClickListener { }
+        binding.ivPlanAnnouncementExitBtn.setOnClickListener {
+            Intent(this, MainActivity::class.java).apply {
+                startActivity(intent)
+            }
+        }
+
         binding.btnPlanAnnouncement.setOnClickListener {
-            val intent = Intent(this, PlanActivity::class.java)
-            startActivity(intent)
+            Intent(this, PlanActivity::class.java).apply {
+                startActivity(intent)
+            }
         }
     }
 

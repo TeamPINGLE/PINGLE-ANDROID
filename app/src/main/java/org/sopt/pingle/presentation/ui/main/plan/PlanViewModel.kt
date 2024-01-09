@@ -122,14 +122,14 @@ class PlanViewModel : ViewModel() {
     private var oldPosition = -1
     fun updatePlanLocationList(position: Int) {
         if (oldPosition == -1 && oldPosition != position) {
-            setIsSelected(true, position)
+            setIsSelected(position)
             setPlanLocation(position)
         } else if (oldPosition == position) {
-            setIsSelected(!getIsSelected(oldPosition), oldPosition)
+            setIsSelected(oldPosition)
         } else {
-            setIsSelected(true, position)
+            setIsSelected(position)
             setPlanLocation(position)
-            setIsSelected(false, oldPosition)
+            setIsSelected(oldPosition)
         }
         oldPosition = position
     }
@@ -139,8 +139,8 @@ class PlanViewModel : ViewModel() {
         // TODO return planLocationList.value.isEmpty()
     }
 
-    private fun setIsSelected(value: Boolean, position: Int) {
-        mockPlanLocationList[position].isSelected.set(value)
+    private fun setIsSelected(position: Int) {
+        mockPlanLocationList[position].isSelected.set(!getIsSelected(position))
         // TODO 서버에서 받아올 리스트에 저장.. planLocationList.value[position].isSelected.set(value)
     }
 

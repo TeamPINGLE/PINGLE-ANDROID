@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import java.util.Properties
 
 plugins {
@@ -36,7 +37,15 @@ android {
             "NAVER_MAP_CLIENT_ID",
             properties["naver.map.client.id"].toString()
         )
+        buildConfigField(
+            "String",
+            "KAKAO_NATIVE_APP_KEY",
+            properties["kakao.native.app.key"].toString()
+        )
+
         manifestPlaceholders["IO_SENTRY_DSN"] = properties["io.sentry.dsn"] as String
+        manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] =
+            gradleLocalProperties(rootDir).getProperty("kakao.native.app.key") as String
     }
 
     buildTypes {
@@ -103,6 +112,9 @@ dependencies {
 
     // progress Bar
     implementation(libs.progress.bar)
+
+    // Kakao
+    implementation(libs.kakao)
 }
 
 ktlint {

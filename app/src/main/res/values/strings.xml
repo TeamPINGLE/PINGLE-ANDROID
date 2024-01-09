@@ -22,6 +22,10 @@
     <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
     <string name="on_boarding_original_group">기존 단체\n입장하기</string>
     <string name="on_boarding_new_group">신규 단체\n개설하기</string>
+    <string name="auth_kakao_login">카카오로 시작하기</string>
+    <string name="auth_title">Ready to\nPINGLE?</string>
+    <string name="auth_description_1">가볍고 재미있는 모임 문화,</string>
+    <string name="auth_description_2">핑글과 함께 만들어요!</string>
 
     <!-- join group code -->
     <string name="join_group_code_topbar">기존 단체 입장하기</string>

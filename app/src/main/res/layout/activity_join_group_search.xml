@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="joinViewModel"
+            type="org.sopt.pingle.presentation.ui.joingroup.JoinViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.joingroup.JoinGroupCodeActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing16" />
+
+        <include
+            android:id="@+id/include_join_group_search_topbar"
+            layout="@layout/view_all_topbar_arrow_with_title"
+            text="@{@string/join_group_code_topbar}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_join_group_search_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing8"
+            android:layout_marginTop="@dimen/spacing16"
+            android:text="@string/join_troup_search_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/include_join_group_search_topbar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_join_group_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/shape_border_radius_8"
+            android:backgroundTint="@color/g_10"
+            android:paddingVertical="@dimen/spacing12"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_join_group_search_title">
+
+            <EditText
+                android:id="@+id/et_join_group_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/shape_border_radius_8"
+                android:backgroundTint="@color/g_10"
+                android:hint="@string/join_group_search_hint"
+                android:inputType="text"
+                android:text="@{joinViewModel.joinGroupSearchEditText}"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+                android:textColor="@color/white"
+                android:textColorHint="@color/g_07"
+                android:textCursorDrawable="@drawable/cursor_drawble"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_join_group_search_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_join_group_search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_all_search_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_join_group_search_empty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/join_group_search_empty"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.18"
+            android:textColor="@color/g_06"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/tv_join_group_search_create"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_join_group_search" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_join_group_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="21dp"
+            android:visibility="invisible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/tv_join_group_search_create"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_join_group_search"
+            tools:listitem="@layout/item_join_group_search" />
+
+        <TextView
+            android:id="@+id/tv_join_group_search_create_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="@string/join_group_search_create_text"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
+            android:textColor="@color/g_01"
+            app:layout_constraintBottom_toBottomOf="@id/tv_join_group_search_create"
+            app:layout_constraintEnd_toStartOf="@id/tv_join_group_search_create"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_join_group_search_create" />
+
+        <TextView
+            android:id="@+id/tv_join_group_search_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="15dp"
+            android:paddingVertical="5dp"
+            android:text="@string/join_group_search_create"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
+            android:textColor="@color/g_01"
+            app:layout_constraintBottom_toTopOf="@id/btn_join_group_code_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_join_group_search_create_text" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_join_group_code_next"
+            style="@style/Theme.Pingle.Button.L"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing25"
+            android:enabled="@{joinViewModel.joinGroupSearchBtn}"
+            android:text="@string/join_group_code_next"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

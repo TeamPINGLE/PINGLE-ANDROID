@@ -50,9 +50,10 @@
                 android:id="@+id/tv_plan_summary_confirmation_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="@dimen/spacing24"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/spacing25"
+                android:maxLines="2"
                 android:textAppearance="@style/TextAppearance.Pingle.Sub.Bold.16"
                 android:textColor="@color/pingle_orange"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,12 +65,12 @@
                 android:id="@+id/tv_plan_summary_confirmation_owner_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_marginStart="@dimen/spacing24"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="@dimen/spacing22"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                 android:textColor="@color/g_03"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="@dimen/spacing22"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_plan_summary_confirmation_name"
                 tools:text="개최자" />
@@ -89,8 +90,8 @@
                 android:id="@+id/iv_plan_summary_confirmation_calendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="29dp"
                 android:layout_marginStart="@dimen/spacing24"
+                android:layout_marginTop="29dp"
                 android:src="@drawable/ic_all_calendar_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -121,10 +122,10 @@
                 android:id="@+id/iv_plan_summary_confirmation_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing24"
                 android:layout_marginTop="@dimen/spacing14"
                 android:src="@drawable/ic_all_map_24"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/spacing24"
                 app:layout_constraintTop_toBottomOf="@id/tv_plan_summary_confirmation_calender_detail" />
 
             <TextView
@@ -142,24 +143,24 @@
                 android:id="@+id/tv_plan_summary_confirmation_map_detail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                 android:textColor="@color/g_03"
-                android:layout_marginStart="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_plan_summary_confirmation_map_title"
                 app:layout_constraintStart_toEndOf="@id/tv_plan_summary_confirmation_map_title"
                 app:layout_constraintTop_toTopOf="@id/tv_plan_summary_confirmation_map_title"
-                app:layout_constraintBottom_toBottomOf="@id/tv_plan_summary_confirmation_map_title"
                 tools:text="장소 이름" />
 
             <ImageView
                 android:id="@+id/iv_plan_summary_confirmation_recruitment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing20"
-                android:src="@drawable/ic_all_user_24"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/spacing24"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/spacing20"
                 android:layout_marginBottom="@dimen/spacing30"
+                android:src="@drawable/ic_all_user_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_plan_summary_confirmation_map" />
 
             <TextView
@@ -177,12 +178,12 @@
                 android:id="@+id/tv_plan_summary_confirmation_recruitment_detail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                 android:textColor="@color/g_03"
-                android:layout_marginStart="26dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_plan_summary_confirmation_recruitment_title"
                 app:layout_constraintStart_toEndOf="@id/tv_plan_summary_confirmation_recruitment_title"
                 app:layout_constraintTop_toTopOf="@id/tv_plan_summary_confirmation_recruitment_title"
-                app:layout_constraintBottom_toBottomOf="@id/tv_plan_summary_confirmation_recruitment_title"
                 tools:text="0명" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

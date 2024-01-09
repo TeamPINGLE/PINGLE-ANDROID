@@ -31,10 +31,13 @@ class JoinGroupSearchViewHolder(
     private val binding: ItemJoinGroupSearchBinding,
     private val setOldItem: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun onBind(item: JoinGroupSearchEntity) {
-        binding.joinGroupSearch = item
+    init {
         binding.root.setOnClickListener {
             setOldItem(bindingAdapterPosition)
         }
+    }
+
+    fun onBind(item: JoinGroupSearchEntity) {
+        binding.joinGroupSearch = item
     }
 }

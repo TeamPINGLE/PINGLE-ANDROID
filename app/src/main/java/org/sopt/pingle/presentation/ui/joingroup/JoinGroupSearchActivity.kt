@@ -2,8 +2,12 @@ package org.sopt.pingle.presentation.ui.joingroup
 
 import android.os.Bundle
 import android.view.KeyEvent
-import android.view.View
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupSearchBinding
 import org.sopt.pingle.util.base.BindingActivity
@@ -20,6 +24,7 @@ class JoinGroupSearchActivity :
 
         initLayout()
         addListeners()
+        addObservers()
     }
 
     private fun initLayout() {
@@ -31,32 +36,23 @@ class JoinGroupSearchActivity :
 
     private fun addListeners() {
         binding.ivJoinGroupSearchIcon.setOnClickListener {
-            checkListExist()
             hideKeyboard(binding.etJoinGroupSearch)
         }
 
-        binding.etJoinGroupSearch.setOnKeyListener(
-            View.OnKeyListener { _, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                    checkListExist()
-                    hideKeyboard(binding.etJoinGroupSearch)
-                    return@OnKeyListener true
-                }
-                true
+        binding.etJoinGroupSearch.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+                hideKeyboard(binding.etJoinGroupSearch)
+                return@setOnKeyListener true
             }
-        )
+            true
+        }
     }
 
-    private fun checkListExist() {
-        with(binding) {
-            if (viewModel.checkJoinGroupSearchIsEmpty()) {
-                rvJoinGroupSearch.visibility = View.INVISIBLE
-                tvJoinGroupSearchEmpty.visibility = View.VISIBLE
-            } else {
-                rvJoinGroupSearch.visibility = View.VISIBLE
-                tvJoinGroupSearchEmpty.visibility = View.INVISIBLE
-            }
-        }
+    private fun addObservers() {
+        viewModel.joinGroupSearchData.flowWithLifecycle(lifecycle).onEach { joinGroupSearchList ->
+            // TODO 서버통신시 옵저빙 체크
+            binding.tvJoinGroupSearchEmpty.isVisible = joinGroupSearchList.isEmpty()
+        }.launchIn(lifecycleScope)
     }
 
     private fun deleteOldPosition(position: Int) {

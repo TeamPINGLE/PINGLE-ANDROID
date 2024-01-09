@@ -2,6 +2,7 @@ package org.sopt.pingle.util.component
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.CardPingleBinding
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.view.colorOf
 import org.sopt.pingle.util.view.stringOf
 import java.time.LocalDate
@@ -38,6 +40,12 @@ class PingleCard @JvmOverloads constructor(
 
         binding.btnCardBottomMapParticipate.setOnClickListener {
             listener?.onPingleCardParticipateBtnClickListener()
+        }
+
+        binding.layoutCardTopParticipationStatus.setOnClickListener {
+            Intent(context, ParticipantActivity::class.java).apply {
+                context.startActivity(this)
+            }
         }
     }
 

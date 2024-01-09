@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityPlanBinding
+import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.presentation.ui.main.plan.planlocation.PlanLocationFragment
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.AllModalDialogFragment
@@ -36,7 +38,6 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
     }
 
     private fun setPlanFragmentStateAdapter() {
-        // TODO 차후에 나머지 개최 프로세스 fragment 추가
         fragmentList = ArrayList()
         fragmentList.apply {
             add(PlanCategoryFragment())
@@ -94,6 +95,9 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             when (currentPage) {
                 fragmentList.size - 1 -> {
                     binding.btnPlan.text = getString(R.string.plan_pingle)
+                    binding.btnPlan.setOnClickListener {
+                        navigateToMain()
+                    }
                 }
                 // TODO 다른 다음으로 스트링과 합치기
                 else -> {
@@ -110,9 +114,17 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             detail = getString(R.string.plan_exit_modal_dialog_detail),
             buttonText = getString(R.string.plan_exit_modal_dialog_btn_text),
             textButtonText = getString(R.string.plan_exit_modal_dialog_text_btn_text),
-            clickBtn = {},
+            clickBtn = {
+                navigateToMain()
+            },
             clickTextBtn = { finish() }
         ).show(supportFragmentManager, EXIT_MODAL)
+    }
+
+    private fun navigateToMain() {
+        Intent(this, MainActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 
     companion object {

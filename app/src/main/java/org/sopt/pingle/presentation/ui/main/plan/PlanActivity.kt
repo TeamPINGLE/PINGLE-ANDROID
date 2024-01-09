@@ -54,12 +54,12 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             this.adapter = adapter
             isUserInputEnabled = false
             registerOnPageChangeCallback(object :
-                ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    planViewModel.setCurrentPage(position)
-                }
-            })
+                    ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        planViewModel.setCurrentPage(position)
+                    }
+                })
         }
     }
 
@@ -121,7 +121,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                     startActivity(this)
                 }
             },
-            clickTextBtn = { finish() },
+            clickTextBtn = { finish() }
         ).show(supportFragmentManager, EXIT_MODAL)
     }
 

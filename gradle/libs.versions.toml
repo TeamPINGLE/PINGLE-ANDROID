@@ -38,6 +38,7 @@ kotlin-serialization-json = "1.5.1"
 sentry = "4.1.1"
 naver-maps = "3.17.0"
 play-services-location = "21.0.1"
+progress-bar = "1.1.3"
 
 [libraries]
 # AndroidX
@@ -77,6 +78,7 @@ retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", 
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization-json" }
 naver-maps = { group = "com.naver.maps", name = "map-sdk", version.ref = "naver-maps" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }
+progress-bar = {group = "com.github.skydoves", name = "progressview", version.ref="progress-bar"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

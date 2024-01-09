@@ -87,8 +87,8 @@
     <string name="map_modal_description">이 핑글에 참여할까요?</string>
 
     <!-- map card -->
-    <string name="map_card_participant">참여자</string>
-    <string name="map_card_participant_detail">%d/%d</string>
+    <string name="map_card_participation_status">참여현황</string>
+    <string name="map_card_participant_detail_slash">/</string>
     <string name="map_card_calender">일시</string>
     <string name="map_card_map">장소</string>
     <string name="map_card_chat">대화하기</string>

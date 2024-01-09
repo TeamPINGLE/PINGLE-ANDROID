@@ -1,16 +1,10 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import org.sopt.pingle.domain.model.PlanLocationEntity
 import org.sopt.pingle.presentation.type.CategoryType
-import org.sopt.pingle.presentation.type.PlanType
 import org.sopt.pingle.util.combineAll
 
 class PlanViewModel : ViewModel() {
@@ -34,7 +28,7 @@ class PlanViewModel : ViewModel() {
             .combineAll()
 
     // TODO 수정 예정, 테스트를 위해 position값 임의 설정
-    val isPlanBtnEnabled: StateFlow<Boolean> = listOf(
+    /*val isPlanBtnEnabled: StateFlow<Boolean> = listOf(
         currentPage,
         planTitle,
         planDate,
@@ -53,10 +47,9 @@ class PlanViewModel : ViewModel() {
             (currentPage == PlanType.TITLE.position - 1 && planTitle.isNotBlank()) ||
                 (currentPage == 1 && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
                 (currentPage == 2 && planOpenChattingLink.isNotBlank())
-        }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)*/
 
-    // val isPlanBtnEnabled = MutableStateFlow(true)
+    val isPlanBtnEnabled = MutableStateFlow(true)
 
     private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
     val selectedLocation get() = _selectedLocation.asStateFlow()

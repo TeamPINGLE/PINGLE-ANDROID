@@ -22,6 +22,10 @@
     <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
     <string name="on_boarding_original_group">기존 단체\n입장하기</string>
     <string name="on_boarding_new_group">신규 단체\n개설하기</string>
+    <string name="auth_kakao_login">카카오로 시작하기</string>
+    <string name="auth_title">Ready to\nPINGLE?</string>
+    <string name="auth_description_1">가볍고 재미있는 모임 문화,</string>
+    <string name="auth_description_2">핑글과 함께 만들어요!</string>
 
     <!-- join group code -->
     <string name="join_group_code_topbar">기존 단체 입장하기</string>
@@ -67,6 +71,13 @@
     <string name="join_group_success_description_group_name">%s에서</string>
     <string name="join_group_success_description">핑글 여정을 함께해보세요!</string>
 
+    <!-- join group search -->
+    <string name="join_group_search_create_text">찾는 단체가 없나요?</string>
+    <string name="join_group_search_create"><u>단체를 직접 추가해주세요</u></string>
+    <string name="join_group_search_empty">검색 결과가 없어요</string>
+    <string name="join_troup_search_title">속해있는 단체의\n이름을 알려주세요.</string>
+    <string name="join_group_search_hint">단체 이름을 검색해보세요</string>
+
     <!-- map -->
     <string name="map_participate">참여하기</string>
 
@@ -104,7 +115,16 @@
     <!-- construction -->
     <string name="construction_title">아직 공사중!</string>
     <string name="construction_detail">아직 구현중인 기능이에요\n조금만 기다려주세요</string>
-    ]
+
+    <!-- plan recruitment -->
+
+    <!-- plan summary confirmation -->
+    <string name="plan_summary_confirmation_title">핑글을 개최할\n준비 되었나요?</string>
+    <string name="plan_summary_confirmation_date">일시</string>
+    <string name="plan_summary_confirmation_location">장소</string>
+    <string name="plan_summary_confirmation_recruitment">모집인원</string>
+    <string name="plan_summary_confirmation_recruitment_number">%s명</string>
+]
     <!-- plan recruitment -->
     <string name="plan_recruitment_title">몇 명의 핑글러들과\n만날까요?</string>
     <string name="plan_recruitment_description">본인을 포함하여,\n최소 1명부터 참여 인원을 선택해주세요</string>

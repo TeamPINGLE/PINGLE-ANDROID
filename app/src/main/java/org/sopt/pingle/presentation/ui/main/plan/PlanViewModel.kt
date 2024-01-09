@@ -121,7 +121,7 @@ class PlanViewModel : ViewModel() {
     val planLocationList get() = _planLocationList.asStateFlow()
 
     fun updatePlanLocationList(position: Int) {
-        when (oldPosition){
+        when (oldPosition) {
             OLD_POSITION -> {
                 setIsSelected(position)
             }
@@ -142,7 +142,7 @@ class PlanViewModel : ViewModel() {
         // TODO return planLocationList.value.isEmpty()
     }
 
-    private fun setIsSelected(position: Int)  {
+    private fun setIsSelected(position: Int) {
         _planLocationList.value[position].isSelected.set(!_planLocationList.value[position].isSelected.get())
         // TODO 서버에서 받아올 리스트에 저장.. planLocationList.value[position].isSelected.set(value)
     }

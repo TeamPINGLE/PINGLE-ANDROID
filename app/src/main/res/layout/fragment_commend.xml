@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:gravity="center"
             android:text="@string/construction_detail"
             android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
             android:textColor="@color/white"
@@ -38,11 +39,11 @@
 
         <ImageView
             android:id="@+id/iv_commend_construction"
-            android:layout_width="0dp"
-            android:layout_height="190dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="42dp"
             android:layout_marginTop="35dp"
-            android:background="@color/g_02"
+            android:src="@drawable/img_work_graphic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_commend_construction_detail" />

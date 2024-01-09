@@ -172,7 +172,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
                 locationOverlay.apply {
                     isVisible = true
-                    icon = OverlayImage.fromResource(R.drawable.ic_map_location_overlay)
+                    icon = OverlayImage.fromResource(R.drawable.ic_map_location_overlay_20)
                 }
             }
         } else {

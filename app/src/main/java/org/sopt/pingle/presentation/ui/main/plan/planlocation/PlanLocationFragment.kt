@@ -7,18 +7,20 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanLocationBinding
+import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.context.hideKeyboard
 
 class PlanLocationFragment :
     BindingFragment<FragmentPlanLocationBinding>(R.layout.fragment_plan_location) {
-    private val planLocationViewModel by viewModels<PlanLocationViewModel>()
+    private val planLocationViewModel by viewModels<PlanViewModel>()
     private val planLocationAdapter: PlanLocationAdapter by lazy {
         PlanLocationAdapter(::deleteOldPosition)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initLayout()
         addListeners()
     }
@@ -48,7 +50,7 @@ class PlanLocationFragment :
                     return@OnKeyListener true
                 }
                 false
-            }
+            },
         )
     }
 

@@ -34,17 +34,10 @@ class PlanViewModel : ViewModel() {
                 (currentPage == 2 && planOpenChattingLink.isNotBlank())
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
 
-    private val _location = MutableStateFlow<String?>(null)
-    val location get() = _location.asStateFlow()
+    // val isPlanBtnEnabled = MutableStateFlow(true)
 
-    private val _x = MutableStateFlow<Double?>(null)
-    val locationX get() = _x.asStateFlow()
-
-    private val _y = MutableStateFlow<Double?>(null)
-    val locationY get() = _y.asStateFlow()
-
-    private val _address = MutableStateFlow<String?>(null)
-    val address get() = _address.asStateFlow()
+    private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
+    val selectedLocation get() = _selectedLocation.asStateFlow()
 
     // TODO 뷰 연결 시 버튼 활성/비활성화 로직 isPlanBtnEnabled에 추가
     private val _selectedCategory = MutableStateFlow<CategoryType?>(null)
@@ -66,12 +59,11 @@ class PlanViewModel : ViewModel() {
         _selectedTimeType.value = timeType
     }
 
-    fun setPlanLocation(location: String, locationX: Double, locationY: Double, address: String) {
-        _location.value = location
-        _x.value = locationX
-        _y.value = locationY
-        _address.value = address
+    private fun setPlanLocation(position: Int) {
+        _selectedLocation.value = mockPlanLocationList[position]
+        // _selectedLocation.value = planLocationList[position]
     }
+
     companion object {
         const val FIRST_PAGE_POSITION = 0
     }
@@ -83,10 +75,12 @@ class PlanViewModel : ViewModel() {
     fun updatePlanLocationList(position: Int) {
         if (oldPosition == -1 && oldPosition != position) {
             setIsSelected(true, position)
+            setPlanLocation(position)
         } else if (oldPosition == position) {
             setIsSelected(false, oldPosition)
         } else {
             setIsSelected(true, position)
+            setPlanLocation(position)
             setIsSelected(false, oldPosition)
         }
         oldPosition = position
@@ -107,37 +101,37 @@ class PlanViewModel : ViewModel() {
             location = "하얀집",
             address = "서울 중구 퇴계로6길 12",
             x = 123.5,
-            y = 56.7
+            y = 56.7,
         ),
         PlanLocationEntity(
             location = "하얀집2호점",
             address = "서울 중구 퇴계로6길 12",
             x = 123.5,
-            y = 56.7
+            y = 56.7,
         ),
         PlanLocationEntity(
             location = "하얀집3호점",
             address = "서울 중구 퇴계로6길 12",
             x = 123.5,
-            y = 56.7
+            y = 56.7,
         ),
         PlanLocationEntity(
             location = "하얀집 싫어싫어싫어",
             address = "서울 중구 퇴계로6길 12",
             x = 123.5,
-            y = 56.7
+            y = 56.7,
         ),
         PlanLocationEntity(
             location = "하얀집 좋아좋아좋아",
             address = "서울 중구 퇴계로6길 12",
             x = 123.5,
-            y = 56.7
+            y = 56.7,
         ),
         PlanLocationEntity(
             location = "하얀집웅시러",
             address = "서울 중구 퇴계로6길 12",
             x = 123.5,
-            y = 56.7
-        )
+            y = 56.7,
+        ),
     )
 }

@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanRecruitmentBinding
 import org.sopt.pingle.util.base.BindingFragment
-import org.sopt.pingle.util.component.CustomSnackbar
 import org.sopt.pingle.util.context.hideKeyboard
 
 class PlanRecruitmentFragment :

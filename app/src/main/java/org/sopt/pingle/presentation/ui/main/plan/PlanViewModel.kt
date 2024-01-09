@@ -105,6 +105,7 @@ class PlanViewModel : ViewModel() {
     }
 
     private var oldPosition = OLD_POSITION
+
     companion object {
         const val FIRST_PAGE_POSITION = 0
         const val OLD_POSITION = -1
@@ -118,10 +119,12 @@ class PlanViewModel : ViewModel() {
             OLD_POSITION -> {
                 setIsSelected(position)
             }
+
             position -> {
                 setIsSelected(position)
                 oldPosition = OLD_POSITION
             }
+
             else -> {
                 _planLocationList.value[oldPosition].isSelected.set(false)
                 _planLocationList.value[position].isSelected.set(true)

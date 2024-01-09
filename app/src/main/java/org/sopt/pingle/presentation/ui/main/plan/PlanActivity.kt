@@ -96,9 +96,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                 fragmentList.size - 1 -> {
                     binding.btnPlan.text = getString(R.string.plan_pingle)
                     binding.btnPlan.setOnClickListener {
-                        Intent(this, MainActivity::class.java).apply {
-                            startActivity(this)
-                        }
+                        navigateToMain()
                     }
                 }
                 // TODO 다른 다음으로 스트링과 합치기
@@ -117,12 +115,16 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             buttonText = getString(R.string.plan_exit_modal_dialog_btn_text),
             textButtonText = getString(R.string.plan_exit_modal_dialog_text_btn_text),
             clickBtn = {
-                Intent(this, MainActivity::class.java).apply {
-                    startActivity(this)
-                }
+                navigateToMain()
             },
             clickTextBtn = { finish() }
         ).show(supportFragmentManager, EXIT_MODAL)
+    }
+
+    private fun navigateToMain() {
+        Intent(this, MainActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 
     companion object {

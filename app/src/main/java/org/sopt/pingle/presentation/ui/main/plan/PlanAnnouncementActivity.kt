@@ -74,15 +74,23 @@ class PlanAnnouncementActivity :
 
     private fun addListeners() {
         binding.ivPlanAnnouncementExitBtn.setOnClickListener {
-            Intent(this, MainActivity::class.java).apply {
-                startActivity(this)
-            }
+            navigateToMain()
         }
 
         binding.btnPlanAnnouncement.setOnClickListener {
-            Intent(this, PlanActivity::class.java).apply {
-                startActivity(this)
-            }
+            navigateToPlan()
+        }
+    }
+
+    private fun navigateToMain() {
+        Intent(this, MainActivity::class.java).apply {
+            startActivity(this)
+        }
+    }
+
+    private fun navigateToPlan() {
+        Intent(this, PlanActivity::class.java).apply {
+            startActivity(this)
         }
     }
 

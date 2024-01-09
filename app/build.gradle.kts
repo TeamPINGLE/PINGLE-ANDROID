@@ -31,7 +31,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", properties["base.url"].toString())
         buildConfigField("String", "ACCESS_TOKEN", properties["access.token"].toString())
-        buildConfigField("String", "NAVER_MAP_CLIENT_ID", properties["naver.map.client.id"].toString())
+        buildConfigField(
+            "String",
+            "NAVER_MAP_CLIENT_ID",
+            properties["naver.map.client.id"].toString()
+        )
         manifestPlaceholders["IO_SENTRY_DSN"] = properties["io.sentry.dsn"] as String
     }
 
@@ -96,6 +100,9 @@ dependencies {
 
     // Location
     implementation(libs.play.services.location)
+
+    // progress Bar
+    implementation(libs.progress.bar)
 }
 
 ktlint {

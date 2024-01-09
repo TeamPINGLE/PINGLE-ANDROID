@@ -58,9 +58,27 @@ class PlanViewModel : ViewModel() {
     private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
     val selectedLocation get() = _selectedLocation.asStateFlow()
 
-    // TODO 뷰 연결 시 버튼 활성/비활성화 로직 isPlanBtnEnabled에 추가
     private val _selectedCategory = MutableStateFlow<CategoryType?>(null)
     val selectedCategory get() = _selectedCategory.asStateFlow()
+
+    private val _selectedRecruitment = MutableStateFlow<String?>("1")
+    val selectedRecruitment get() = _selectedRecruitment.asStateFlow()
+
+    fun incRecruitmentNum() {
+        var i = selectedRecruitment.value?.toInt()
+        i = i!! + 1
+        setSelectedRecruitment(i.toString())
+    }
+
+    fun decRecruitmentNum() {
+        var i = selectedRecruitment.value?.toInt()
+        i = i!! - 1
+        setSelectedRecruitment(i.toString())
+    }
+
+    fun setSelectedRecruitment(recruitment: String) {
+        _selectedRecruitment.value = recruitment
+    }
 
     fun setSelectedCategory(categoryType: CategoryType) {
         _selectedCategory.value = categoryType

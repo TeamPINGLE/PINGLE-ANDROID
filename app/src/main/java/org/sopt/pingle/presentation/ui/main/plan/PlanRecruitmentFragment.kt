@@ -60,11 +60,6 @@ class PlanRecruitmentFragment :
             when (it.toString()) {
                 "99" -> {
                     binding.btnPlanRecruitmentPlus.isEnabled = false
-                    CustomSnackbar.makeSnackbar(
-                        binding.layoutPlanRecruitment,
-                        getString(R.string.plan_recruitment_snackbar),
-                        126
-                    )
                 }
 
                 "1" -> {

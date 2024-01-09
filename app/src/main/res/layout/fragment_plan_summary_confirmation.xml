@@ -143,14 +143,13 @@
                 android:id="@+id/tv_plan_summary_confirmation_map_detail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing17"
                 android:layout_marginEnd="@dimen/spacing22"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                 android:textColor="@color/g_03"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tv_plan_summary_confirmation_map_title"
-                app:layout_constraintStart_toStartOf="@id/tv_plan_summary_confirmation_calender_detail"
-                app:layout_constraintTop_toBottomOf="@id/tv_plan_summary_confirmation_calender_detail"
+                app:layout_constraintStart_toEndOf="@id/iv_plan_summary_confirmation_map"
+                app:layout_constraintStart_toStartOf="@+id/tv_plan_summary_confirmation_calender_detail"
+                app:layout_constraintTop_toTopOf="@id/tv_plan_summary_confirmation_map_title"
                 tools:text="장소 이름" />
 
             <ImageView

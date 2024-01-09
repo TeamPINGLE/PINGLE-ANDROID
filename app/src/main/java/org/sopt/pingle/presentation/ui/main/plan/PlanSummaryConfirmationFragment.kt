@@ -41,13 +41,19 @@ class PlanSummaryConfirmationFragment :
 
     private fun convertTimeFormat(time: String): String = time.substring(0, 5)
     private fun convertDateFormat(date: String): String {
-        val year = date.substring(0, 4)
-        val month = date.substring(5, 7)
-        val day = date.substring(8, 10)
+        val year = date.substring(YEAR_START_INDEX, YEAR_END_INDEX)
+        val month = date.substring(MONTH_START_INDEX, MONTH_END_INDEX)
+        val day = date.substring(DAY_START_INDEX, DAY_END_INDEX)
         return year + YEAR + month + MONTH + day + DAY
     }
 
     companion object {
+        const val YEAR_START_INDEX = 0
+        const val YEAR_END_INDEX = 4
+        const val MONTH_START_INDEX = 5
+        const val MONTH_END_INDEX = 7
+        const val DAY_START_INDEX = 8
+        const val DAY_END_INDEX = 10
         const val YEAR = "년 "
         const val MONTH = "월 "
         const val DAY = "일"

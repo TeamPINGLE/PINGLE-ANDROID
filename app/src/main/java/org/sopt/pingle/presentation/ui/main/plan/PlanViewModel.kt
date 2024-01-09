@@ -34,7 +34,7 @@ class PlanViewModel : ViewModel() {
             .combineAll()
 
     // TODO 수정 예정, 테스트를 위해 position값 임의 설정
-    val isPlanBtnEnabled: StateFlow<Boolean> = listOf(
+    /*val isPlanBtnEnabled: StateFlow<Boolean> = listOf(
         currentPage,
         planTitle,
         planDate,
@@ -53,7 +53,9 @@ class PlanViewModel : ViewModel() {
             (currentPage == PlanType.TITLE.position - 1 && planTitle.isNotBlank()) ||
                 (currentPage == 1 && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
                 (currentPage == 2 && planOpenChattingLink.isNotBlank())
-        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)*/
+
+    val isPlanBtnEnabled = MutableStateFlow(true)
 
     private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
     val selectedLocation get() = _selectedLocation.asStateFlow()

@@ -37,13 +37,7 @@
             android:name=".presentation.ui.dummy.DummyActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".presentation.ui.dummy.DummyCustomDEditTextActivity"
             android:exported="false"
@@ -61,10 +55,16 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.ui.main.plan.PlanActivity"
-            android:exported="false"
+            android:exported="true"
             android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="io.sentry.dsn"

@@ -27,10 +27,12 @@ class PlanSummaryConfirmationFragment :
                 tvPlanSummaryConfirmationName.text = viewModel.planTitle.value
                 tvPlanSummaryConfirmationOwnerName.text = "개최자"
                 tvPlanSummaryConfirmationCalenderDetail.text =
-                    viewModel.planDate.value + "\n" + viewModel.startTime.value + " ~ " + viewModel.endTime.value
+                    viewModel.planDate.value + "\n" + makeTimeClean(viewModel.startTime.value) + " ~ " + makeTimeClean(viewModel.endTime.value)
                 tvPlanSummaryConfirmationMapDetail.text = viewModel.selectedLocation.value?.location
                 tvPlanSummaryConfirmationRecruitmentDetail.text = getString(R.string.plan_summary_confirmation_recruitment_number, viewModel.selectedRecruitment.value)
             }
         }
     }
+
+    private fun makeTimeClean(time: String): String = time.substring(0, 5)
 }

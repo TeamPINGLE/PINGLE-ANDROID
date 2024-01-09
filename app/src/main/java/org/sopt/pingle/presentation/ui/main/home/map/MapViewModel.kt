@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.domain.model.PingleEntity
+import org.sopt.pingle.presentation.mapper.toMarkerModel
+import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 
 class MapViewModel() : ViewModel() {
@@ -57,8 +59,45 @@ class MapViewModel() : ViewModel() {
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
 
+    private var _markerList = MutableStateFlow<List<MarkerModel>>(emptyList())
+    val markerList get() = _markerList.asStateFlow()
+
+    private var _selectedMarkerPosition = MutableStateFlow(DEFAULT_SELECTED_MARKER_POSITION)
+    val selectedMarkerPosition = _selectedMarkerPosition.asStateFlow()
+
+    init {
+        setMarkerList()
+    }
+
     fun setCategory(category: CategoryType?) {
         _category.value = category
+    }
+
+    fun setMarkerList() {
+        _markerList.value = dummyPinList.map { pinEntity ->
+            pinEntity.toMarkerModel()
+        }
+    }
+
+    fun handleMarkerClick(position: Int) {
+        setMarkerIsSelected(position)
+        if (_selectedMarkerPosition.value != DEFAULT_SELECTED_MARKER_POSITION) {
+            setMarkerIsSelected(
+                _selectedMarkerPosition.value
+            )
+        }
+        _selectedMarkerPosition.value = position
+    }
+
+    fun clearSelectedMarkerPosition() {
+        if (_selectedMarkerPosition.value != DEFAULT_SELECTED_MARKER_POSITION) {
+            setMarkerIsSelected(_selectedMarkerPosition.value)
+            _selectedMarkerPosition.value = DEFAULT_SELECTED_MARKER_POSITION
+        }
+    }
+
+    private fun setMarkerIsSelected(position: Int) {
+        markerList.value[position].isSelected.set(!markerList.value[position].isSelected.get())
     }
 
     fun cancelPingle() {
@@ -93,5 +132,9 @@ class MapViewModel() : ViewModel() {
             isParticipating = true,
             chatLink = "https://github.com/TeamPINGLE/PINGLE-ANDROID"
         )
+    }
+
+    companion object {
+        const val DEFAULT_SELECTED_MARKER_POSITION = -1
     }
 }

@@ -23,10 +23,10 @@
 
         <ImageView
             android:id="@+id/iv_plan_category_type"
+            image="@{categoryType.categoryIconRes}"
             android:layout_width="84dp"
             android:layout_height="84dp"
             android:layout_marginHorizontal="38dp"
-            image="@{categoryType.categoryIconRes}"
             android:layout_marginTop="@dimen/spacing13"
             android:src="@drawable/ic_all_warning_notice_24"
             app:layout_constraintDimensionRatio="1"

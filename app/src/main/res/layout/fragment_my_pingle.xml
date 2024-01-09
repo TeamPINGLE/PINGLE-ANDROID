@@ -13,15 +13,39 @@
         tools:context=".presentation.ui.main.mypingle.MyPingleFragment">
 
         <TextView
+            android:id="@+id/tv_my_pingle_construction_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="마이 핑글"
-            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.32"
+            android:layout_marginTop="137dp"
+            android:text="@string/construction_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_my_pingle_construction_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/construction_detail"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_pingle_construction_title" />
+
+        <ImageView
+            android:id="@+id/iv_my_pingle_construction"
+            android:layout_width="0dp"
+            android:layout_height="190dp"
+            android:layout_marginHorizontal="42dp"
+            android:layout_marginTop="35dp"
+            android:background="@color/g_02"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_pingle_construction_detail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

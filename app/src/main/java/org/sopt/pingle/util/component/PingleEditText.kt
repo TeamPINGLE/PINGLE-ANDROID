@@ -6,7 +6,6 @@ import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.EditTextPingleBinding
@@ -25,7 +24,7 @@ class PingleEditText @JvmOverloads constructor(
             LayoutInflater.from(context),
             R.layout.edit_text_pingle,
             this,
-            true,
+            true
         )
         binding.view = this
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.pingleEditText)

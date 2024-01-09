@@ -2,12 +2,10 @@ package org.sopt.pingle.util.component
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.text.style.TextAppearanceSpan
+import android.content.Intent
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import java.time.LocalDate
 import java.time.LocalTime
@@ -16,6 +14,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.CardPingleBinding
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.view.colorOf
 import org.sopt.pingle.util.view.stringOf
 
@@ -42,6 +41,12 @@ class PingleCard @JvmOverloads constructor(
         binding.btnCardBottomMapParticipate.setOnClickListener {
             listener?.onPingleCardParticipateBtnClickListener()
         }
+
+        binding.layoutCardTopParticipationStatus.setOnClickListener {
+            Intent(context, ParticipantActivity::class.java).apply {
+                context.startActivity(this)
+            }
+        }
     }
 
     fun initLayout(pingleEntity: PingleEntity) {
@@ -63,52 +68,22 @@ class PingleCard @JvmOverloads constructor(
                 pingleEntity.isParticipating || !pingleEntity.isCompleted()
 
             if (pingleEntity.isCompleted()) {
-                with(tvCardTopInfoParticipantDetail) {
-                    text = stringOf(R.string.map_card_completed)
-                    setTextAppearance(R.style.TextAppearance_Pingle_Sub_Semi_16)
-                }
+                tvCardTopInfoParticipationStatusSlash.visibility = View.INVISIBLE
+                tvCardTopInfoParticipationStatusCurrentParticipants.visibility = View.INVISIBLE
+                tvCardTopInfoParticipationStatusMaxParticipants.visibility = View.INVISIBLE
+                tvCardTopInfoParticipationCompleted.visibility = View.VISIBLE
             } else {
-                with(tvCardTopInfoParticipantDetail) {
-                    val participantDetail = context.getString(
-                        R.string.map_card_participant_detail,
-                        pingleEntity.curParticipants,
-                        pingleEntity.maxParticipants
-                    )
-                    text = SpannableString(participantDetail).apply {
-                        setSpan(
-                            ForegroundColorSpan(
-                                colorOf(category.textColor)
-                            ),
-                            CUR_PARTICIPANTS_START,
-                            pingleEntity.curParticipants.toString().length,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-                        setSpan(
-                            TextAppearanceSpan(
-                                context,
-                                R.style.TextAppearance_Pingle_Title_Semi_30
-                            ),
-                            CUR_PARTICIPANTS_START,
-                            pingleEntity.curParticipants.toString().length + 1,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-                        setSpan(
-                            TextAppearanceSpan(
-                                context,
-                                R.style.TextAppearance_Pingle_Title_Semi_20
-                            ),
-                            pingleEntity.curParticipants.toString().length + 1,
-                            participantDetail.length,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-                    }
-                }
+                tvCardTopInfoParticipationStatusCurrentParticipants.text =
+                    pingleEntity.curParticipants.toString()
+                tvCardTopInfoParticipationStatusCurrentParticipants.setTextColor(colorOf(category.textColor))
+                tvCardTopInfoParticipationStatusSlash.visibility = View.VISIBLE
+                tvCardTopInfoParticipationStatusCurrentParticipants.visibility = View.VISIBLE
+                tvCardTopInfoParticipationStatusMaxParticipants.visibility = View.VISIBLE
+                tvCardTopInfoParticipationCompleted.visibility = View.INVISIBLE
+                tvCardTopInfoParticipationStatusMaxParticipants.text =
+                    pingleEntity.maxParticipants.toString()
             }
         }
-    }
-
-    companion object {
-        const val CUR_PARTICIPANTS_START = 0
     }
 }
 

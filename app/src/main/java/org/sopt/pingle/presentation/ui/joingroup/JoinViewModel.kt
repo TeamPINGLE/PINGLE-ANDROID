@@ -10,8 +10,10 @@ class JoinViewModel : ViewModel() {
     private val _joinGroupData = MutableLiveData<JoinGroupCodeEntity>()
     val joinGroupData get() = _joinGroupData
 
-    private var _isJoinBtn = MutableLiveData(false)
-    val isJoinBtn get() = _isJoinBtn
+    private var _isJoinGroupCodeBtn = MutableLiveData(false)
+    val isJoinGroupCodeBtn get() = _isJoinGroupCodeBtn
+
+    val joinGroupCode = MutableLiveData<String>()
 
     private val _joinGroupSearchData = MutableStateFlow<List<JoinGroupSearchEntity>>(emptyList())
     val joinGroupSearchData get() = _joinGroupSearchData

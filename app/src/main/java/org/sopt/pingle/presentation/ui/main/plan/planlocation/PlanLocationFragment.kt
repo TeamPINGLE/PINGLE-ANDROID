@@ -50,7 +50,7 @@ class PlanLocationFragment :
                     return@OnKeyListener true
                 }
                 false
-            },
+            }
         )
     }
 

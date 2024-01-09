@@ -53,12 +53,12 @@
             android:id="@+id/iv_join_group_success"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/spacing26"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/img_join_group_success_graphic"
             app:layout_constraintBottom_toTopOf="@id/btn_join_group_success"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_join_group_success_description" />
+            app:layout_constraintTop_toBottomOf="@id/tv_join_group_success_title" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_join_group_success"
@@ -72,6 +72,7 @@
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_join_group_success" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -163,6 +163,7 @@
 
         <org.sopt.pingle.util.component.PingleEditText
             android:id="@+id/et_join_group_code_invitation"
+            etText="@={joinViewModel.joinGroupCode}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing16"
@@ -192,7 +193,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing25"
-            android:enabled="@{joinViewModel.isJoinBtn}"
+            android:enabled="false"
             android:text="@string/join_group_code_next"
             android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
             app:layout_constraintBottom_toBottomOf="parent"

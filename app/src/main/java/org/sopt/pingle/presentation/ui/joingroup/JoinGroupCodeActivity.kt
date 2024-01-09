@@ -10,15 +10,16 @@ import org.sopt.pingle.util.base.BindingActivity
 @AndroidEntryPoint
 class JoinGroupCodeActivity :
     BindingActivity<ActivityJoinGroupCodeBinding>(R.layout.activity_join_group_code) {
-    private val joinViewModel by viewModels<JoinViewModel>()
+    private val viewModel by viewModels<JoinViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.joinViewModel = viewModel
 
         addObservers()
     }
 
     private fun addObservers() {
-        joinViewModel.joinGroupData.observe(this) { joinGroupData ->
+        viewModel.joinGroupData.observe(this) { joinGroupData ->
             with(binding) {
                 tvJoinGroupCodeTag.text = joinGroupData.keyword
                 tvJoinGroupCodeGroupName.text = joinGroupData.name
@@ -30,6 +31,10 @@ class JoinGroupCodeActivity :
                         joinGroupData.participantCount
                     )
             }
+        }
+
+        viewModel.joinGroupCode.observe(this) { editText ->
+            binding.btnJoinGroupCodeNext.isEnabled = editText.isNotEmpty()
         }
     }
 }

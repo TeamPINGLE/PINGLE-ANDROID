@@ -38,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_all_topbar_arrow_with_title_arrow_left"
-            tools:text="기존 단체 입장하기" />
+            tools:text="단체 입장하기" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

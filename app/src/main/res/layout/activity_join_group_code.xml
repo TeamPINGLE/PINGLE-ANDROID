@@ -32,7 +32,7 @@
         <include
             android:id="@+id/include_join_group_code_topbar"
             layout="@layout/view_all_topbar_arrow_with_title"
-            text="@{@string/join_group_code_topbar}"
+            text="@{@string/join_group_topbar}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -12,7 +12,13 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityPlanBinding
 import org.sopt.pingle.presentation.ui.main.MainActivity
+import org.sopt.pingle.presentation.ui.main.plan.plancategory.PlanCategoryFragment
+import org.sopt.pingle.presentation.ui.main.plan.plandatetime.PlanDateTimeFragment
 import org.sopt.pingle.presentation.ui.main.plan.planlocation.PlanLocationFragment
+import org.sopt.pingle.presentation.ui.main.plan.planopenchatting.PlanOpenChattingFragment
+import org.sopt.pingle.presentation.ui.main.plan.planrecruitment.PlanRecruitmentFragment
+import org.sopt.pingle.presentation.ui.main.plan.plansummaryconfirmation.PlanSummaryConfirmationFragment
+import org.sopt.pingle.presentation.ui.main.plan.plantitle.PlanTitleFragment
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.AllModalDialogFragment
 

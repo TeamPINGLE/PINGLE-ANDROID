@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.main.plan.PlanAnnouncementActivity">
+        tools:context=".presentation.ui.main.plan.planannouncement.PlanAnnouncementActivity">
 
         <ImageView
             android:id="@+id/iv_plan_announcement_exit_btn"

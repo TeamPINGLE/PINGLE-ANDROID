@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan
+package org.sopt.pingle.presentation.ui.main.plan.plansummaryconfirmation
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanSummaryConfirmationBinding
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.colorOf
 

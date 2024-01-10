@@ -1,7 +1,7 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityPlanBinding
-import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.presentation.ui.main.plan.plancategory.PlanCategoryFragment
 import org.sopt.pingle.presentation.ui.main.plan.plandatetime.PlanDateTimeFragment
 import org.sopt.pingle.presentation.ui.main.plan.planlocation.PlanLocationFragment
@@ -60,12 +59,12 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             this.adapter = adapter
             isUserInputEnabled = false
             registerOnPageChangeCallback(object :
-                    ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                        planViewModel.setCurrentPage(position)
-                    }
-                })
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    planViewModel.setCurrentPage(position)
+                }
+            })
         }
     }
 
@@ -102,7 +101,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                 fragmentList.size - 1 -> {
                     binding.btnPlan.text = getString(R.string.plan_pingle)
                     binding.btnPlan.setOnClickListener {
-                        navigateToMain()
+                        finish()
                     }
                 }
                 // TODO 다른 다음으로 스트링과 합치기
@@ -120,17 +119,9 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             detail = getString(R.string.plan_exit_modal_dialog_detail),
             buttonText = getString(R.string.plan_exit_modal_dialog_btn_text),
             textButtonText = getString(R.string.plan_exit_modal_dialog_text_btn_text),
-            clickBtn = {
-                navigateToMain()
-            },
+            clickBtn = {},
             clickTextBtn = { finish() }
         ).show(supportFragmentManager, EXIT_MODAL)
-    }
-
-    private fun navigateToMain() {
-        Intent(this, MainActivity::class.java).apply {
-            startActivity(this)
-        }
     }
 
     companion object {

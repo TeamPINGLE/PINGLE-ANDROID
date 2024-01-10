@@ -61,6 +61,10 @@ class JoinGroupSearchActivity :
         binding.btnJoinGroupCodeNext.setOnClickListener {
             navigateToJoinGroupCode()
         }
+
+        binding.includeJoinGroupSearchTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
+            finish()
+        }
     }
 
     private fun addObservers() {
@@ -69,6 +73,10 @@ class JoinGroupSearchActivity :
             joinGroupSearchAdapter.submitList(joinGroupSearchList)
 
             binding.tvJoinGroupSearchEmpty.isVisible = joinGroupSearchList.isEmpty()
+        }.launchIn(lifecycleScope)
+
+        viewModel.selectedJoinGroup.flowWithLifecycle(lifecycle).onEach { selectedJoinGroup ->
+            binding.btnJoinGroupCodeNext.isEnabled = selectedJoinGroup != null
         }.launchIn(lifecycleScope)
     }
 

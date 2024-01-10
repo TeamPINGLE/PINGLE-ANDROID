@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan
+package org.sopt.pingle.presentation.ui.main.plan.plandatetime
 
 import android.os.Bundle
 import android.view.View
@@ -8,8 +8,9 @@ import java.time.LocalDate
 import java.util.Locale
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanDateTimeBinding
+import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
-import org.sopt.pingle.util.component.CustomSnackbar
+import org.sopt.pingle.util.component.PingleSnackbar
 
 class PlanDateTimeFragment :
     BindingFragment<FragmentPlanDateTimeBinding>(R.layout.fragment_plan_date_time) {
@@ -58,7 +59,7 @@ class PlanDateTimeFragment :
         if (selectedLocalDate != null) {
             if (selectedLocalDate.before(todayLocalDate)) {
                 // TODO 에러 스낵바 노출
-                CustomSnackbar.makeSnackbar(
+                PingleSnackbar.makeSnackbar(
                     binding.root,
                     getString(R.string.plan_future_date_snackber),
                     126

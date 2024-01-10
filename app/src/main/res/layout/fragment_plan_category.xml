@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="planViewModel"
             type="org.sopt.pingle.presentation.ui.main.plan.PlanViewModel" />
 
-        <import type="org.sopt.pingle.presentation.type.CategoryType"></import>
         <variable
             name="planCategory"
             type="org.sopt.pingle.presentation.type.CategoryType" />
@@ -30,71 +30,57 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_plan_category_topCategory"
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/include_plan_category_type_play"
+            layout="@layout/view_plan_category_type"
+            selection="@{planViewModel.selectedCategory == planCategory.PLAY}"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing28"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="28dp"
+            android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.PLAY)}"
+            app:categoryType="@{planCategory.PLAY}"
+            app:layout_constraintEnd_toStartOf="@id/include_plan_category_type_study"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_plan_location_title">
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_location_title" />
 
-            <include
-                android:id="@+id/include_plan_category_type_play"
-                layout="@layout/view_plan_category_type"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                selection="@{planViewModel.selectedCategory == planCategory.PLAY}"
-                android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.PLAY)}"
-                app:categoryType="@{planCategory.PLAY}"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <include
-                android:id="@+id/include_plan_category_type_study"
-                layout="@layout/view_plan_category_type"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                selection="@{planViewModel.selectedCategory == planCategory.STUDY}"
-                android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.STUDY)}"
-                android:layout_marginStart="@dimen/spacing9"
-                app:categoryType="@{planCategory.STUDY}"
-                app:layout_constraintEnd_toEndOf="parent"
-
-                app:layout_constraintStart_toEndOf="@id/include_plan_category_type_play" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_plan_category_bottomCategory"
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/include_plan_category_type_study"
+            layout="@layout/view_plan_category_type"
+            selection="@{planViewModel.selectedCategory == planCategory.STUDY}"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing11"
+            android:layout_marginStart="@dimen/spacing9"
+            android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.STUDY)}"
+            app:categoryType="@{planCategory.STUDY}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/include_plan_category_type_play"
+            app:layout_constraintTop_toTopOf="@id/include_plan_category_type_play" />
+
+        <include
+            android:id="@+id/include_plan_category_type_multi"
+            layout="@layout/view_plan_category_type"
+            selection="@{planViewModel.selectedCategory == planCategory.MULTI}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.MULTI)}"
+            app:categoryType="@{planCategory.MULTI}"
+            app:layout_constraintEnd_toStartOf="@+id/include_plan_category_type_others"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_plan_category_topCategory">
+            app:layout_constraintTop_toBottomOf="@+id/include_plan_category_type_play" />
 
-            <include
-                android:id="@+id/include_plan_category_type_multi"
-                layout="@layout/view_plan_category_type"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                selection="@{planViewModel.selectedCategory == planCategory.MULTI}"
-                android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.MULTI)}"
-                app:categoryType="@{planCategory.MULTI}"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <include
-                android:id="@+id/include_plan_category_type_others"
-                layout="@layout/view_plan_category_type"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                selection="@{planViewModel.selectedCategory == planCategory.OTHERS}"
-                android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.OTHERS)}"
-                android:layout_marginStart="@dimen/spacing9"
-                app:categoryType="@{planCategory.OTHERS}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/include_plan_category_type_multi" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <include
+            android:id="@+id/include_plan_category_type_others"
+            layout="@layout/view_plan_category_type"
+            selection="@{planViewModel.selectedCategory == planCategory.OTHERS}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing9"
+            android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.OTHERS)}"
+            app:categoryType="@{planCategory.OTHERS}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/include_plan_category_type_multi"
+            app:layout_constraintTop_toTopOf="@id/include_plan_category_type_multi" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

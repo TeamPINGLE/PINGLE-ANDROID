@@ -23,32 +23,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_plan_location_search"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/shape_border_radius_8"
+            android:backgroundTint="@color/g_10"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_plan_location_title">
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_location_title"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <EditText
                 android:id="@+id/et_plan_location_search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing24"
-                android:background="@drawable/shape_border_radius_8"
-                android:backgroundTint="@color/g_10"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="19dp"
+                android:backgroundTint="@android:color/transparent"
                 android:hint="@string/plan_location_hint"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingVertical="@dimen/spacing10"
-                android:paddingStart="@dimen/spacing16"
+                android:paddingVertical="@dimen/spacing12"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
                 android:textColor="@color/white"
                 android:textColorHint="@color/g_07"
-                android:textCursorDrawable="@color/pingle_green"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textCursorDrawable="@drawable/cursor_drawble"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_plan_location_search_btn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,9 +61,21 @@
                 android:layout_marginEnd="14dp"
                 android:src="@drawable/ic_all_search_24"
                 app:layout_constraintBottom_toBottomOf="@id/et_plan_location_search"
-                app:layout_constraintEnd_toEndOf="@id/et_plan_location_search"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/et_plan_location_search" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_plan_location_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="21dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_plan_location_search"
+            tools:listitem="@layout/item_plan_location" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_plan_location_empty"
@@ -99,17 +113,5 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_plan_location_empty" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_plan_location_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="21dp"
-            android:visibility="invisible"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_plan_location_search"
-            tools:listitem="@layout/item_plan_location" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

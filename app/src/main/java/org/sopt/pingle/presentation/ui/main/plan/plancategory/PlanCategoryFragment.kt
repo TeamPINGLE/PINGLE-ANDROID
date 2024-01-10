@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan
+package org.sopt.pingle.presentation.ui.main.plan.plancategory
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanCategoryBinding
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 
 class PlanCategoryFragment :
@@ -15,7 +16,6 @@ class PlanCategoryFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.planViewModel = viewModel
-        binding.lifecycleOwner = this
 
         addListeners()
     }

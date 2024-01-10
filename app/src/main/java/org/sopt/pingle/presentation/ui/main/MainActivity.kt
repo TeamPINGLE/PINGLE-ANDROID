@@ -10,9 +10,9 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityMainBinding
 import org.sopt.pingle.presentation.ui.main.commend.CommendFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
+import org.sopt.pingle.presentation.ui.main.more.MoreFragment
 import org.sopt.pingle.presentation.ui.main.mypingle.MyPingleFragment
-import org.sopt.pingle.presentation.ui.main.plan.PlanActivity
-import org.sopt.pingle.presentation.ui.main.setting.SettingFragment
+import org.sopt.pingle.presentation.ui.main.plan.planannouncement.PlanAnnouncementActivity
 import org.sopt.pingle.util.base.BindingActivity
 
 @AndroidEntryPoint
@@ -40,9 +40,9 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             when (menuItem.itemId) {
                 R.id.menu_all_navi_home -> navigateToFragment<MapFragment>()
                 R.id.menu_all_navi_commend -> navigateToFragment<CommendFragment>()
-                R.id.menu_all_navi_add -> navigateToPlan()
+                R.id.menu_all_navi_plan -> navigateToPlanAnnouncement()
                 R.id.menu_all_navi_mypingle -> navigateToFragment<MyPingleFragment>()
-                R.id.menu_all_navi_setting -> navigateToFragment<SettingFragment>()
+                R.id.menu_all_navi_more -> navigateToFragment<MoreFragment>()
             }
             true
         }
@@ -53,13 +53,13 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             when (supportFragmentManager.findFragmentById(R.id.fcv_main_all_navi)) {
                 is CommendFragment -> R.id.menu_all_navi_commend
                 is MyPingleFragment -> R.id.menu_all_navi_mypingle
-                is SettingFragment -> R.id.menu_all_navi_setting
+                is MoreFragment -> R.id.menu_all_navi_more
                 else -> R.id.menu_all_navi_home
             }
     }
 
-    private fun navigateToPlan() {
-        Intent(this@MainActivity, PlanActivity::class.java).apply {
+    private fun navigateToPlanAnnouncement() {
+        Intent(this@MainActivity, PlanAnnouncementActivity::class.java).apply {
             startActivity(this)
         }
     }

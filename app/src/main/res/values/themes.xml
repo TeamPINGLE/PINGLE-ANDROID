@@ -42,6 +42,17 @@
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Body.Semi.14</item>
     </style>
 
+    <style name="Theme.Pingle.Button.Number" parent="Theme.Pingle.Button">
+        <item name="android:height">50dp</item>
+        <item name="android:width">50dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Title.Semi.24</item>
+        <item name="android:backgroundTint">@color/selector_plan_recruitment_btn</item>
+        <item name="android:textColor">@color/selector_plan_recruitment_btn_text</item>
+    </style>
+
     <!-- chip -->
     <style name="Theme.Pingle.Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:stateListAnimator">@null</item>

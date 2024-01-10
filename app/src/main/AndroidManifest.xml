@@ -19,17 +19,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.ui.joingroup.JoinGroupSearchActivity"
+            android:name=".presentation.ui.dummy.DummyActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name=".presentation.ui.joingroup.JoinGroupCodeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".presentation.ui.common.WebViewActivity"
+            android:name=".presentation.ui.dummy.DummyCustomDEditTextActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -47,21 +42,12 @@
                     android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".presentation.ui.auth.AuthActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".presentation.ui.onboarding.OnBoardingActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".presentation.ui.dummy.DummyActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
+            tools:ignore="LockedOrientationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,7 +55,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.ui.dummy.DummyCustomDEditTextActivity"
+            android:name=".presentation.ui.common.WebViewActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".presentation.ui.joingroup.JoinGroupCodeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".presentation.ui.joingroup.JoinGroupSearchActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -84,10 +80,20 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name=".presentation.ui.main.plan.planannouncement.PlanAnnouncementActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".presentation.ui.main.plan.PlanActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".presentation.ui.onboarding.OnBoardingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.ui.participant.ParticipantActivity"

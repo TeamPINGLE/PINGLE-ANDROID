@@ -14,9 +14,9 @@
     <!--  all navi title -->
     <string name="all_navi_home">홈</string>
     <string name="all_navi_commend">추천</string>
-    <string name="all_navi_add">추가</string>
+    <string name="all_navi_add">개최</string>
     <string name="all_navi_mypingle">마이핑글</string>
-    <string name="all_navi_setting">설정</string>
+    <string name="all_navi_setting">더보기</string>
 
     <!-- auth -->
     <string name="auth_kakao_login">카카오로 시작하기</string>

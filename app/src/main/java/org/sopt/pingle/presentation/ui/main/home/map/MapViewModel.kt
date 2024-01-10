@@ -54,19 +54,28 @@ class MapViewModel @Inject constructor(
         _markerModelList.add(markerEntity)
     }
 
-    fun handleMarkerClick(position: Int) {
-        setMarkerModelIsSelected(position)
-        if (_selectedMarkerPosition.value != DEFAULT_SELECTED_MARKER_POSITION) {
-            setMarkerModelIsSelected(
-                _selectedMarkerPosition.value
-            )
+    private fun getMarkerModelModelSelected(position: Int) =
+        _markerModelList[position].isSelected.get()
+
+    fun updateMarkerModelListSelectedValue(position: Int) {
+        when (_selectedMarkerPosition.value) {
+            DEFAULT_SELECTED_MARKER_POSITION -> setMarkerModelIsSelected(position)
+            position -> Unit
+            else -> {
+                if (getMarkerModelModelSelected(_selectedMarkerPosition.value)) setMarkerModelIsSelected(
+                    _selectedMarkerPosition.value
+                )
+                if (!getMarkerModelModelSelected(position)) setMarkerModelIsSelected(position)
+            }
         }
         _selectedMarkerPosition.value = position
     }
 
     fun clearSelectedMarkerPosition() {
         if (_selectedMarkerPosition.value != DEFAULT_SELECTED_MARKER_POSITION) {
-            setMarkerModelIsSelected(_selectedMarkerPosition.value)
+            if (getMarkerModelModelSelected(_selectedMarkerPosition.value)) setMarkerModelIsSelected(
+                _selectedMarkerPosition.value
+            )
             _selectedMarkerPosition.value = DEFAULT_SELECTED_MARKER_POSITION
         }
     }

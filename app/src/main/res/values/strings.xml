@@ -107,7 +107,7 @@
     <string name="plan_start_time_title">시작 시각</string>
     <string name="plan_time_hint">00:00</string>
     <string name="plan_end_time_title">종료 시각</string>
-    <string name="plan_future_date_snackber">미래 날짜를 선택해주세요</string>
+    <string name="plan_future_date_snackber">미래 날짜를 선택해주세요!</string>
 
     <!-- plan location -->
     <string name="plan_location_title">함께할 친구들과\n어디서 만날까요?</string>

@@ -11,7 +11,7 @@ import org.sopt.pingle.databinding.ActivityMainBinding
 import org.sopt.pingle.presentation.ui.main.commend.CommendFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
 import org.sopt.pingle.presentation.ui.main.mypingle.MyPingleFragment
-import org.sopt.pingle.presentation.ui.main.plan.PlanActivity
+import org.sopt.pingle.presentation.ui.main.plan.planannouncement.PlanAnnouncementActivity
 import org.sopt.pingle.presentation.ui.main.setting.SettingFragment
 import org.sopt.pingle.util.base.BindingActivity
 
@@ -40,7 +40,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             when (menuItem.itemId) {
                 R.id.menu_all_navi_home -> navigateToFragment<MapFragment>()
                 R.id.menu_all_navi_commend -> navigateToFragment<CommendFragment>()
-                R.id.menu_all_navi_add -> navigateToPlan()
+                R.id.menu_all_navi_add -> navigateToPlanAnnouncement()
                 R.id.menu_all_navi_mypingle -> navigateToFragment<MyPingleFragment>()
                 R.id.menu_all_navi_setting -> navigateToFragment<SettingFragment>()
             }
@@ -58,8 +58,8 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             }
     }
 
-    private fun navigateToPlan() {
-        Intent(this@MainActivity, PlanActivity::class.java).apply {
+    private fun navigateToPlanAnnouncement() {
+        Intent(this@MainActivity, PlanAnnouncementActivity::class.java).apply {
             startActivity(this)
         }
     }

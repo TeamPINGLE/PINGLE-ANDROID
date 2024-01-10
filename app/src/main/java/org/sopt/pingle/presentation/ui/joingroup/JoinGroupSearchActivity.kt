@@ -61,6 +61,10 @@ class JoinGroupSearchActivity :
         binding.btnJoinGroupCodeNext.setOnClickListener {
             navigateToJoinGroupCode()
         }
+
+        binding.includeJoinGroupSearchTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
+            finish()
+        }
     }
 
     private fun addObservers() {

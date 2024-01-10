@@ -40,9 +40,9 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             when (menuItem.itemId) {
                 R.id.menu_all_navi_home -> navigateToFragment<MapFragment>()
                 R.id.menu_all_navi_commend -> navigateToFragment<CommendFragment>()
-                R.id.menu_all_navi_add -> navigateToPlanAnnouncement()
+                R.id.menu_all_navi_plan -> navigateToPlanAnnouncement()
                 R.id.menu_all_navi_mypingle -> navigateToFragment<MyPingleFragment>()
-                R.id.menu_all_navi_setting -> navigateToFragment<SettingFragment>()
+                R.id.menu_all_navi_more -> navigateToFragment<SettingFragment>()
             }
             true
         }
@@ -53,7 +53,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             when (supportFragmentManager.findFragmentById(R.id.fcv_main_all_navi)) {
                 is CommendFragment -> R.id.menu_all_navi_commend
                 is MyPingleFragment -> R.id.menu_all_navi_mypingle
-                is SettingFragment -> R.id.menu_all_navi_setting
+                is SettingFragment -> R.id.menu_all_navi_more
                 else -> R.id.menu_all_navi_home
             }
     }

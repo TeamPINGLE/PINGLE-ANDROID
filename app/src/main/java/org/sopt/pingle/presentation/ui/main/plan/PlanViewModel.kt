@@ -1,6 +1,5 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -63,12 +62,12 @@ class PlanViewModel : ViewModel() {
             val planOpenChattingLink = values[8] as String
 
             (currentPage == PlanType.CATEGORY.position && selectedCategory != null) ||
-                    (currentPage == PlanType.TITLE.position && planTitle.isNotBlank()) ||
-                    (currentPage == PlanType.DATETIME.position && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
-                    (currentPage == PlanType.LOCATION.position && selectedLocation != null) ||
-                    (currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && selectedRecruitment != INVALID_RECRUIT) ||
-                    (currentPage == PlanType.OPENCHATTING.position && planOpenChattingLink.isNotBlank()) ||
-                    (currentPage == PlanType.SUMMARY.position)
+                (currentPage == PlanType.TITLE.position && planTitle.isNotBlank()) ||
+                (currentPage == PlanType.DATETIME.position && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
+                (currentPage == PlanType.LOCATION.position && selectedLocation != null) ||
+                (currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && selectedRecruitment != INVALID_RECRUIT) ||
+                (currentPage == PlanType.OPENCHATTING.position && planOpenChattingLink.isNotBlank()) ||
+                (currentPage == PlanType.SUMMARY.position)
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
 
     fun incRecruitmentNum() {
@@ -132,12 +131,11 @@ class PlanViewModel : ViewModel() {
                 setIsSelected(position)
             }
         }
-        _selectedLocation.value = if(getIsSelected(position)) _planLocationList.value[position] else null
+        _selectedLocation.value = if (getIsSelected(position)) _planLocationList.value[position] else null
         oldPosition = position
     }
 
-
-    //이전 값이 -> 초기값 + 셀렉티드 값이 있으면
+    // 이전 값이 -> 초기값 + 셀렉티드 값이 있으면
     fun checkIsNull(): Boolean {
         return _planLocationList.value.isEmpty()
         // TODO return planLocationList.value.isEmpty()

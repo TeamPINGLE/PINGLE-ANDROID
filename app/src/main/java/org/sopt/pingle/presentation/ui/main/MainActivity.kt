@@ -10,9 +10,9 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityMainBinding
 import org.sopt.pingle.presentation.ui.main.commend.CommendFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
+import org.sopt.pingle.presentation.ui.main.more.MoreFragment
 import org.sopt.pingle.presentation.ui.main.mypingle.MyPingleFragment
 import org.sopt.pingle.presentation.ui.main.plan.planannouncement.PlanAnnouncementActivity
-import org.sopt.pingle.presentation.ui.main.more.MoreFragment
 import org.sopt.pingle.util.base.BindingActivity
 
 @AndroidEntryPoint

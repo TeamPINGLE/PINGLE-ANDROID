@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanSummaryConfirmationBinding
-import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.colorOf
@@ -28,8 +27,8 @@ class PlanSummaryConfirmationFragment :
                 tvPlanSummaryConfirmationOwnerName.text = "개최자"
                 tvPlanSummaryConfirmationCalenderDetail.text =
                     convertDateFormat(viewModel.planDate.value) + "\n" + convertTimeFormat(viewModel.startTime.value) + " ~ " + convertTimeFormat(
-                        viewModel.endTime.value
-                    )
+                    viewModel.endTime.value
+                )
                 tvPlanSummaryConfirmationMapDetail.text = viewModel.selectedLocation.value?.location
                 tvPlanSummaryConfirmationRecruitmentDetail.text = getString(
                     R.string.plan_summary_confirmation_recruitment_number,

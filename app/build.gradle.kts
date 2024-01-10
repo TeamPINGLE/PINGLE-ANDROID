@@ -40,12 +40,12 @@ android {
         buildConfigField(
             "String",
             "KAKAO_NATIVE_APP_KEY",
-            properties["kakao.native.app.key"].toString()
+            gradleLocalProperties(rootDir).getProperty("kakao.native.app.key")
         )
 
         manifestPlaceholders["IO_SENTRY_DSN"] = properties["io.sentry.dsn"] as String
         manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] =
-            gradleLocalProperties(rootDir).getProperty("kakao.native.app.key") as String
+            gradleLocalProperties(rootDir).getProperty("kakaoNativeAppKey")
     }
 
     buildTypes {

@@ -6,10 +6,10 @@
     <string name="category_study">STUDY</string>
     <string name="category_multi">MULTI</string>
     <string name="category_others">OTHERS</string>
-    <string name="category_play_detail">노는게 제일 좋아!</string>
-    <string name="category_study_detail">열공, 열작업 할 사람 모여라!</string>
-    <string name="category_multi_detail">놀 땐 놀고, 일할 땐 일하자!</string>
-    <string name="category_others_detail">다른 활동이 하고 싶다면?</string>
+    <string name="category_play_description">노는게 제일 좋아!</string>
+    <string name="category_study_description">열공, 열작업 할 사람 모여라!</string>
+    <string name="category_multi_description">놀 땐 놀고, 일할 땐 일하자!</string>
+    <string name="category_others_description">다른 활동이 하고 싶다면?</string>
 
     <!--  all navi title -->
     <string name="all_navi_home">홈</string>

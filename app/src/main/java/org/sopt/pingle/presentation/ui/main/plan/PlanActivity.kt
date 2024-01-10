@@ -103,10 +103,12 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                     binding.btnPlan.setOnClickListener {
                         finish()
                     }
+                    binding.layoutClose.visibility = View.INVISIBLE
                 }
                 // TODO 다른 다음으로 스트링과 합치기
                 else -> {
                     binding.btnPlan.text = getString(R.string.plan_next)
+                    binding.layoutClose.visibility = View.VISIBLE
                 }
             }
         }.launchIn(lifecycleScope)

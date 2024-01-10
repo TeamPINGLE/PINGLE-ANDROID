@@ -50,13 +50,13 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" />
+                    android:scheme="kakao${KAKAO_NATIVE_APP_KEY_MANIFEST}" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".presentation.ui.auth.AuthActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity

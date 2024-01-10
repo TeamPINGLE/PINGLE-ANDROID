@@ -21,10 +21,12 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
+import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.util.base.BindingFragment
@@ -32,10 +34,10 @@ import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.component.OnPingleCardClickListener
 import org.sopt.pingle.util.component.PingleChip
 import org.sopt.pingle.util.fragment.navigateToFragment
-import org.sopt.pingle.util.fragment.navigateToWebView
-import org.sopt.pingle.util.fragment.showToast
 import org.sopt.pingle.util.fragment.stringOf
+import org.sopt.pingle.util.view.UiState
 
+@AndroidEntryPoint
 class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {
     private val mapViewModel by viewModels<MapViewModel>()
     private lateinit var naverMap: NaverMap
@@ -63,6 +65,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         this.naverMap = naverMap.apply {
             isNightModeEnabled = true
             mapType = NaverMap.MapType.Navi
+            minZoom = MIN_ZOOM
 
             with(uiSettings) {
                 isZoomControlEnabled = false
@@ -74,7 +77,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             }
         }
 
-        makeMarkers()
+        mapViewModel.getPinListWithoutFilter()
         setLocationTrackingMode()
     }
 
@@ -99,14 +102,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
             cardMap.listener = object : OnPingleCardClickListener {
                 override fun onPingleCardChatBtnClickListener() {
-                    startActivity(navigateToWebView(mapViewModel.dummyPingle.chatLink))
+                    // TODO 선택된 마커로 웹뷰 연결
                 }
 
                 override fun onPingleCardParticipateBtnClickListener() {
-                    when (mapViewModel.dummyPingle.isParticipating) {
-                        true -> showMapCancelModalDialogFragment()
-                        false -> showMapModalDialogFragment()
-                    }
+                    // TODO 선택된 마커 참여 현황 여부에 따른 모달 로직 구현
                 }
             }
         }
@@ -139,9 +139,20 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun collectData() {
-        mapViewModel.category.flowWithLifecycle(lifecycle).onEach {
-            // TODO 서버 통신 구현 시 삭제 예정
-            showToast(it?.name ?: "null")
+        mapViewModel.category.flowWithLifecycle(lifecycle).onEach { category ->
+            mapViewModel.getPinListWithoutFilter()
+        }.launchIn(lifecycleScope)
+
+        mapViewModel.markerListState.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> {
+                    if (::naverMap.isInitialized) {
+                        makeMarkers(uiState.data)
+                    }
+                }
+
+                else -> Unit
+            }
         }.launchIn(lifecycleScope)
 
         mapViewModel.selectedMarkerPosition.flowWithLifecycle(lifecycle)
@@ -192,17 +203,15 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
     }
 
-    private fun makeMarkers() {
-        mapViewModel.markerList.value.mapIndexed { index, markerModel ->
+    private fun makeMarkers(markerList: List<MarkerModel>) {
+        mapViewModel.clearMarkerList()
+
+        markerList.mapIndexed { _, markerModel ->
             markerModel.marker.apply {
+                mapViewModel.addMarkerList(this)
                 map = naverMap
                 setOnClickListener {
-                    with(mapViewModel) {
-                        handleMarkerClick(index)
-                        // TODO 마커 상세 정보 받아오는 로직 추가
-                        binding.cardMap.initLayout(dummyPingle)
-                        moveMapCamera(position)
-                    }
+                    // TODO 마커 클릭 이벤트 수정
                     return@setOnClickListener true
                 }
             }
@@ -215,22 +224,14 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             detail = stringOf(R.string.map_cancel_modal_detail),
             buttonText = stringOf(R.string.map_cancel_modal_button_text),
             textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
-            clickBtn = { mapViewModel.cancelPingle() },
+            clickBtn = { },
             clickTextBtn = { },
-            onDialogClosed = { binding.cardMap.initLayout(mapViewModel.dummyPingle) }
+            onDialogClosed = { }
         ).show(childFragmentManager, MAP_CANCEL_MODAL)
     }
 
     private fun showMapModalDialogFragment() {
-        with(mapViewModel.dummyPingle) {
-            MapModalDialogFragment(
-                category = CategoryType.fromString(categoryName = category),
-                name = name,
-                ownerName = ownerName,
-                clickBtn = { mapViewModel.joinPingle() },
-                onDialogClosed = { binding.cardMap.initLayout(mapViewModel.dummyPingle) }
-            ).show(childFragmentManager, MAP_MODAL)
-        }
+        // TODO 취소 모달 구현
     }
 
     companion object {
@@ -252,8 +253,13 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         val OVERLAY_IMAGE_PIN_OTHERS_DEFAULT =
             OverlayImage.fromResource(R.drawable.ic_pin_others_default)
         val OVERLAY_IMAGE_PIN_PLAY_ACTIVE = OverlayImage.fromResource(R.drawable.ic_pin_play_active)
-        val OVERLAY_IMAGE_PIN_STUDY_ACTIVE = OverlayImage.fromResource(R.drawable.ic_pin_study_active)
-        val OVERLAY_IMAGE_PIN_MULTI_ACTIVE = OverlayImage.fromResource(R.drawable.ic_pin_multi_active)
-        val OVERLAY_IMAGE_PIN_OTHERS_ACTIVE = OverlayImage.fromResource(R.drawable.ic_pin_others_active)
+        val OVERLAY_IMAGE_PIN_STUDY_ACTIVE =
+            OverlayImage.fromResource(R.drawable.ic_pin_study_active)
+        val OVERLAY_IMAGE_PIN_MULTI_ACTIVE =
+            OverlayImage.fromResource(R.drawable.ic_pin_multi_active)
+        val OVERLAY_IMAGE_PIN_OTHERS_ACTIVE =
+            OverlayImage.fromResource(R.drawable.ic_pin_others_active)
+
+        private const val MIN_ZOOM = 5.5
     }
 }

@@ -22,7 +22,6 @@ class PlanRecruitmentFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.planViewModel = viewModel
-        binding.lifecycleOwner = this
 
         addListeners()
         collectData()
@@ -56,21 +55,20 @@ class PlanRecruitmentFragment :
     }
 
     private fun collectData() {
-        viewModel.selectedRecruitment.flowWithLifecycle(lifecycle).onEach {
-            when (it.toString()) {
-                "99" -> {
-                    binding.btnPlanRecruitmentPlus.isEnabled = false
-                }
-
-                "1" -> {
-                    binding.btnPlanRecruitmentMinus.isEnabled = false
-                }
-
+        viewModel.selectedRecruitment.flowWithLifecycle(lifecycle).onEach { selectedRecruitment ->
+            when (selectedRecruitment.toString()) {
+                MAX_RECRUITMENT -> binding.btnPlanRecruitmentPlus.isEnabled = false
+                MIN_RECRUITMENT -> binding.btnPlanRecruitmentMinus.isEnabled = false
                 else -> {
                     binding.btnPlanRecruitmentPlus.isEnabled = true
                     binding.btnPlanRecruitmentMinus.isEnabled = true
                 }
             }
         }.launchIn(lifecycleScope)
+    }
+
+    companion object {
+        const val MAX_RECRUITMENT = "99"
+        const val MIN_RECRUITMENT = "1"
     }
 }

@@ -62,24 +62,20 @@ class PlanViewModel : ViewModel() {
             val planOpenChattingLink = values[8] as String
 
             (currentPage == PlanType.CATEGORY.position && selectedCategory != null) ||
-                (currentPage == PlanType.TITLE.position && planTitle.isNotBlank()) ||
-                (currentPage == PlanType.DATETIME.position && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
-                (currentPage == PlanType.LOCATION.position && selectedLocation != null) ||
-                (currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && selectedRecruitment != INVALID_RECRUIT) ||
-                (currentPage == PlanType.OPENCHATTING.position && planOpenChattingLink.isNotBlank()) ||
-                (currentPage == PlanType.SUMMARY.position)
+                    (currentPage == PlanType.TITLE.position && planTitle.isNotBlank()) ||
+                    (currentPage == PlanType.DATETIME.position && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
+                    (currentPage == PlanType.LOCATION.position && selectedLocation != null) ||
+                    (currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && selectedRecruitment != INVALID_RECRUIT) ||
+                    (currentPage == PlanType.OPENCHATTING.position && planOpenChattingLink.isNotBlank()) ||
+                    (currentPage == PlanType.SUMMARY.position)
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
 
     fun incRecruitmentNum() {
-        var i = selectedRecruitment.value?.toInt()
-        i = i!! + 1
-        setSelectedRecruitment(i.toString())
+        selectedRecruitment.value?.toInt()?.let { setSelectedRecruitment(it.plus(1).toString()) }
     }
 
     fun decRecruitmentNum() {
-        var i = selectedRecruitment.value?.toInt()
-        i = i!! - 1
-        setSelectedRecruitment(i.toString())
+        selectedRecruitment.value?.toInt()?.let { setSelectedRecruitment(it.minus(1).toString()) }
     }
 
     fun setSelectedRecruitment(recruitment: String) {

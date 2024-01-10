@@ -74,6 +74,10 @@ class JoinGroupSearchActivity :
 
             binding.tvJoinGroupSearchEmpty.isVisible = joinGroupSearchList.isEmpty()
         }.launchIn(lifecycleScope)
+
+        viewModel.selectedJoinGroup.flowWithLifecycle(lifecycle).onEach { selectedJoinGroup ->
+            binding.btnJoinGroupCodeNext.isEnabled = selectedJoinGroup != null
+        }.launchIn(lifecycleScope)
     }
 
     private fun deleteOldPosition(position: Int) {

@@ -1,10 +1,12 @@
 package org.sopt.pingle.presentation.ui.main.home.map
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.pingle.domain.model.PinEntity
@@ -14,10 +16,12 @@ import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.view.UiState
+import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
-    private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase
+    private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase,
+    private val getPingleListUseCase: GetPingleListUseCase
 ) : ViewModel() {
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
@@ -25,16 +29,20 @@ class MapViewModel @Inject constructor(
     private val _pinEntityListState = MutableStateFlow<UiState<List<PinEntity>>>(UiState.Empty)
     val pinEntityListState get() = _pinEntityListState.asStateFlow()
 
-    val _markerModelList = mutableListOf<MarkerModel>()
+    private val _markerModelList = mutableListOf<MarkerModel>()
 
     private var _selectedMarkerPosition = MutableStateFlow(DEFAULT_SELECTED_MARKER_POSITION)
     val selectedMarkerPosition get() = _selectedMarkerPosition.asStateFlow()
 
-    private val _pingleListState = MutableStateFlow<UiState<List<PingleEntity>>>(UiState.Empty)
-    val pingleListState get() = _pingleListState.asStateFlow()
+    private val _pingleListState = MutableSharedFlow<UiState<List<PingleEntity>>>()
+    val pingleListState get() = _pingleListState.asSharedFlow()
 
     fun setCategory(category: CategoryType?) {
         _category.value = category
+    }
+
+    private fun setMarkerModelIsSelected(position: Int) {
+        _markerModelList[position].isSelected.set(!_markerModelList[position].isSelected.get())
     }
 
     fun clearMarkerList() {
@@ -47,9 +55,9 @@ class MapViewModel @Inject constructor(
     }
 
     fun handleMarkerClick(position: Int) {
-        setMarkerIsSelected(position)
+        setMarkerModelIsSelected(position)
         if (_selectedMarkerPosition.value != DEFAULT_SELECTED_MARKER_POSITION) {
-            setMarkerIsSelected(
+            setMarkerModelIsSelected(
                 _selectedMarkerPosition.value
             )
         }
@@ -58,7 +66,7 @@ class MapViewModel @Inject constructor(
 
     fun clearSelectedMarkerPosition() {
         if (_selectedMarkerPosition.value != DEFAULT_SELECTED_MARKER_POSITION) {
-            setMarkerIsSelected(_selectedMarkerPosition.value)
+            setMarkerModelIsSelected(_selectedMarkerPosition.value)
             _selectedMarkerPosition.value = DEFAULT_SELECTED_MARKER_POSITION
         }
     }
@@ -75,6 +83,22 @@ class MapViewModel @Inject constructor(
                 }
             }.onFailure { exception: Throwable ->
                 _pinEntityListState.value = UiState.Error(exception.message)
+            }
+        }
+    }
+
+    fun getPingleList(pinId: Long) {
+        viewModelScope.launch {
+            _pingleListState.emit(UiState.Loading)
+            runCatching {
+                getPingleListUseCase(
+                    teamId = TEAM_ID,
+                    pinId = pinId
+                ).collect() { pingleList ->
+                    _pingleListState.emit(UiState.Success(pingleList))
+                }
+            }.onFailure { exception ->
+                _pingleListState.emit(UiState.Error(exception.message))
             }
         }
     }

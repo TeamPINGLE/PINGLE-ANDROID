@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.main.home.map
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -11,6 +12,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.transition.Visibility
 import com.google.android.gms.location.LocationServices
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraAnimation
@@ -35,6 +37,7 @@ import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.component.OnPingleCardClickListener
 import org.sopt.pingle.util.component.PingleChip
 import org.sopt.pingle.util.fragment.navigateToFragment
+import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
 
@@ -71,6 +74,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             with(uiSettings) {
                 isZoomControlEnabled = false
                 isScaleBarEnabled = false
+                isCompassEnabled = false
             }
 
             setOnMapClickListener { _, _ ->
@@ -103,7 +107,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
             cardMap.listener = object : OnPingleCardClickListener {
                 override fun onPingleCardChatBtnClickListener() {
-                    // TODO 선택된 마커로 웹뷰 연결
+                    //startActivity(navigateToWebView(mapViewModel.getSelectedMarkerInfo().))
                 }
 
                 override fun onPingleCardParticipateBtnClickListener() {
@@ -149,6 +153,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 is UiState.Success -> {
                     if (::naverMap.isInitialized) {
                         makeMarkers(uiState.data)
+                        setCardVisibility(visibility = false)
                     }
                 }
 
@@ -156,16 +161,25 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             }
         }.launchIn(lifecycleScope)
 
-        mapViewModel.selectedMarkerPosition.flowWithLifecycle(lifecycle)
-            .onEach { selectedMarkerPosition ->
-                (selectedMarkerPosition == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
-                    with(binding) {
-                        fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
-                        fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
-                        cardMap.visibility = if (this@run) View.INVISIBLE else View.VISIBLE
-                    }
+        mapViewModel.selectedMarkerPosition.flowWithLifecycle(lifecycle).onEach { selectedMarkerPosition ->
+            (selectedMarkerPosition == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
+                with(binding) {
+                    fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
+                    fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
+                    cardMap.visibility = if (this@run) View.INVISIBLE else View.VISIBLE
                 }
-            }.launchIn(lifecycleScope)
+            }
+        }.launchIn(lifecycleScope)
+
+        mapViewModel.pingleListState.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when(uiState) {
+                is UiState.Success -> {
+                    binding.cardMap.initLayout(uiState.data[SINGLE_SELECTION])
+                    setCardVisibility(mapViewModel.selectedMarkerPosition.value != MapViewModel.DEFAULT_SELECTED_MARKER_POSITION)
+                }
+                else -> Unit
+            }
+        }.launchIn(lifecycleScope)
     }
 
     private fun setLocationTrackingMode() {
@@ -207,10 +221,16 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     private fun makeMarkers(pinEntityList: List<PinEntity>) {
         mapViewModel.clearMarkerList()
 
-        pinEntityList.map { pinEntity ->
+        pinEntityList.mapIndexed { index, pinEntity ->
             pinEntity.toMarkerModel().apply {
                 this.marker.apply {
                     map = naverMap
+                    setOnClickListener {
+                        mapViewModel.handleMarkerClick(index)
+                        mapViewModel.getPingleList(pinEntity.id)
+                        moveMapCamera(position)
+                        return@setOnClickListener true
+                    }
                 }
                 mapViewModel.addMarkerList(this)
             }
@@ -231,6 +251,14 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun showMapModalDialogFragment() {
         // TODO 취소 모달 구현
+    }
+
+    private fun setCardVisibility(visibility: Boolean) {
+        with(binding) {
+            fabMapHere.visibility = if (visibility) View.INVISIBLE else View.VISIBLE
+            fabMapList.visibility = if (visibility) View.INVISIBLE else View.VISIBLE
+            cardMap.visibility = if (visibility) View.VISIBLE else View.INVISIBLE
+        }
     }
 
     companion object {

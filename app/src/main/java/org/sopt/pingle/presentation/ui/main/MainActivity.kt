@@ -12,7 +12,7 @@ import org.sopt.pingle.presentation.ui.main.commend.CommendFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
 import org.sopt.pingle.presentation.ui.main.mypingle.MyPingleFragment
 import org.sopt.pingle.presentation.ui.main.plan.planannouncement.PlanAnnouncementActivity
-import org.sopt.pingle.presentation.ui.main.setting.SettingFragment
+import org.sopt.pingle.presentation.ui.main.more.MoreFragment
 import org.sopt.pingle.util.base.BindingActivity
 
 @AndroidEntryPoint
@@ -42,7 +42,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                 R.id.menu_all_navi_commend -> navigateToFragment<CommendFragment>()
                 R.id.menu_all_navi_plan -> navigateToPlanAnnouncement()
                 R.id.menu_all_navi_mypingle -> navigateToFragment<MyPingleFragment>()
-                R.id.menu_all_navi_more -> navigateToFragment<SettingFragment>()
+                R.id.menu_all_navi_more -> navigateToFragment<MoreFragment>()
             }
             true
         }
@@ -53,7 +53,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             when (supportFragmentManager.findFragmentById(R.id.fcv_main_all_navi)) {
                 is CommendFragment -> R.id.menu_all_navi_commend
                 is MyPingleFragment -> R.id.menu_all_navi_mypingle
-                is SettingFragment -> R.id.menu_all_navi_more
+                is MoreFragment -> R.id.menu_all_navi_more
                 else -> R.id.menu_all_navi_home
             }
     }

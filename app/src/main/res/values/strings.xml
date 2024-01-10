@@ -90,7 +90,7 @@
     <!-- plan category -->
     <string name="plan_category_title">개최할 핑글을\n선택해주세요!</string>
 
-    <!-- plan announcement -->
+    <!-- plan title -->
     <string name="plan_et_title">한줄 소개</string>
     <string name="plan_title">개최할 핑글을\n소개해주세요!</string>
     <string name="plan_et_hint">ex. 강남역에서 각잡고 공부할 사람?</string>
@@ -134,14 +134,14 @@
     <string name="plan_summary_confirmation_recruitment">모집인원</string>
     <string name="plan_summary_confirmation_recruitment_number">%s명</string>
 
-    <!-- setting   -->
-    <string name="setting_contact_title">문의하기</string>
-    <string name="setting_notice_title">공지사항</string>
-    <string name="setting_version_title">버전</string>
-    <string name="setting_logout_title">로그아웃</string>
-    <string name="setting_withdraw_title">탈퇴하기</string>
-    <string name="setting_title">더보기</string>
-    <string name="setting_my_group">나의 단체</string>
+    <!-- more -->
+    <string name="more_contact_title">문의하기</string>
+    <string name="more_notice_title">공지사항</string>
+    <string name="more_version_title">버전</string>
+    <string name="more_logout_title">로그아웃</string>
+    <string name="more_withdraw_title">탈퇴하기</string>
+    <string name="more_title">더보기</string>
+    <string name="more_my_group">나의 단체</string>
 
     <!-- setting modal -->
     <string name="setting_logout_modal_title">정말로 로그아웃 하실건가요?</string>

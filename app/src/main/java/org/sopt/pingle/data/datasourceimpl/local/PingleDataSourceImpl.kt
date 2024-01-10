@@ -2,11 +2,11 @@ package org.sopt.pingle.data.datasourceimpl.local
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import org.sopt.pingle.data.datasource.local.PingleDataSource
 import javax.inject.Inject
+import org.sopt.pingle.data.datasource.local.PingleDataSource
 
 class PingleDataSourceImpl @Inject constructor(
-    private val pinlgePref: SharedPreferences,
+    private val pinlgePref: SharedPreferences
 ) : PingleDataSource {
     override var userName: String
         get() = pinlgePref.getString(USER_NAME, "") ?: ""

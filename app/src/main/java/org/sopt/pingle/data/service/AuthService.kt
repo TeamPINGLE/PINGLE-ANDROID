@@ -4,7 +4,6 @@ import org.sopt.pingle.data.model.remote.request.RequestAuthDto
 import org.sopt.pingle.data.model.remote.response.ResponseAuthDto
 import org.sopt.pingle.util.base.BaseResponse
 import retrofit2.http.Body
-import retrofit2.http.HEAD
 import retrofit2.http.Header
 import retrofit2.http.POST
 

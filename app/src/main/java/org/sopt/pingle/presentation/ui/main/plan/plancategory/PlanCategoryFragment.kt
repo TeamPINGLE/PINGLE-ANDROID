@@ -16,7 +16,6 @@ class PlanCategoryFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.planViewModel = viewModel
-        binding.lifecycleOwner = this
 
         addListeners()
     }

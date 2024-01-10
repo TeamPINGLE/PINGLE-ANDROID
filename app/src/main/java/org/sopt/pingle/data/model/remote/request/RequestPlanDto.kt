@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RequestPlanDto(
     @SerialName("search")
-    val search: String,
+    val search: String
 )

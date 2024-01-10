@@ -15,12 +15,12 @@ data class ResponsePlanDto(
     @SerialName("address")
     val locationAddress: String,
     @SerialName("roadAddress")
-    val locationRoadAddress: String,
+    val locationRoadAddress: String
 ) {
     fun toPlanLocationEntity() = PlanLocationEntity(
         location = locationName,
         address = locationAddress,
         x = xCoordinate,
-        y = yCoordinate,
+        y = yCoordinate
     )
 }

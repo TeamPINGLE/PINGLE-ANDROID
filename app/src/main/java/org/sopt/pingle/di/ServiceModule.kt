@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.pingle.data.service.DummyService
 import org.sopt.pingle.data.service.MapService
+import org.sopt.pingle.data.service.PlanService
 import org.sopt.pingle.di.qualifier.Pingle
 import retrofit2.Retrofit
 import retrofit2.create
@@ -23,4 +24,9 @@ object ServiceModule {
     @Singleton
     fun providesMapService(@Pingle retrofit: Retrofit): MapService =
         retrofit.create(MapService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesPlanService(@Pingle retrofit: Retrofit): PlanService =
+        retrofit.create(PlanService::class.java)
 }

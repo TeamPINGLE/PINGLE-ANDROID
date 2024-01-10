@@ -39,11 +39,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
+            android:layout_marginTop="16dp"
             android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"
             android:textColor="@color/g_04"
-            tools:text="@string/plan_announcement_detail_top"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_plan_announcement_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_announcement_title"
+            tools:text="@string/plan_announcement_detail_top" />
 
         <TextView
             android:id="@+id/tv_plan_announcement_detail_bottom"
@@ -51,9 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
             android:layout_marginTop="@dimen/spacing4"
+            android:text="@string/plan_announcement_detail_bottom"
             android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"
             android:textColor="@color/g_04"
-            android:text="@string/plan_announcement_detail_bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_plan_announcement_detail_top" />
 
@@ -74,9 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing16"
             android:layout_marginTop="@dimen/spacing28"
-            android:text="@string/plan_announcement_btn"
             android:layout_marginBottom="54dp"
             android:backgroundTint="@color/g_01"
+            android:text="@string/plan_announcement_btn"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

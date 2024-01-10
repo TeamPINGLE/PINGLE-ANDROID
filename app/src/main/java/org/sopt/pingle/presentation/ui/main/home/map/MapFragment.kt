@@ -104,7 +104,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
             cardMap.listener = object : OnPingleCardClickListener {
                 override fun onPingleCardChatBtnClickListener() {
-                    // startActivity(navigateToWebView(mapViewModel.getSelectedMarkerInfo().))
+                    // TODO 웹뷰 추가
                 }
 
                 override fun onPingleCardParticipateBtnClickListener() {
@@ -150,7 +150,12 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 is UiState.Success -> {
                     if (::naverMap.isInitialized) {
                         makeMarkers(uiState.data)
-                        setCardVisibility(visibility = false)
+                        with(binding) {
+                            fabMapHere.visibility = View.VISIBLE
+                            fabMapList.visibility = View.VISIBLE
+                            cardMap.visibility = View.INVISIBLE
+                        }
+
                         mapViewModel.clearSelectedMarkerPosition()
                     }
                 }
@@ -248,14 +253,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun showMapModalDialogFragment() {
         // TODO 취소 모달 구현
-    }
-
-    private fun setCardVisibility(visibility: Boolean) {
-        with(binding) {
-            fabMapHere.visibility = if (visibility) View.INVISIBLE else View.VISIBLE
-            fabMapList.visibility = if (visibility) View.INVISIBLE else View.VISIBLE
-            cardMap.visibility = if (visibility) View.VISIBLE else View.INVISIBLE
-        }
     }
 
     companion object {

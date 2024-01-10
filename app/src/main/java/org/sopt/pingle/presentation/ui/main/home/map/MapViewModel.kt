@@ -1,9 +1,9 @@
 package org.sopt.pingle.presentation.ui.main.home.map
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -16,7 +16,6 @@ import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.view.UiState
-import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
@@ -62,9 +61,11 @@ class MapViewModel @Inject constructor(
             DEFAULT_SELECTED_MARKER_POSITION -> setMarkerModelIsSelected(position)
             position -> Unit
             else -> {
-                if (getMarkerModelModelSelected(_selectedMarkerPosition.value)) setMarkerModelIsSelected(
-                    _selectedMarkerPosition.value
-                )
+                if (getMarkerModelModelSelected(_selectedMarkerPosition.value)) {
+                    setMarkerModelIsSelected(
+                        _selectedMarkerPosition.value
+                    )
+                }
                 if (!getMarkerModelModelSelected(position)) setMarkerModelIsSelected(position)
             }
         }
@@ -73,9 +74,11 @@ class MapViewModel @Inject constructor(
 
     fun clearSelectedMarkerPosition() {
         if (_selectedMarkerPosition.value != DEFAULT_SELECTED_MARKER_POSITION) {
-            if (getMarkerModelModelSelected(_selectedMarkerPosition.value)) setMarkerModelIsSelected(
-                _selectedMarkerPosition.value
-            )
+            if (getMarkerModelModelSelected(_selectedMarkerPosition.value)) {
+                setMarkerModelIsSelected(
+                    _selectedMarkerPosition.value
+                )
+            }
             _selectedMarkerPosition.value = DEFAULT_SELECTED_MARKER_POSITION
         }
     }

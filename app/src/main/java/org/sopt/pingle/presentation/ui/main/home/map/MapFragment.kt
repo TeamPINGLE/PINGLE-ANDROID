@@ -104,7 +104,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
             cardMap.listener = object : OnPingleCardClickListener {
                 override fun onPingleCardChatBtnClickListener() {
-                    //startActivity(navigateToWebView(mapViewModel.getSelectedMarkerInfo().))
+                    // startActivity(navigateToWebView(mapViewModel.getSelectedMarkerInfo().))
                 }
 
                 override fun onPingleCardParticipateBtnClickListener() {
@@ -170,7 +170,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }.launchIn(lifecycleScope)
 
         mapViewModel.pingleListState.flowWithLifecycle(lifecycle).onEach { uiState ->
-            when(uiState) {
+            when (uiState) {
                 is UiState.Success -> {
                     binding.cardMap.initLayout(uiState.data[SINGLE_SELECTION])
                 }
@@ -181,11 +181,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-                ContextCompat.checkSelfPermission(
+            ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-            }
+        }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 

@@ -2,6 +2,7 @@ package org.sopt.pingle.presentation.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -18,8 +19,10 @@ import org.sopt.pingle.util.base.BindingActivity
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Pingle)
         super.onCreate(savedInstanceState)
 
+        installSplashScreen()
         initLayout()
         initBnvMainAllNaviItemSelectedListener()
     }

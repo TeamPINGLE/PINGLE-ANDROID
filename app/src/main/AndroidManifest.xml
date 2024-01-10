@@ -15,9 +15,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Pingle.Splash"
+        android:theme="@style/Theme.Pingle"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity android:name=".presentation.ui.splash.SplashActivity"
+            android:theme="@style/Theme.Pingle.Splash"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".presentation.ui.dummy.DummyActivity"
             android:exported="false"
@@ -45,15 +56,9 @@
 
         <activity
             android:name=".presentation.ui.auth.AuthActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.ui.common.WebViewActivity"
             android:exported="false"

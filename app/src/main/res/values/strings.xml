@@ -41,7 +41,7 @@
     <string name="join_group_search_create_text">찾는 단체가 없나요?</string>
     <string name="join_group_search_create"><u>단체를 직접 추가해주세요</u></string>
     <string name="join_group_search_empty">검색 결과가 없어요</string>
-    <string name="join_troup_search_title">속해있는 단체의\n이름을 알려주세요.</string>
+    <string name="join_troup_search_title">속해있는 단체의\n이름을 알려주세요!</string>
     <string name="join_group_search_hint">단체 이름을 검색해보세요</string>
 
     <!-- join group success -->

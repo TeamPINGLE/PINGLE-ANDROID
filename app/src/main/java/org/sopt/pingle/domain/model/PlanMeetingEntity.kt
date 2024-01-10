@@ -1,6 +1,6 @@
 package org.sopt.pingle.domain.model
 
-data class PlanEntity(
+data class PlanMeetingEntity(
     val category: String,
     val name: String,
     val startAt: String,

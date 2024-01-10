@@ -31,9 +31,6 @@
     <!-- common -->
     <dimen name="horizontal_margin">16dp</dimen>
 
-    <!-- splash -->
-    <dimen name="splash_screen_animation_duration">1500</dimen>
-
     <!-- bottom navi -->
     <dimen name="bottom_navi_height">60dp</dimen>
 

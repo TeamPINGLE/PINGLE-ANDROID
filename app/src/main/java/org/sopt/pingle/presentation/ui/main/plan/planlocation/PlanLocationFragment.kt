@@ -5,12 +5,14 @@ import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanLocationBinding
 import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.context.hideKeyboard
 
+@AndroidEntryPoint
 class PlanLocationFragment :
     BindingFragment<FragmentPlanLocationBinding>(R.layout.fragment_plan_location) {
     private val planLocationViewModel by activityViewModels<PlanViewModel>()
@@ -26,6 +28,7 @@ class PlanLocationFragment :
     }
 
     private fun initLayout() {
+        planLocationViewModel.getPlanLocationList()
         binding.rvPlanLocationList.apply {
             this.layoutManager = LinearLayoutManager(context)
             adapter = planLocationAdapter

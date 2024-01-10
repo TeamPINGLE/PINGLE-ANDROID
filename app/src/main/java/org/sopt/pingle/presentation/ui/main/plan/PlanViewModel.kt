@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -110,51 +111,43 @@ class PlanViewModel : ViewModel() {
         _selectedLocation.value = _planLocationList.value[position]
     }
 
-    private var oldPosition = OLD_POSITION
-
-    companion object {
-        const val FIRST_PAGE_POSITION = 0
-        const val OLD_POSITION = -1
-        const val INVALID_RECRUIT = "1"
-    }
+    private var oldPosition = DEFAULT_OLD_POSITION
 
     private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())
     val planLocationList get() = _planLocationList.asStateFlow()
 
     fun updatePlanLocationList(position: Int) {
         when (oldPosition) {
-            OLD_POSITION -> {
+            DEFAULT_OLD_POSITION -> {
                 setIsSelected(position)
             }
 
             position -> {
                 setIsSelected(position)
-                oldPosition = OLD_POSITION
+                oldPosition = DEFAULT_OLD_POSITION
             }
 
             else -> {
-                _planLocationList.value[oldPosition].isSelected.set(false)
-                _planLocationList.value[position].isSelected.set(true)
-                setPlanLocation(position)
+                if (getIsSelected(oldPosition)) setIsSelected(oldPosition)
+                setIsSelected(position)
             }
         }
+        _selectedLocation.value = if(getIsSelected(position)) _planLocationList.value[position] else null
         oldPosition = position
     }
 
+
+    //이전 값이 -> 초기값 + 셀렉티드 값이 있으면
     fun checkIsNull(): Boolean {
         return _planLocationList.value.isEmpty()
         // TODO return planLocationList.value.isEmpty()
     }
 
     private fun setIsSelected(position: Int) {
-        val value = !_planLocationList.value[position].isSelected.get()
-        _planLocationList.value[position].isSelected.set(value)
-        if (value) {
-            setPlanLocation(position)
-        } else {
-            _selectedLocation.value = null
-        }
+        _planLocationList.value[position].isSelected.set(!_planLocationList.value[position].isSelected.get())
     }
+
+    private fun getIsSelected(position: Int) = _planLocationList.value[position].isSelected.get()
 
     init {
         _planLocationList.value = listOf(
@@ -195,5 +188,11 @@ class PlanViewModel : ViewModel() {
                 y = 56.7
             )
         )
+    }
+
+    companion object {
+        const val FIRST_PAGE_POSITION = 0
+        const val DEFAULT_OLD_POSITION = -1
+        const val INVALID_RECRUIT = "1"
     }
 }

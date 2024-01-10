@@ -18,11 +18,11 @@ class OnBoardingActivity :
     }
 
     private fun addListeners() {
-        binding.includeOnBordingGroupOriginal.root.setOnClickListener {
+        binding.includeOnBoardingGroupOriginal.root.setOnClickListener {
             navigateToJoinGroupSearch()
         }
 
-        binding.includeOnbordingGroupNew.root.setOnClickListener {
+        binding.includeOnboardingGroupNew.root.setOnClickListener {
             startActivity(navigateToWebView(NEW_GROUP_LINK))
         }
     }

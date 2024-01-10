@@ -10,7 +10,7 @@ import org.sopt.pingle.presentation.type.CategoryType
 fun PinEntity.toMarkerModel(): MarkerModel {
     val markerModel = MarkerModel(
         Marker().apply {
-            position = LatLng(y, x)
+            position = LatLng(x, y)
             isHideCollidedMarkers = true
             icon = CategoryType.fromString(category).toMarkerIcon(false)
         }

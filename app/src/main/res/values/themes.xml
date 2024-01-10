@@ -8,6 +8,17 @@
 
     <style name="Theme.Pingle" parent="Base.Theme.Pingle" />
 
+    <!-- Splash -->
+    <style name="Theme.Pingle.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/g_11</item>
+        <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+        <item name="postSplashScreenTheme">@style/Theme.Pingle</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <!-- Button -->
     <style name="Theme.Pingle.Button" parent="Widget.Material3.Button">
         <item name="android:insetTop">0dp</item>
@@ -80,7 +91,8 @@
         <item name="fabCustomSize">@dimen/fab_size</item>
         <item name="rippleColor">@color/g_04</item>
         <item name="tint">@null</item>
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.CornerSize50Percent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.CornerSize50Percent
+        </item>
     </style>
 
     <!-- Corner size -->

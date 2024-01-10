@@ -2,18 +2,27 @@ package org.sopt.pingle.presentation.ui.main.plan
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import org.sopt.pingle.domain.model.PlanLocationEntity
+import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.PlanType
 import org.sopt.pingle.util.combineAll
+import org.sopt.pingle.util.view.UiState
 
-class PlanViewModel : ViewModel() {
+@HiltViewModel
+class PlanViewModel @Inject constructor(
+    private val getPlanLocationListUseCase: GetPlanLocationListUseCase
+) : ViewModel() {
     private val _currentPage = MutableStateFlow(FIRST_PAGE_POSITION)
     val currentPage get() = _currentPage.asStateFlow()
     val planTitle = MutableStateFlow("")
@@ -106,16 +115,32 @@ class PlanViewModel : ViewModel() {
         _selectedTimeType.value = timeType
     }
 
-    private fun setPlanLocation(position: Int) {
-        _selectedLocation.value = _planLocationList.value[position]
-    }
+//    private fun setPlanLocation(position: Int) {
+//        _selectedLocation.value = _planLocationList.value[position]
+//    }
 
     private var oldPosition = DEFAULT_OLD_POSITION
 
-    private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())
-    val planLocationList get() = _planLocationList.asStateFlow()
+    private val _planLocationListState =
+        MutableStateFlow<UiState<List<PlanLocationEntity>>>(UiState.Empty)
+    val planLocationListState get() = _planLocationListState.asStateFlow()
 
-    fun updatePlanLocationList(position: Int) {
+    fun getPlanLocationList(searchWord: String) {
+        viewModelScope.launch {
+            _planLocationListState.value = UiState.Loading
+            runCatching {
+                getPlanLocationListUseCase(searchWord).collect() { planLocationList ->
+                    _planLocationListState.value = UiState.Success(
+                        planLocationList
+                    )
+                }
+            }.onFailure { exception: Throwable ->
+                _planLocationListState.value = UiState.Error(exception.message)
+            }
+        }
+    }
+
+    /*fun updatePlanLocationList(position: Int) {
         when (oldPosition) {
             DEFAULT_OLD_POSITION -> {
                 setIsSelected(position)
@@ -131,62 +156,23 @@ class PlanViewModel : ViewModel() {
                 setIsSelected(position)
             }
         }
-        _selectedLocation.value = if (getIsSelected(position)) _planLocationList.value[position] else null
+        _selectedLocation.value =
+            if (getIsSelected(position)) _planLocationListState.value[position] else null
         oldPosition = position
-    }
+    }*/
 
-    // 이전 값이 -> 초기값 + 셀렉티드 값이 있으면
-    fun checkIsNull(): Boolean {
-        return _planLocationList.value.isEmpty()
+    // 이전 값이 -> 초기값 + 렉셀티드 값이 있으면
+    /*fun checkIsNull(): Boolean {
+        return _planLocationListState.value.isEmpty()
         // TODO return planLocationList.value.isEmpty()
-    }
+    }*/
 
-    private fun setIsSelected(position: Int) {
-        _planLocationList.value[position].isSelected.set(!_planLocationList.value[position].isSelected.get())
+    /*private fun setIsSelected(position: Int) {
+        _planLocationListState.value[position].isSelected.set(!_planLocationListState.value[position].isSelected.get())
     }
 
     private fun getIsSelected(position: Int) = _planLocationList.value[position].isSelected.get()
-
-    init {
-        _planLocationList.value = listOf(
-            PlanLocationEntity(
-                location = "하얀집",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            ),
-            PlanLocationEntity(
-                location = "하얀집2호점",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            ),
-            PlanLocationEntity(
-                location = "하얀집3호점",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            ),
-            PlanLocationEntity(
-                location = "하얀집 싫어싫어싫어",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            ),
-            PlanLocationEntity(
-                location = "하얀집 좋아좋아좋아",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            ),
-            PlanLocationEntity(
-                location = "하얀집웅시러",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            )
-        )
-    }
+*/
 
     companion object {
         const val FIRST_PAGE_POSITION = 0

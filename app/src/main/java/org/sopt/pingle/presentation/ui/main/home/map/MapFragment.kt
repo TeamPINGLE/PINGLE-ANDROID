@@ -26,7 +26,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
-import org.sopt.pingle.presentation.model.MarkerModel
+import org.sopt.pingle.domain.model.PinEntity
+import org.sopt.pingle.presentation.mapper.toMarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.util.base.BindingFragment
@@ -143,7 +144,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             mapViewModel.getPinListWithoutFilter()
         }.launchIn(lifecycleScope)
 
-        mapViewModel.markerListState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        mapViewModel.pinEntityListState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
                     if (::naverMap.isInitialized) {
@@ -169,11 +170,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
@@ -203,17 +204,15 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
     }
 
-    private fun makeMarkers(markerList: List<MarkerModel>) {
+    private fun makeMarkers(pinEntityList: List<PinEntity>) {
         mapViewModel.clearMarkerList()
 
-        markerList.mapIndexed { _, markerModel ->
-            markerModel.marker.apply {
-                mapViewModel.addMarkerList(this)
-                map = naverMap
-                setOnClickListener {
-                    // TODO 마커 클릭 이벤트 수정
-                    return@setOnClickListener true
+        pinEntityList.map { pinEntity ->
+            pinEntity.toMarkerModel().apply {
+                this.marker.apply {
+                    map = naverMap
                 }
+                mapViewModel.addMarkerList(this)
             }
         }
     }

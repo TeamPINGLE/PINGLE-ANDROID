@@ -2,14 +2,15 @@ package org.sopt.pingle.presentation.ui.main.home.map
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.naver.maps.map.overlay.Marker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.sopt.pingle.domain.model.PinEntity
+import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
-import org.sopt.pingle.presentation.mapper.toMarkerModel
+import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.view.UiState
@@ -21,29 +22,28 @@ class MapViewModel @Inject constructor(
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
 
-    private val _markerListState = MutableStateFlow<UiState<List<MarkerModel>>>(UiState.Empty)
-    val markerListState get() = _markerListState.asStateFlow()
+    private val _pinEntityListState = MutableStateFlow<UiState<List<PinEntity>>>(UiState.Empty)
+    val pinEntityListState get() = _pinEntityListState.asStateFlow()
 
-    private val _markerList = mutableListOf<Marker>()
+    val _markerModelList = mutableListOf<MarkerModel>()
 
     private var _selectedMarkerPosition = MutableStateFlow(DEFAULT_SELECTED_MARKER_POSITION)
-    val selectedMarkerPosition = _selectedMarkerPosition.asStateFlow()
+    val selectedMarkerPosition get() = _selectedMarkerPosition.asStateFlow()
 
-    private fun setMarkerIsSelected(position: Int) {
-        // TODO 마커 선택값 재설정
-    }
+    private val _pingleListState = MutableStateFlow<UiState<List<PingleEntity>>>(UiState.Empty)
+    val pingleListState get() = _pingleListState.asStateFlow()
 
     fun setCategory(category: CategoryType?) {
         _category.value = category
     }
 
     fun clearMarkerList() {
-        _markerList.forEach { it.map = null }
-        _markerList.clear()
+        _markerModelList.forEach { it.marker.map = null }
+        _markerModelList.clear()
     }
 
-    fun addMarkerList(marker: Marker) {
-        _markerList.add(marker)
+    fun addMarkerList(markerEntity: MarkerModel) {
+        _markerModelList.add(markerEntity)
     }
 
     fun handleMarkerClick(position: Int) {
@@ -65,20 +65,16 @@ class MapViewModel @Inject constructor(
 
     fun getPinListWithoutFilter() {
         viewModelScope.launch {
-            _markerListState.value = UiState.Loading
+            _pinEntityListState.value = UiState.Loading
             runCatching {
                 getPinListWithoutFilteringUseCase(
                     teamId = TEAM_ID,
                     category = category.value?.name
                 ).collect() { pinList ->
-                    _markerListState.value = UiState.Success(
-                        pinList.map { pinEntity ->
-                            pinEntity.toMarkerModel()
-                        }
-                    )
+                    _pinEntityListState.value = UiState.Success(pinList)
                 }
             }.onFailure { exception: Throwable ->
-                _markerListState.value = UiState.Error(exception.message)
+                _pinEntityListState.value = UiState.Error(exception.message)
             }
         }
     }

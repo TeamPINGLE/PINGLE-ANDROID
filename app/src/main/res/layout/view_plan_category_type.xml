@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="planViewModel"
-            type="org.sopt.pingle.presentation.ui.main.plan.PlanViewModel" />
-
-        <variable
             name="categoryType"
             type="org.sopt.pingle.presentation.type.CategoryType" />
     </data>
@@ -17,6 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_border_radius_10"
+        android:backgroundTint="@color/g_10"
         android:foreground="@drawable/selector_plan_category_type_background">
 
         <ImageView
@@ -24,7 +22,6 @@
             image="@{categoryType.categoryIconRes}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="38dp"
             android:layout_marginTop="@dimen/spacing13"
             android:src="@drawable/img_plan_cat_play_1000_4"
             app:layout_constraintDimensionRatio="1"

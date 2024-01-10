@@ -9,7 +9,7 @@ class AuthInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val authRequest =
-            originalRequest.newBuilder().addHeader(ACCESS_TOKEN, BuildConfig.ACCESS_TOKEN).build()
+            originalRequest.newBuilder().addHeader(AUTHORIZATION, BuildConfig.ACCESS_TOKEN).build()
         val response = chain.proceed(authRequest)
 
         when (response.code) {
@@ -21,6 +21,6 @@ class AuthInterceptor @Inject constructor() : Interceptor {
     }
 
     companion object {
-        const val ACCESS_TOKEN = "accessToken"
+        const val AUTHORIZATION = "Authorization"
     }
 }

@@ -79,7 +79,10 @@
     <string name="plan_pingle">핑글 개최하기</string>
 
     <!-- plan announcement -->
+    <string name="plan_announcement_title">What is\nPINGLE?</string>
     <string name="plan_announcement_detail_top">%s과 %s의 합성어로,</string>
+    <string name="plan_announcement_detail_bottom">원하는 장소에서 사람들과 갖는 모임을 뜻해요</string>
+    <string name="plan_announcement_btn">핑글 개최하러 가기</string>
 
     <!--  plan modal -->
     <string name="plan_exit_modal_dialog_title">잠깐! 나가실건가요?</string>

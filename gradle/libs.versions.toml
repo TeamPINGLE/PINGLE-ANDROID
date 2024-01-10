@@ -12,6 +12,7 @@ activity = "1.8.2"
 fragment = "1.6.2"
 lifecycle = "2.6.2"
 security = "1.1.0-alpha06"
+splash = "1.0.0"
 
 # Google
 material = "1.11.0"
@@ -50,6 +51,7 @@ androidx-activity = { group = "androidx.activity", name = "activity-ktx", versio
 androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-security = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "security" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splash" }
 
 # Google
 google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -79,7 +81,7 @@ retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", 
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization-json" }
 naver-maps = { group = "com.naver.maps", name = "map-sdk", version.ref = "naver-maps" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }
-progress-bar = {group = "com.github.skydoves", name = "progressview", version.ref="progress-bar"}
+progress-bar = { group = "com.github.skydoves", name = "progressview", version.ref = "progress-bar" }
 kakao = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
 
 [plugins]
@@ -103,7 +105,8 @@ androidx = [
     "androidx-activity",
     "androidx-fragment",
     "androidx-lifecycle-viewmodel",
-    "androidx-security"
+    "androidx-security",
+    "androidx-core-splashscreen"
 ]
 okhttp = ["okhttp", "okhttp-logging-interceptor"]
 retrofit = ["retrofit", "retrofit-kotlin-serialization-converter"]

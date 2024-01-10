@@ -16,7 +16,7 @@
     <string name="all_navi_commend">추천</string>
     <string name="all_navi_add">개최</string>
     <string name="all_navi_mypingle">마이핑글</string>
-    <string name="all_navi_setting">더보기</string>
+    <string name="all_navi_setting">더보</string>
 
     <!-- auth -->
     <string name="auth_kakao_login">카카오로 시작하기</string>
@@ -45,7 +45,7 @@
     <string name="join_group_search_hint">단체 이름을 검색해보세요</string>
 
     <!-- join group success -->
-    <string name="join_group_success_btn">입장하기</string>
+    <string name="join_group_success_btn">시작하기</string>
     <string name="join_gorup_success_title">모든 준비가\n끝났어요!</string>
     <string name="join_group_success_description_group_name">%s에서</string>
     <string name="join_group_success_description">핑글 여정을 함께해보세요!</string>

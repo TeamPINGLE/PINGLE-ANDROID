@@ -11,18 +11,18 @@
         android:icon="@drawable/selector_all_navi_commend"
         android:title="@string/all_navi_commend" />
     <item
-        android:id="@+id/menu_all_navi_add"
+        android:id="@+id/menu_all_navi_plan"
         android:enabled="true"
-        android:icon="@drawable/selector_all_navi_add"
-        android:title="@string/all_navi_add" />
+        android:icon="@drawable/selector_all_navi_plan"
+        android:title="@string/all_navi_plan" />
     <item
         android:id="@+id/menu_all_navi_mypingle"
         android:enabled="true"
         android:icon="@drawable/selector_all_navi_mypingle"
         android:title="@string/all_navi_mypingle" />
     <item
-        android:id="@+id/menu_all_navi_setting"
+        android:id="@+id/menu_all_navi_more"
         android:enabled="true"
-        android:icon="@drawable/selector_all_navi_setting"
-        android:title="@string/all_navi_setting" />
+        android:icon="@drawable/selector_all_navi_more"
+        android:title="@string/all_navi_more" />
 </menu>

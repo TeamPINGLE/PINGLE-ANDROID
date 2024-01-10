@@ -20,7 +20,7 @@ enum class CategoryType(
         backgroundChipColor = R.color.chip_green,
         backgroundBadgeColor = R.color.badge_green,
         categoryNameRes = R.string.category_play,
-        categoryDescriptionRes = R.string.category_play_detail,
+        categoryDescriptionRes = R.string.category_play_description,
         categoryIconRes = R.drawable.img_plan_cat_play_1000_4
     ),
     STUDY(
@@ -29,7 +29,7 @@ enum class CategoryType(
         backgroundChipColor = R.color.chip_orange,
         backgroundBadgeColor = R.color.badge_orange,
         categoryNameRes = R.string.category_study,
-        categoryDescriptionRes = R.string.category_study_detail,
+        categoryDescriptionRes = R.string.category_study_description,
         categoryIconRes = R.drawable.img_plan_cat_study_1000_6
     ),
     MULTI(
@@ -38,7 +38,7 @@ enum class CategoryType(
         backgroundChipColor = R.color.chip_yellow,
         backgroundBadgeColor = R.color.badge_yellow,
         categoryNameRes = R.string.category_multi,
-        categoryDescriptionRes = R.string.category_multi_detail,
+        categoryDescriptionRes = R.string.category_multi_description,
         categoryIconRes = R.drawable.img_plan_cat_multi_1000_3
     ),
     OTHERS(
@@ -47,7 +47,7 @@ enum class CategoryType(
         backgroundChipColor = R.color.g_10,
         backgroundBadgeColor = R.color.g_07,
         categoryNameRes = R.string.category_others,
-        categoryDescriptionRes = R.string.category_others_detail,
+        categoryDescriptionRes = R.string.category_others_description,
         categoryIconRes = R.drawable.img_plan_cat_others_1000_1
     );
 

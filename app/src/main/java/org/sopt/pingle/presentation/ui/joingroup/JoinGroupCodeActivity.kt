@@ -27,6 +27,10 @@ class JoinGroupCodeActivity :
             // CustomSnackbar.makeSnackbar(binding.root, getString(R.string.join_group_code_snackbar_message), 97)
             navigateToJoinGroupSuccess()
         }
+
+        binding.includeJoinGroupCodeTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
+            finish()
+        }
     }
 
     private fun addObservers() {

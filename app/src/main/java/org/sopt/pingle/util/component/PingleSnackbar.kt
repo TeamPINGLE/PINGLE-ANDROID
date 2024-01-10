@@ -9,7 +9,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.sopt.pingle.databinding.ViewSnackbarBinding
 import org.sopt.pingle.util.view.toPx
 
-object CustomSnackbar {
+object PingleSnackbar {
     fun makeSnackbar(view: View, message: String, botMarin: Int) {
         val inflater = LayoutInflater.from(view.context)
         val binding = ViewSnackbarBinding.inflate(inflater, null, false)

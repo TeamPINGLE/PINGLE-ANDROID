@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.joingroup
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.sopt.pingle.domain.model.JoinGroupCodeEntity
 import org.sopt.pingle.domain.model.JoinGroupSearchEntity
 
@@ -18,30 +19,31 @@ class JoinViewModel : ViewModel() {
     private val _joinGroupSearchData = MutableStateFlow<List<JoinGroupSearchEntity>>(emptyList())
     val joinGroupSearchData get() = _joinGroupSearchData
 
+    private val _selectedJoinGroup = MutableStateFlow<JoinGroupSearchEntity?>(null)
+    val selectedJoinGroup get() = _selectedJoinGroup.asStateFlow()
+
     val joinGroupSearchEditText = MutableLiveData<String>("")
 
-    private val _joinGroupSearchBtn = MutableLiveData<Boolean>(false)
-    val joinGroupSearchBtn get() = _joinGroupSearchBtn
-
-    private var oldPosition = OLD_POSITION
+    private var oldPosition = DEFAULT_OLD_POSITION
     fun updateJoinGroupSearchList(newPosition: Int) {
         when (oldPosition) {
-            OLD_POSITION -> {
+            DEFAULT_OLD_POSITION -> {
                 setIsSelected(newPosition)
             }
 
             newPosition -> {
                 setIsSelected(newPosition)
-                oldPosition = OLD_POSITION
+                oldPosition = DEFAULT_OLD_POSITION
             }
 
             else -> {
-                setIsSelected(oldPosition)
+                if (getIsSelected(oldPosition)) setIsSelected(oldPosition)
                 setIsSelected(newPosition)
             }
         }
+        _selectedJoinGroup.value =
+            if (getIsSelected(newPosition)) _joinGroupSearchData.value[newPosition] else null
         oldPosition = newPosition
-        _joinGroupSearchBtn.value = _joinGroupSearchData.value[newPosition].isSelected.get()
     }
 
     private fun setIsSelected(position: Int) {
@@ -49,6 +51,8 @@ class JoinViewModel : ViewModel() {
             !_joinGroupSearchData.value[position].isSelected.get()
         )
     }
+
+    private fun getIsSelected(position: Int) = _joinGroupSearchData.value[position].isSelected.get()
 
     init {
         _joinGroupData.value = JoinGroupCodeEntity(
@@ -89,6 +93,6 @@ class JoinViewModel : ViewModel() {
     }
 
     companion object {
-        private const val OLD_POSITION = -1
+        private const val DEFAULT_OLD_POSITION = -1
     }
 }

@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan
+package org.sopt.pingle.presentation.ui.main.plan.planrecruitment
 
 import android.os.Bundle
 import android.view.KeyEvent
@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanRecruitmentBinding
+import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.context.hideKeyboard
 
@@ -21,7 +22,6 @@ class PlanRecruitmentFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.planViewModel = viewModel
-        binding.lifecycleOwner = this
 
         addListeners()
         collectData()
@@ -55,21 +55,20 @@ class PlanRecruitmentFragment :
     }
 
     private fun collectData() {
-        viewModel.selectedRecruitment.flowWithLifecycle(lifecycle).onEach {
-            when (it.toString()) {
-                "99" -> {
-                    binding.btnPlanRecruitmentPlus.isEnabled = false
-                }
-
-                "1" -> {
-                    binding.btnPlanRecruitmentMinus.isEnabled = false
-                }
-
+        viewModel.selectedRecruitment.flowWithLifecycle(lifecycle).onEach { selectedRecruitment ->
+            when (selectedRecruitment.toString()) {
+                MAX_RECRUITMENT -> binding.btnPlanRecruitmentPlus.isEnabled = false
+                MIN_RECRUITMENT -> binding.btnPlanRecruitmentMinus.isEnabled = false
                 else -> {
                     binding.btnPlanRecruitmentPlus.isEnabled = true
                     binding.btnPlanRecruitmentMinus.isEnabled = true
                 }
             }
         }.launchIn(lifecycleScope)
+    }
+
+    companion object {
+        const val MAX_RECRUITMENT = "99"
+        const val MIN_RECRUITMENT = "1"
     }
 }

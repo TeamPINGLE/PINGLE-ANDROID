@@ -1,16 +1,16 @@
-package org.sopt.pingle.presentation.ui.main.setting
+package org.sopt.pingle.presentation.ui.main.more
 
 import android.os.Bundle
 import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.BuildConfig
 import org.sopt.pingle.R
-import org.sopt.pingle.databinding.FragmentSettingBinding
+import org.sopt.pingle.databinding.FragmentMoreBinding
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 
 @AndroidEntryPoint
-class SettingFragment : BindingFragment<FragmentSettingBinding>(R.layout.fragment_setting) {
+class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -19,14 +19,14 @@ class SettingFragment : BindingFragment<FragmentSettingBinding>(R.layout.fragmen
     }
 
     private fun initLayout() {
-        binding.tvSettingVersionContent.text = BuildConfig.VERSION_NAME.toString()
+        binding.tvMoreVersionDetail.text = BuildConfig.VERSION_NAME.toString()
     }
 
     private fun addListeners() {
-        binding.tvSettingLogoutTitle.setOnClickListener {
+        binding.tvMoreLogoutTitle.setOnClickListener {
             showLogoutDialogFragment()
         }
-        binding.tvSettingWithdrawTitle.setOnClickListener {
+        binding.tvMoreWithdrawTitle.setOnClickListener {
             showWithDrawLogoutDialogFragment()
         }
     }

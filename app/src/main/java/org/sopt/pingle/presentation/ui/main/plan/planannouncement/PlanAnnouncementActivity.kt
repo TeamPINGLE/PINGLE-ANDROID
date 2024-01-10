@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan
+package org.sopt.pingle.presentation.ui.main.plan.planannouncement
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.text.style.TextAppearanceSpan
 import androidx.core.content.ContextCompat
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityPlanAnnouncementBinding
-import org.sopt.pingle.presentation.ui.main.MainActivity
+import org.sopt.pingle.presentation.ui.main.plan.PlanActivity
 import org.sopt.pingle.util.base.BindingActivity
 
 class PlanAnnouncementActivity :
@@ -74,7 +74,7 @@ class PlanAnnouncementActivity :
 
     private fun addListeners() {
         binding.ivPlanAnnouncementExitBtn.setOnClickListener {
-            navigateToMain()
+            finish()
         }
 
         binding.btnPlanAnnouncement.setOnClickListener {
@@ -82,15 +82,10 @@ class PlanAnnouncementActivity :
         }
     }
 
-    private fun navigateToMain() {
-        Intent(this, MainActivity::class.java).apply {
-            startActivity(this)
-        }
-    }
-
     private fun navigateToPlan() {
         Intent(this, PlanActivity::class.java).apply {
             startActivity(this)
+            finish()
         }
     }
 

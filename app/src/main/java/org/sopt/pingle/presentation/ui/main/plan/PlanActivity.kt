@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -21,6 +22,7 @@ import org.sopt.pingle.presentation.ui.main.plan.plantitle.PlanTitleFragment
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.AllModalDialogFragment
 
+@AndroidEntryPoint
 class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan) {
     private val planViewModel: PlanViewModel by viewModels()
     private lateinit var fragmentList: ArrayList<Fragment>

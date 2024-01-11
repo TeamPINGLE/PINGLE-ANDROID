@@ -1,4 +1,4 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 import java.util.Properties
 
 plugins {
@@ -44,8 +44,7 @@ android {
         )
 
         manifestPlaceholders["IO_SENTRY_DSN"] = properties["io.sentry.dsn"] as String
-        manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] =
-            gradleLocalProperties(rootDir).getProperty("kakao.native.app.key") as String
+        manifestPlaceholders["KAKAO_NATIVE_APP_KEY_MANIFEST"] = properties["kakao.native.app.key.manifest"] as String
     }
 
     buildTypes {

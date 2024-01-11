@@ -57,6 +57,11 @@ jobs:
           IO_SENTRY_TOKEN: ${{ secrets.IO_SENTRY_DSN }}
         run: echo "io.sentry.dsn=\"IO_SENTRY_DSN\"" >> local.properties
 
+      - name: Access KAKAO_NATIVE_APP_KEY_MANIFEST
+        env:
+          IO_SENTRY_TOKEN: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
+        run: echo "kakao.native.app.key.manifest=\"KAKAO_NATIVE_APP_KEY_MANIFEST\"" >> local.properties
+
       - name: Access KAKAO_NATIVE_APP_KEY
         env:
           IO_SENTRY_TOKEN: ${{ secrets.KAKAO_NATIVE_APP_KEY }}

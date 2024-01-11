@@ -3,13 +3,13 @@ package org.sopt.pingle.presentation.mapper
 import androidx.databinding.Observable
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.overlay.Marker
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 fun PinEntity.toMarkerModel(): MarkerModel {
     val markerModel = MarkerModel(
@@ -47,4 +47,3 @@ fun PingleEntity.convertToCalenderDetail(): String {
         append("${endTime.format(DateTimeFormatter.ofPattern("HH:mm"))}")
     }
 }
-

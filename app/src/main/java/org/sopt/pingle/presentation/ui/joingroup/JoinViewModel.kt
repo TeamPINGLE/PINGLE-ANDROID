@@ -1,10 +1,10 @@
 package org.sopt.pingle.presentation.ui.joingroup
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -16,7 +16,6 @@ import org.sopt.pingle.domain.model.ResponseJoinGroupCodeEntity
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.util.view.UiState
-import javax.inject.Inject
 
 @HiltViewModel
 class JoinViewModel @Inject constructor(
@@ -97,8 +96,6 @@ class JoinViewModel @Inject constructor(
                         with(localStorage) {
                             groupId = joinGroupCode.id
                             groupName = joinGroupCode.name
-                            Log.d("ㅁㅇ", groupId.toString())
-                            Log.d("ㅁㅇ", groupName)
                         }
                     }
             }.onFailure {

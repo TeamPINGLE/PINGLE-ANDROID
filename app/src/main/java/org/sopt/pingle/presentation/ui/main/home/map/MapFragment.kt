@@ -61,7 +61,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         initMap()
         initLayout()
         addListeners()
-        collectData()
     }
 
     override fun onMapReady(naverMap: NaverMap) {
@@ -81,7 +80,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             }
         }
 
-        mapViewModel.getPinListWithoutFilter()
+        collectData()
         setLocationTrackingMode()
     }
 
@@ -172,14 +171,15 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             when (uiState) {
                 is UiState.Success -> {
                     with(binding.cardMap) {
-                        initLayout(uiState.data[SINGLE_SELECTION])
+                        initLayout(uiState.data.second[SINGLE_SELECTION])
+                        setPinId(uiState.data.first)
                         setOnChatButtonClick {
-                            startActivity(navigateToWebView(uiState.data[SINGLE_SELECTION].chatLink))
+                            startActivity(navigateToWebView(uiState.data.second[SINGLE_SELECTION].chatLink))
                         }
                         setOnParticipateButtonClick {
-                            when (uiState.data[SINGLE_SELECTION].isParticipating) {
-                                true -> showMapCancelModalDialogFragment()
-                                false -> showMapModalDialogFragment(uiState.data[SINGLE_SELECTION])
+                            when (uiState.data.second[SINGLE_SELECTION].isParticipating) {
+                                true -> showMapCancelModalDialogFragment(uiState.data.second[SINGLE_SELECTION])
+                                false -> showMapModalDialogFragment(uiState.data.second[SINGLE_SELECTION])
                             }
                         }
                     }
@@ -195,10 +195,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                     with(binding.cardMap) {
                         pinId?.let { mapViewModel.getPingleList(pinId = it) }
                     }
-                }
-
-                is UiState.Error -> {
-                    Log.e("ㅋㅋ", uiState.message.toString())
                 }
 
                 else -> Unit
@@ -261,15 +257,14 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
     }
 
-    private fun showMapCancelModalDialogFragment() {
+    private fun showMapCancelModalDialogFragment(pingleEntity: PingleEntity) {
         AllModalDialogFragment(
             title = stringOf(R.string.map_cancel_modal_title),
             detail = stringOf(R.string.map_cancel_modal_detail),
             buttonText = stringOf(R.string.map_cancel_modal_button_text),
             textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
-            clickBtn = { },
-            clickTextBtn = { },
-            onDialogClosed = { }
+            clickBtn = { mapViewModel.postPingleCancel(meetingId = pingleEntity.id) },
+            clickTextBtn = { }
         ).show(childFragmentManager, MAP_CANCEL_MODAL)
     }
 
@@ -279,8 +274,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 category = CategoryType.fromString(categoryName = category),
                 name = name,
                 ownerName = ownerName,
-                clickBtn = { mapViewModel.postPingleParticipation(meetingId = pingleEntity.id) },
-                onDialogClosed = { }
+                clickBtn = { mapViewModel.postPingleParticipation(meetingId = pingleEntity.id) }
             ).show(childFragmentManager, MAP_MODAL)
         }
     }

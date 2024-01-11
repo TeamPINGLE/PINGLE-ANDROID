@@ -3,9 +3,11 @@ package org.sopt.pingle.presentation.ui.main.plan
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
@@ -45,8 +47,8 @@ class PlanViewModel @Inject constructor(
     val selectedRecruitment get() = _selectedRecruitment.asStateFlow()
 
     private val _planLocationListState =
-        MutableStateFlow<UiState<List<PlanLocationEntity>>>(UiState.Empty)
-    val planLocationListState get() = _planLocationListState.asStateFlow()
+        MutableSharedFlow<UiState<List<PlanLocationEntity>>>()
+    val planLocationListState get() = _planLocationListState.asSharedFlow()
 
     private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())
     val planLocationList get() = _planLocationList.asStateFlow()
@@ -130,24 +132,24 @@ class PlanViewModel @Inject constructor(
 
     fun getPlanLocationList(searchWord: String) {
         viewModelScope.launch {
-            _planLocationListState.value = UiState.Loading
+            _planLocationListState.emit(UiState.Loading)
+            _planLocationList.value = emptyList()
+            _selectedLocation.value = null
             runCatching {
                 getPlanLocationListUseCase(searchWord).collect() { planLocationList ->
                     when (planLocationList.isEmpty()) {
                         true -> {
-                            _planLocationListState.value = UiState.Empty
+                            _planLocationListState.emit(UiState.Empty)
                         }
 
                         false -> {
                             _planLocationList.value = planLocationList
-                            _planLocationListState.value = UiState.Success(
-                                planLocationList,
-                            )
+                            _planLocationListState.emit(UiState.Success(planLocationList))
                         }
                     }
                 }
             }.onFailure { exception: Throwable ->
-                _planLocationListState.value = UiState.Error(exception.message)
+                _planLocationListState.emit(UiState.Error(exception.message))
             }
         }
     }
@@ -171,11 +173,6 @@ class PlanViewModel @Inject constructor(
         _selectedLocation.value =
             if (getIsSelected(position)) _planLocationList.value[position] else null
         oldPosition = position
-    }
-
-    // 이전 값이 -> 초기값 + 렉셀티드 값이 있으면
-    fun checkIsNull(): Boolean {
-        return _planLocationList.value.isEmpty()
     }
 
     private fun setIsSelected(position: Int) {

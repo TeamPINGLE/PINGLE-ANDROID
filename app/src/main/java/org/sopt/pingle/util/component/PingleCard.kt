@@ -26,7 +26,8 @@ class PingleCard @JvmOverloads constructor(
     private val binding: CardPingleBinding
     private var onChatButtonClick: () -> Unit = {}
     private var onParticipateButtonClick: (Long?) -> Unit = {}
-    var pinId : Long? = null
+    private var _pinId : Long? = null
+    val pinId get() = _pinId
 
     init {
         binding = CardPingleBinding.inflate(LayoutInflater.from(context), this, true)
@@ -52,8 +53,6 @@ class PingleCard @JvmOverloads constructor(
 
     fun initLayout(pingleEntity: PingleEntity) {
         val category: CategoryType = CategoryType.fromString(pingleEntity.category)
-
-        pinId = pingleEntity.id
 
         with(binding) {
             badgeCardTopInfo.setBadgeCategoryType(category)
@@ -87,6 +86,10 @@ class PingleCard @JvmOverloads constructor(
                     pingleEntity.maxParticipants.toString()
             }
         }
+    }
+
+    fun setPinId(pinId: Long) {
+        _pinId = pinId
     }
 
     fun setOnChatButtonClick(chatButtonClickListener: () -> Unit) {

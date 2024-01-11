@@ -16,4 +16,14 @@ class AuthRepositoryImpl @Inject constructor(
         runCatching {
             authRemoteDataSource.login(kakaoAccessToken, requestAuthDto).toAuthModel()
         }
+
+    override suspend fun logout(): Result<Int> =
+        runCatching {
+            authRemoteDataSource.logout().code
+        }
+
+    override suspend fun withDraw(): Result<Int> =
+        runCatching {
+            authRemoteDataSource.withDraw().code
+        }
 }

@@ -5,4 +5,5 @@ interface PingleLocalDataSource {
     var userName: String
     var accessToken: String
     var refreshToken: String
+    fun clear(): Unit
 }

@@ -33,7 +33,6 @@ class PlanLocationFragment :
 
     private fun addListeners() {
         binding.ivPlanLocationSearchBtn.setOnClickListener {
-            checkListExist()
             planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
         }
 
@@ -41,7 +40,6 @@ class PlanLocationFragment :
         searchListener.setOnKeyListener(
             View.OnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                    checkListExist()
                     planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
                     requireActivity().hideKeyboard(searchListener)
                     return@OnKeyListener true
@@ -58,6 +56,18 @@ class PlanLocationFragment :
                     binding.rvPlanLocationList.adapter = planLocationAdapter
                     planLocationAdapter.submitList(uiState.data)
                     planLocationAdapter.currentList
+
+                    with(binding) {
+                        rvPlanLocationList.visibility = View.VISIBLE
+                        layoutPlanLocationEmpty.visibility = View.INVISIBLE
+                    }
+                }
+
+                is UiState.Empty -> {
+                    with(binding) {
+                        rvPlanLocationList.visibility = View.INVISIBLE
+                        layoutPlanLocationEmpty.visibility = View.VISIBLE
+                    }
                 }
 
                 else -> Unit
@@ -67,18 +77,6 @@ class PlanLocationFragment :
 
     private fun deleteOldPosition(position: Int) {
         planLocationViewModel.updatePlanLocationList(position)
-    }
-
-    private fun checkListExist() = if (planLocationViewModel.checkIsNull()) {
-        with(binding) {
-            rvPlanLocationList.visibility = View.INVISIBLE
-            layoutPlanLocationEmpty.visibility = View.VISIBLE
-        }
-    } else {
-        with(binding) {
-            rvPlanLocationList.visibility = View.VISIBLE
-            layoutPlanLocationEmpty.visibility = View.INVISIBLE
-        }
     }
 
     override fun onDestroyView() {

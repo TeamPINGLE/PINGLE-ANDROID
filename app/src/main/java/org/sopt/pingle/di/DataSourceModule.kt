@@ -12,6 +12,8 @@ import org.sopt.pingle.data.datasource.remote.DummyRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.MapRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.PingleRemoteDataSource
 import org.sopt.pingle.data.datasourceimpl.local.DummyLocalDataSourceImpl
+import org.sopt.pingle.data.datasourceimpl.local.PingleLocalDataSourceImpl
+import org.sopt.pingle.data.datasourceimpl.remote.AuthRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.DummyRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.MapRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PingleRemoteDataSourceImpl
@@ -37,7 +39,7 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindsAuthDataSource(authDataSourceImpl: AuthRemoteDataSourceImpl): AuthRemoteDataSource
+    abstract fun bindsAuthRemoteDataSource(authRemoteDataSourceImpl: AuthRemoteDataSourceImpl): AuthRemoteDataSource
 
     @Binds
     @Singleton

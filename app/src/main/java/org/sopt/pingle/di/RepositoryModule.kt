@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import org.sopt.pingle.data.repository.AuthRepositoryImpl
 import org.sopt.pingle.data.repository.DummyRepositoryImpl
 import org.sopt.pingle.data.repository.MapRepositoryImpl
 import org.sopt.pingle.data.repository.PingleRepositoryImpl

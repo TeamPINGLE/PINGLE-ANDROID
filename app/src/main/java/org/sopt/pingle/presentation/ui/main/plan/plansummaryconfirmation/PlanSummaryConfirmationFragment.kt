@@ -3,12 +3,14 @@ package org.sopt.pingle.presentation.ui.main.plan.plansummaryconfirmation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanSummaryConfirmationBinding
 import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.colorOf
 
+@AndroidEntryPoint
 class PlanSummaryConfirmationFragment :
     BindingFragment<FragmentPlanSummaryConfirmationBinding>(R.layout.fragment_plan_summary_confirmation) {
     private val viewModel by activityViewModels<PlanViewModel>()

@@ -7,7 +7,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.sopt.pingle.data.datasource.local.PingleDataSource
+import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.data.model.remote.request.RequestAuthDto
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.util.view.UiState
@@ -15,7 +15,7 @@ import org.sopt.pingle.util.view.UiState
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val localStorage: PingleDataSource
+    private val localStorage: PingleLocalDataSource
 ) : ViewModel() {
     private val _loginUiState = MutableStateFlow<UiState<Unit>>(UiState.Empty)
     val loginUiState get() = _loginUiState.asStateFlow()

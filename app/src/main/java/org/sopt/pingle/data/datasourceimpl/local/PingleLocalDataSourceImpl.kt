@@ -8,11 +8,11 @@ import androidx.security.crypto.MasterKey
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import org.sopt.pingle.BuildConfig
-import org.sopt.pingle.data.datasource.local.PingleDataSource
+import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 
-class PingleDataSourceImpl @Inject constructor(
+class PingleLocalDataSourceImpl @Inject constructor(
     @ApplicationContext context: Context
-) : PingleDataSource {
+) : PingleLocalDataSource {
 
     private val masterKey = MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)

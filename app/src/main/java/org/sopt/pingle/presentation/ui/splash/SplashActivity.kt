@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.pingle.R
-import org.sopt.pingle.data.datasourceimpl.local.PingleDataSourceImpl
+import org.sopt.pingle.data.datasourceimpl.local.PingleLocalDataSourceImpl
 import org.sopt.pingle.databinding.ActivitySplashBinding
 import org.sopt.pingle.presentation.ui.auth.AuthActivity
 import org.sopt.pingle.presentation.ui.main.MainActivity
@@ -28,7 +28,7 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
     }
 
     private fun navigateToOnBoarding() {
-        val storage = PingleDataSourceImpl(this)
+        val storage = PingleLocalDataSourceImpl(this)
 
         val nextActivity =
             if (storage.isLogin) MainActivity::class.java else AuthActivity::class.java

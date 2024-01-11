@@ -6,12 +6,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.pingle.data.datasource.local.DummyLocalDataSource
-import org.sopt.pingle.data.datasource.local.PingleDataSource
+import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.data.datasource.remote.AuthDataSource
 import org.sopt.pingle.data.datasource.remote.DummyRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.MapRemoteDataSource
 import org.sopt.pingle.data.datasourceimpl.local.DummyLocalDataSourceImpl
-import org.sopt.pingle.data.datasourceimpl.local.PingleDataSourceImpl
+import org.sopt.pingle.data.datasourceimpl.local.PingleLocalDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.AuthDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.DummyRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.MapRemoteDataSourceImpl
@@ -37,5 +37,5 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindsPingleDataSource(pingleDataSourceImpl: PingleDataSourceImpl): PingleDataSource
+    abstract fun bindsPingleDataSource(pingleDataSourceImpl: PingleLocalDataSourceImpl): PingleLocalDataSource
 }

@@ -1,6 +1,6 @@
 package org.sopt.pingle.data.datasource.local
 
-interface PingleDataSource {
+interface PingleLocalDataSource {
     var isLogin: Boolean
     var userName: String
     var accessToken: String

@@ -1,10 +1,10 @@
 package org.sopt.pingle.data.repository
 
+import javax.inject.Inject
 import org.sopt.pingle.data.datasource.remote.AuthRemoteDataSource
 import org.sopt.pingle.data.model.remote.request.RequestAuthDto
 import org.sopt.pingle.domain.model.AuthEntity
 import org.sopt.pingle.domain.repository.AuthRepository
-import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authRemoteDataSource: AuthRemoteDataSource

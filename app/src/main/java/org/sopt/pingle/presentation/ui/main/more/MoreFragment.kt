@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.BuildConfig
@@ -18,7 +19,6 @@ import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more) {
@@ -74,7 +74,6 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
 
                 else -> {}
             }
-
         }.launchIn(lifecycleScope)
     }
 

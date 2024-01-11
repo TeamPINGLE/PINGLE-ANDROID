@@ -21,11 +21,13 @@ class PlanSummaryConfirmationFragment :
     }
 
     private fun initLayout() {
+        viewModel.setPlanMeetingEntity()
         viewModel.selectedCategory.value?.let { category ->
             with(binding) {
                 badgePlanSummaryConfirmationCategory.setBadgeCategoryType(category)
                 tvPlanSummaryConfirmationName.setTextColor(colorOf((category.textColor)))
                 tvPlanSummaryConfirmationName.text = viewModel.planTitle.value
+                // TODO API연결해서 개최자명 넣기
                 tvPlanSummaryConfirmationOwnerName.text = "개최자"
                 tvPlanSummaryConfirmationCalenderDetail.text =
                     convertDateFormat(viewModel.planDate.value) + "\n" + convertTimeFormat(viewModel.startTime.value) + " ~ " + convertTimeFormat(

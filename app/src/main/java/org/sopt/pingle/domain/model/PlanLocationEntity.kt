@@ -5,6 +5,7 @@ import androidx.databinding.ObservableBoolean
 data class PlanLocationEntity(
     val location: String,
     val address: String,
+    val roadAddress: String,
     val x: Double,
     val y: Double,
     var isSelected: ObservableBoolean = ObservableBoolean(false)

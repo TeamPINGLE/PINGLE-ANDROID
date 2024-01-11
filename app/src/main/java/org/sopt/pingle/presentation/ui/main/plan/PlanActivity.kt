@@ -1,6 +1,7 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -21,6 +22,7 @@ import org.sopt.pingle.presentation.ui.main.plan.plansummaryconfirmation.PlanSum
 import org.sopt.pingle.presentation.ui.main.plan.plantitle.PlanTitleFragment
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.AllModalDialogFragment
+import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
 class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan) {
@@ -103,7 +105,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                 fragmentList.size - 1 -> {
                     binding.btnPlan.text = getString(R.string.plan_pingle)
                     binding.btnPlan.setOnClickListener {
-                        finish()
+                        planViewModel.postPlanMeeting()
                     }
                     binding.layoutClose.visibility = View.INVISIBLE
                 }
@@ -114,6 +116,14 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                 }
             }
         }.launchIn(lifecycleScope)
+
+        planViewModel.planMeetingState.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> finish()
+                is UiState.Error -> Log.e("ZZ", uiState.message.toString())
+                else -> Unit
+            }
+        }
     }
 
     private fun showExitModalDialogFragment() {

@@ -6,11 +6,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.sopt.pingle.data.datasource.local.DummyLocalDataSource
 import org.sopt.pingle.data.datasource.remote.DummyRemoteDataSource
-import org.sopt.pingle.data.datasource.remote.JoinGroupCodeRemoteDataSource
+import org.sopt.pingle.data.datasource.remote.JoinGroupRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.MapRemoteDataSource
 import org.sopt.pingle.data.datasourceimpl.local.DummyLocalDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.DummyRemoteDataSourceImpl
-import org.sopt.pingle.data.datasourceimpl.remote.JoinGroupCodeRemoteDataSourceImpl
+import org.sopt.pingle.data.datasourceimpl.remote.JoinGroupRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.MapRemoteDataSourceImpl
 import javax.inject.Singleton
 
@@ -31,5 +31,5 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindsJoinGroupCodeRemoteDataSource(joinGroupCodeRemoteDataSourceImpl: JoinGroupCodeRemoteDataSourceImpl): JoinGroupCodeRemoteDataSource
+    abstract fun bindsJoinGroupRemoteDataSource(joinGroupRemoteDataSourceImpl: JoinGroupRemoteDataSourceImpl): JoinGroupRemoteDataSource
 }

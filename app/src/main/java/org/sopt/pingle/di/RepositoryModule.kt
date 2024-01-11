@@ -5,10 +5,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.sopt.pingle.data.repository.DummyRepositoryImpl
-import org.sopt.pingle.data.repository.JoinGroupCodeRepositoryImpl
+import org.sopt.pingle.data.repository.JoinGroupRepositoryImpl
 import org.sopt.pingle.data.repository.MapRepositoryImpl
 import org.sopt.pingle.domain.repository.DummyRepository
-import org.sopt.pingle.domain.repository.JoinGroupCodeRepository
+import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
 import javax.inject.Singleton
 
@@ -25,5 +25,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindsJoinGroupCodeRepository(joinGroupCodeRepositoryImpl: JoinGroupCodeRepositoryImpl): JoinGroupCodeRepository
+    abstract fun bindsJoinGroupRepository(joinGroupRepositoryImpl: JoinGroupRepositoryImpl): JoinGroupRepository
 }

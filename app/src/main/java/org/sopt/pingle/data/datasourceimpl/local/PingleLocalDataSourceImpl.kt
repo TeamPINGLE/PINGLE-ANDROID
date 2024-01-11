@@ -2,6 +2,7 @@ package org.sopt.pingle.data.datasourceimpl.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -46,6 +47,13 @@ class PingleLocalDataSourceImpl @Inject constructor(
     override var refreshToken: String
         get() = pref.getString(REFRESH_TOKEN, "") ?: ""
         set(value) = pref.edit { putString(REFRESH_TOKEN, value) }
+
+    override fun clear() {
+        pref.edit {
+            clear()
+        }
+        Log.d("aaa", "clear 성공 $isLogin")
+    }
 
     companion object {
         const val FILE_NAME = "AuthSharedPreferences"

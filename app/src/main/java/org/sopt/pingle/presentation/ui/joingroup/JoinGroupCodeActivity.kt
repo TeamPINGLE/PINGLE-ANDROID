@@ -98,7 +98,6 @@ class JoinGroupCodeActivity :
 
                 is UiState.Empty -> Timber.tag(JOIN_GROUP_CODE_ACTIVITY).d(EMPTY)
             }
-
         }.launchIn(lifecycleScope)
     }
 

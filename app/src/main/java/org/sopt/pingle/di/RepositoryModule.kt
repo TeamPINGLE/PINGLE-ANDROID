@@ -4,6 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import org.sopt.pingle.data.repository.AuthRepositoryImpl
 import org.sopt.pingle.data.repository.DummyRepositoryImpl
 import org.sopt.pingle.data.repository.JoinGroupRepositoryImpl
@@ -16,7 +17,6 @@ import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

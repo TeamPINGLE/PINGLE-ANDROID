@@ -5,11 +5,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import org.sopt.pingle.data.service.AuthService
 import org.sopt.pingle.data.service.DummyService
 import org.sopt.pingle.data.service.MapService
 import org.sopt.pingle.data.service.PingleService
 import org.sopt.pingle.di.qualifier.Pingle
 import retrofit2.Retrofit
+import retrofit2.create
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -23,6 +25,11 @@ object ServiceModule {
     @Singleton
     fun providesMapService(@Pingle retrofit: Retrofit): MapService =
         retrofit.create(MapService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesAuthService(@Pingle retrofit: Retrofit): AuthService =
+        retrofit.create(AuthService::class.java)
 
     @Provides
     @Singleton

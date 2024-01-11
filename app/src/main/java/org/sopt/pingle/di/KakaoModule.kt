@@ -10,5 +10,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object KakaoModule {
     @Provides
-    fun provideUserApiClient(): UserApiClient = UserApiClient.instance
+    fun providesUserApiClient(): UserApiClient = UserApiClient.instance
 }

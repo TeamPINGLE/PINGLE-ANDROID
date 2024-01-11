@@ -2,14 +2,24 @@ package org.sopt.pingle.presentation.ui.joingroup
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.sopt.pingle.domain.model.JoinGroupCodeEntity
+import kotlinx.coroutines.launch
+import org.sopt.pingle.domain.model.JoinGroupInfoEntity
 import org.sopt.pingle.domain.model.JoinGroupSearchEntity
+import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
+import org.sopt.pingle.util.view.UiState
+import javax.inject.Inject
 
-class JoinViewModel : ViewModel() {
-    private val _joinGroupData = MutableLiveData<JoinGroupCodeEntity>()
-    val joinGroupData get() = _joinGroupData
+@HiltViewModel
+class JoinViewModel @Inject constructor(
+    private val getJoinGroupInfoUseCase: GetJoinGroupInfoUseCase
+) : ViewModel() {
+    private val _joinGroupCodeUiState =
+        MutableStateFlow<UiState<JoinGroupInfoEntity>>(UiState.Empty)
+    val joinGroupCodeUiState get() = _joinGroupCodeUiState.asStateFlow()
 
     private var _isJoinGroupCodeBtn = MutableLiveData(false)
     val isJoinGroupCodeBtn get() = _isJoinGroupCodeBtn
@@ -27,9 +37,7 @@ class JoinViewModel : ViewModel() {
     private var oldPosition = DEFAULT_OLD_POSITION
     fun updateJoinGroupSearchList(newPosition: Int) {
         when (oldPosition) {
-            DEFAULT_OLD_POSITION -> {
-                setIsSelected(newPosition)
-            }
+            DEFAULT_OLD_POSITION -> setIsSelected(newPosition)
 
             newPosition -> {
                 setIsSelected(newPosition)
@@ -52,16 +60,23 @@ class JoinViewModel : ViewModel() {
         )
     }
 
+    fun getJoinGroupInfo(teamId: Int) {
+        _joinGroupCodeUiState.value = UiState.Loading
+        viewModelScope.launch {
+            _joinGroupCodeUiState.value = UiState.Loading
+            runCatching {
+                getJoinGroupInfoUseCase.invoke(teamId = teamId).collect { joinGroupInfo ->
+                    _joinGroupCodeUiState.value = UiState.Success(joinGroupInfo)
+                }
+            }.onFailure {
+                _joinGroupCodeUiState.value = UiState.Error(it.message)
+            }
+        }
+    }
+
     private fun getIsSelected(position: Int) = _joinGroupSearchData.value[position].isSelected.get()
 
     init {
-        _joinGroupData.value = JoinGroupCodeEntity(
-            id = 0,
-            keyword = "연합동아리",
-            name = "SOPT",
-            meetingCount = 10,
-            participantCount = 200
-        )
 
         _joinGroupSearchData.value = listOf(
             JoinGroupSearchEntity(

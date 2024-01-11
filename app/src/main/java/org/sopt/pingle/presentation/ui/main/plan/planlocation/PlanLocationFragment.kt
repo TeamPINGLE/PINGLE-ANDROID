@@ -27,8 +27,13 @@ class PlanLocationFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initLayout()
         addListeners()
         collectData()
+    }
+
+    private fun initLayout() {
+        binding.rvPlanLocationList.adapter = planLocationAdapter
     }
 
     private fun addListeners() {
@@ -53,20 +58,14 @@ class PlanLocationFragment :
         planLocationViewModel.planLocationListState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    binding.rvPlanLocationList.adapter = planLocationAdapter
                     planLocationAdapter.submitList(uiState.data)
                     planLocationAdapter.currentList
-                    with(binding) {
-                        rvPlanLocationList.visibility = View.VISIBLE
-                        layoutPlanLocationEmpty.visibility = View.INVISIBLE
-                    }
+                    binding.layoutPlanLocationEmpty.visibility = View.INVISIBLE
                 }
 
                 is UiState.Empty -> {
-                    with(binding) {
-                        rvPlanLocationList.visibility = View.INVISIBLE
-                        layoutPlanLocationEmpty.visibility = View.VISIBLE
-                    }
+                    planLocationAdapter.submitList(null)
+                    binding.layoutPlanLocationEmpty.visibility = View.VISIBLE
                 }
 
                 else -> Unit

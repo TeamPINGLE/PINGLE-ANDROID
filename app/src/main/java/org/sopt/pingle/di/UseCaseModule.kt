@@ -12,9 +12,9 @@ import org.sopt.pingle.domain.repository.PlanRepository
 import org.sopt.pingle.domain.usecase.GetDummyUserListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
+import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
-import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.domain.usecase.SetDummyDataUseCase
 
 @Module

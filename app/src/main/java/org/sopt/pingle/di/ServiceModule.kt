@@ -8,8 +8,8 @@ import javax.inject.Singleton
 import org.sopt.pingle.data.service.AuthService
 import org.sopt.pingle.data.service.DummyService
 import org.sopt.pingle.data.service.MapService
-import org.sopt.pingle.data.service.PlanService
 import org.sopt.pingle.data.service.PingleService
+import org.sopt.pingle.data.service.PlanService
 import org.sopt.pingle.di.qualifier.Pingle
 import retrofit2.Retrofit
 import retrofit2.create

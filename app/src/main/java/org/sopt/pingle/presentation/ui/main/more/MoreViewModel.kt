@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.util.view.UiState
-import timber.log.Timber
 
 @HiltViewModel
 class MoreViewModel @Inject constructor(
@@ -19,6 +18,9 @@ class MoreViewModel @Inject constructor(
 ) : ViewModel() {
     private val _logoutState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
     val logoutState get() = _logoutState.asStateFlow()
+
+    private val _withDrawState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
+    val withDrawState get() = _withDrawState.asStateFlow()
 
     fun logout() {
         viewModelScope.launch {
@@ -32,7 +34,22 @@ class MoreViewModel @Inject constructor(
                     }
                 }.onFailure { throwable ->
                     _logoutState.value = UiState.Error(throwable.message)
-                    Timber.e(throwable.message)
+                }
+        }
+    }
+
+    fun withDraw() {
+        viewModelScope.launch {
+            authRepository.withDraw()
+                .onSuccess { code ->
+                    if (code == SUCCESS_CODE) {
+                        _withDrawState.value = UiState.Success(true)
+                        pingleLocalDataSource.clear()
+                    } else {
+                        _withDrawState.value = UiState.Error(null)
+                    }
+                }.onFailure { throwable ->
+                    _withDrawState.value = UiState.Error(throwable.message)
                 }
         }
     }

@@ -88,6 +88,7 @@
         <org.sopt.pingle.util.component.PingleCard
             android:id="@+id/card_map"
             android:layout_width="0dp"
+            android:visibility="invisible"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/card_horizontal_margin"
             android:layout_marginBottom="8dp"

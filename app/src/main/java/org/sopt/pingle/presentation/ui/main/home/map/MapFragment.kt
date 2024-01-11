@@ -26,14 +26,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
-import org.sopt.pingle.presentation.model.MarkerModel
+import org.sopt.pingle.domain.model.PinEntity
+import org.sopt.pingle.presentation.mapper.toMarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
-import org.sopt.pingle.util.component.OnPingleCardClickListener
 import org.sopt.pingle.util.component.PingleChip
 import org.sopt.pingle.util.fragment.navigateToFragment
+import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
 
@@ -70,6 +71,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             with(uiSettings) {
                 isZoomControlEnabled = false
                 isScaleBarEnabled = false
+                isCompassEnabled = false
             }
 
             setOnMapClickListener { _, _ ->
@@ -100,15 +102,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryStudy.setChipCategoryType(CategoryType.STUDY)
             chipMapCategoryMulti.setChipCategoryType(CategoryType.MULTI)
             chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
-            cardMap.listener = object : OnPingleCardClickListener {
-                override fun onPingleCardChatBtnClickListener() {
-                    // TODO 선택된 마커로 웹뷰 연결
-                }
-
-                override fun onPingleCardParticipateBtnClickListener() {
-                    // TODO 선택된 마커 참여 현황 여부에 따른 모달 로직 구현
-                }
-            }
         }
     }
 
@@ -143,11 +136,18 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             mapViewModel.getPinListWithoutFilter()
         }.launchIn(lifecycleScope)
 
-        mapViewModel.markerListState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        mapViewModel.pinEntityListState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
                     if (::naverMap.isInitialized) {
                         makeMarkers(uiState.data)
+                        with(binding) {
+                            fabMapHere.visibility = View.VISIBLE
+                            fabMapList.visibility = View.VISIBLE
+                            cardMap.visibility = View.INVISIBLE
+                        }
+
+                        mapViewModel.clearSelectedMarkerPosition()
                     }
                 }
 
@@ -165,6 +165,21 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                     }
                 }
             }.launchIn(lifecycleScope)
+
+        mapViewModel.pingleListState.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> {
+                    with(binding.cardMap) {
+                        initLayout(uiState.data[SINGLE_SELECTION])
+                        setOnChatButtonClick {
+                            startActivity(navigateToWebView(uiState.data[SINGLE_SELECTION].chatLink))
+                        }
+                    }
+                }
+
+                else -> Unit
+            }
+        }.launchIn(lifecycleScope)
     }
 
     private fun setLocationTrackingMode() {
@@ -203,17 +218,21 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
     }
 
-    private fun makeMarkers(markerList: List<MarkerModel>) {
+    private fun makeMarkers(pinEntityList: List<PinEntity>) {
         mapViewModel.clearMarkerList()
 
-        markerList.mapIndexed { _, markerModel ->
-            markerModel.marker.apply {
-                mapViewModel.addMarkerList(this)
-                map = naverMap
-                setOnClickListener {
-                    // TODO 마커 클릭 이벤트 수정
-                    return@setOnClickListener true
+        pinEntityList.mapIndexed { index, pinEntity ->
+            pinEntity.toMarkerModel().apply {
+                this.marker.apply {
+                    map = naverMap
+                    setOnClickListener {
+                        mapViewModel.updateMarkerModelListSelectedValue(index)
+                        mapViewModel.getPingleList(pinEntity.id)
+                        moveMapCamera(position)
+                        return@setOnClickListener true
+                    }
                 }
+                mapViewModel.addMarkerList(this)
             }
         }
     }

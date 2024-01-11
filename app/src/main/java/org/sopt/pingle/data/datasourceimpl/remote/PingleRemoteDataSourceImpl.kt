@@ -8,8 +8,8 @@ import javax.inject.Inject
 class PingleRemoteDataSourceImpl @Inject constructor(
     private val pingleService: PingleService
 ) : PingleRemoteDataSource {
-    override suspend fun postPingleParticipation(meetingId: Long): NullableBaseResponse<Unit?> =
-        pingleService.postPingleParticipation(meetingId = meetingId)
+    override suspend fun postPingleJoin(meetingId: Long): NullableBaseResponse<Unit?> =
+        pingleService.postPingleJoin(meetingId = meetingId)
 
     override suspend fun postPingleCancel(meetingId: Long): NullableBaseResponse<Unit?> =
         pingleService.postPingleCancel(meetingId = meetingId)

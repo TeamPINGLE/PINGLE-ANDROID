@@ -11,7 +11,7 @@ import org.sopt.pingle.domain.usecase.GetDummyUserListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
-import org.sopt.pingle.domain.usecase.PostPingleParticipationUseCase
+import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.domain.usecase.SetDummyDataUseCase
 import javax.inject.Singleton
 
@@ -40,8 +40,8 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesPostPingleParticipationUseCase(pingleRepository: PingleRepository): PostPingleParticipationUseCase =
-        PostPingleParticipationUseCase(pingleRepository = pingleRepository)
+    fun providesPostPingleJoinUseCase(pingleRepository: PingleRepository): PostPingleJoinUseCase =
+        PostPingleJoinUseCase(pingleRepository = pingleRepository)
 
     @Provides
     @Singleton

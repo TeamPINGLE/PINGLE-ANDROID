@@ -7,7 +7,7 @@ import retrofit2.http.Path
 
 interface PingleService {
     @POST("$VERSION/$MEETINGS/{$MEETING_ID}/$JOIN")
-    suspend fun postPingleParticipation(
+    suspend fun postPingleJoin(
         @Path("$MEETING_ID") meetingId: Long
     ): NullableBaseResponse<Unit?>
 

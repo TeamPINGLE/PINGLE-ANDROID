@@ -9,9 +9,9 @@ import javax.inject.Inject
 class PingleRepositoryImpl @Inject constructor(
     private val pingleRemoteDataSource: PingleRemoteDataSource
 ) : PingleRepository {
-    override suspend fun postPingleParticipation(meetingId: Long): Flow<Unit?> = flow {
+    override suspend fun postPingleJoin(meetingId: Long): Flow<Unit?> = flow {
         val result = runCatching {
-            pingleRemoteDataSource.postPingleParticipation(meetingId = meetingId).data
+            pingleRemoteDataSource.postPingleJoin(meetingId = meetingId).data
         }
         emit(result.getOrThrow())
     }

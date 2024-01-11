@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.main.home.map
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -274,7 +273,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 category = CategoryType.fromString(categoryName = category),
                 name = name,
                 ownerName = ownerName,
-                clickBtn = { mapViewModel.postPingleParticipation(meetingId = pingleEntity.id) }
+                clickBtn = { mapViewModel.postPingleJoin(meetingId = pingleEntity.id) }
             ).show(childFragmentManager, MAP_MODAL)
         }
     }

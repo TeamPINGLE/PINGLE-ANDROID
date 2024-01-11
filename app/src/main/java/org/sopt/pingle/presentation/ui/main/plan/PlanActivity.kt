@@ -123,7 +123,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                 is UiState.Error -> Log.e("ZZ", uiState.message.toString())
                 else -> Unit
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun showExitModalDialogFragment() {

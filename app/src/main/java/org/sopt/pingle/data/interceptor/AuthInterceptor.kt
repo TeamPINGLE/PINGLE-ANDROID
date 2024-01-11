@@ -1,9 +1,10 @@
 package org.sopt.pingle.data.interceptor
 
-import javax.inject.Inject
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 import org.sopt.pingle.data.datasource.local.PingleDataSource
+import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
     private val localStorage: PingleDataSource
@@ -11,7 +12,7 @@ class AuthInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val authRequest =
-            originalRequest.newBuilder().addHeader(AUTHORIZATION, localStorage.accessToken).build()
+            if (localStorage.isLogin) originalRequest.newAuthBuilder() else originalRequest
         val response = chain.proceed(authRequest)
 
         when (response.code) {
@@ -21,6 +22,9 @@ class AuthInterceptor @Inject constructor(
         }
         return response
     }
+
+    private fun Request.newAuthBuilder() =
+        this.newBuilder().addHeader(AUTHORIZATION, localStorage.accessToken).build()
 
     companion object {
         const val CODE_TOKEN_EXPIRE = 401

@@ -7,8 +7,10 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.pingle.R
+import org.sopt.pingle.data.datasourceimpl.local.PingleDataSourceImpl
 import org.sopt.pingle.databinding.ActivitySplashBinding
 import org.sopt.pingle.presentation.ui.auth.AuthActivity
+import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.util.base.BindingActivity
 
 class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_splash) {
@@ -26,11 +28,13 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
     }
 
     private fun navigateToOnBoarding() {
-        // TODO 자동로그인 로직 추가
-        Intent(this@SplashActivity, AuthActivity::class.java).apply {
-            startActivity(this)
-            finish()
-        }
+        val storage = PingleDataSourceImpl(this)
+
+        val nextActivity =
+            if (storage.isLogin) MainActivity::class.java else AuthActivity::class.java
+
+        startActivity(Intent(this, nextActivity))
+        finish()
     }
 
     companion object {

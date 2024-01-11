@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -10,7 +11,6 @@ import org.sopt.pingle.data.datasource.local.PingleDataSource
 import org.sopt.pingle.data.model.remote.request.RequestAuthDto
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.util.view.UiState
-import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
@@ -28,7 +28,7 @@ class AuthViewModel @Inject constructor(
             ).onSuccess { authEntitiy ->
                 with(localStorage) {
                     isLogin = true
-                    accessToken = authEntitiy.accessToken
+                    accessToken = (HEADER_BEARER + authEntitiy.accessToken)
                     refreshToken = authEntitiy.refreshToken
                 }
                 _loginUiState.value = UiState.Success(Unit)
@@ -44,5 +44,6 @@ class AuthViewModel @Inject constructor(
 
     companion object {
         const val LOGIN_PLATFORM = "KAKAO"
+        const val HEADER_BEARER = "Bearer"
     }
 }

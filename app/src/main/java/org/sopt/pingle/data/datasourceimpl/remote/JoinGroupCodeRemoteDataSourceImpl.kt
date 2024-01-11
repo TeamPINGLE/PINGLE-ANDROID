@@ -9,6 +9,6 @@ import javax.inject.Inject
 class JoinGroupCodeRemoteDataSourceImpl @Inject constructor(
     private val joinGroupService: JoinGroupService
 ) : JoinGroupCodeRemoteDataSource {
-    override suspend fun getJoinGroupCodeInfo(teamId: Int): BaseResponse<ResponseJoinGroupInfoDto> =
-        joinGroupService.getJoinGroupDetail(teamId = teamId)
+    override suspend fun getJoinGroupInfo(teamId: Int): BaseResponse<ResponseJoinGroupInfoDto> =
+        joinGroupService.getJoinGroupInfo(teamId = teamId)
 }

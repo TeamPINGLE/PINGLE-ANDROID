@@ -12,7 +12,7 @@ class JoinGroupCodeRepositoryImpl @Inject constructor(
 ) : JoinGroupCodeRepository {
     override fun getJoinGroupInfo(teamId: Int): Flow<JoinGroupInfoEntity> = flow {
         val result = runCatching {
-            joinGroupCodeRemoteDataSource.getJoinGroupCodeInfo(teamId = teamId).data.toJoinGroupCodeEntity()
+            joinGroupCodeRemoteDataSource.getJoinGroupInfo(teamId = teamId).data.toJoinGroupCodeEntity()
         }
         emit(result.getOrThrow())
     }

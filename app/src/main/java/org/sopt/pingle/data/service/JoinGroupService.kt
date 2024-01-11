@@ -7,7 +7,7 @@ import retrofit2.http.Path
 
 interface JoinGroupService {
     @GET("$VERSION/$TEAMS/{$TEAM_ID}")
-    suspend fun getJoinGroupDetail(
+    suspend fun getJoinGroupInfo(
         @Path("$TEAM_ID") teamId: Int
     ): BaseResponse<ResponseJoinGroupInfoDto>
 

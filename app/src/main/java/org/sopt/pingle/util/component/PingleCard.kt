@@ -25,7 +25,9 @@ class PingleCard @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     private val binding: CardPingleBinding
     private var onChatButtonClick: () -> Unit = {}
-    private var onParticipateButtonClick: () -> Unit = {}
+    private var onParticipateButtonClick: (Long?) -> Unit = {}
+    private var _pinId: Long? = null
+    val pinId get() = _pinId
 
     init {
         binding = CardPingleBinding.inflate(LayoutInflater.from(context), this, true)
@@ -39,7 +41,7 @@ class PingleCard @JvmOverloads constructor(
         }
 
         binding.btnCardBottomMapParticipate.setOnClickListener {
-            onParticipateButtonClick()
+            onParticipateButtonClick(pinId)
         }
 
         binding.layoutCardTopParticipationStatus.setOnClickListener {
@@ -86,11 +88,15 @@ class PingleCard @JvmOverloads constructor(
         }
     }
 
+    fun setPinId(pinId: Long) {
+        _pinId = pinId
+    }
+
     fun setOnChatButtonClick(chatButtonClickListener: () -> Unit) {
         onChatButtonClick = chatButtonClickListener
     }
 
-    fun setOnParticipateButtonClick(participateButtonClickListener: () -> Unit) {
+    fun setOnParticipateButtonClick(participateButtonClickListener: (Long?) -> Unit) {
         onParticipateButtonClick = participateButtonClickListener
     }
 }

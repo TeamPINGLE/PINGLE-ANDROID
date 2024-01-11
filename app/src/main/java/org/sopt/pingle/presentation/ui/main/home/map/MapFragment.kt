@@ -27,6 +27,7 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
 import org.sopt.pingle.domain.model.PinEntity
+import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.mapper.toMarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
@@ -59,7 +60,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         initMap()
         initLayout()
         addListeners()
-        collectData()
     }
 
     override fun onMapReady(naverMap: NaverMap) {
@@ -79,7 +79,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             }
         }
 
-        mapViewModel.getPinListWithoutFilter()
+        collectData()
         setLocationTrackingMode()
     }
 
@@ -170,10 +170,29 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             when (uiState) {
                 is UiState.Success -> {
                     with(binding.cardMap) {
-                        initLayout(uiState.data[SINGLE_SELECTION])
+                        initLayout(uiState.data.second[SINGLE_SELECTION])
+                        setPinId(uiState.data.first)
                         setOnChatButtonClick {
-                            startActivity(navigateToWebView(uiState.data[SINGLE_SELECTION].chatLink))
+                            startActivity(navigateToWebView(uiState.data.second[SINGLE_SELECTION].chatLink))
                         }
+                        setOnParticipateButtonClick {
+                            when (uiState.data.second[SINGLE_SELECTION].isParticipating) {
+                                true -> showMapCancelModalDialogFragment(uiState.data.second[SINGLE_SELECTION])
+                                false -> showMapModalDialogFragment(uiState.data.second[SINGLE_SELECTION])
+                            }
+                        }
+                    }
+                }
+
+                else -> Unit
+            }
+        }.launchIn(lifecycleScope)
+
+        mapViewModel.pingleParticipationState.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> {
+                    with(binding.cardMap) {
+                        pinId?.let { mapViewModel.getPingleList(pinId = it) }
                     }
                 }
 
@@ -206,7 +225,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
 
         LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener { location ->
-            moveMapCamera(LatLng(location.latitude, location.longitude))
+            location?.let { moveMapCamera(LatLng(it.latitude, it.longitude)) }
         }
     }
 
@@ -237,20 +256,26 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
     }
 
-    private fun showMapCancelModalDialogFragment() {
+    private fun showMapCancelModalDialogFragment(pingleEntity: PingleEntity) {
         AllModalDialogFragment(
             title = stringOf(R.string.map_cancel_modal_title),
             detail = stringOf(R.string.map_cancel_modal_detail),
             buttonText = stringOf(R.string.map_cancel_modal_button_text),
             textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
-            clickBtn = { },
-            clickTextBtn = { },
-            onDialogClosed = { }
+            clickBtn = { mapViewModel.postPingleCancel(meetingId = pingleEntity.id) },
+            clickTextBtn = { }
         ).show(childFragmentManager, MAP_CANCEL_MODAL)
     }
 
-    private fun showMapModalDialogFragment() {
-        // TODO 취소 모달 구현
+    private fun showMapModalDialogFragment(pingleEntity: PingleEntity) {
+        with(pingleEntity) {
+            MapModalDialogFragment(
+                category = CategoryType.fromString(categoryName = category),
+                name = name,
+                ownerName = ownerName,
+                clickBtn = { mapViewModel.postPingleJoin(meetingId = pingleEntity.id) }
+            ).show(childFragmentManager, MAP_MODAL)
+        }
     }
 
     companion object {

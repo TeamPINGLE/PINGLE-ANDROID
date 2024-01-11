@@ -25,9 +25,6 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO KeyHash 값 가져오기
-//        val keyHash = Utility.getKeyHash(this)
-//        Timber.tag("KeyHash").d(keyHash)
 
         addListeners()
         collectData()

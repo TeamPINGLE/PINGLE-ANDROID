@@ -7,9 +7,12 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.pingle.domain.repository.DummyRepository
 import org.sopt.pingle.domain.repository.MapRepository
+import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.usecase.GetDummyUserListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
+import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
+import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.domain.usecase.SetDummyDataUseCase
 
 @Module
@@ -34,4 +37,14 @@ class UseCaseModule {
     @Singleton
     fun providesGetPingleListUseCase(mapRepository: MapRepository): GetPingleListUseCase =
         GetPingleListUseCase(mapRepository = mapRepository)
+
+    @Provides
+    @Singleton
+    fun providesPostPingleJoinUseCase(pingleRepository: PingleRepository): PostPingleJoinUseCase =
+        PostPingleJoinUseCase(pingleRepository = pingleRepository)
+
+    @Provides
+    @Singleton
+    fun providesPostPingleCancelUseCase(pingleRepository: PingleRepository): PostPingleCancelUseCase =
+        PostPingleCancelUseCase(pingleRepository = pingleRepository)
 }

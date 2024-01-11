@@ -10,7 +10,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupCodeBinding
+import org.sopt.pingle.domain.model.RequestJoinGroupCodeEntity
 import org.sopt.pingle.util.base.BindingActivity
+import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
 
@@ -35,12 +37,10 @@ class JoinGroupCodeActivity :
 
     private fun addListeners() {
         binding.btnJoinGroupCodeNext.setOnClickListener {
-//            PingleSnackbar.makeSnackbar(
-//                binding.root,
-//                getString(R.string.join_group_code_snackbar_message),
-//                97
-//            )
-            navigateToJoinGroupSuccess()
+            viewModel.postJoinGroupCode(
+                TEAM_ID,
+                RequestJoinGroupCodeEntity(viewModel.joinGroupCodeEditText.value.toString())
+            )
         }
 
         binding.includeJoinGroupCodeTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
@@ -49,13 +49,13 @@ class JoinGroupCodeActivity :
     }
 
     private fun addObservers() {
-        viewModel.joinGroupCode.observe(this) { editText ->
+        viewModel.joinGroupCodeEditText.observe(this) { editText ->
             binding.btnJoinGroupCodeNext.isEnabled = editText.isNotEmpty()
         }
     }
 
     private fun collectData() {
-        viewModel.joinGroupCodeUiState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        viewModel.joinGroupCodeState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
                     with(binding) {
@@ -80,6 +80,25 @@ class JoinGroupCodeActivity :
 
                 is UiState.Empty -> Timber.tag(JOIN_GROUP_CODE_ACTIVITY).d(EMPTY)
             }
+        }.launchIn(lifecycleScope)
+
+        viewModel.joinGroupCode.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> navigateToJoinGroupSuccess()
+
+                is UiState.Error -> {
+                    PingleSnackbar.makeSnackbar(
+                        binding.root,
+                        getString(R.string.join_group_code_snackbar_message),
+                        97
+                    )
+                }
+
+                is UiState.Loading -> Timber.tag(JOIN_GROUP_CODE_ACTIVITY).d(LOADING)
+
+                is UiState.Empty -> Timber.tag(JOIN_GROUP_CODE_ACTIVITY).d(EMPTY)
+            }
+
         }.launchIn(lifecycleScope)
     }
 

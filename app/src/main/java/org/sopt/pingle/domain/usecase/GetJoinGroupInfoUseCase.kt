@@ -2,11 +2,11 @@ package org.sopt.pingle.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
 import org.sopt.pingle.domain.model.JoinGroupInfoEntity
-import org.sopt.pingle.domain.repository.JoinGroupCodeRepository
+import org.sopt.pingle.domain.repository.JoinGroupRepository
 
 class GetJoinGroupInfoUseCase(
-    private val joinGroupCodeRepository: JoinGroupCodeRepository
+    private val joinGroupRepository: JoinGroupRepository
 ) {
     operator fun invoke(teamId: Int): Flow<JoinGroupInfoEntity> =
-        joinGroupCodeRepository.getJoinGroupInfo(teamId = teamId)
+        joinGroupRepository.getJoinGroupInfo(teamId = teamId)
 }

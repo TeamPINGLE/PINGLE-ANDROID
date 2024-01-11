@@ -225,7 +225,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
 
         LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener { location ->
-            moveMapCamera(LatLng(location.latitude, location.longitude))
+            location?.let { moveMapCamera(LatLng(it.latitude, it.longitude)) }
         }
     }
 

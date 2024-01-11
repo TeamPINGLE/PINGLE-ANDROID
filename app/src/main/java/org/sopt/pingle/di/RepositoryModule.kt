@@ -8,10 +8,12 @@ import javax.inject.Singleton
 import org.sopt.pingle.data.repository.AuthRepositoryImpl
 import org.sopt.pingle.data.repository.DummyRepositoryImpl
 import org.sopt.pingle.data.repository.MapRepositoryImpl
+import org.sopt.pingle.data.repository.PingleRepositoryImpl
 import org.sopt.pingle.data.repository.PlanRepositoryImpl
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.DummyRepository
 import org.sopt.pingle.domain.repository.MapRepository
+import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
 
 @Module
@@ -28,6 +30,10 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsPingleRepository(pingleRepositoryImpl: PingleRepositoryImpl): PingleRepository
 
     @Binds
     @Singleton

@@ -13,6 +13,8 @@ import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
+import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
+import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.view.UiState
@@ -20,7 +22,9 @@ import org.sopt.pingle.util.view.UiState
 @HiltViewModel
 class MapViewModel @Inject constructor(
     private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase,
-    private val getPingleListUseCase: GetPingleListUseCase
+    private val getPingleListUseCase: GetPingleListUseCase,
+    private val postPingleJoinUseCase: PostPingleJoinUseCase,
+    private val postPingleCancelUseCase: PostPingleCancelUseCase
 ) : ViewModel() {
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
@@ -33,8 +37,11 @@ class MapViewModel @Inject constructor(
     private var _selectedMarkerPosition = MutableStateFlow(DEFAULT_SELECTED_MARKER_POSITION)
     val selectedMarkerPosition get() = _selectedMarkerPosition.asStateFlow()
 
-    private val _pingleListState = MutableSharedFlow<UiState<List<PingleEntity>>>()
+    private val _pingleListState = MutableSharedFlow<UiState<Pair<Long, List<PingleEntity>>>>()
     val pingleListState get() = _pingleListState.asSharedFlow()
+
+    private val _pingleParticipationState = MutableSharedFlow<UiState<Unit?>>()
+    val pingleParticipationState get() = _pingleParticipationState.asSharedFlow()
 
     fun setCategory(category: CategoryType?) {
         _category.value = category
@@ -107,10 +114,40 @@ class MapViewModel @Inject constructor(
                     teamId = TEAM_ID,
                     pinId = pinId
                 ).collect() { pingleList ->
-                    _pingleListState.emit(UiState.Success(pingleList))
+                    _pingleListState.emit(UiState.Success(Pair(pinId, pingleList)))
                 }
             }.onFailure { exception ->
                 _pingleListState.emit(UiState.Error(exception.message))
+            }
+        }
+    }
+
+    fun postPingleJoin(meetingId: Long) {
+        viewModelScope.launch {
+            _pingleParticipationState.emit(UiState.Loading)
+            runCatching {
+                postPingleJoinUseCase(
+                    meetingId = meetingId
+                ).collect() { data ->
+                    _pingleParticipationState.emit(UiState.Success(data))
+                }
+            }.onFailure { exception: Throwable ->
+                _pingleParticipationState.emit(UiState.Error(exception.message))
+            }
+        }
+    }
+
+    fun postPingleCancel(meetingId: Long) {
+        viewModelScope.launch {
+            _pingleParticipationState.emit(UiState.Loading)
+            runCatching {
+                postPingleCancelUseCase(
+                    meetingId = meetingId
+                ).collect() { data ->
+                    _pingleParticipationState.emit(UiState.Success(data))
+                }
+            }.onFailure { exception: Throwable ->
+                _pingleParticipationState.emit(UiState.Error(exception.message))
             }
         }
     }

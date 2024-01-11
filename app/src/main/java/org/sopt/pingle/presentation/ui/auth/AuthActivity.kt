@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.kakao.sdk.common.util.Utility
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
@@ -26,8 +25,6 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val keyHash = Utility.getKeyHash(this)
-        Timber.tag("KeyHash").d(keyHash)
 
         addListeners()
         collectData()

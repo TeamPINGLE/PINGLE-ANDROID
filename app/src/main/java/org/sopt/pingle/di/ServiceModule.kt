@@ -9,6 +9,7 @@ import org.sopt.pingle.data.service.AuthService
 import org.sopt.pingle.data.service.DummyService
 import org.sopt.pingle.data.service.MapService
 import org.sopt.pingle.data.service.PlanService
+import org.sopt.pingle.data.service.PingleService
 import org.sopt.pingle.di.qualifier.Pingle
 import retrofit2.Retrofit
 import retrofit2.create
@@ -30,6 +31,11 @@ object ServiceModule {
     @Singleton
     fun providesAuthService(@Pingle retrofit: Retrofit): AuthService =
         retrofit.create(AuthService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesPingleService(@Pingle retrofit: Retrofit): PingleService =
+        retrofit.create(PingleService::class.java)
 
     @Provides
     @Singleton

@@ -15,4 +15,11 @@ class PingleRepositoryImpl @Inject constructor(
         }
         emit(result.getOrThrow())
     }
+
+    override suspend fun postPingleCancel(meetingId: Long): Flow<Unit?> = flow {
+        val result = runCatching {
+            pingleRemoteDataSource.postPingleCancel(meetingId = meetingId).data
+        }
+        emit(result.getOrThrow())
+    }
 }

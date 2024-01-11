@@ -2,14 +2,13 @@ package org.sopt.pingle.data.datasourceimpl.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 import org.sopt.pingle.BuildConfig
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
+import javax.inject.Inject
 
 class PingleLocalDataSourceImpl @Inject constructor(
     @ApplicationContext context: Context
@@ -52,7 +51,6 @@ class PingleLocalDataSourceImpl @Inject constructor(
         pref.edit {
             clear()
         }
-        Log.d("aaa", "clear 성공 $isLogin")
     }
 
     companion object {

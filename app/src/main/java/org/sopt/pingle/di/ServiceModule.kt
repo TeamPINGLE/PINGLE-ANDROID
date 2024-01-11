@@ -4,12 +4,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import org.sopt.pingle.data.service.DummyService
 import org.sopt.pingle.data.service.MapService
 import org.sopt.pingle.data.service.PingleService
 import org.sopt.pingle.di.qualifier.Pingle
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

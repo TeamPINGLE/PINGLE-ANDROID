@@ -1,10 +1,10 @@
 package org.sopt.pingle.data.repository
 
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.sopt.pingle.data.datasource.remote.PingleRemoteDataSource
 import org.sopt.pingle.domain.repository.PingleRepository
-import javax.inject.Inject
 
 class PingleRepositoryImpl @Inject constructor(
     private val pingleRemoteDataSource: PingleRemoteDataSource

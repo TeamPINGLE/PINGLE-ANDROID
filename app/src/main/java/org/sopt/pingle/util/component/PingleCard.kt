@@ -26,7 +26,7 @@ class PingleCard @JvmOverloads constructor(
     private val binding: CardPingleBinding
     private var onChatButtonClick: () -> Unit = {}
     private var onParticipateButtonClick: (Long?) -> Unit = {}
-    private var _pinId : Long? = null
+    private var _pinId: Long? = null
     val pinId get() = _pinId
 
     init {

@@ -16,8 +16,9 @@
             android:id="@+id/iv_plan_announcement_exit_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing32"
-            android:layout_marginEnd="@dimen/spacing18"
+            android:layout_marginTop="@dimen/spacing26"
+            android:layout_marginEnd="@dimen/spacing12"
+            android:padding="@dimen/spacing6"
             android:src="@drawable/ic_all_x_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

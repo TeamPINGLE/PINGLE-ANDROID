@@ -10,6 +10,7 @@ import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.PlanRepository
 import org.sopt.pingle.domain.usecase.GetDummyUserListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
+import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.domain.usecase.SetDummyDataUseCase
 
@@ -30,6 +31,11 @@ class UseCaseModule {
     @Singleton
     fun providesGetPinListWithoutFilteringUseCase(mapRepository: MapRepository): GetPinListWithoutFilteringUseCase =
         GetPinListWithoutFilteringUseCase(mapRepository = mapRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetPingleListUseCase(mapRepository: MapRepository): GetPingleListUseCase =
+        GetPingleListUseCase(mapRepository = mapRepository)
 
     @Provides
     @Singleton

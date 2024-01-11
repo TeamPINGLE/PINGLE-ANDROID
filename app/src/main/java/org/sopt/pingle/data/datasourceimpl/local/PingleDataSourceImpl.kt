@@ -6,9 +6,9 @@ import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import org.sopt.pingle.BuildConfig
 import org.sopt.pingle.data.datasource.local.PingleDataSource
-import javax.inject.Inject
 
 class PingleDataSourceImpl @Inject constructor(
     @ApplicationContext context: Context
@@ -19,14 +19,17 @@ class PingleDataSourceImpl @Inject constructor(
         .build()
 
     private val pref: SharedPreferences =
-        if (BuildConfig.DEBUG) context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
-        else EncryptedSharedPreferences.create(
-            context,
-            FILE_NAME,
-            masterKey,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
+        if (BuildConfig.DEBUG) {
+            context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
+        } else {
+            EncryptedSharedPreferences.create(
+                context,
+                FILE_NAME,
+                masterKey,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+        }
 
     override var isLogin: Boolean
         get() = pref.getBoolean(AUTO_LOGIN, false)

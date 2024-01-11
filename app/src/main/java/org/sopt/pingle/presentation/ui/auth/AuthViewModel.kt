@@ -44,6 +44,6 @@ class AuthViewModel @Inject constructor(
 
     companion object {
         const val LOGIN_PLATFORM = "KAKAO"
-        const val HEADER_BEARER = "Bearer"
+        const val HEADER_BEARER = "Bearer "
     }
 }

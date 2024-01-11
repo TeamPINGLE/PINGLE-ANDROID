@@ -8,8 +8,8 @@ import javax.inject.Singleton
 import org.sopt.pingle.data.repository.AuthRepositoryImpl
 import org.sopt.pingle.data.repository.DummyRepositoryImpl
 import org.sopt.pingle.data.repository.MapRepositoryImpl
-import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.data.repository.PlanRepositoryImpl
+import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.DummyRepository
 import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.PlanRepository

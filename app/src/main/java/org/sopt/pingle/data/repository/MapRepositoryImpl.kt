@@ -5,21 +5,34 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.sopt.pingle.data.datasource.remote.MapRemoteDataSource
 import org.sopt.pingle.domain.model.PinEntity
+import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.domain.repository.MapRepository
 
 class MapRepositoryImpl @Inject constructor(
-    private val mapDataSource: MapRemoteDataSource
+    private val mapRemoteDataSource: MapRemoteDataSource
 ) : MapRepository {
     override suspend fun getPinListWithoutFiltering(
         teamId: Long,
         category: String?
     ): Flow<List<PinEntity>> = flow {
         val result = runCatching {
-            mapDataSource.getPinListWithoutFiltering(
+            mapRemoteDataSource.getPinListWithoutFiltering(
                 teamId = teamId,
                 category = category
             ).data.map { pin ->
                 pin.toPinEntity()
+            }
+        }
+        emit(result.getOrThrow())
+    }
+
+    override suspend fun getPingleList(teamId: Long, pinId: Long): Flow<List<PingleEntity>> = flow {
+        val result = runCatching {
+            mapRemoteDataSource.getPingleList(
+                teamId = teamId,
+                pinId = pinId
+            ).data.map { pingle ->
+                pingle.toPingleEntity()
             }
         }
         emit(result.getOrThrow())

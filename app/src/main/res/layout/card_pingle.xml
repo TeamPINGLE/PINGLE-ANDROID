@@ -165,6 +165,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+                    android:layout_marginEnd="2dp
+"
                     android:textColor="@color/g_06"
                     app:layout_constraintBottom_toBottomOf="@id/tv_card_top_info_participation_status_current_participants"
                     app:layout_constraintEnd_toEndOf="parent"

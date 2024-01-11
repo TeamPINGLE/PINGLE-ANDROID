@@ -45,7 +45,7 @@ class PlanLocationFragment :
                     return@OnKeyListener true
                 }
                 false
-            }
+            },
         )
     }
 
@@ -56,7 +56,6 @@ class PlanLocationFragment :
                     binding.rvPlanLocationList.adapter = planLocationAdapter
                     planLocationAdapter.submitList(uiState.data)
                     planLocationAdapter.currentList
-
                     with(binding) {
                         rvPlanLocationList.visibility = View.VISIBLE
                         layoutPlanLocationEmpty.visibility = View.INVISIBLE

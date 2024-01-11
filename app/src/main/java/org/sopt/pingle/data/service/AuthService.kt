@@ -10,7 +10,7 @@ import retrofit2.http.POST
 interface AuthService {
     @POST("/v1/auth/login")
     suspend fun postLogin(
-        @Header("Provider-Token") header: String,
+        @Header("X-Provider-Token") header: String,
         @Body body: RequestAuthDto
     ): BaseResponse<ResponseAuthDto>
 }

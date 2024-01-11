@@ -47,6 +47,12 @@ class PingleLocalDataSourceImpl @Inject constructor(
         get() = pref.getString(REFRESH_TOKEN, "") ?: ""
         set(value) = pref.edit { putString(REFRESH_TOKEN, value) }
 
+    override fun clear() {
+        pref.edit {
+            clear()
+        }
+    }
+
     companion object {
         const val FILE_NAME = "AuthSharedPreferences"
         const val AUTO_LOGIN = "AutoLogin"

@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.main.home.map
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -27,6 +28,7 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
 import org.sopt.pingle.domain.model.PinEntity
+import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.mapper.toMarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
@@ -174,7 +176,29 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         setOnChatButtonClick {
                             startActivity(navigateToWebView(uiState.data[SINGLE_SELECTION].chatLink))
                         }
+                        setOnParticipateButtonClick {
+                            when (uiState.data[SINGLE_SELECTION].isParticipating) {
+                                true -> showMapCancelModalDialogFragment()
+                                false -> showMapModalDialogFragment(uiState.data[SINGLE_SELECTION])
+                            }
+                        }
                     }
+                }
+
+                else -> Unit
+            }
+        }.launchIn(lifecycleScope)
+
+        mapViewModel.pingleParticipationState.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> {
+                    with(binding.cardMap) {
+                        pinId?.let { mapViewModel.getPingleList(pinId = it) }
+                    }
+                }
+
+                is UiState.Error -> {
+                    Log.e("ㅋㅋ", uiState.message.toString())
                 }
 
                 else -> Unit
@@ -184,11 +208,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
@@ -249,8 +273,16 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         ).show(childFragmentManager, MAP_CANCEL_MODAL)
     }
 
-    private fun showMapModalDialogFragment() {
-        // TODO 취소 모달 구현
+    private fun showMapModalDialogFragment(pingleEntity: PingleEntity) {
+        with(pingleEntity) {
+            MapModalDialogFragment(
+                category = CategoryType.fromString(categoryName = category),
+                name = name,
+                ownerName = ownerName,
+                clickBtn = { mapViewModel.postPingleParticipation(meetingId = pingleEntity.id) },
+                onDialogClosed = { }
+            ).show(childFragmentManager, MAP_MODAL)
+        }
     }
 
     companion object {

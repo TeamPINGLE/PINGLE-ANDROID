@@ -1,10 +1,10 @@
 package org.sopt.pingle.data.interceptor
 
+import javax.inject.Inject
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import org.sopt.pingle.data.datasource.local.PingleDataSource
-import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
     private val localStorage: PingleDataSource

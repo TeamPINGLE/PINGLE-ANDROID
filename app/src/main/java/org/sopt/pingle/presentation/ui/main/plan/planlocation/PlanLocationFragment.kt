@@ -27,18 +27,13 @@ class PlanLocationFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initLayout()
         addListeners()
         collectData()
     }
 
-    private fun initLayout() {
-        binding.rvPlanLocationList.adapter = planLocationAdapter
-    }
-
     private fun addListeners() {
         binding.ivPlanLocationSearchBtn.setOnClickListener {
-            // checkListExist()
+            checkListExist()
             planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
         }
 
@@ -46,7 +41,7 @@ class PlanLocationFragment :
         searchListener.setOnKeyListener(
             View.OnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                    // checkListExist()
+                    checkListExist()
                     planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
                     requireActivity().hideKeyboard(searchListener)
                     return@OnKeyListener true
@@ -60,8 +55,8 @@ class PlanLocationFragment :
         planLocationViewModel.planLocationListState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
+                    binding.rvPlanLocationList.adapter = planLocationAdapter
                     planLocationAdapter.submitList(uiState.data)
-
                     planLocationAdapter.currentList
                 }
 
@@ -71,10 +66,10 @@ class PlanLocationFragment :
     }
 
     private fun deleteOldPosition(position: Int) {
-        // planLocationViewModel.updatePlanLocationList(position)
+        planLocationViewModel.updatePlanLocationList(position)
     }
 
-   /* private fun checkListExist() = if (planLocationViewModel.checkIsNull()) {
+    private fun checkListExist() = if (planLocationViewModel.checkIsNull()) {
         with(binding) {
             rvPlanLocationList.visibility = View.INVISIBLE
             layoutPlanLocationEmpty.visibility = View.VISIBLE
@@ -84,7 +79,7 @@ class PlanLocationFragment :
             rvPlanLocationList.visibility = View.VISIBLE
             layoutPlanLocationEmpty.visibility = View.INVISIBLE
         }
-    }*/
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

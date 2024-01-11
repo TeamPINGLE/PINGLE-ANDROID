@@ -7,4 +7,5 @@ import org.sopt.pingle.util.base.NullableBaseResponse
 interface AuthRemoteDataSource {
     suspend fun login(kakaoAccessToken: String, requestAuthDto: RequestAuthDto): ResponseAuthDto
     suspend fun logout(): NullableBaseResponse<String>
+    suspend fun withDraw(): NullableBaseResponse<String>
 }

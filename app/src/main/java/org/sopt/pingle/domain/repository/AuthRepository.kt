@@ -10,4 +10,5 @@ interface AuthRepository {
     ): Result<AuthEntity>
 
     suspend fun logout(): Result<Int>
+    suspend fun withDraw(): Result<Int>
 }

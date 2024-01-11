@@ -18,4 +18,7 @@ class AuthRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun logout(): NullableBaseResponse<String> =
         authService.logout()
+
+    override suspend fun withDraw(): NullableBaseResponse<String> =
+        authService.withDraw()
 }

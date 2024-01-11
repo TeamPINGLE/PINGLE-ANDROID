@@ -5,6 +5,7 @@ import org.sopt.pingle.data.model.remote.response.ResponseAuthDto
 import org.sopt.pingle.util.base.BaseResponse
 import org.sopt.pingle.util.base.NullableBaseResponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Header
 import retrofit2.http.POST
 
@@ -17,4 +18,7 @@ interface AuthService {
 
     @POST("/v1/auth/logout")
     suspend fun logout(): NullableBaseResponse<String>
+
+    @DELETE("/v1/users/leave")
+    suspend fun withDraw(): NullableBaseResponse<String>
 }

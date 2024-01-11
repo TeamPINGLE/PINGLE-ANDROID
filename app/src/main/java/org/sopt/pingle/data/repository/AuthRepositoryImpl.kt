@@ -21,4 +21,9 @@ class AuthRepositoryImpl @Inject constructor(
         runCatching {
             authRemoteDataSource.logout().code
         }
+
+    override suspend fun withDraw(): Result<Int> =
+        kotlin.runCatching {
+            authRemoteDataSource.withDraw().code
+        }
 }

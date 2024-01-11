@@ -32,9 +32,9 @@ import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
-import org.sopt.pingle.util.component.OnPingleCardClickListener
 import org.sopt.pingle.util.component.PingleChip
 import org.sopt.pingle.util.fragment.navigateToFragment
+import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
 
@@ -102,15 +102,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             chipMapCategoryStudy.setChipCategoryType(CategoryType.STUDY)
             chipMapCategoryMulti.setChipCategoryType(CategoryType.MULTI)
             chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
-            cardMap.listener = object : OnPingleCardClickListener {
-                override fun onPingleCardChatBtnClickListener() {
-                    // TODO 웹뷰 추가
-                }
-
-                override fun onPingleCardParticipateBtnClickListener() {
-                    // TODO 선택된 마커 참여 현황 여부에 따른 모달 로직 구현
-                }
-            }
         }
     }
 
@@ -164,21 +155,28 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             }
         }.launchIn(lifecycleScope)
 
-        mapViewModel.selectedMarkerPosition.flowWithLifecycle(lifecycle).onEach { selectedMarkerPosition ->
-            (selectedMarkerPosition == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
-                with(binding) {
-                    fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
-                    fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
-                    cardMap.visibility = if (this@run) View.INVISIBLE else View.VISIBLE
+        mapViewModel.selectedMarkerPosition.flowWithLifecycle(lifecycle)
+            .onEach { selectedMarkerPosition ->
+                (selectedMarkerPosition == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
+                    with(binding) {
+                        fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
+                        fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
+                        cardMap.visibility = if (this@run) View.INVISIBLE else View.VISIBLE
+                    }
                 }
-            }
-        }.launchIn(lifecycleScope)
+            }.launchIn(lifecycleScope)
 
         mapViewModel.pingleListState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    binding.cardMap.initLayout(uiState.data[SINGLE_SELECTION])
+                    with(binding.cardMap) {
+                        initLayout(uiState.data[SINGLE_SELECTION])
+                        setOnChatButtonClick {
+                            startActivity(navigateToWebView(uiState.data[SINGLE_SELECTION].chatLink))
+                        }
+                    }
                 }
+
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
@@ -186,11 +184,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 

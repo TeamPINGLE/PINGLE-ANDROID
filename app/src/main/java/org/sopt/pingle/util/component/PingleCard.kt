@@ -4,15 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.CardPingleBinding
 import org.sopt.pingle.domain.model.PingleEntity
+import org.sopt.pingle.presentation.mapper.convertToCalenderDetail
+import org.sopt.pingle.presentation.mapper.isCompleted
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.view.colorOf
@@ -25,7 +25,8 @@ class PingleCard @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     private val binding: CardPingleBinding
-    var listener: OnPingleCardClickListener? = null
+    private var onChatButtonClick: () -> Unit = {}
+    private var onParticipateButtonClick: () -> Unit = {}
 
     init {
         binding = CardPingleBinding.inflate(LayoutInflater.from(context), this, true)
@@ -35,11 +36,11 @@ class PingleCard @JvmOverloads constructor(
 
     private fun addListeners() {
         binding.btnCardBottomMapChat.setOnClickListener {
-            listener?.onPingleCardChatBtnClickListener()
+            onChatButtonClick()
         }
 
         binding.btnCardBottomMapParticipate.setOnClickListener {
-            listener?.onPingleCardParticipateBtnClickListener()
+            onParticipateButtonClick()
         }
 
         binding.layoutCardTopParticipationStatus.setOnClickListener {
@@ -85,23 +86,12 @@ class PingleCard @JvmOverloads constructor(
             }
         }
     }
-}
 
-interface OnPingleCardClickListener {
-    fun onPingleCardChatBtnClickListener()
-    fun onPingleCardParticipateBtnClickListener()
-}
+    fun setOnChatButtonClick(chatButtonClickListener: () -> Unit) {
+        onChatButtonClick = chatButtonClickListener
+    }
 
-fun PingleEntity.isCompleted() = maxParticipants == curParticipants
-
-fun PingleEntity.convertToCalenderDetail(): String {
-    val localDate = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE)
-    val startTime = LocalTime.parse(startAt, DateTimeFormatter.ISO_LOCAL_TIME)
-    val endTime = LocalTime.parse(endAt, DateTimeFormatter.ISO_LOCAL_TIME)
-
-    return buildString {
-        append("${localDate.year}년 ${localDate.monthValue}월 ${localDate.dayOfMonth}일\n")
-        append("${startTime.format(DateTimeFormatter.ofPattern("HH:mm"))} ~ ")
-        append("${endTime.format(DateTimeFormatter.ofPattern("HH:mm"))}")
+    fun setOnParticipateButtonClick(participateButtonClickListener: () -> Unit) {
+        onParticipateButtonClick = participateButtonClickListener
     }
 }

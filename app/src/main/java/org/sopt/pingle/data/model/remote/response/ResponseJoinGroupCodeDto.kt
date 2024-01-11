@@ -7,7 +7,7 @@ import org.sopt.pingle.domain.model.ResponseJoinGroupCodeEntity
 @Serializable
 data class ResponseJoinGroupCodeDto(
     @SerialName("id")
-    val id: String,
+    val id: Int,
     @SerialName("name")
     val name: String
 ) {

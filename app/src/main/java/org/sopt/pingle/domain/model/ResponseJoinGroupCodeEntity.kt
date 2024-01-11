@@ -1,6 +1,6 @@
 package org.sopt.pingle.domain.model
 
 data class ResponseJoinGroupCodeEntity(
-    val id: String,
+    val id: Int,
     val name: String
 )

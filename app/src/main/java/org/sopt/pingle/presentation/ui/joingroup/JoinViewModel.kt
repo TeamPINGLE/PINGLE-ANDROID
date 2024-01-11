@@ -1,13 +1,14 @@
 package org.sopt.pingle.presentation.ui.joingroup
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.JoinGroupInfoEntity
 import org.sopt.pingle.domain.model.JoinGroupSearchEntity
 import org.sopt.pingle.domain.model.RequestJoinGroupCodeEntity
@@ -15,9 +16,11 @@ import org.sopt.pingle.domain.model.ResponseJoinGroupCodeEntity
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.util.view.UiState
+import javax.inject.Inject
 
 @HiltViewModel
 class JoinViewModel @Inject constructor(
+    private val localStorage: PingleLocalDataSource,
     private val getJoinGroupInfoUseCase: GetJoinGroupInfoUseCase,
     private val postJoinGroupCodeUseCase: PostJoinGroupCodeUseCase
 ) : ViewModel() {
@@ -91,6 +94,12 @@ class JoinViewModel @Inject constructor(
                 postJoinGroupCodeUseCase.invoke(teamId = teamId, code = code)
                     .collect { joinGroupCode ->
                         _joinGroupCode.value = UiState.Success(joinGroupCode)
+                        with(localStorage) {
+                            groupId = joinGroupCode.id
+                            groupName = joinGroupCode.name
+                            Log.d("ㅁㅇ", groupId.toString())
+                            Log.d("ㅁㅇ", groupName)
+                        }
                     }
             }.onFailure {
                 _joinGroupCode.value = UiState.Error(it.message)

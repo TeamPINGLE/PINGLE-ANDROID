@@ -3,12 +3,12 @@ package org.sopt.pingle.presentation.ui.main.home.map
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
@@ -18,9 +18,11 @@ import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.view.UiState
+import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
+    private val localStorage: PingleLocalDataSource,
     private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase,
     private val getPingleListUseCase: GetPingleListUseCase,
     private val postPingleJoinUseCase: PostPingleJoinUseCase,
@@ -95,7 +97,7 @@ class MapViewModel @Inject constructor(
             _pinEntityListState.value = UiState.Loading
             runCatching {
                 getPinListWithoutFilteringUseCase(
-                    teamId = TEAM_ID,
+                    teamId = localStorage.groupId.toLong(),
                     category = category.value?.name
                 ).collect() { pinList ->
                     _pinEntityListState.value = UiState.Success(pinList)
@@ -111,7 +113,7 @@ class MapViewModel @Inject constructor(
             _pingleListState.emit(UiState.Loading)
             runCatching {
                 getPingleListUseCase(
-                    teamId = TEAM_ID,
+                    teamId = localStorage.groupId.toLong(),
                     pinId = pinId
                 ).collect() { pingleList ->
                     _pingleListState.emit(UiState.Success(Pair(pinId, pingleList)))
@@ -154,6 +156,5 @@ class MapViewModel @Inject constructor(
 
     companion object {
         const val DEFAULT_SELECTED_MARKER_POSITION = -1
-        const val TEAM_ID = 1L
     }
 }

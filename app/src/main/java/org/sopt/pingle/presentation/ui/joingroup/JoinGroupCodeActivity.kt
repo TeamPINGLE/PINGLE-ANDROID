@@ -20,6 +20,7 @@ import timber.log.Timber
 class JoinGroupCodeActivity :
     BindingActivity<ActivityJoinGroupCodeBinding>(R.layout.activity_join_group_code) {
     private val viewModel by viewModels<JoinViewModel>()
+    private var teamId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +33,14 @@ class JoinGroupCodeActivity :
     }
 
     private fun initLayout() {
-        viewModel.joinGroupInfoState(TEAM_ID)
+        teamId = intent.getIntExtra(TEAM_ID, -1)
+        viewModel.joinGroupInfoState(teamId)
     }
 
     private fun addListeners() {
         binding.btnJoinGroupCodeNext.setOnClickListener {
             viewModel.joinGroupCodeState(
-                TEAM_ID,
+                teamId,
                 RequestJoinGroupCodeEntity(viewModel.joinGroupCodeEditText.value.toString())
             )
         }
@@ -109,8 +111,8 @@ class JoinGroupCodeActivity :
     }
 
     companion object {
+        const val TEAM_ID = "teamId"
         const val GROUP_NAME = "groupName"
-        const val TEAM_ID = 1
         const val LOADING = "Loding"
         const val EMPTY = "Empty"
         const val JOIN_GROUP_CODE_ACTIVITY = "JoinGroupCodeActivity"

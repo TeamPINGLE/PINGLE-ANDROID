@@ -3,10 +3,11 @@ package org.sopt.pingle.presentation.ui.joingroup
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -15,11 +16,15 @@ import org.sopt.pingle.presentation.ui.onboarding.OnBoardingActivity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.context.hideKeyboard
 import org.sopt.pingle.util.context.navigateToWebView
+import org.sopt.pingle.util.view.UiState
+import timber.log.Timber
 
+@AndroidEntryPoint
 class JoinGroupSearchActivity :
     BindingActivity<ActivityJoinGroupSearchBinding>(R.layout.activity_join_group_search) {
     private val viewModel by viewModels<JoinViewModel>()
     private lateinit var joinGroupSearchAdapter: JoinGroupSearchAdapter
+    private var teamId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +32,7 @@ class JoinGroupSearchActivity :
 
         initLayout()
         addListeners()
-        addObservers()
+        collectData()
     }
 
     private fun initLayout() {
@@ -36,22 +41,26 @@ class JoinGroupSearchActivity :
     }
 
     private fun addListeners() {
+        binding.includeJoinGroupSearchTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
+            finish()
+        }
+
         binding.root.setOnClickListener {
             hideKeyboard(binding.etJoinGroupSearch)
         }
 
         binding.ivJoinGroupSearchIcon.setOnClickListener {
-            // TODO 서버통신 함수 호출
+            viewModel.joinGroupSearchState(binding.etJoinGroupSearch.text.toString())
             hideKeyboard(binding.etJoinGroupSearch)
         }
 
         binding.etJoinGroupSearch.setOnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                // TODO 서버통신 함수 호출
+                viewModel.joinGroupSearchState(binding.etJoinGroupSearch.text.toString())
                 hideKeyboard(binding.etJoinGroupSearch)
                 return@setOnKeyListener true
             }
-            true
+            false
         }
 
         binding.tvJoinGroupSearchCreate.setOnClickListener {
@@ -61,22 +70,36 @@ class JoinGroupSearchActivity :
         binding.btnJoinGroupCodeNext.setOnClickListener {
             navigateToJoinGroupCode()
         }
-
-        binding.includeJoinGroupSearchTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
-            finish()
-        }
     }
 
-    private fun addObservers() {
-        viewModel.joinGroupSearchData.flowWithLifecycle(lifecycle).onEach { joinGroupSearchList ->
-            // TODO 서버통신 시 옵저빙 체크
-            joinGroupSearchAdapter.submitList(joinGroupSearchList)
+    private fun collectData() {
+        viewModel.joinGroupSearchState.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> {
+                    joinGroupSearchAdapter.submitList(uiState.data)
+                    joinGroupSearchAdapter.currentList
+                    binding.tvJoinGroupSearchEmpty.visibility = View.INVISIBLE
+                }
 
-            binding.tvJoinGroupSearchEmpty.isVisible = joinGroupSearchList.isEmpty()
+                is UiState.Error -> Timber.tag(JoinGroupCodeActivity.JOIN_GROUP_CODE_ACTIVITY)
+                    .d(uiState.message)
+
+                is UiState.Loading -> Timber.tag(JoinGroupCodeActivity.JOIN_GROUP_CODE_ACTIVITY).d(
+                    JoinGroupCodeActivity.LOADING
+                )
+
+                is UiState.Empty -> {
+                    joinGroupSearchAdapter.submitList(null)
+                    binding.tvJoinGroupSearchEmpty.visibility = View.VISIBLE
+                }
+            }
         }.launchIn(lifecycleScope)
 
         viewModel.selectedJoinGroup.flowWithLifecycle(lifecycle).onEach { selectedJoinGroup ->
             binding.btnJoinGroupCodeNext.isEnabled = selectedJoinGroup != null
+            if (selectedJoinGroup != null) {
+                teamId = selectedJoinGroup.id
+            }
         }.launchIn(lifecycleScope)
     }
 
@@ -86,6 +109,7 @@ class JoinGroupSearchActivity :
 
     private fun navigateToJoinGroupCode() {
         Intent(this, JoinGroupCodeActivity::class.java).apply {
+            putExtra(TEAM_ID, teamId)
             startActivity(this)
         }
     }
@@ -93,5 +117,9 @@ class JoinGroupSearchActivity :
     override fun onDestroy() {
         binding.rvJoinGroupSearch.adapter = null
         super.onDestroy()
+    }
+
+    companion object {
+        const val TEAM_ID = "teamId"
     }
 }

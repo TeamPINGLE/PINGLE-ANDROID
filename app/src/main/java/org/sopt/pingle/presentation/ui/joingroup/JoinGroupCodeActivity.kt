@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupCodeBinding
-import org.sopt.pingle.domain.model.RequestJoinGroupCodeEntity
+import org.sopt.pingle.domain.model.JoinGroupCodeEntity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.view.UiState
@@ -41,7 +41,7 @@ class JoinGroupCodeActivity :
         binding.btnJoinGroupCodeNext.setOnClickListener {
             viewModel.joinGroupCodeState(
                 teamId,
-                RequestJoinGroupCodeEntity(viewModel.joinGroupCodeEditText.value.toString())
+                JoinGroupCodeEntity(viewModel.joinGroupCodeEditText.value.toString())
             )
         }
 

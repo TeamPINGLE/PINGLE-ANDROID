@@ -1,6 +1,7 @@
 package org.sopt.pingle.util.component
 
 import android.content.DialogInterface
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
 import org.sopt.pingle.R
@@ -33,7 +34,10 @@ class AllModalDialogFragment(
             tvAllModalTitle.text = title
             tvAllModalDetail.text = detail
             btnAllModalButton.text = buttonText
-            tvAllModalTextButton.text = textButtonText
+            tvAllModalTextButton.apply {
+                text = textButtonText
+                paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            }
         }
     }
 

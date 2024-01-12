@@ -6,10 +6,10 @@
         android:icon="@drawable/selector_all_navi_home"
         android:title="@string/all_navi_home" />
     <item
-        android:id="@+id/menu_all_navi_commend"
+        android:id="@+id/menu_all_navi_ranking"
         android:enabled="true"
-        android:icon="@drawable/selector_all_navi_commend"
-        android:title="@string/all_navi_commend" />
+        android:icon="@drawable/selector_all_navi_ranking"
+        android:title="@string/all_navi_ranking" />
     <item
         android:id="@+id/menu_all_navi_plan"
         android:enabled="true"

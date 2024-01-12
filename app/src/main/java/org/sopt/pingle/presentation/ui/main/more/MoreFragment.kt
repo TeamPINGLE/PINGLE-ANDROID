@@ -41,7 +41,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     private fun addListeners() {
-        binding.tvMoreContactTitle.setOnClickListener{
+        binding.tvMoreContactTitle.setOnClickListener {
             startActivity(navigateToWebView(CONTACT))
         }
 

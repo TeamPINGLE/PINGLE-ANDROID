@@ -35,7 +35,8 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     private fun initLayout() {
-        binding.tvMoreVersionDetail.text = BuildConfig.VERSION_NAME.toString()
+        binding.tvMoreVersionDetail.text = BuildConfig.VERSION_NAME
+        moreViewModel.getUserInfo()
     }
 
     private fun addListeners() {
@@ -73,6 +74,16 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                 }
 
                 else -> {}
+            }
+        }.launchIn(lifecycleScope)
+
+        moreViewModel.userInfoState.flowWithLifecycle(lifecycle).onEach { userInfoState ->
+            when (userInfoState) {
+                is UiState.Success -> {
+                    binding.tvMoreNickname.text = userInfoState.data.name
+                }
+
+                else -> Unit
             }
         }.launchIn(lifecycleScope)
     }

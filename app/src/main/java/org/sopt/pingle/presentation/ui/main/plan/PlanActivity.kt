@@ -1,7 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.plan
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -120,7 +119,6 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         planViewModel.planMeetingState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> finish()
-                is UiState.Error -> Log.e("ZZ", uiState.message.toString())
                 else -> Unit
             }
         }.launchIn(lifecycleScope)

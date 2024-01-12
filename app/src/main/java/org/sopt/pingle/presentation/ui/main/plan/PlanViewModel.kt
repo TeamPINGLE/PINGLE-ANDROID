@@ -54,31 +54,12 @@ class PlanViewModel @Inject constructor(
     val planLocationListState get() = _planLocationListState.asSharedFlow()
 
     private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())
-    val planLocationList get() = _planLocationList.asStateFlow()
 
     private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
     val selectedLocation get() = _selectedLocation.asStateFlow()
 
-    private val _planMeetingEntity = MutableStateFlow<PlanMeetingEntity?>(null)
-    val planMeetingEntity get() = _planMeetingEntity.asStateFlow()
-
     private val _planMeetingState = MutableSharedFlow<UiState<Unit?>>()
     val planMeetingState get() = _planMeetingState.asSharedFlow()
-
-    fun setPlanMeetingEntity() {
-        _planMeetingEntity.value?.apply {
-            category = _selectedCategory.value?.name.toString()
-            name = planTitle.value
-            startAt = startTime.value
-            endAt = endTime.value
-            x = _selectedLocation.value?.x.toString().toDouble()
-            y = _selectedLocation.value?.y.toString().toDouble()
-            address = _selectedLocation.value?.address.toString()
-            roadAddress = _selectedLocation.value?.roadAddress.toString()
-            location = _selectedLocation.value?.location.toString()
-            maxParticipants = _selectedRecruitment.value.toString().toInt()
-        }
-    }
 
     val isPlanBtnEnabled: StateFlow<Boolean> = listOf(
         currentPage,

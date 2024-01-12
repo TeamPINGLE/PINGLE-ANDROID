@@ -1,5 +1,5 @@
 package org.sopt.pingle.domain.model
 
-class RequestJoinGroupCodeEntity(
+class JoinGroupCodeEntity(
     val code: String
 )

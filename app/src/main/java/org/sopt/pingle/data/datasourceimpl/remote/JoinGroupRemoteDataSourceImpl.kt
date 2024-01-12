@@ -20,10 +20,10 @@ class JoinGroupRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun postJoinGroupCode(
         teamId: Int,
-        requestJoinGroupCode: RequestJoinGroupCodeDto
+        requestJoinGroupCodeDto: RequestJoinGroupCodeDto
     ): BaseResponse<ResponseJoinGroupCodeDto> =
         joinGroupService.postJoinGroupCode(
             teamId = teamId,
-            requestJoinGroupCode = requestJoinGroupCode
+            requestJoinGroupCodeDto = requestJoinGroupCodeDto
         )
 }

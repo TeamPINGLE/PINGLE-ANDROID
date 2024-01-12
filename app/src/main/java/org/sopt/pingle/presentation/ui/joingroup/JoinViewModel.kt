@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
+import org.sopt.pingle.domain.model.GroupEntity
 import org.sopt.pingle.domain.model.JoinGroupInfoEntity
 import org.sopt.pingle.domain.model.JoinGroupSearchEntity
-import org.sopt.pingle.domain.model.RequestJoinGroupCodeEntity
-import org.sopt.pingle.domain.model.ResponseJoinGroupCodeEntity
+import org.sopt.pingle.domain.model.JoinGroupCodeEntity
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
@@ -39,7 +39,7 @@ class JoinViewModel @Inject constructor(
         MutableStateFlow<UiState<JoinGroupInfoEntity>>(UiState.Empty)
     val joinGroupInfoState get() = _joinGroupInfoState.asStateFlow()
     private var _joinGroupCodeState =
-        MutableStateFlow<UiState<ResponseJoinGroupCodeEntity>>(UiState.Empty)
+        MutableStateFlow<UiState<GroupEntity>>(UiState.Empty)
     val joinGroupCodeState get() = _joinGroupCodeState
     val joinGroupCodeEditText = MutableLiveData<String>()
 
@@ -104,11 +104,11 @@ class JoinViewModel @Inject constructor(
         }
     }
 
-    fun joinGroupCodeState(teamId: Int, code: RequestJoinGroupCodeEntity) {
+    fun joinGroupCodeState(teamId: Int, joinGroupEntity: JoinGroupCodeEntity) {
         _joinGroupCodeState.value = UiState.Loading
         viewModelScope.launch {
             runCatching {
-                postJoinGroupCodeUseCase(teamId = teamId, requestJoinGroupCode = code)
+                postJoinGroupCodeUseCase(teamId = teamId, joinGroupCodeEntity = joinGroupEntity)
                     .collect { joinGroupCode ->
                         _joinGroupCodeState.value = UiState.Success(joinGroupCode)
                         with(localStorage) {

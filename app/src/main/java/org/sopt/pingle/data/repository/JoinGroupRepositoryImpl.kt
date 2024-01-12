@@ -5,10 +5,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.sopt.pingle.data.datasource.remote.JoinGroupRemoteDataSource
 import org.sopt.pingle.data.mapper.toRequestJoinGroupCode
+import org.sopt.pingle.domain.model.GroupEntity
 import org.sopt.pingle.domain.model.JoinGroupInfoEntity
 import org.sopt.pingle.domain.model.JoinGroupSearchEntity
-import org.sopt.pingle.domain.model.RequestJoinGroupCodeEntity
-import org.sopt.pingle.domain.model.ResponseJoinGroupCodeEntity
+import org.sopt.pingle.domain.model.JoinGroupCodeEntity
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 
 class JoinGroupRepositoryImpl @Inject constructor(
@@ -32,12 +32,12 @@ class JoinGroupRepositoryImpl @Inject constructor(
 
     override fun postJoinGroupCode(
         teamId: Int,
-        requestJoinGroupCode: RequestJoinGroupCodeEntity
-    ): Flow<ResponseJoinGroupCodeEntity> = flow {
+        joinGroupCodeEntity: JoinGroupCodeEntity
+    ): Flow<GroupEntity> = flow {
         val result = runCatching {
             joinGroupRemoteDataSource.postJoinGroupCode(
                 teamId = teamId,
-                requestJoinGroupCode = requestJoinGroupCode.toRequestJoinGroupCode()
+                requestJoinGroupCodeDto = joinGroupCodeEntity.toRequestJoinGroupCode()
             ).data.toResponseJoinGroupCode()
         }
         emit(result.getOrThrow())

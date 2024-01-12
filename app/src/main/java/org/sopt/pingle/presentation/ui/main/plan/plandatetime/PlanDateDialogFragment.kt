@@ -6,6 +6,7 @@ import android.widget.NumberPicker
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.DialogDatePickerBinding
 import org.sopt.pingle.util.base.BindingBottomSheetDialogFragment
+import java.time.LocalDateTime
 
 class PlanDateDialogFragment(
     private val onDialogClosed: (year: Int, month: Int, day: Int) -> Unit
@@ -25,20 +26,23 @@ class PlanDateDialogFragment(
     }
 
     private fun initLayout() {
+        val today = LocalDateTime.now()
         val yearPicker = binding.npDatePickerYear
         yearPicker.apply {
             wrapSelectorWheel = false // 순한 안되게 막기
             descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS // editText 설정 해제
             minValue = YEAR_MIN
             maxValue = YEAR_MAX
+            value = today.year
         }
 
-        val hoursPicker = binding.npDatePickerMonth
-        hoursPicker.apply {
+        val monthPicker = binding.npDatePickerMonth
+        monthPicker.apply {
             wrapSelectorWheel = false
             descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
             minValue = MONTH_MIN
             maxValue = MONTH_MAX
+            value = today.monthValue
         }
         val dayPicker = binding.npDatePickerDay
         dayPicker.apply {
@@ -46,6 +50,7 @@ class PlanDateDialogFragment(
             descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
             minValue = DAY_MIN
             maxValue = DAY_MAX
+            value = today.dayOfMonth
         }
     }
 

@@ -34,7 +34,6 @@ class JoinViewModel @Inject constructor(
     val selectedJoinGroup get() = _selectedJoinGroup.asStateFlow()
     private val _joinGroupSearchData = MutableStateFlow<List<JoinGroupSearchEntity>>(emptyList())
     val joinGroupSearchData get() = _joinGroupSearchData
-    val joinGroupSearchEditText = MutableLiveData<String>("")
 
     private val _joinGroupInfoState =
         MutableStateFlow<UiState<JoinGroupInfoEntity>>(UiState.Empty)

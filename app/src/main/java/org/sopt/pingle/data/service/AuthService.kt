@@ -12,16 +12,16 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthService {
-    @POST("/v1/auth/login")
+    @POST("$VERSION/$AUTH/$LOGIN")
     suspend fun postLogin(
-        @Header("X-Provider-Token") header: String,
+        @Header("$X_PROVIDER_TOKEN") header: String,
         @Body body: RequestAuthDto
     ): BaseResponse<ResponseAuthDto>
 
-    @POST("/v1/auth/logout")
+    @POST("$VERSION/$AUTH/$LOGOUT")
     suspend fun logout(): NullableBaseResponse<String>
 
-    @DELETE("/v1/users/leave")
+    @DELETE("$VERSION/$USERS/$LEAVE")
     suspend fun withDraw(): NullableBaseResponse<String>
 
     @GET("$VERSION/$USERS/$ME")

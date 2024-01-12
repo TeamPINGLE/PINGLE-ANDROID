@@ -1,8 +1,8 @@
 package org.sopt.pingle.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
-import org.sopt.pingle.domain.model.RequestJoinGroupCodeEntity
-import org.sopt.pingle.domain.model.ResponseJoinGroupCodeEntity
+import org.sopt.pingle.domain.model.GroupEntity
+import org.sopt.pingle.domain.model.JoinGroupCodeEntity
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 
 class PostJoinGroupCodeUseCase(
@@ -10,10 +10,10 @@ class PostJoinGroupCodeUseCase(
 ) {
     operator fun invoke(
         teamId: Int,
-        requestJoinGroupCode: RequestJoinGroupCodeEntity
-    ): Flow<ResponseJoinGroupCodeEntity> =
+        joinGroupCodeEntity: JoinGroupCodeEntity
+    ): Flow<GroupEntity> =
         joinGroupRepository.postJoinGroupCode(
             teamId = teamId,
-            requestJoinGroupCode = requestJoinGroupCode
+            joinGroupCodeEntity = joinGroupCodeEntity
         )
 }

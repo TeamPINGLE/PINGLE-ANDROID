@@ -11,7 +11,6 @@ fun PinEntity.toMarkerModel(): MarkerModel {
     val markerModel = MarkerModel(
         Marker().apply {
             position = LatLng(y, x)
-            isHideCollidedMarkers = true
             icon = CategoryType.fromString(category).toMarkerIcon(false)
         }
     )

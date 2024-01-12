@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.plan.planlocation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import org.sopt.pingle.databinding.ItemPlanLocationBinding
 import org.sopt.pingle.domain.model.PlanLocationEntity
 import org.sopt.pingle.util.view.ItemDiffCallback

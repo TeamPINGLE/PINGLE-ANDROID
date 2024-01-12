@@ -25,4 +25,3 @@ class JoinGroupSearchAdapter(
     override fun onBindViewHolder(holder: JoinGroupSearchViewHolder, position: Int) =
         holder.onBind(getItem(position))
 }
-

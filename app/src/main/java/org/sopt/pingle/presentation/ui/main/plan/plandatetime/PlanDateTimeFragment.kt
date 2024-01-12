@@ -40,7 +40,6 @@ class PlanDateTimeFragment :
             )
             planViewModel.setSelectedTimeType(START_TIME)
         }
-
         binding.includePlanTextWithTitleEndTime.root.setOnClickListener {
             val dialogEndTimeFragment = PlanTimeDialogFragment(::onTimeDialogFragmentClosed)
             dialogEndTimeFragment.show(
@@ -60,7 +59,6 @@ class PlanDateTimeFragment :
 
         if (selectedLocalDate != null) {
             if (selectedLocalDate.before(todayLocalDate)) {
-                // TODO 에러 스낵바 노출
                 PingleSnackbar.makeSnackbar(
                     binding.root,
                     getString(R.string.plan_future_date_snackber),
@@ -78,19 +76,39 @@ class PlanDateTimeFragment :
         }
     }
 
+    // TODO 가독성 좋게 refactor
     private fun onTimeDialogFragmentClosed(meridiem: String, hour: Int, minute: Int) {
-        val time12Hour = String.format("%02d:%02d %s", hour, minute, meridiem)
+        val time12HourFormat = String.format("%02d:%02d %s", hour, minute, meridiem)
+        val time24Hour = convert24HFormatHours(time12HourFormat, false)
+        val time24HourWithSecond = convert24HFormatHours(time12HourFormat, true)
+
         when (planViewModel.selectedTimeType.value) {
             START_TIME -> {
-                binding.includePlanTextWithTitleStartTime.tvText.text =
-                    convert24HFormatHours(time12Hour, false)
-                planViewModel.setStartTime(convert24HFormatHours(time12Hour, true))
+                if (planViewModel.endTime.value.isNotBlank() && time24Hour > planViewModel.endTime.value) {
+                    PingleSnackbar.makeSnackbar(
+                        binding.root,
+                        getString(R.string.plan_later_time_snackbar),
+                        126
+                    )
+                } else {
+                    binding.includePlanTextWithTitleStartTime.tvText.text =
+                        time24Hour
+                    planViewModel.setStartTime(time24HourWithSecond)
+                }
             }
 
             END_TIME -> {
-                binding.includePlanTextWithTitleEndTime.tvText.text =
-                    convert24HFormatHours(time12Hour, false)
-                planViewModel.setEndTime(convert24HFormatHours(time12Hour, true))
+                if (planViewModel.startTime.value.isNotBlank() && time24Hour < planViewModel.startTime.value) {
+                    PingleSnackbar.makeSnackbar(
+                        binding.root,
+                        getString(R.string.plan_later_time_snackbar),
+                        126
+                    )
+                } else {
+                    binding.includePlanTextWithTitleEndTime.tvText.text =
+                        time24Hour
+                    planViewModel.setEndTime(time24HourWithSecond)
+                }
             }
         }
     }

@@ -31,7 +31,9 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
         val storage = PingleLocalDataSourceImpl(this)
 
         val nextActivity =
-            if (storage.isLogin) MainActivity::class.java else AuthActivity::class.java
+            if (storage.isLogin) {
+                MainActivity::class.java
+            } else if (storage.groupId != -1) MainActivity::class.java else AuthActivity::class.java
 
         startActivity(Intent(this, nextActivity))
         finish()

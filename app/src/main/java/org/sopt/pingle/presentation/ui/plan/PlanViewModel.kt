@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.PlanLocationEntity
 import org.sopt.pingle.domain.model.PlanMeetingEntity
 import org.sopt.pingle.domain.model.UserInfoEntity
@@ -27,6 +28,7 @@ import org.sopt.pingle.util.view.UiState
 
 @HiltViewModel
 class PlanViewModel @Inject constructor(
+    private val localStorage: PingleLocalDataSource,
     private val getPlanLocationListUseCase: GetPlanLocationListUseCase,
     private val postPlanMeetingUseCase: PostPlanMeetingUseCase,
     private val getUserInfoUseCase: GetUserInfoUseCase
@@ -200,7 +202,7 @@ class PlanViewModel @Inject constructor(
                     _selectedLocation.value?.let { selectedLocation ->
                         _selectedRecruitment.value?.let { selectedRecruitment ->
                             postPlanMeetingUseCase(
-                                teamId = TEAM_ID,
+                                teamId = localStorage.groupId,
                                 planMeetingEntity = PlanMeetingEntity(
                                     category = selectedCategory.name,
                                     name = planTitle.value,
@@ -243,6 +245,5 @@ class PlanViewModel @Inject constructor(
         const val FIRST_PAGE_POSITION = 0
         const val DEFAULT_OLD_POSITION = -1
         const val INVALID_RECRUIT = "1"
-        const val TEAM_ID = 1
     }
 }

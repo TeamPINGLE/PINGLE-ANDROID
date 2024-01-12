@@ -1,9 +1,12 @@
 package org.sopt.pingle.data.repository
 
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import org.sopt.pingle.data.datasource.remote.AuthRemoteDataSource
 import org.sopt.pingle.data.model.remote.request.RequestAuthDto
 import org.sopt.pingle.domain.model.AuthEntity
+import org.sopt.pingle.domain.model.UserInfoEntity
 import org.sopt.pingle.domain.repository.AuthRepository
 
 class AuthRepositoryImpl @Inject constructor(
@@ -26,4 +29,11 @@ class AuthRepositoryImpl @Inject constructor(
         runCatching {
             authRemoteDataSource.withDraw().code
         }
+
+    override suspend fun getUserInfo(): Flow<UserInfoEntity> = flow {
+        val result = runCatching {
+            authRemoteDataSource.getUserInfo().data.toUserInfoEntity()
+        }
+        emit(result.getOrThrow())
+    }
 }

@@ -29,16 +29,16 @@ class JoinViewModel @Inject constructor(
     private val _joinGroupSearchData = MutableStateFlow<List<JoinGroupSearchEntity>>(emptyList())
     val joinGroupSearchData get() = _joinGroupSearchData
 
-    private val _joinGroupCodeState =
+    private val _joinGroupInfoState =
         MutableStateFlow<UiState<JoinGroupInfoEntity>>(UiState.Empty)
-    val joinGroupCodeState get() = _joinGroupCodeState.asStateFlow()
+    val joinGroupInfoState get() = _joinGroupInfoState.asStateFlow()
 
     private var _isJoinGroupCodeBtn = MutableLiveData(false)
     val isJoinGroupCodeBtn get() = _isJoinGroupCodeBtn
 
-    private var _joinGroupCode =
+    private var _joinGroupCodeState =
         MutableStateFlow<UiState<ResponseJoinGroupCodeEntity>>(UiState.Empty)
-    val joinGroupCode get() = _joinGroupCode
+    val joinGroupCodeState get() = _joinGroupCodeState
 
     val joinGroupCodeEditText = MutableLiveData<String>()
 
@@ -72,34 +72,34 @@ class JoinViewModel @Inject constructor(
 
     private fun getIsSelected(position: Int) = _joinGroupSearchData.value[position].isSelected.get()
 
-    fun getJoinGroupInfo(teamId: Int) {
-        _joinGroupCodeState.value = UiState.Loading
+    fun joinGroupInfoState(teamId: Int) {
+        _joinGroupInfoState.value = UiState.Loading
         viewModelScope.launch {
-            _joinGroupCodeState.value = UiState.Loading
+            _joinGroupInfoState.value = UiState.Loading
             runCatching {
                 getJoinGroupInfoUseCase.invoke(teamId = teamId).collect { joinGroupInfo ->
-                    _joinGroupCodeState.value = UiState.Success(joinGroupInfo)
+                    _joinGroupInfoState.value = UiState.Success(joinGroupInfo)
                 }
             }.onFailure {
-                _joinGroupCodeState.value = UiState.Error(it.message)
+                _joinGroupInfoState.value = UiState.Error(it.message)
             }
         }
     }
 
-    fun postJoinGroupCode(teamId: Int, code: RequestJoinGroupCodeEntity) {
-        _joinGroupCode.value = UiState.Loading
+    fun joinGroupCodeState(teamId: Int, code: RequestJoinGroupCodeEntity) {
+        _joinGroupCodeState.value = UiState.Loading
         viewModelScope.launch {
             runCatching {
-                postJoinGroupCodeUseCase.invoke(teamId = teamId, code = code)
+                postJoinGroupCodeUseCase(teamId = teamId, code = code)
                     .collect { joinGroupCode ->
-                        _joinGroupCode.value = UiState.Success(joinGroupCode)
+                        _joinGroupCodeState.value = UiState.Success(joinGroupCode)
                         with(localStorage) {
                             groupId = joinGroupCode.id
                             groupName = joinGroupCode.name
                         }
                     }
             }.onFailure {
-                _joinGroupCode.value = UiState.Error(it.message)
+                _joinGroupCodeState.value = UiState.Error(it.message)
             }
         }
     }

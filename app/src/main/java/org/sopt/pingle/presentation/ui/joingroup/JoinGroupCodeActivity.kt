@@ -23,6 +23,7 @@ class JoinGroupCodeActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.joinViewModel = viewModel
 
         initLayout()
         addListeners()
@@ -31,13 +32,12 @@ class JoinGroupCodeActivity :
     }
 
     private fun initLayout() {
-        binding.joinViewModel = viewModel
-        viewModel.getJoinGroupInfo(TEAM_ID)
+        viewModel.joinGroupInfoState(TEAM_ID)
     }
 
     private fun addListeners() {
         binding.btnJoinGroupCodeNext.setOnClickListener {
-            viewModel.postJoinGroupCode(
+            viewModel.joinGroupCodeState(
                 TEAM_ID,
                 RequestJoinGroupCodeEntity(viewModel.joinGroupCodeEditText.value.toString())
             )
@@ -55,7 +55,7 @@ class JoinGroupCodeActivity :
     }
 
     private fun collectData() {
-        viewModel.joinGroupCodeState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        viewModel.joinGroupInfoState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
                     with(binding) {
@@ -82,7 +82,7 @@ class JoinGroupCodeActivity :
             }
         }.launchIn(lifecycleScope)
 
-        viewModel.joinGroupCode.flowWithLifecycle(lifecycle).onEach { uiState ->
+        viewModel.joinGroupCodeState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> navigateToJoinGroupSuccess()
 
@@ -90,7 +90,7 @@ class JoinGroupCodeActivity :
                     PingleSnackbar.makeSnackbar(
                         binding.root,
                         getString(R.string.join_group_code_snackbar_message),
-                        97
+                        SNACKBAR_BOTTOM_MARGIN
                     )
                 }
 
@@ -114,5 +114,6 @@ class JoinGroupCodeActivity :
         const val LOADING = "Loding"
         const val EMPTY = "Empty"
         const val JOIN_GROUP_CODE_ACTIVITY = "JoinGroupCodeActivity"
+        const val SNACKBAR_BOTTOM_MARGIN = 97
     }
 }

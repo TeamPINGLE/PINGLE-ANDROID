@@ -37,8 +37,8 @@ class PlanSummaryConfirmationFragment :
             tvPlanSummaryConfirmationName.text = viewModel.planTitle.value
             tvPlanSummaryConfirmationCalenderDetail.text =
                 convertDateFormat(viewModel.planDate.value) + "\n" + convertTimeFormat(viewModel.startTime.value) + " ~ " + convertTimeFormat(
-                    viewModel.endTime.value
-                )
+                viewModel.endTime.value
+            )
             tvPlanSummaryConfirmationMapDetail.text = viewModel.selectedLocation.value?.location
             tvPlanSummaryConfirmationRecruitmentDetail.text = getString(
                 R.string.plan_summary_confirmation_recruitment_number,
@@ -50,8 +50,9 @@ class PlanSummaryConfirmationFragment :
     private fun collectData() {
         viewModel.userInfoState.flowWithLifecycle(lifecycle).onEach { userInfoState ->
             when (userInfoState) {
-                is UiState.Success -> binding.tvPlanSummaryConfirmationOwnerName.text =
-                    userInfoState.data.name
+                is UiState.Success ->
+                    binding.tvPlanSummaryConfirmationOwnerName.text =
+                        userInfoState.data.name
 
                 else -> Unit
             }

@@ -228,7 +228,7 @@ class PlanViewModel @Inject constructor(
 
     fun getUserInfo() {
         viewModelScope.launch {
-            _userInfoState.value =UiState.Loading
+            _userInfoState.value = UiState.Loading
             runCatching {
                 getUserInfoUseCase().collect() { userInfo ->
                     _userInfoState.value = UiState.Success(userInfo)

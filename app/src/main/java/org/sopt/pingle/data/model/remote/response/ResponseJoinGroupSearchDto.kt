@@ -1,28 +1,21 @@
 package org.sopt.pingle.data.model.remote.response
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import org.sopt.pingle.domain.model.JoinGroupSearchEntity
 
+@Serializable
 data class ResponseJoinGroupSearchDto(
-    @SerialName("code")
-    val code: Int,
-    @SerialName("code")
-    val message: String,
-    @SerialName("code")
-    val data: List<Data>
+    @SerialName("id")
+    val id: Int,
+    @SerialName("name")
+    val name: String,
+    @SerialName("keyword")
+    val keyword: String
 ) {
-    data class Data(
-        @SerialName("code")
-        val id: Int,
-        @SerialName("code")
-        val name: String,
-        @SerialName("code")
-        val keyword: String
-    ) {
-        fun toJoinGroupSearchEntity() = JoinGroupSearchEntity(
-            id = this.id,
-            keyword = this.keyword,
-            name = this.name
-        )
-    }
+    fun toJoinGroupSearchEntity() = JoinGroupSearchEntity(
+        id = this.id,
+        keyword = this.keyword,
+        name = this.name
+    )
 }

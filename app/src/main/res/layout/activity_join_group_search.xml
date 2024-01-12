@@ -71,7 +71,7 @@
                 android:inputType="text"
                 android:maxLength="100"
                 android:paddingVertical="@dimen/spacing12"
-                android:text="@{joinViewModel.joinGroupSearchEditText}"
+                android:text="@={joinViewModel.joinGroupSearchEditText}"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
                 android:textColor="@color/white"
                 android:textColorHint="@color/g_07"

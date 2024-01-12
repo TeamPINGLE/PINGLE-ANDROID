@@ -12,6 +12,7 @@ import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
 import org.sopt.pingle.domain.usecase.GetDummyUserListUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
+import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
@@ -57,6 +58,11 @@ class UseCaseModule {
     @Singleton
     fun providesGetPlanLocationListUseCase(planRepository: PlanRepository): GetPlanLocationListUseCase =
         GetPlanLocationListUseCase(planRepository = planRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetJoinGroupSearchUseCase(joinGroupRepository: JoinGroupRepository): GetJoinGroupSearchUseCase =
+        GetJoinGroupSearchUseCase(joinGroupRepository = joinGroupRepository)
 
     @Provides
     @Singleton

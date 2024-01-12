@@ -10,10 +10,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.main.commend.CommendFragment">
+        tools:context=".presentation.ui.main.ranking.RankingFragment">
 
         <TextView
-            android:id="@+id/tv_commend_construction_title"
+            android:id="@+id/tv_ranking_construction_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="137dp"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_commend_construction_detail"
+            android:id="@+id/tv_ranking_construction_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -35,10 +35,10 @@
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_commend_construction_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_ranking_construction_title" />
 
         <ImageView
-            android:id="@+id/iv_commend_construction"
+            android:id="@+id/iv_ranking_construction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="42dp"
@@ -46,7 +46,7 @@
             android:src="@drawable/img_work_graphic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_commend_construction_detail" />
+            app:layout_constraintTop_toBottomOf="@id/tv_ranking_construction_detail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,7 +13,7 @@
 
     <!--  all navi title -->
     <string name="all_navi_home">홈</string>
-    <string name="all_navi_commend">랭킹</string>
+    <string name="all_navi_ranking">랭킹</string>
     <string name="all_navi_plan">개최</string>
     <string name="all_navi_mypingle">마이핑글</string>
     <string name="all_navi_more">더보기</string>

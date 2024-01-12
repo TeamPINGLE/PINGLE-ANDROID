@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.DummyRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
@@ -17,6 +18,7 @@ import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
+import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
@@ -80,4 +82,9 @@ class UseCaseModule {
     @Singleton
     fun providesPostJoinGroupCodeUseCase(joinGroupRepository: JoinGroupRepository): PostJoinGroupCodeUseCase =
         PostJoinGroupCodeUseCase(joinGroupRepository = joinGroupRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetUserInfoUseCase(authRepository: AuthRepository): GetUserInfoUseCase =
+        GetUserInfoUseCase(authRepository = authRepository)
 }

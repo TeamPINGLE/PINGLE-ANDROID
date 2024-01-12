@@ -6,21 +6,28 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
+import org.sopt.pingle.domain.model.UserInfoEntity
 import org.sopt.pingle.domain.repository.AuthRepository
+import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.util.view.UiState
 
 @HiltViewModel
 class MoreViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val pingleLocalDataSource: PingleLocalDataSource
+    private val pingleLocalDataSource: PingleLocalDataSource,
+    private val getUserInfoUseCase: GetUserInfoUseCase
 ) : ViewModel() {
     private val _logoutState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
     val logoutState get() = _logoutState.asStateFlow()
 
     private val _withDrawState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
     val withDrawState get() = _withDrawState.asStateFlow()
+
+    private val _userInfoState = MutableStateFlow<UiState<UserInfoEntity>>(UiState.Empty)
+    val userInfoState get() = _userInfoState.asStateFlow()
 
     fun logout() {
         viewModelScope.launch {
@@ -51,6 +58,19 @@ class MoreViewModel @Inject constructor(
                 }.onFailure { throwable ->
                     _withDrawState.value = UiState.Error(throwable.message)
                 }
+        }
+    }
+
+    fun getUserInfo() {
+        viewModelScope.launch {
+            _userInfoState.value = UiState.Loading
+            runCatching {
+                getUserInfoUseCase().collect() { userInfo ->
+                    _userInfoState.value = UiState.Success(userInfo)
+                }
+            }.onFailure { exception: Throwable ->
+                _userInfoState.value = UiState.Error(exception.message)
+            }
         }
     }
 

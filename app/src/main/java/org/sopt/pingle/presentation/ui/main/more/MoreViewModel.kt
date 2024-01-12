@@ -16,6 +16,7 @@ import org.sopt.pingle.util.view.UiState
 
 @HiltViewModel
 class MoreViewModel @Inject constructor(
+    private val localStorage: PingleLocalDataSource,
     private val authRepository: AuthRepository,
     private val pingleLocalDataSource: PingleLocalDataSource,
     private val getUserInfoUseCase: GetUserInfoUseCase
@@ -28,6 +29,8 @@ class MoreViewModel @Inject constructor(
 
     private val _userInfoState = MutableStateFlow<UiState<UserInfoEntity>>(UiState.Empty)
     val userInfoState get() = _userInfoState.asStateFlow()
+
+    fun getGroupName(): String = localStorage.groupName
 
     fun logout() {
         viewModelScope.launch {

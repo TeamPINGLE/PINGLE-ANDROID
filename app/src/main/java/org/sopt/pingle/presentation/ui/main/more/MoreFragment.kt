@@ -37,6 +37,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
 
     private fun initLayout() {
         binding.tvMoreVersionDetail.text = BuildConfig.VERSION_NAME
+        binding.tvMoreMyGroupContent.text = moreViewModel.getGroupName()
         moreViewModel.getUserInfo()
     }
 

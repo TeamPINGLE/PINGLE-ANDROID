@@ -11,6 +11,6 @@ interface JoinGroupRemoteDataSource {
     suspend fun getJoinGroupInfo(teamId: Int): BaseResponse<ResponseJoinGroupInfoDto>
     suspend fun postJoinGroupCode(
         teamId: Int,
-        requestJoinGroupCode: RequestJoinGroupCodeDto
+        requestJoinGroupCodeDto: RequestJoinGroupCodeDto
     ): BaseResponse<ResponseJoinGroupCodeDto>
 }

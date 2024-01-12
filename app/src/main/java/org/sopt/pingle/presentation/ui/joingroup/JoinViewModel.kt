@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
@@ -14,35 +16,52 @@ import org.sopt.pingle.domain.model.JoinGroupSearchEntity
 import org.sopt.pingle.domain.model.RequestJoinGroupCodeEntity
 import org.sopt.pingle.domain.model.ResponseJoinGroupCodeEntity
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
+import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.util.view.UiState
 
 @HiltViewModel
 class JoinViewModel @Inject constructor(
     private val localStorage: PingleLocalDataSource,
+    private val getJoinGroupSearchUseCase: GetJoinGroupSearchUseCase,
     private val getJoinGroupInfoUseCase: GetJoinGroupInfoUseCase,
     private val postJoinGroupCodeUseCase: PostJoinGroupCodeUseCase
 ) : ViewModel() {
+    private val _joinGroupSearchState =
+        MutableSharedFlow<UiState<List<JoinGroupSearchEntity>>>()
+    val joinGroupSearchState get() = _joinGroupSearchState.asSharedFlow()
     private val _selectedJoinGroup = MutableStateFlow<JoinGroupSearchEntity?>(null)
     val selectedJoinGroup get() = _selectedJoinGroup.asStateFlow()
-
     private val _joinGroupSearchData = MutableStateFlow<List<JoinGroupSearchEntity>>(emptyList())
     val joinGroupSearchData get() = _joinGroupSearchData
 
     private val _joinGroupInfoState =
         MutableStateFlow<UiState<JoinGroupInfoEntity>>(UiState.Empty)
     val joinGroupInfoState get() = _joinGroupInfoState.asStateFlow()
-
-    private var _isJoinGroupCodeBtn = MutableLiveData(false)
-    val isJoinGroupCodeBtn get() = _isJoinGroupCodeBtn
-
     private var _joinGroupCodeState =
         MutableStateFlow<UiState<ResponseJoinGroupCodeEntity>>(UiState.Empty)
     val joinGroupCodeState get() = _joinGroupCodeState
-
     val joinGroupCodeEditText = MutableLiveData<String>()
 
-    val joinGroupSearchEditText = MutableLiveData<String>("")
+    fun joinGroupSearchState(teamName: String) {
+        viewModelScope.launch {
+            _joinGroupSearchState.emit(UiState.Loading)
+            _joinGroupSearchData.value = emptyList()
+            _selectedJoinGroup.value = null
+            runCatching {
+                getJoinGroupSearchUseCase(teamName = teamName).collect { joinGroupSearch ->
+                    if (joinGroupSearch.isEmpty()) {
+                        _joinGroupSearchState.emit(UiState.Empty)
+                    } else {
+                        _joinGroupSearchData.value = joinGroupSearch
+                        _joinGroupSearchState.emit(UiState.Success(joinGroupSearch))
+                    }
+                }
+            }.onFailure {
+                _joinGroupSearchState.emit(UiState.Error(it.message))
+            }
+        }
+    }
 
     private var oldPosition = DEFAULT_OLD_POSITION
     fun updateJoinGroupSearchList(newPosition: Int) {
@@ -75,7 +94,6 @@ class JoinViewModel @Inject constructor(
     fun joinGroupInfoState(teamId: Int) {
         _joinGroupInfoState.value = UiState.Loading
         viewModelScope.launch {
-            _joinGroupInfoState.value = UiState.Loading
             runCatching {
                 getJoinGroupInfoUseCase(teamId = teamId).collect { joinGroupInfo ->
                     _joinGroupInfoState.value = UiState.Success(joinGroupInfo)
@@ -102,36 +120,6 @@ class JoinViewModel @Inject constructor(
                 _joinGroupCodeState.value = UiState.Error(it.message)
             }
         }
-    }
-
-    init {
-        _joinGroupSearchData.value = listOf(
-            JoinGroupSearchEntity(
-                id = 0,
-                keyword = "연합동아리",
-                name = "SOPT1"
-            ),
-            JoinGroupSearchEntity(
-                id = 1,
-                keyword = "연합동아리",
-                name = "SOPT2"
-            ),
-            JoinGroupSearchEntity(
-                id = 2,
-                keyword = "연합동아리",
-                name = "SOPT3"
-            ),
-            JoinGroupSearchEntity(
-                id = 3,
-                keyword = "연합동아리",
-                name = "SOPT4"
-            ),
-            JoinGroupSearchEntity(
-                id = 4,
-                keyword = "연합동아리",
-                name = "SOPT5"
-            )
-        )
     }
 
     companion object {

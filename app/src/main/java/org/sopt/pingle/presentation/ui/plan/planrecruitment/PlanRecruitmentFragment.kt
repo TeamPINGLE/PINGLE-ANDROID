@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan.planrecruitment
+package org.sopt.pingle.presentation.ui.plan.planrecruitment
 
 import android.os.Bundle
 import android.view.KeyEvent
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanRecruitmentBinding
-import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
+import org.sopt.pingle.presentation.ui.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.context.hideKeyboard
 

@@ -7,14 +7,14 @@
 
         <variable
             name="planViewModel"
-            type="org.sopt.pingle.presentation.ui.main.plan.PlanViewModel" />
+            type="org.sopt.pingle.presentation.ui.plan.PlanViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_plan_recruitment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.main.plan.planrecruitment.PlanRecruitmentFragment">
+        tools:context=".presentation.ui.plan.planrecruitment.PlanRecruitmentFragment">
 
         <TextView
             android:id="@+id/tv_plan_recruitment_title"

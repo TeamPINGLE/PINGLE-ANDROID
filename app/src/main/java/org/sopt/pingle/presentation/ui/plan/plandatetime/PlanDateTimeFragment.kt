@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan.plandatetime
+package org.sopt.pingle.presentation.ui.plan.plandatetime
 
 import android.os.Bundle
 import android.view.View
@@ -9,7 +9,7 @@ import java.time.LocalDate
 import java.util.Locale
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanDateTimeBinding
-import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
+import org.sopt.pingle.presentation.ui.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.PingleSnackbar
 

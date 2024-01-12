@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan.planannouncement
+package org.sopt.pingle.presentation.ui.main.planannouncement
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.text.style.TextAppearanceSpan
 import androidx.core.content.ContextCompat
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityPlanAnnouncementBinding
-import org.sopt.pingle.presentation.ui.main.plan.PlanActivity
+import org.sopt.pingle.presentation.ui.plan.PlanActivity
 import org.sopt.pingle.util.base.BindingActivity
 
 class PlanAnnouncementActivity :

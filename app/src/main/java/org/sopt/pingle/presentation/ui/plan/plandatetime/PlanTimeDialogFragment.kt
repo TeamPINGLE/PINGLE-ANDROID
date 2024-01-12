@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan.plandatetime
+package org.sopt.pingle.presentation.ui.plan.plandatetime
 
 import android.os.Bundle
 import android.view.View

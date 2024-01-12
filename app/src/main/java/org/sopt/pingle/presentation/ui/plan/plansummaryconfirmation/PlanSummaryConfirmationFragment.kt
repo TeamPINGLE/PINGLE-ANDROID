@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan.plansummaryconfirmation
+package org.sopt.pingle.presentation.ui.plan.plansummaryconfirmation
 
 import android.os.Bundle
 import android.view.View
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanSummaryConfirmationBinding
-import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
+import org.sopt.pingle.presentation.ui.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.colorOf
 import org.sopt.pingle.util.view.UiState

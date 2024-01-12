@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.plan.planlocation
+package org.sopt.pingle.presentation.ui.plan.planlocation
 
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.pingle.databinding.ItemPlanLocationBinding

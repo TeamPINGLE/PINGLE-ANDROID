@@ -88,7 +88,7 @@ class PlanDateTimeFragment :
                     PingleSnackbar.makeSnackbar(
                         binding.root,
                         getString(R.string.plan_later_time_snackbar),
-                        126
+                        SNACKBAR_BOTTOM_MARGIN
                     )
                 } else {
                     binding.includePlanTextWithTitleStartTime.tvText.text =
@@ -102,7 +102,7 @@ class PlanDateTimeFragment :
                     PingleSnackbar.makeSnackbar(
                         binding.root,
                         getString(R.string.plan_later_time_snackbar),
-                        126
+                        SNACKBAR_BOTTOM_MARGIN
                     )
                 } else {
                     binding.includePlanTextWithTitleEndTime.tvText.text =
@@ -134,5 +134,6 @@ class PlanDateTimeFragment :
     companion object {
         const val START_TIME = "startTime"
         const val END_TIME = "endTime"
+        const val SNACKBAR_BOTTOM_MARGIN = 126
     }
 }

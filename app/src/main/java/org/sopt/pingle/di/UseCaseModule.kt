@@ -27,33 +27,8 @@ import javax.inject.Singleton
 class UseCaseModule {
     @Provides
     @Singleton
-    fun providesGetPinListWithoutFilteringUseCase(mapRepository: MapRepository): GetPinListWithoutFilteringUseCase =
-        GetPinListWithoutFilteringUseCase(mapRepository = mapRepository)
-
-    @Provides
-    @Singleton
-    fun providesGetPingleListUseCase(mapRepository: MapRepository): GetPingleListUseCase =
-        GetPingleListUseCase(mapRepository = mapRepository)
-
-    @Provides
-    @Singleton
-    fun providesPostPingleJoinUseCase(pingleRepository: PingleRepository): PostPingleJoinUseCase =
-        PostPingleJoinUseCase(pingleRepository = pingleRepository)
-
-    @Provides
-    @Singleton
-    fun providesPostPingleCancelUseCase(pingleRepository: PingleRepository): PostPingleCancelUseCase =
-        PostPingleCancelUseCase(pingleRepository = pingleRepository)
-
-    @Provides
-    @Singleton
-    fun providesGetPlanLocationListUseCase(planRepository: PlanRepository): GetPlanLocationListUseCase =
-        GetPlanLocationListUseCase(planRepository = planRepository)
-
-    @Provides
-    @Singleton
-    fun providesPostPlanMeetingUseCase(planMeetingRepository: PlanMeetingRepository): PostPlanMeetingUseCase =
-        PostPlanMeetingUseCase(planMeetingRepository = planMeetingRepository)
+    fun providesGetJoinGroupInfoUseCase(joinGroupRepository: JoinGroupRepository): GetJoinGroupInfoUseCase =
+        GetJoinGroupInfoUseCase(joinGroupRepository = joinGroupRepository)
 
     @Provides
     @Singleton
@@ -62,8 +37,23 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesGetJoinGroupInfoUseCase(joinGroupRepository: JoinGroupRepository): GetJoinGroupInfoUseCase =
-        GetJoinGroupInfoUseCase(joinGroupRepository = joinGroupRepository)
+    fun providesGetPingleListUseCase(mapRepository: MapRepository): GetPingleListUseCase =
+        GetPingleListUseCase(mapRepository = mapRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetPinListWithoutFilteringUseCase(mapRepository: MapRepository): GetPinListWithoutFilteringUseCase =
+        GetPinListWithoutFilteringUseCase(mapRepository = mapRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetPlanLocationListUseCase(planRepository: PlanRepository): GetPlanLocationListUseCase =
+        GetPlanLocationListUseCase(planRepository = planRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetUserInfoUseCase(authRepository: AuthRepository): GetUserInfoUseCase =
+        GetUserInfoUseCase(authRepository = authRepository)
 
     @Provides
     @Singleton
@@ -72,6 +62,16 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesGetUserInfoUseCase(authRepository: AuthRepository): GetUserInfoUseCase =
-        GetUserInfoUseCase(authRepository = authRepository)
+    fun providesPostPingleCancelUseCase(pingleRepository: PingleRepository): PostPingleCancelUseCase =
+        PostPingleCancelUseCase(pingleRepository = pingleRepository)
+
+    @Provides
+    @Singleton
+    fun providesPostPingleJoinUseCase(pingleRepository: PingleRepository): PostPingleJoinUseCase =
+        PostPingleJoinUseCase(pingleRepository = pingleRepository)
+
+    @Provides
+    @Singleton
+    fun providesPostPlanMeetingUseCase(planMeetingRepository: PlanMeetingRepository): PostPlanMeetingUseCase =
+        PostPlanMeetingUseCase(planMeetingRepository = planMeetingRepository)
 }

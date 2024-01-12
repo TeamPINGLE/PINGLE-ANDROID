@@ -23,11 +23,15 @@ import org.sopt.pingle.domain.repository.PlanRepository
 abstract class RepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindsMapRepository(mapRepositoryImpl: MapRepositoryImpl): MapRepository
+    abstract fun bindsAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
 
     @Binds
     @Singleton
-    abstract fun bindsAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
+    abstract fun bindsJoinGroupRepository(joinGroupRepositoryImpl: JoinGroupRepositoryImpl): JoinGroupRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsMapRepository(mapRepositoryImpl: MapRepositoryImpl): MapRepository
 
     @Binds
     @Singleton
@@ -35,13 +39,9 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindsPlanRepository(planRepositoryImpl: PlanRepositoryImpl): PlanRepository
-
-    @Binds
-    @Singleton
     abstract fun bindsPlanMeetingRepository(planMeetingRepositoryImpl: PlanMeetingRepositoryImpl): PlanMeetingRepository
 
     @Binds
     @Singleton
-    abstract fun bindsJoinGroupRepository(joinGroupRepositoryImpl: JoinGroupRepositoryImpl): JoinGroupRepository
+    abstract fun bindsPlanRepository(planRepositoryImpl: PlanRepositoryImpl): PlanRepository
 }

@@ -4,7 +4,6 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.data.datasource.remote.AuthRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.JoinGroupRemoteDataSource
@@ -19,10 +18,23 @@ import org.sopt.pingle.data.datasourceimpl.remote.MapRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PingleRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PlanMeetingRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PlanRemoteDataSourceImpl
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class DataSourceModule {
+    @Binds
+    @Singleton
+    abstract fun bindsPingleLocalDataSource(pingleLocalDataSourceImpl: PingleLocalDataSourceImpl): PingleLocalDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsAuthRemoteDataSource(authRemoteDataSourceImpl: AuthRemoteDataSourceImpl): AuthRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsJoinGroupRemoteDataSource(joinGroupRemoteDataSourceImpl: JoinGroupRemoteDataSourceImpl): JoinGroupRemoteDataSource
+
     @Binds
     @Singleton
     abstract fun bindsMapRemoteDataSource(mapRemoteDataSourceImpl: MapRemoteDataSourceImpl): MapRemoteDataSource
@@ -33,21 +45,9 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindsAuthRemoteDataSource(authRemoteDataSourceImpl: AuthRemoteDataSourceImpl): AuthRemoteDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindsPingleLocalDataSource(pingleLocalDataSourceImpl: PingleLocalDataSourceImpl): PingleLocalDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindsPlanRemoteDataSource(planRemoteDataSourceImpl: PlanRemoteDataSourceImpl): PlanRemoteDataSource
-
-    @Binds
-    @Singleton
     abstract fun bindsPlanMeetingRemoteDataSource(planMeetingRemoteDataSourceImpl: PlanMeetingRemoteDataSourceImpl): PlanMeetingRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindsJoinGroupRemoteDataSource(joinGroupRemoteDataSourceImpl: JoinGroupRemoteDataSourceImpl): JoinGroupRemoteDataSource
+    abstract fun bindsPlanRemoteDataSource(planRemoteDataSourceImpl: PlanRemoteDataSourceImpl): PlanRemoteDataSource
 }

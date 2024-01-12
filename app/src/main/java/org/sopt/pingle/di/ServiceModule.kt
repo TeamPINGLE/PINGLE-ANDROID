@@ -16,16 +16,20 @@ import retrofit2.Retrofit
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
+    @Provides
+    @Singleton
+    fun providesAuthService(@Pingle retrofit: Retrofit): AuthService =
+        retrofit.create(AuthService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesJoinGroupService(@Pingle retrofit: Retrofit): JoinGroupService =
+        retrofit.create(JoinGroupService::class.java)
 
     @Provides
     @Singleton
     fun providesMapService(@Pingle retrofit: Retrofit): MapService =
         retrofit.create(MapService::class.java)
-
-    @Provides
-    @Singleton
-    fun providesAuthService(@Pingle retrofit: Retrofit): AuthService =
-        retrofit.create(AuthService::class.java)
 
     @Provides
     @Singleton
@@ -36,9 +40,4 @@ object ServiceModule {
     @Singleton
     fun providesPlanService(@Pingle retrofit: Retrofit): PlanService =
         retrofit.create(PlanService::class.java)
-
-    @Provides
-    @Singleton
-    fun providesJoinGroupService(@Pingle retrofit: Retrofit): JoinGroupService =
-        retrofit.create(JoinGroupService::class.java)
 }

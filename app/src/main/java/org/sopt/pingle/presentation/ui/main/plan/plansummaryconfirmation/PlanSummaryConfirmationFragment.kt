@@ -21,7 +21,6 @@ class PlanSummaryConfirmationFragment :
     }
 
     private fun initLayout() {
-        viewModel.setPlanMeetingEntity()
         viewModel.selectedCategory.value?.let { category ->
             with(binding) {
                 badgePlanSummaryConfirmationCategory.setBadgeCategoryType(category)

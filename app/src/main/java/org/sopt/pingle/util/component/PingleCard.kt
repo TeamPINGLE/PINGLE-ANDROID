@@ -66,7 +66,7 @@ class PingleCard @JvmOverloads constructor(
                 true -> stringOf(R.string.map_card_cancel)
                 false -> stringOf(R.string.map_card_participate)
             }
-            btnCardBottomMapParticipate.isEnabled = when(pingleEntity.isOwner) {
+            btnCardBottomMapParticipate.isEnabled = when (pingleEntity.isOwner) {
                 true -> false
                 false -> pingleEntity.isParticipating || !pingleEntity.isCompleted()
             }

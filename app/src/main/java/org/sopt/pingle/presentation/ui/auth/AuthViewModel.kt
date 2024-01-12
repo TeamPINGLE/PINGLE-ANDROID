@@ -29,7 +29,7 @@ class AuthViewModel @Inject constructor(
                 with(localStorage) {
                     isLogin = true
                     accessToken = (HEADER_BEARER + authEntitiy.accessToken)
-                    refreshToken = (HEADER_BEARER +authEntitiy.refreshToken)
+                    refreshToken = (HEADER_BEARER + authEntitiy.refreshToken)
                 }
                 _loginUiState.value = UiState.Success(Unit)
             }.onFailure {

@@ -53,7 +53,6 @@ class PlanViewModel @Inject constructor(
     private val _selectedRecruitment = MutableStateFlow<String?>("1")
     val selectedRecruitment get() = _selectedRecruitment.asStateFlow()
 
-
     private val _planLocationListState =
         MutableSharedFlow<UiState<List<PlanLocationEntity>>>()
     val planLocationListState get() = _planLocationListState.asSharedFlow()

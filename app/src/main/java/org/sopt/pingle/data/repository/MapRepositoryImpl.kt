@@ -26,7 +26,7 @@ class MapRepositoryImpl @Inject constructor(
         emit(result.getOrThrow())
     }
 
-    override suspend fun getPingleList(teamId: Long, pinId: Long,category: String?): Flow<List<PingleEntity>> = flow {
+    override suspend fun getPingleList(teamId: Long, pinId: Long, category: String?): Flow<List<PingleEntity>> = flow {
         val result = runCatching {
             mapRemoteDataSource.getPingleList(
                 teamId = teamId,

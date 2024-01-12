@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.ActivityAuthBinding
+import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.presentation.ui.onboarding.OnBoardingActivity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.view.UiState
@@ -51,8 +52,14 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     }
 
     private fun navigateToOnBoarding() {
-        Intent(this, OnBoardingActivity::class.java).apply {
-            startActivity(this)
+        if (viewModel.isLocalGroupId()) {
+            Intent(this, OnBoardingActivity::class.java).apply {
+                startActivity(this)
+            }
+        } else {
+            Intent(this, MainActivity::class.java).apply {
+                startActivity(this)
+            }
         }
     }
 

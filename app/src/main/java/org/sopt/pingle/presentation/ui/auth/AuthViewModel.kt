@@ -42,6 +42,8 @@ class AuthViewModel @Inject constructor(
         localStorage.userName = userName
     }
 
+    fun isLocalGroupId(): Boolean = localStorage.groupId == -1
+
     companion object {
         const val LOGIN_PLATFORM = "KAKAO"
         const val HEADER_BEARER = "Bearer "

@@ -1,5 +1,6 @@
 package org.sopt.pingle.data.repository
 
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.sopt.pingle.data.datasource.remote.JoinGroupRemoteDataSource
@@ -8,7 +9,6 @@ import org.sopt.pingle.domain.model.JoinGroupInfoEntity
 import org.sopt.pingle.domain.model.RequestJoinGroupCodeEntity
 import org.sopt.pingle.domain.model.ResponseJoinGroupCodeEntity
 import org.sopt.pingle.domain.repository.JoinGroupRepository
-import javax.inject.Inject
 
 class JoinGroupRepositoryImpl @Inject constructor(
     private val joinGroupRemoteDataSource: JoinGroupRemoteDataSource

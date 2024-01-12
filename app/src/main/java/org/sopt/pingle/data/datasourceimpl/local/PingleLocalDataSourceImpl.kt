@@ -47,11 +47,27 @@ class PingleLocalDataSourceImpl @Inject constructor(
         get() = pref.getString(REFRESH_TOKEN, "") ?: ""
         set(value) = pref.edit { putString(REFRESH_TOKEN, value) }
 
+    override var groupId: Int
+        get() = pref.getInt(GROUP_ID, -1)
+        set(value) = pref.edit { putInt(GROUP_ID, value) }
+
+    override var groupName: String
+        get() = pref.getString(GROUP_NAME, "") ?: ""
+        set(value) = pref.edit { putString(GROUP_NAME, value) }
+
+    override fun clear() {
+        pref.edit {
+            clear()
+        }
+    }
+
     companion object {
         const val FILE_NAME = "AuthSharedPreferences"
         const val AUTO_LOGIN = "AutoLogin"
         const val USER_NAME = "UserName"
         const val ACCESS_TOKEN = "AccessToken"
         const val REFRESH_TOKEN = "RefreshToken"
+        const val GROUP_ID = "GroupId"
+        const val GROUP_NAME = "GroupName"
     }
 }

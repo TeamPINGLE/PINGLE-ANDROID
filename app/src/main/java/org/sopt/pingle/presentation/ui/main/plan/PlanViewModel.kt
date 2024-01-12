@@ -2,18 +2,29 @@ package org.sopt.pingle.presentation.ui.main.plan
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import org.sopt.pingle.domain.model.PlanLocationEntity
+import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.PlanType
 import org.sopt.pingle.util.combineAll
+import org.sopt.pingle.util.view.UiState
 
-class PlanViewModel : ViewModel() {
+@HiltViewModel
+class PlanViewModel @Inject constructor(
+    private val getPlanLocationListUseCase: GetPlanLocationListUseCase
+) : ViewModel() {
     private val _currentPage = MutableStateFlow(FIRST_PAGE_POSITION)
     val currentPage get() = _currentPage.asStateFlow()
     val planTitle = MutableStateFlow("")
@@ -29,14 +40,21 @@ class PlanViewModel : ViewModel() {
     val planOpenChattingLink = MutableStateFlow("")
     val planSummary = MutableStateFlow("")
 
-    private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
-    val selectedLocation get() = _selectedLocation.asStateFlow()
-
     private val _selectedCategory = MutableStateFlow<CategoryType?>(null)
     val selectedCategory get() = _selectedCategory.asStateFlow()
 
     private val _selectedRecruitment = MutableStateFlow<String?>("1")
     val selectedRecruitment get() = _selectedRecruitment.asStateFlow()
+
+    private val _planLocationListState =
+        MutableSharedFlow<UiState<List<PlanLocationEntity>>>()
+    val planLocationListState get() = _planLocationListState.asSharedFlow()
+
+    private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())
+    val planLocationList get() = _planLocationList.asStateFlow()
+
+    private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
+    val selectedLocation get() = _selectedLocation.asStateFlow()
 
     val isPlanBtnEnabled: StateFlow<Boolean> = listOf(
         currentPage,
@@ -112,8 +130,29 @@ class PlanViewModel : ViewModel() {
 
     private var oldPosition = DEFAULT_OLD_POSITION
 
-    private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())
-    val planLocationList get() = _planLocationList.asStateFlow()
+    fun getPlanLocationList(searchWord: String) {
+        viewModelScope.launch {
+            _planLocationListState.emit(UiState.Loading)
+            _planLocationList.value = emptyList()
+            _selectedLocation.value = null
+            runCatching {
+                getPlanLocationListUseCase(searchWord).collect() { planLocationList ->
+                    when (planLocationList.isEmpty()) {
+                        true -> {
+                            _planLocationListState.emit(UiState.Empty)
+                        }
+
+                        false -> {
+                            _planLocationList.value = planLocationList
+                            _planLocationListState.emit(UiState.Success(planLocationList))
+                        }
+                    }
+                }
+            }.onFailure { exception: Throwable ->
+                _planLocationListState.emit(UiState.Error(exception.message))
+            }
+        }
+    }
 
     fun updatePlanLocationList(position: Int) {
         when (oldPosition) {
@@ -131,14 +170,9 @@ class PlanViewModel : ViewModel() {
                 setIsSelected(position)
             }
         }
-        _selectedLocation.value = if (getIsSelected(position)) _planLocationList.value[position] else null
+        _selectedLocation.value =
+            if (getIsSelected(position)) _planLocationList.value[position] else null
         oldPosition = position
-    }
-
-    // 이전 값이 -> 초기값 + 셀렉티드 값이 있으면
-    fun checkIsNull(): Boolean {
-        return _planLocationList.value.isEmpty()
-        // TODO return planLocationList.value.isEmpty()
     }
 
     private fun setIsSelected(position: Int) {
@@ -146,47 +180,6 @@ class PlanViewModel : ViewModel() {
     }
 
     private fun getIsSelected(position: Int) = _planLocationList.value[position].isSelected.get()
-
-    init {
-        _planLocationList.value = listOf(
-            PlanLocationEntity(
-                location = "하얀집",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            ),
-            PlanLocationEntity(
-                location = "하얀집2호점",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            ),
-            PlanLocationEntity(
-                location = "하얀집3호점",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            ),
-            PlanLocationEntity(
-                location = "하얀집 싫어싫어싫어",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            ),
-            PlanLocationEntity(
-                location = "하얀집 좋아좋아좋아",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            ),
-            PlanLocationEntity(
-                location = "하얀집웅시러",
-                address = "서울 중구 퇴계로6길 12",
-                x = 123.5,
-                y = 56.7
-            )
-        )
-    }
 
     companion object {
         const val FIRST_PAGE_POSITION = 0

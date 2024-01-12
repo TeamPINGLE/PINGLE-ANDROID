@@ -3,12 +3,14 @@ package org.sopt.pingle.presentation.ui.main.plan.plancategory
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanCategoryBinding
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
 
+@AndroidEntryPoint
 class PlanCategoryFragment :
     BindingFragment<FragmentPlanCategoryBinding>(R.layout.fragment_plan_category) {
     private val viewModel by activityViewModels<PlanViewModel>()

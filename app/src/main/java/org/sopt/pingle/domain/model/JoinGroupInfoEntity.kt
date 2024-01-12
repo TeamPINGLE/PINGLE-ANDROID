@@ -1,6 +1,6 @@
 package org.sopt.pingle.domain.model
 
-data class JoinGroupCodeEntity(
+data class JoinGroupInfoEntity(
     val id: Int,
     val keyword: String,
     val name: String,

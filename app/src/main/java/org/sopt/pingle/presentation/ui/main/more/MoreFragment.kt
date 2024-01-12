@@ -17,6 +17,7 @@ import org.sopt.pingle.databinding.FragmentMoreBinding
 import org.sopt.pingle.presentation.ui.auth.AuthActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
+import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
 
@@ -40,9 +41,18 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     private fun addListeners() {
+        binding.tvMoreContactTitle.setOnClickListener{
+            startActivity(navigateToWebView(CONTACT))
+        }
+
+        binding.tvMoreNoticeTitle.setOnClickListener {
+            startActivity(navigateToWebView(NOTICE))
+        }
+
         binding.tvMoreLogoutTitle.setOnClickListener {
             showLogoutDialogFragment()
         }
+
         binding.tvMoreWithdrawTitle.setOnClickListener {
             showWithDrawLogoutDialogFragment()
         }
@@ -126,5 +136,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     companion object {
         private const val LOGOUT_MODAL = "logoutModal"
         private const val WITHDRAW_MODAL = "withModal"
+        private const val CONTACT = "https://pinglepingle.notion.site/585c13c92e1842c7ada334e78b731303?pvs=4"
+        private const val NOTICE = "https://pinglepingle.notion.site/38d504b943a4479695b7ca9206c7b732?pvs=4"
     }
 }

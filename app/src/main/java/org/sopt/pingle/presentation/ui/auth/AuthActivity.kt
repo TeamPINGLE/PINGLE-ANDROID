@@ -2,7 +2,6 @@ package org.sopt.pingle.presentation.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -54,11 +53,11 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
 
     private fun navigateToOnBoarding() {
         if (viewModel.isLocalGroupId()) {
-            Intent(this, MainActivity::class.java).apply {
+            Intent(this, OnBoardingActivity::class.java).apply {
                 startActivity(this)
             }
         } else {
-            Intent(this, OnBoardingActivity::class.java).apply {
+            Intent(this, MainActivity::class.java).apply {
                 startActivity(this)
             }
         }

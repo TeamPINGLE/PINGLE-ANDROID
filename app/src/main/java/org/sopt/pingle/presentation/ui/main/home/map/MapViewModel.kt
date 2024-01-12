@@ -114,7 +114,8 @@ class MapViewModel @Inject constructor(
             runCatching {
                 getPingleListUseCase(
                     teamId = localStorage.groupId.toLong(),
-                    pinId = pinId
+                    pinId = pinId,
+                    category = category.value?.name
                 ).collect() { pingleList ->
                     _pingleListState.emit(UiState.Success(Pair(pinId, pingleList)))
                 }

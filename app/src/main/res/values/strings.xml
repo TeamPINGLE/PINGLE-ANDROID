@@ -147,7 +147,7 @@
     <string name="more_title">더보기</string>
     <string name="more_my_group">나의 단체</string>
 
-    <!-- setting modal -->
+    <!-- more modal -->
     <string name="setting_logout_modal_title">정말로 로그아웃 하실건가요?</string>
     <string name="setting_logout_modal_detail">카카오 계정을 로그아웃합니다</string>
     <string name="setting_modal_back">돌아기기</string>

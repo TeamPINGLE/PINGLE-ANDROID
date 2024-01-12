@@ -225,7 +225,10 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
 
         LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener { location ->
-            location?.let { moveMapCamera(LatLng(it.latitude, it.longitude)) }
+            location?.let {
+                moveMapCamera(LatLng(it.latitude, it.longitude))
+                naverMap.locationOverlay.position = LatLng(it.latitude, it.longitude)
+            }
         }
     }
 

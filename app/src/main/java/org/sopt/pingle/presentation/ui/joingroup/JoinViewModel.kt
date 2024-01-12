@@ -2,34 +2,52 @@ package org.sopt.pingle.presentation.ui.joingroup
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.sopt.pingle.domain.model.JoinGroupCodeEntity
+import kotlinx.coroutines.launch
+import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
+import org.sopt.pingle.domain.model.JoinGroupInfoEntity
 import org.sopt.pingle.domain.model.JoinGroupSearchEntity
+import org.sopt.pingle.domain.model.RequestJoinGroupCodeEntity
+import org.sopt.pingle.domain.model.ResponseJoinGroupCodeEntity
+import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
+import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
+import org.sopt.pingle.util.view.UiState
 
-class JoinViewModel : ViewModel() {
-    private val _joinGroupData = MutableLiveData<JoinGroupCodeEntity>()
-    val joinGroupData get() = _joinGroupData
-
-    private var _isJoinGroupCodeBtn = MutableLiveData(false)
-    val isJoinGroupCodeBtn get() = _isJoinGroupCodeBtn
-
-    val joinGroupCode = MutableLiveData<String>()
+@HiltViewModel
+class JoinViewModel @Inject constructor(
+    private val localStorage: PingleLocalDataSource,
+    private val getJoinGroupInfoUseCase: GetJoinGroupInfoUseCase,
+    private val postJoinGroupCodeUseCase: PostJoinGroupCodeUseCase
+) : ViewModel() {
+    private val _selectedJoinGroup = MutableStateFlow<JoinGroupSearchEntity?>(null)
+    val selectedJoinGroup get() = _selectedJoinGroup.asStateFlow()
 
     private val _joinGroupSearchData = MutableStateFlow<List<JoinGroupSearchEntity>>(emptyList())
     val joinGroupSearchData get() = _joinGroupSearchData
 
-    private val _selectedJoinGroup = MutableStateFlow<JoinGroupSearchEntity?>(null)
-    val selectedJoinGroup get() = _selectedJoinGroup.asStateFlow()
+    private val _joinGroupInfoState =
+        MutableStateFlow<UiState<JoinGroupInfoEntity>>(UiState.Empty)
+    val joinGroupInfoState get() = _joinGroupInfoState.asStateFlow()
+
+    private var _isJoinGroupCodeBtn = MutableLiveData(false)
+    val isJoinGroupCodeBtn get() = _isJoinGroupCodeBtn
+
+    private var _joinGroupCodeState =
+        MutableStateFlow<UiState<ResponseJoinGroupCodeEntity>>(UiState.Empty)
+    val joinGroupCodeState get() = _joinGroupCodeState
+
+    val joinGroupCodeEditText = MutableLiveData<String>()
 
     val joinGroupSearchEditText = MutableLiveData<String>("")
 
     private var oldPosition = DEFAULT_OLD_POSITION
     fun updateJoinGroupSearchList(newPosition: Int) {
         when (oldPosition) {
-            DEFAULT_OLD_POSITION -> {
-                setIsSelected(newPosition)
-            }
+            DEFAULT_OLD_POSITION -> setIsSelected(newPosition)
 
             newPosition -> {
                 setIsSelected(newPosition)
@@ -54,15 +72,39 @@ class JoinViewModel : ViewModel() {
 
     private fun getIsSelected(position: Int) = _joinGroupSearchData.value[position].isSelected.get()
 
-    init {
-        _joinGroupData.value = JoinGroupCodeEntity(
-            id = 0,
-            keyword = "연합동아리",
-            name = "SOPT",
-            meetingCount = 10,
-            participantCount = 200
-        )
+    fun joinGroupInfoState(teamId: Int) {
+        _joinGroupInfoState.value = UiState.Loading
+        viewModelScope.launch {
+            _joinGroupInfoState.value = UiState.Loading
+            runCatching {
+                getJoinGroupInfoUseCase(teamId = teamId).collect { joinGroupInfo ->
+                    _joinGroupInfoState.value = UiState.Success(joinGroupInfo)
+                }
+            }.onFailure {
+                _joinGroupInfoState.value = UiState.Error(it.message)
+            }
+        }
+    }
 
+    fun joinGroupCodeState(teamId: Int, code: RequestJoinGroupCodeEntity) {
+        _joinGroupCodeState.value = UiState.Loading
+        viewModelScope.launch {
+            runCatching {
+                postJoinGroupCodeUseCase(teamId = teamId, requestJoinGroupCode = code)
+                    .collect { joinGroupCode ->
+                        _joinGroupCodeState.value = UiState.Success(joinGroupCode)
+                        with(localStorage) {
+                            groupId = joinGroupCode.id
+                            groupName = joinGroupCode.name
+                        }
+                    }
+            }.onFailure {
+                _joinGroupCodeState.value = UiState.Error(it.message)
+            }
+        }
+    }
+
+    init {
         _joinGroupSearchData.value = listOf(
             JoinGroupSearchEntity(
                 id = 0,

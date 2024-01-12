@@ -7,16 +7,21 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.DummyRepository
+import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.PingleRepository
+import org.sopt.pingle.domain.repository.PlanMeetingRepository
 import org.sopt.pingle.domain.repository.PlanRepository
 import org.sopt.pingle.domain.usecase.GetDummyUserListUseCase
+import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
+import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
+import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
 import org.sopt.pingle.domain.usecase.SetDummyDataUseCase
 
 @Module
@@ -56,6 +61,21 @@ class UseCaseModule {
     @Singleton
     fun providesGetPlanLocationListUseCase(planRepository: PlanRepository): GetPlanLocationListUseCase =
         GetPlanLocationListUseCase(planRepository = planRepository)
+
+    @Provides
+    @Singleton
+    fun providesPostPlanMeetingUseCase(planMeetingRepository: PlanMeetingRepository): PostPlanMeetingUseCase =
+        PostPlanMeetingUseCase(planMeetingRepository = planMeetingRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetJoinGroupInfoUseCase(joinGroupRepository: JoinGroupRepository): GetJoinGroupInfoUseCase =
+        GetJoinGroupInfoUseCase(joinGroupRepository = joinGroupRepository)
+
+    @Provides
+    @Singleton
+    fun providesPostJoinGroupCodeUseCase(joinGroupRepository: JoinGroupRepository): PostJoinGroupCodeUseCase =
+        PostJoinGroupCodeUseCase(joinGroupRepository = joinGroupRepository)
 
     @Provides
     @Singleton

@@ -21,6 +21,7 @@ import org.sopt.pingle.presentation.ui.main.plan.plansummaryconfirmation.PlanSum
 import org.sopt.pingle.presentation.ui.main.plan.plantitle.PlanTitleFragment
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.AllModalDialogFragment
+import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
 class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan) {
@@ -103,7 +104,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                 fragmentList.size - 1 -> {
                     binding.btnPlan.text = getString(R.string.plan_pingle)
                     binding.btnPlan.setOnClickListener {
-                        finish()
+                        planViewModel.postPlanMeeting()
                     }
                     binding.layoutClose.visibility = View.INVISIBLE
                 }
@@ -112,6 +113,13 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                     binding.btnPlan.text = getString(R.string.plan_next)
                     binding.layoutClose.visibility = View.VISIBLE
                 }
+            }
+        }.launchIn(lifecycleScope)
+
+        planViewModel.planMeetingState.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> finish()
+                else -> Unit
             }
         }.launchIn(lifecycleScope)
     }

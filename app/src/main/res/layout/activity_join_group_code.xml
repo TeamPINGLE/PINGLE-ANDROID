@@ -163,7 +163,7 @@
 
         <org.sopt.pingle.util.component.PingleEditText
             android:id="@+id/et_join_group_code_invitation"
-            etText="@={joinViewModel.joinGroupCode}"
+            etText="@={joinViewModel.joinGroupCodeEditText}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing16"

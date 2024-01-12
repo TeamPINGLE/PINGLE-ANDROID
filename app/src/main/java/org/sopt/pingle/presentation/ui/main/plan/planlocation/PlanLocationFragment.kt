@@ -78,7 +78,7 @@ class PlanLocationFragment :
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         binding.rvPlanLocationList.adapter = null
+        super.onDestroyView()
     }
 }

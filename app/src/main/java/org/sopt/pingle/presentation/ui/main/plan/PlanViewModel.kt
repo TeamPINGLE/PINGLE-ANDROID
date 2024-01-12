@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
-import org.sopt.pingle.data.datasourceimpl.local.PingleLocalDataSourceImpl
 import org.sopt.pingle.domain.model.PlanLocationEntity
 import org.sopt.pingle.domain.model.PlanMeetingEntity
 import org.sopt.pingle.domain.model.UserInfoEntity

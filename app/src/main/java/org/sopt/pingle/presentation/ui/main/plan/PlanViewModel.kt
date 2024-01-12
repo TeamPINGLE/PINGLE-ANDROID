@@ -16,7 +16,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.sopt.pingle.domain.model.PlanLocationEntity
 import org.sopt.pingle.domain.model.PlanMeetingEntity
+import org.sopt.pingle.domain.model.UserInfoEntity
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
+import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.PlanType
@@ -26,7 +28,8 @@ import org.sopt.pingle.util.view.UiState
 @HiltViewModel
 class PlanViewModel @Inject constructor(
     private val getPlanLocationListUseCase: GetPlanLocationListUseCase,
-    private val postPlanMeetingUseCase: PostPlanMeetingUseCase
+    private val postPlanMeetingUseCase: PostPlanMeetingUseCase,
+    private val getUserInfoUseCase: GetUserInfoUseCase
 ) : ViewModel() {
     private val _currentPage = MutableStateFlow(FIRST_PAGE_POSITION)
     val currentPage get() = _currentPage.asStateFlow()
@@ -60,6 +63,9 @@ class PlanViewModel @Inject constructor(
 
     private val _planMeetingState = MutableSharedFlow<UiState<Unit?>>()
     val planMeetingState get() = _planMeetingState.asSharedFlow()
+
+    private val _userInfoState = MutableStateFlow<UiState<UserInfoEntity>>(UiState.Empty)
+    val userInfoState get() = _userInfoState.asStateFlow()
 
     val isPlanBtnEnabled: StateFlow<Boolean> = listOf(
         currentPage,
@@ -216,6 +222,19 @@ class PlanViewModel @Inject constructor(
                 }
             }.onFailure { exception: Throwable ->
                 _planMeetingState.emit(UiState.Error(exception.message))
+            }
+        }
+    }
+
+    fun getUserInfo() {
+        viewModelScope.launch {
+            _userInfoState.value =UiState.Loading
+            runCatching {
+                getUserInfoUseCase().collect() { userInfo ->
+                    _userInfoState.value = UiState.Success(userInfo)
+                }
+            }.onFailure { exception: Throwable ->
+                _userInfoState.value = UiState.Error(exception.message)
             }
         }
     }

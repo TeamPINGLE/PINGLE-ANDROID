@@ -1,9 +1,9 @@
 package org.sopt.pingle.presentation.mapper
 
-import org.sopt.pingle.domain.model.PingleEntity
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import org.sopt.pingle.domain.model.PingleEntity
 
 fun PingleEntity.isCompleted() = maxParticipants == curParticipants
 

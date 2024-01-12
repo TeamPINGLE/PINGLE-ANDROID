@@ -6,7 +6,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.pingle.data.service.AuthService
-import org.sopt.pingle.data.service.DummyService
 import org.sopt.pingle.data.service.JoinGroupService
 import org.sopt.pingle.data.service.MapService
 import org.sopt.pingle.data.service.PingleService
@@ -17,10 +16,6 @@ import retrofit2.Retrofit
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
-    @Provides
-    @Singleton
-    fun providesDummyService(@Pingle retrofit: Retrofit): DummyService =
-        retrofit.create(DummyService::class.java)
 
     @Provides
     @Singleton

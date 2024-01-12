@@ -77,7 +77,7 @@ class JoinViewModel @Inject constructor(
         viewModelScope.launch {
             _joinGroupInfoState.value = UiState.Loading
             runCatching {
-                getJoinGroupInfoUseCase.invoke(teamId = teamId).collect { joinGroupInfo ->
+                getJoinGroupInfoUseCase(teamId = teamId).collect { joinGroupInfo ->
                     _joinGroupInfoState.value = UiState.Success(joinGroupInfo)
                 }
             }.onFailure {

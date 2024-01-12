@@ -10,12 +10,14 @@ import org.sopt.pingle.data.repository.DummyRepositoryImpl
 import org.sopt.pingle.data.repository.JoinGroupRepositoryImpl
 import org.sopt.pingle.data.repository.MapRepositoryImpl
 import org.sopt.pingle.data.repository.PingleRepositoryImpl
+import org.sopt.pingle.data.repository.PlanMeetingRepositoryImpl
 import org.sopt.pingle.data.repository.PlanRepositoryImpl
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.DummyRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.PingleRepository
+import org.sopt.pingle.domain.repository.PlanMeetingRepository
 import org.sopt.pingle.domain.repository.PlanRepository
 
 @Module
@@ -40,6 +42,10 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsPlanRepository(planRepositoryImpl: PlanRepositoryImpl): PlanRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsPlanMeetingRepository(planMeetingRepositoryImpl: PlanMeetingRepositoryImpl): PlanMeetingRepository
 
     @Binds
     @Singleton

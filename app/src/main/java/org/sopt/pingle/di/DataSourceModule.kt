@@ -12,6 +12,7 @@ import org.sopt.pingle.data.datasource.remote.DummyRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.JoinGroupRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.MapRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.PingleRemoteDataSource
+import org.sopt.pingle.data.datasource.remote.PlanMeetingRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.PlanRemoteDataSource
 import org.sopt.pingle.data.datasourceimpl.local.DummyLocalDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.local.PingleLocalDataSourceImpl
@@ -20,6 +21,7 @@ import org.sopt.pingle.data.datasourceimpl.remote.DummyRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.JoinGroupRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.MapRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PingleRemoteDataSourceImpl
+import org.sopt.pingle.data.datasourceimpl.remote.PlanMeetingRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PlanRemoteDataSourceImpl
 
 @Module
@@ -52,6 +54,10 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsPlanRemoteDataSource(planRemoteDataSourceImpl: PlanRemoteDataSourceImpl): PlanRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsPlanMeetingRemoteDataSource(planMeetingRemoteDataSourceImpl: PlanMeetingRemoteDataSourceImpl): PlanMeetingRemoteDataSource
 
     @Binds
     @Singleton

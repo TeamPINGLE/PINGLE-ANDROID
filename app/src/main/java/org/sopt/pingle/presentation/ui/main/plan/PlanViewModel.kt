@@ -15,7 +15,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.sopt.pingle.domain.model.PlanLocationEntity
+import org.sopt.pingle.domain.model.PlanMeetingEntity
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
+import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.PlanType
 import org.sopt.pingle.util.combineAll
@@ -23,7 +25,8 @@ import org.sopt.pingle.util.view.UiState
 
 @HiltViewModel
 class PlanViewModel @Inject constructor(
-    private val getPlanLocationListUseCase: GetPlanLocationListUseCase
+    private val getPlanLocationListUseCase: GetPlanLocationListUseCase,
+    private val postPlanMeetingUseCase: PostPlanMeetingUseCase
 ) : ViewModel() {
     private val _currentPage = MutableStateFlow(FIRST_PAGE_POSITION)
     val currentPage get() = _currentPage.asStateFlow()
@@ -51,10 +54,12 @@ class PlanViewModel @Inject constructor(
     val planLocationListState get() = _planLocationListState.asSharedFlow()
 
     private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())
-    val planLocationList get() = _planLocationList.asStateFlow()
 
     private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
     val selectedLocation get() = _selectedLocation.asStateFlow()
+
+    private val _planMeetingState = MutableSharedFlow<UiState<Unit?>>()
+    val planMeetingState get() = _planMeetingState.asSharedFlow()
 
     val isPlanBtnEnabled: StateFlow<Boolean> = listOf(
         currentPage,
@@ -181,9 +186,44 @@ class PlanViewModel @Inject constructor(
 
     private fun getIsSelected(position: Int) = _planLocationList.value[position].isSelected.get()
 
+    fun postPlanMeeting() {
+        viewModelScope.launch {
+            _planMeetingState.emit(UiState.Loading)
+            runCatching {
+                _selectedCategory.value?.let { selectedCategory ->
+                    _selectedLocation.value?.let { selectedLocation ->
+                        _selectedRecruitment.value?.let { selectedRecruitment ->
+                            postPlanMeetingUseCase(
+                                teamId = TEAM_ID,
+                                planMeetingEntity = PlanMeetingEntity(
+                                    category = selectedCategory.name,
+                                    name = planTitle.value,
+                                    startAt = planDate.value + " " + startTime.value,
+                                    endAt = planDate.value + " " + endTime.value,
+                                    x = selectedLocation.x,
+                                    y = selectedLocation.y,
+                                    address = selectedLocation.address,
+                                    roadAddress = selectedLocation.roadAddress,
+                                    location = selectedLocation.location,
+                                    maxParticipants = selectedRecruitment.toInt(),
+                                    chatLink = planOpenChattingLink.value
+                                )
+                            ).collect() { data ->
+                                _planMeetingState.emit(UiState.Success(data))
+                            }
+                        }
+                    }
+                }
+            }.onFailure { exception: Throwable ->
+                _planMeetingState.emit(UiState.Error(exception.message))
+            }
+        }
+    }
+
     companion object {
         const val FIRST_PAGE_POSITION = 0
         const val DEFAULT_OLD_POSITION = -1
         const val INVALID_RECRUIT = "1"
+        const val TEAM_ID = 1
     }
 }

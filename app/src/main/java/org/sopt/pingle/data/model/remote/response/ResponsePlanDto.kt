@@ -21,6 +21,7 @@ data class ResponsePlanDto(
         location = locationName,
         address = locationAddress,
         x = xCoordinate,
-        y = yCoordinate
+        y = yCoordinate,
+        roadAddress = locationRoadAddress
     )
 }

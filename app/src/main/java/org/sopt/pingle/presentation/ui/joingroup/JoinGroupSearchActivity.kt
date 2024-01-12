@@ -2,7 +2,6 @@ package org.sopt.pingle.presentation.ui.joingroup
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.activity.viewModels
@@ -80,7 +79,6 @@ class JoinGroupSearchActivity :
                     joinGroupSearchAdapter.submitList(uiState.data)
                     joinGroupSearchAdapter.currentList
                     binding.tvJoinGroupSearchEmpty.visibility = View.INVISIBLE
-                    Log.d("httpㅁㅇ", "성공")
                 }
 
                 is UiState.Error -> Timber.tag(JoinGroupCodeActivity.JOIN_GROUP_CODE_ACTIVITY)
@@ -93,7 +91,6 @@ class JoinGroupSearchActivity :
                 is UiState.Empty -> {
                     joinGroupSearchAdapter.submitList(null)
                     binding.tvJoinGroupSearchEmpty.visibility = View.VISIBLE
-                    Log.d("httpㅁㅇ", "Empty")
                 }
             }
         }.launchIn(lifecycleScope)

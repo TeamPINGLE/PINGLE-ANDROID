@@ -12,7 +12,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface JoinGroupService {
-    @GET("$VERSION/$TEAMS?")
+    @GET("$VERSION/$TEAMS")
     suspend fun getJoinGroupSearch(
         @Query("$NAME") teamName: String
     ): BaseResponse<List<ResponseJoinGroupSearchDto>>

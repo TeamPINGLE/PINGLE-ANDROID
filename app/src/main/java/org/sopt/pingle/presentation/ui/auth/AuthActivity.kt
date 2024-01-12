@@ -2,20 +2,22 @@ package org.sopt.pingle.presentation.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.ActivityAuthBinding
+import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.presentation.ui.onboarding.OnBoardingActivity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth) {
@@ -51,8 +53,14 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     }
 
     private fun navigateToOnBoarding() {
-        Intent(this, OnBoardingActivity::class.java).apply {
-            startActivity(this)
+        if (viewModel.isLocalGroupId()) {
+            Intent(this, MainActivity::class.java).apply {
+                startActivity(this)
+            }
+        } else {
+            Intent(this, OnBoardingActivity::class.java).apply {
+                startActivity(this)
+            }
         }
     }
 

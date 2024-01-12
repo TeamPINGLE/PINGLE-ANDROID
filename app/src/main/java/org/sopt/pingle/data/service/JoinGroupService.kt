@@ -12,9 +12,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface JoinGroupService {
-    @GET("$VERSION/$TEAMS?$NAME=$TEAM_NAME")
+    @GET("$VERSION/$TEAMS?")
     suspend fun getJoinGroupSearch(
-        @Query("$TEAM_NAME") teamName: String
+        @Query("$NAME") teamName: String
     ): BaseResponse<List<ResponseJoinGroupSearchDto>>
 
     @GET("$VERSION/$TEAMS/{$TEAM_ID}")
@@ -32,7 +32,6 @@ interface JoinGroupService {
         const val VERSION = "v1"
         const val TEAMS = "teams"
         const val NAME = "name"
-        const val TEAM_NAME = "teamName"
         const val TEAM_ID = "teamId"
         const val REGISTER = "register"
     }

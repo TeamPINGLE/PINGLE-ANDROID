@@ -61,7 +61,7 @@ class JoinGroupSearchActivity :
                 hideKeyboard(binding.etJoinGroupSearch)
                 return@setOnKeyListener true
             }
-            true
+            false
         }
 
         binding.tvJoinGroupSearchCreate.setOnClickListener {

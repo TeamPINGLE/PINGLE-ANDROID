@@ -27,8 +27,8 @@ class PlanTimeDialogFragment(
     private fun initLayout() {
         val meridiemPicker = binding.npTimePickerMeridiem
         meridiemPicker.apply {
-            wrapSelectorWheel = false // 순한 안되게 막기
-            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS // editText 설정 해제
+            wrapSelectorWheel = false
+            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
             minValue = 0
             maxValue = 1
             displayedValues =
@@ -40,15 +40,15 @@ class PlanTimeDialogFragment(
 
         val hoursPicker = binding.npTimePickerHour
         hoursPicker.apply {
-            wrapSelectorWheel = false // 순한 안되게 막기
-            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS // editText 설정 해제
+            wrapSelectorWheel = false
+            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
             minValue = HOUR_MIN
             maxValue = HOUR_MAX
         }
         val minutesPicker = binding.npTimePickerMinute
         minutesPicker.apply {
-            wrapSelectorWheel = false // 순한 안되게 막기
-            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS // editText 설정 해제
+            wrapSelectorWheel = false
+            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
             minValue = MINUTE_MIN
             maxValue = MINUTE_MAX
             setFormatter { value -> String.format("%02d", value) }

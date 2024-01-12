@@ -27,8 +27,8 @@ class PlanDateDialogFragment(
     private fun initLayout() {
         val yearPicker = binding.npDatePickerYear
         yearPicker.apply {
-            wrapSelectorWheel = false // 순한 안되게 막기
-            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS // editText 설정 해제
+            wrapSelectorWheel = false
+            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
             minValue = YEAR_MIN
             maxValue = YEAR_MAX
         }

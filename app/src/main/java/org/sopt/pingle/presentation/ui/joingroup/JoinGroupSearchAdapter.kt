@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.joingroup
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import org.sopt.pingle.databinding.ItemJoinGroupSearchBinding
 import org.sopt.pingle.domain.model.JoinGroupSearchEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
@@ -27,17 +26,3 @@ class JoinGroupSearchAdapter(
         holder.onBind(getItem(position))
 }
 
-class JoinGroupSearchViewHolder(
-    private val binding: ItemJoinGroupSearchBinding,
-    private val setOldItem: (Int) -> Unit
-) : RecyclerView.ViewHolder(binding.root) {
-    init {
-        binding.root.setOnClickListener {
-            setOldItem(bindingAdapterPosition)
-        }
-    }
-
-    fun onBind(item: JoinGroupSearchEntity) {
-        binding.joinGroupSearch = item
-    }
-}

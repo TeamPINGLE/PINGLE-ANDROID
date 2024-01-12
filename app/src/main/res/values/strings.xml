@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pingle</string>
+    <string name="app_name">핑글</string>
 
     <!--  category Type  -->
     <string name="category_play">PLAY</string>

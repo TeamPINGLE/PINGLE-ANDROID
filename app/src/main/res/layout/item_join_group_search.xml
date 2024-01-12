@@ -60,7 +60,7 @@
             tools:text="단체 이름" />
 
         <ImageView
-            android:id="@+id/imv_plan_location_check"
+            android:id="@+id/iv_join_group_search_check"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing10"
@@ -69,5 +69,14 @@
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintTop_toTopOf="@id/tv_join_group_search_tag"
             tools:src="@drawable/ic_all_check_selected_24" />
+
+        <View
+            android:id="@+id/view_join_group_search_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/g_09"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

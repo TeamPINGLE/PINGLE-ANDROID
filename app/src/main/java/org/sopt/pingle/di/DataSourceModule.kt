@@ -9,14 +9,12 @@ import org.sopt.pingle.data.datasource.remote.AuthRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.JoinGroupRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.MapRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.PingleRemoteDataSource
-import org.sopt.pingle.data.datasource.remote.PlanMeetingRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.PlanRemoteDataSource
 import org.sopt.pingle.data.datasourceimpl.local.PingleLocalDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.AuthRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.JoinGroupRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.MapRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PingleRemoteDataSourceImpl
-import org.sopt.pingle.data.datasourceimpl.remote.PlanMeetingRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PlanRemoteDataSourceImpl
 import javax.inject.Singleton
 
@@ -42,10 +40,6 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsPingleRemoteDataSource(pingleRemoteDataSourceImpl: PingleRemoteDataSourceImpl): PingleRemoteDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindsPlanMeetingRemoteDataSource(planMeetingRemoteDataSourceImpl: PlanMeetingRemoteDataSourceImpl): PlanMeetingRemoteDataSource
 
     @Binds
     @Singleton

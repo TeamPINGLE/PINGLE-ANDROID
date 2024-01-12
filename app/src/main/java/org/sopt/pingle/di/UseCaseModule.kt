@@ -8,7 +8,6 @@ import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.PingleRepository
-import org.sopt.pingle.domain.repository.PlanMeetingRepository
 import org.sopt.pingle.domain.repository.PlanRepository
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
@@ -72,6 +71,6 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesPostPlanMeetingUseCase(planMeetingRepository: PlanMeetingRepository): PostPlanMeetingUseCase =
-        PostPlanMeetingUseCase(planMeetingRepository = planMeetingRepository)
+    fun providesPostPlanMeetingUseCase(planRepository: PlanRepository): PostPlanMeetingUseCase =
+        PostPlanMeetingUseCase(planRepository = planRepository)
 }

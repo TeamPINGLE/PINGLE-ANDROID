@@ -12,22 +12,15 @@ import androidx.fragment.app.replace
 import org.sopt.pingle.R
 import org.sopt.pingle.presentation.ui.common.WebViewActivity
 
-fun Fragment.showToast(message: String, isShort: Boolean = true) {
-    val duration = if (isShort) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
-    Toast.makeText(requireContext(), message, duration).show()
-}
-
 fun Fragment.stringOf(@StringRes resId: Int) = getString(resId)
 
 fun Fragment.colorOf(@ColorRes resId: Int) = ContextCompat.getColor(requireContext(), resId)
-
-fun Fragment.drawableOf(@DrawableRes resId: Int) =
-    ContextCompat.getDrawable(requireContext(), resId)
 
 fun Fragment.navigateToWebView(link: String) =
     Intent(requireContext(), WebViewActivity::class.java).apply {
         putExtra(WebViewActivity.WEB_VIEW_LINK, link)
     }
+
 inline fun <reified T : Fragment> Fragment.navigateToFragment() {
     parentFragmentManager.commit {
         replace<T>(R.id.fcv_main_all_navi, T::class.java.canonicalName)

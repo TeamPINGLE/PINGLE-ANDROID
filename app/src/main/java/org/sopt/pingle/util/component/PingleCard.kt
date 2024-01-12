@@ -67,7 +67,7 @@ class PingleCard @JvmOverloads constructor(
                 false -> stringOf(R.string.map_card_participate)
             }
             btnCardBottomMapParticipate.isEnabled =
-                pingleEntity.isParticipating || !pingleEntity.isCompleted()
+                pingleEntity.isParticipating || !pingleEntity.isCompleted() || !pingleEntity.isOwner
 
             if (pingleEntity.isCompleted()) {
                 tvCardTopInfoParticipationStatusSlash.visibility = View.INVISIBLE

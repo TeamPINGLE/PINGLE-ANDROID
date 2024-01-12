@@ -29,7 +29,9 @@ data class ResponsePingleListDto(
     @SerialName("isParticipating")
     val isParticipating: Boolean,
     @SerialName("chatLink")
-    val chatLink: String
+    val chatLink: String,
+    @SerialName("isOwner")
+    val isOwner: Boolean
 ) {
     fun toPingleEntity() = PingleEntity(
         id = this.id,
@@ -43,6 +45,7 @@ data class ResponsePingleListDto(
         maxParticipants = this.maxParticipants,
         curParticipants = this.curParticipants,
         isParticipating = this.isParticipating,
-        chatLink = this.chatLink
+        chatLink = this.chatLink,
+        isOwner = this.isOwner
     )
 }

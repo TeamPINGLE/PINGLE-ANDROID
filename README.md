@@ -6,6 +6,10 @@ Ready to PINGLE? <br>
 
 <br>
 
+![pingle](https://github.com/TeamPINGLE/PINGLE-ANDROID/assets/103172971/0a228c3e-db23-4667-8c13-263125f3e4c8)
+
+<br>
+
 ## 👋 *****Contributors*****
 | 배지현 <br> [@jihyunniiii](https://github.com/jihyunniiii) | 김민우 <br> [@DoReMinWoo](https://github.com/DoReMinWoo) | 하지은 <br>[@HAJIEUN02](https://github.com/HAJIEUN02) | 이다은 <br>[@Dan2dani](https://github.com/Dan2dani) |
 |:---:| :---: | :---: | :---: |

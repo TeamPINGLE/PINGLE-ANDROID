@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">핑글</string>
+    <string name="app_name">PINGLE</string>
 
     <!--  category Type  -->
     <string name="category_play">PLAY</string>
@@ -13,7 +13,7 @@
 
     <!--  all navi title -->
     <string name="all_navi_home">홈</string>
-    <string name="all_navi_ranking">랭킹</string>
+    <string name="all_navi_commend">랭킹</string>
     <string name="all_navi_plan">개최</string>
     <string name="all_navi_mypingle">마이핑글</string>
     <string name="all_navi_more">더보기</string>
@@ -77,7 +77,6 @@
     <string name="plan_close"><u>나가기</u></string>
     <string name="plan_next">다음으로</string>
     <string name="plan_pingle">핑글 개최하기</string>
-    <string name="plan_later_time_snackbar">종료 시각은 시작 시각 이후로 선택해주세요!</string>
 
     <!-- plan announcement -->
     <string name="plan_announcement_title">What is\nPINGLE?</string>
@@ -147,7 +146,7 @@
     <string name="more_title">더보기</string>
     <string name="more_my_group">나의 단체</string>
 
-    <!-- more modal -->
+    <!-- setting modal -->
     <string name="setting_logout_modal_title">정말로 로그아웃 하실건가요?</string>
     <string name="setting_logout_modal_detail">카카오 계정을 로그아웃합니다</string>
     <string name="setting_modal_back">돌아기기</string>

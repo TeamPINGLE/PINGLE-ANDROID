@@ -9,6 +9,6 @@ interface JoinGroupRepository {
     fun getJoinGroupInfo(teamId: Int): Flow<JoinGroupInfoEntity>
     fun postJoinGroupCode(
         teamId: Int,
-        code: RequestJoinGroupCodeEntity
+        requestJoinGroupCode: RequestJoinGroupCodeEntity
     ): Flow<ResponseJoinGroupCodeEntity>
 }

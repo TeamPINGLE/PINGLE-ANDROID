@@ -90,7 +90,7 @@ class JoinViewModel @Inject constructor(
         _joinGroupCodeState.value = UiState.Loading
         viewModelScope.launch {
             runCatching {
-                postJoinGroupCodeUseCase(teamId = teamId, code = code)
+                postJoinGroupCodeUseCase(teamId = teamId, requestJoinGroupCode = code)
                     .collect { joinGroupCode ->
                         _joinGroupCodeState.value = UiState.Success(joinGroupCode)
                         with(localStorage) {

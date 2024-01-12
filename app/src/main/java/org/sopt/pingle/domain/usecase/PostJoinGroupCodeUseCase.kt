@@ -10,7 +10,10 @@ class PostJoinGroupCodeUseCase(
 ) {
     operator fun invoke(
         teamId: Int,
-        code: RequestJoinGroupCodeEntity
+        requestJoinGroupCode: RequestJoinGroupCodeEntity
     ): Flow<ResponseJoinGroupCodeEntity> =
-        joinGroupRepository.postJoinGroupCode(teamId = teamId, code = code)
+        joinGroupRepository.postJoinGroupCode(
+            teamId = teamId,
+            requestJoinGroupCode = requestJoinGroupCode
+        )
 }

@@ -18,7 +18,7 @@ interface JoinGroupService {
     @POST("$VERSION/$TEAMS/{$TEAM_ID}/$REGISTER")
     suspend fun postJoinGroupCode(
         @Path("$TEAM_ID") teamId: Int,
-        @Body requestJoinGroupCodeDto: RequestJoinGroupCodeDto
+        @Body requestJoinGroupCode: RequestJoinGroupCodeDto
     ): BaseResponse<ResponseJoinGroupCodeDto>
 
     companion object {

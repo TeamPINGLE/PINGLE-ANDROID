@@ -37,16 +37,20 @@ class PlanLocationFragment :
     }
 
     private fun addListeners() {
+        binding.root.setOnClickListener {
+            requireContext().hideKeyboard(binding.etPlanLocationSearch)
+        }
+
         binding.ivPlanLocationSearchBtn.setOnClickListener {
+            requireContext().hideKeyboard(binding.etPlanLocationSearch)
             planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
         }
 
-        val searchListener = binding.etPlanLocationSearch
-        searchListener.setOnKeyListener(
+        binding.etPlanLocationSearch.setOnKeyListener(
             View.OnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
-                    requireActivity().hideKeyboard(searchListener)
+                    requireContext().hideKeyboard(binding.etPlanLocationSearch)
                     return@OnKeyListener true
                 }
                 false

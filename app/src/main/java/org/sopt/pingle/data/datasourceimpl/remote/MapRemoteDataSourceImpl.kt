@@ -18,7 +18,8 @@ class MapRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getPingleList(
         teamId: Long,
-        pinId: Long
+        pinId: Long,
+        category: String?
     ): BaseResponse<List<ResponsePingleListDto>> =
-        mapService.getPingleList(teamId = teamId, pinId = pinId)
+        mapService.getPingleList(teamId = teamId, pinId = pinId, category = category)
 }

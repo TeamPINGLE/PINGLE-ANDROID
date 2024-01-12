@@ -125,7 +125,6 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
     }
 
     private fun showExitModalDialogFragment() {
-        // TODO 차후에 나가기 눌렀을 때 finish() 되는지 확인
         AllModalDialogFragment(
             title = getString(R.string.plan_exit_modal_dialog_title),
             detail = getString(R.string.plan_exit_modal_dialog_detail),

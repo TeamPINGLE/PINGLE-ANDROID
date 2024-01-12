@@ -12,5 +12,6 @@ data class PingleEntity(
     val maxParticipants: Int,
     val curParticipants: Int,
     val isParticipating: Boolean,
-    val chatLink: String
+    val chatLink: String,
+    val isOwner: Boolean
 )

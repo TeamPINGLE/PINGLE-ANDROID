@@ -10,5 +10,5 @@ interface MapRemoteDataSource {
         category: String?
     ): BaseResponse<List<ResponsePinListDto>>
 
-    suspend fun getPingleList(teamId: Long, pinId: Long): BaseResponse<List<ResponsePingleListDto>>
+    suspend fun getPingleList(teamId: Long, pinId: Long, category: String?): BaseResponse<List<ResponsePingleListDto>>
 }

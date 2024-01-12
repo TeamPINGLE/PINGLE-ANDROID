@@ -45,7 +45,7 @@ class PlanViewModel @Inject constructor(
 
     val selectedTimeType get() = _selectedTimeType.asStateFlow()
     val planOpenChattingLink = MutableStateFlow("")
-    val planSummary = MutableStateFlow("")
+    private val planSummary = MutableStateFlow("")
 
     private val _selectedCategory = MutableStateFlow<CategoryType?>(null)
     val selectedCategory get() = _selectedCategory.asStateFlow()
@@ -58,6 +58,8 @@ class PlanViewModel @Inject constructor(
     val planLocationListState get() = _planLocationListState.asSharedFlow()
 
     private val _planLocationList = MutableStateFlow<List<PlanLocationEntity>>(emptyList())
+
+    private var oldPosition = DEFAULT_OLD_POSITION
 
     private val _selectedLocation = MutableStateFlow<PlanLocationEntity?>(null)
     val selectedLocation get() = _selectedLocation.asStateFlow()
@@ -135,12 +137,6 @@ class PlanViewModel @Inject constructor(
     fun setSelectedTimeType(timeType: String) {
         _selectedTimeType.value = timeType
     }
-
-    private fun setPlanLocation(position: Int) {
-        _selectedLocation.value = _planLocationList.value[position]
-    }
-
-    private var oldPosition = DEFAULT_OLD_POSITION
 
     fun getPlanLocationList(searchWord: String) {
         viewModelScope.launch {

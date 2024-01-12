@@ -75,7 +75,9 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         binding.btnPlan.setOnClickListener {
             when (binding.vpPlan.currentItem) {
                 // TODO 핑글 개최 api 연동
-                fragmentList.size - 1 -> {}
+                fragmentList.size - 1 -> {
+                    planViewModel.postPlanMeeting()
+                }
                 else -> {
                     binding.vpPlan.currentItem++
                 }
@@ -103,9 +105,6 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             when (currentPage) {
                 fragmentList.size - 1 -> {
                     binding.btnPlan.text = getString(R.string.plan_pingle)
-                    binding.btnPlan.setOnClickListener {
-                        planViewModel.postPlanMeeting()
-                    }
                     binding.layoutClose.visibility = View.INVISIBLE
                 }
                 // TODO 다른 다음으로 스트링과 합치기

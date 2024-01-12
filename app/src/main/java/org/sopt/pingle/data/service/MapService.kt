@@ -17,7 +17,8 @@ interface MapService {
     @GET("$VERSION/$TEAMS/{$TEAM_ID}/$PINS/{$PIN_ID}/$MEETINGS")
     suspend fun getPingleList(
         @Path("$TEAM_ID") teamId: Long,
-        @Path("$PIN_ID") pinId: Long
+        @Path("$PIN_ID") pinId: Long,
+        @Query(CATEGORY) category: String?
     ): BaseResponse<List<ResponsePingleListDto>>
 
     companion object {

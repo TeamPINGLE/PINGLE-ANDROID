@@ -13,6 +13,7 @@ import org.sopt.pingle.databinding.ActivityJoinGroupCodeBinding
 import org.sopt.pingle.domain.model.JoinGroupCodeEntity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
+import org.sopt.pingle.util.context.hideKeyboard
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
 
@@ -38,6 +39,10 @@ class JoinGroupCodeActivity :
     }
 
     private fun addListeners() {
+        binding.root.setOnClickListener {
+            hideKeyboard(binding.etJoinGroupCodeInvitation)
+        }
+
         binding.btnJoinGroupCodeNext.setOnClickListener {
             viewModel.joinGroupCodeState(
                 teamId,

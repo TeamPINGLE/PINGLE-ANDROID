@@ -13,7 +13,7 @@
 
     <!--  all navi title -->
     <string name="all_navi_home">홈</string>
-    <string name="all_navi_commend">랭킹</string>
+    <string name="all_navi_ranking">랭킹</string>
     <string name="all_navi_plan">개최</string>
     <string name="all_navi_mypingle">마이핑글</string>
     <string name="all_navi_more">더보기</string>
@@ -124,6 +124,7 @@
     <string name="plan_recruitment_minus">-</string>
     <string name="plan_recruitment_plus">+</string>
     <string name="plan_recruitment_snackbar">최대 선택 가능 인원은 99명이에요!</string>
+    <string name="plan_later_time_snackbar">종료 시각은 시작 시각 이후로 선택해주세요!</string>
 
     <!-- plan open chatting -->
     <string name="plan_open_chatting_title">오픈채팅방 링크를\n추가해주세요!</string>

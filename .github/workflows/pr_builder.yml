@@ -55,32 +55,32 @@ jobs:
       - name: Access IO_SENTRY_DSN
         env:
           IO_SENTRY_TOKEN: ${{ secrets.IO_SENTRY_DSN }}
-        run: echo "io.sentry.dsn=\"IO_SENTRY_DSN\"" >> local.properties
+        run: echo "io.sentry.dsn=\"$IO_SENTRY_DSN\"" >> local.properties
 
       - name: Access KAKAO_NATIVE_APP_KEY_MANIFEST
         env:
           KAKAO_NATIVE_APP_KEY_MANIFEST: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
-        run: echo "kakao.native.app.key.manifest=\"KAKAO_NATIVE_APP_KEY_MANIFEST\"" >> local.properties
+        run: echo "kakao.native.app.key.manifest=\"$KAKAO_NATIVE_APP_KEY_MANIFEST\"" >> local.properties
 
       - name: Access KAKAO_NATIVE_APP_KEY
         env:
           KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
-        run: echo "kakao.native.app.key=\"KAKAO_NATIVE_APP_KEY\"" >> local.properties
+        run: echo "kakao.native.app.key=\"$KAKAO_NATIVE_APP_KEY\"" >> local.properties
 
       - name: Access DEFAULTS_ORG
         env:
           DEFAULTS_ORG: ${{ secrets.DEFAULTS_ORG }}
-        run: echo "defaults.org=\"DEFAULTS_ORG\"" >> sentry.properties
+        run: echo "defaults.org=\"$DEFAULTS_ORG\"" >> sentry.properties
 
       - name: Access DEFAULTS_PROJECT
         env:
           DEFAULTS_PROJECT: ${{ secrets.DEFAULTS_PROJECT }}
-        run: echo "defaults.project=\"DEFAULTS_PROJECT\"" >> sentry.properties
+        run: echo "defaults.project=\"$DEFAULTS_PROJECT\"" >> sentry.properties
 
       - name: Access AUTH_TOKEN
         env:
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-        run: echo "auth.token=\"AUTH_TOKEN\"" >> sentry.properties
+        run: echo "auth.token=\"$AUTH_TOKEN\"" >> sentry.properties
 
       - name: Lint Check
         run: ./gradlew ktlintCheck -PcompileSdkVersion=34

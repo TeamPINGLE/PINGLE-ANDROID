@@ -3,12 +3,10 @@ package org.sopt.pingle.util.view
 import android.content.res.Resources
 import android.view.View
 import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getString
 import androidx.recyclerview.widget.DiffUtil
-import com.google.android.material.snackbar.Snackbar
 
 fun View.stringOf(@StringRes resId: Int) = getString(context, resId)
 

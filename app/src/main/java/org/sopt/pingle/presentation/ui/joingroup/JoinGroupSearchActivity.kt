@@ -54,7 +54,7 @@ class JoinGroupSearchActivity :
             hideKeyboard(binding.etJoinGroupSearch)
         }
 
-        binding.etJoinGroupSearch.setOnKeyListener { v, keyCode, event ->
+        binding.etJoinGroupSearch.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 viewModel.joinGroupSearchState(binding.etJoinGroupSearch.text.toString())
                 hideKeyboard(binding.etJoinGroupSearch)

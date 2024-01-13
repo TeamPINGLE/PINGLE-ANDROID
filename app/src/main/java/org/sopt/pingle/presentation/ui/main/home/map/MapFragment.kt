@@ -132,7 +132,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun collectData() {
-        mapViewModel.category.flowWithLifecycle(lifecycle).onEach { category ->
+        mapViewModel.category.flowWithLifecycle(lifecycle).onEach {
             mapViewModel.getPinListWithoutFilter()
         }.launchIn(lifecycleScope)
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_item_participant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing6"
+        android:layout_marginTop="@dimen/spacing6"
+        android:layout_marginEnd="@dimen/spacing6"
+        android:layout_marginBottom="@dimen/spacing6"
+        android:background="@drawable/shape_border_radius_10"
+        android:backgroundTint="@color/g_10">
+
+        <TextView
+            android:id="@+id/tv_participant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="@dimen/spacing23"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="@dimen/spacing23"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            android:textColor="@color/g_01"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="참여자 이름" />
+
+        <TextView
+            android:id="@+id/tv_participant_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="@dimen/spacing3"
+            android:text="@string/participant_owner"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Bold.10"
+            android:textColor="@color/pingle_green"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/tv_participant_owner_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_participant_owner_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="@dimen/spacing3"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            android:textColor="@color/g_01"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_participant_owner"
+            tools:text="개최자 이름" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

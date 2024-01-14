@@ -76,7 +76,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                    android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
                     android:textColor="@color/g_03"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

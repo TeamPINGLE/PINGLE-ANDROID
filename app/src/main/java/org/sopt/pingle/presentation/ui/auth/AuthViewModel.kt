@@ -62,7 +62,7 @@ class AuthViewModel @Inject constructor(
                     with(localStorage) {
                         userName = userInfoEntity.name
                         if (userInfoEntity.groups.isEmpty()) {
-                            groupId = -1
+                            groupId = DEFAULT_VALUE
                             groupName = ""
                         } else {
                             groupId = userInfoEntity.groups[FIRST_INDEX].id
@@ -80,5 +80,6 @@ class AuthViewModel @Inject constructor(
         const val LOGIN_PLATFORM = "KAKAO"
         const val HEADER_BEARER = "Bearer "
         const val FIRST_INDEX = 0
+        const val DEFAULT_VALUE = -1
     }
 }

@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import org.sopt.pingle.databinding.ItemParticipantBinding
-import org.sopt.pingle.domain.model.ParticipantEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
 class ParticipantAdapter :

@@ -1,7 +1,6 @@
 package org.sopt.pingle.presentation.ui.participant
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope

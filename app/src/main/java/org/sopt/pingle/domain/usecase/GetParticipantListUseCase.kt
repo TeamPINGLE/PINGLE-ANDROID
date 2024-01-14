@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import org.sopt.pingle.domain.model.ParticipantEntity
 import org.sopt.pingle.domain.repository.ParticipantRepository
 
-class GetParticipantListUseCase (
+class GetParticipantListUseCase(
     private val participantRepository: ParticipantRepository
 ) {
     suspend operator fun invoke(meetingId: Long): Flow<ParticipantEntity> =

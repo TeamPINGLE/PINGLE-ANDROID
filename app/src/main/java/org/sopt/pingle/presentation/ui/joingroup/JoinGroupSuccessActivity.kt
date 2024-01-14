@@ -24,9 +24,7 @@ class JoinGroupSuccessActivity :
     }
 
     private fun initLayout() {
-        // TODO 이전 화면에서 Intent를 통해서 groupName을 가져옴
-        // groupName = intent.getStringExtra(JoinGroupCodeActivity.GROUP_NAME).toString()
-        groupName = "SOPT"
+        groupName = intent.getStringExtra(JoinGroupCodeActivity.GROUP_NAME).toString()
 
         binding.tvJoinGroupSuccessDescriptionGroupName.text = SpannableString(
             getString(

@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.main.home.map
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -137,24 +136,23 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         mapViewModel.category.flowWithLifecycle(lifecycle)
             .distinctUntilChanged()
             .onEach {
-            mapViewModel.getPinListWithoutFilter()
-
-        }.launchIn(lifecycleScope)
+                mapViewModel.getPinListWithoutFilter()
+            }.launchIn(lifecycleScope)
 
         mapViewModel.pinEntityListState.flowWithLifecycle(lifecycle)
             .distinctUntilChanged()
             .onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> {
-                    if (::naverMap.isInitialized) {
-                        makeMarkers(uiState.data)
-                        mapViewModel.clearSelectedMarkerPosition()
+                when (uiState) {
+                    is UiState.Success -> {
+                        if (::naverMap.isInitialized) {
+                            makeMarkers(uiState.data)
+                            mapViewModel.clearSelectedMarkerPosition()
+                        }
                     }
-                }
 
-                else -> Unit
-            }
-        }.launchIn(lifecycleScope)
+                    else -> Unit
+                }
+            }.launchIn(lifecycleScope)
 
         mapViewModel.markerModelData.flowWithLifecycle(lifecycle)
             .onEach { markerModelData ->
@@ -204,11 +202,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-                ContextCompat.checkSelfPermission(
+            ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-            }
+        }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 

@@ -278,8 +278,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_card_bottom_map_participate"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_card_bottom_map"
-                app:strokeColor="@color/g_03" />
+                app:layout_constraintTop_toBottomOf="@id/iv_card_bottom_map" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_card_bottom_map_participate"

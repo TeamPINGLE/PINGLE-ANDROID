@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.main.home.map
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -22,6 +23,7 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -132,21 +134,20 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun collectData() {
-        mapViewModel.category.flowWithLifecycle(lifecycle).onEach {
+        mapViewModel.category.flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
+            .onEach {
             mapViewModel.getPinListWithoutFilter()
+
         }.launchIn(lifecycleScope)
 
-        mapViewModel.pinEntityListState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        mapViewModel.pinEntityListState.flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
+            .onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
                     if (::naverMap.isInitialized) {
                         makeMarkers(uiState.data)
-                        with(binding) {
-                            fabMapHere.visibility = View.VISIBLE
-                            fabMapList.visibility = View.VISIBLE
-                            cardMap.visibility = View.INVISIBLE
-                        }
-
                         mapViewModel.clearSelectedMarkerPosition()
                     }
                 }

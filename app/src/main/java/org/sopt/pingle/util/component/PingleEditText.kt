@@ -3,6 +3,7 @@ package org.sopt.pingle.util.component
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
+import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -42,6 +43,11 @@ class PingleEditText @JvmOverloads constructor(
 
             val hint = getString(R.styleable.pingleEditText_hint)
             binding.etEditText.hint = hint
+
+            val maxLength = getInt(R.styleable.pingleEditText_maxLength, -1)
+            if (maxLength > 0) {
+                binding.etEditText.filters = arrayOf(InputFilter.LengthFilter(maxLength))
+            }
         }
     }
 }

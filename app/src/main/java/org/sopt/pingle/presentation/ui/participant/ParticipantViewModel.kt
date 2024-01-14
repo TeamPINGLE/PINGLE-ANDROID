@@ -7,52 +7,52 @@ class ParticipantViewModel : ViewModel() {
 
     val mockParticipantList = listOf<ParticipantEntity>(
         ParticipantEntity(
-            participant = "내가 개최자다",
+            participant = "내가 개최자다"
         ),
         ParticipantEntity(
-            participant = "하지은",
+            participant = "하지은"
         ),
         ParticipantEntity(
-            participant = "내이름은되게긴데뭔지궁금하지안궁금하니궁금하니",
+            participant = "내이름은되게긴데뭔지궁금하지안궁금하니궁금하니"
         ),
         ParticipantEntity(
-            participant = "나는 배로로",
+            participant = "나는 배로로"
         ),
         ParticipantEntity(
-            participant = "김민우",
+            participant = "김민우"
         ),
         ParticipantEntity(
-            participant = "박상준",
+            participant = "박상준"
         ),
         ParticipantEntity(
-            participant = "박재연",
+            participant = "박재연"
         ),
         ParticipantEntity(
-            participant = "이다은",
+            participant = "이다은"
         ),
         ParticipantEntity(
-            participant = "박소현",
+            participant = "박소현"
         ),
         ParticipantEntity(
-            participant = "장지원",
+            participant = "장지원"
         ),
         ParticipantEntity(
-            participant = "강민수",
+            participant = "강민수"
         ),
         ParticipantEntity(
-            participant = "정채은",
+            participant = "정채은"
         ),
         ParticipantEntity(
-            participant = "승욘핑",
+            participant = "승욘핑"
         ),
         ParticipantEntity(
-            participant = "최서인",
+            participant = "최서인"
         ),
         ParticipantEntity(
-            participant = "오슴도치",
+            participant = "오슴도치"
         ),
         ParticipantEntity(
-            participant = "방민지",
-        ),
+            participant = "방민지"
+        )
     )
 }

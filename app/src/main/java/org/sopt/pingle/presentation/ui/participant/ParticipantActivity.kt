@@ -16,10 +16,17 @@ class ParticipantActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initLayout()
+        addListeners()
     }
 
     private fun initLayout() {
         binding.rvParticipant.adapter = participantAdapter
         participantAdapter.submitList(participantViewModel.mockParticipantList)
+    }
+
+    private fun addListeners() {
+        binding.includeParticipantTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
+            finish()
+        }
     }
 }

@@ -11,12 +11,12 @@ class ParticipantAdapter :
     ListAdapter<ParticipantEntity, ParticipantViewHolder>(
         ItemDiffCallback<ParticipantEntity>(
             onItemsTheSame = { old, new -> old.participant == new.participant },
-            onContentsTheSame = { old, new -> old == new },
-        ),
+            onContentsTheSame = { old, new -> old == new }
+        )
     ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParticipantViewHolder =
         ParticipantViewHolder(
-            ItemParticipantBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            ItemParticipantBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     override fun onBindViewHolder(holder: ParticipantViewHolder, position: Int) {

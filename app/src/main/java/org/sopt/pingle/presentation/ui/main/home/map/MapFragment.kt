@@ -155,9 +155,9 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             }
         }.launchIn(lifecycleScope)
 
-        mapViewModel.selectedMarkerPosition.flowWithLifecycle(lifecycle)
-            .onEach { selectedMarkerPosition ->
-                (selectedMarkerPosition == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
+        mapViewModel.markerModelData.flowWithLifecycle(lifecycle)
+            .onEach { markerModelData ->
+                (markerModelData.first == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
                     with(binding) {
                         fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
                         fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
@@ -203,11 +203,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
@@ -241,7 +241,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun makeMarkers(pinEntityList: List<PinEntity>) {
-        mapViewModel.clearMarkerList()
+        mapViewModel.clearMarkerModelData()
 
         pinEntityList.mapIndexed { index, pinEntity ->
             pinEntity.toMarkerModel().apply {
@@ -254,7 +254,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         return@setOnClickListener true
                     }
                 }
-                mapViewModel.addMarkerList(this)
+                mapViewModel.addMarkerModelList(this)
             }
         }
     }

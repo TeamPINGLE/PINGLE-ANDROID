@@ -8,9 +8,9 @@ import org.sopt.pingle.domain.model.ParticipantEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
 class ParticipantAdapter :
-    ListAdapter<ParticipantEntity, ParticipantViewHolder>(
-        ItemDiffCallback<ParticipantEntity>(
-            onItemsTheSame = { old, new -> old.participant == new.participant },
+    ListAdapter<String, ParticipantViewHolder>(
+        ItemDiffCallback<String>(
+            onItemsTheSame = { old, new -> old == new },
             onContentsTheSame = { old, new -> old == new }
         )
     ) {

@@ -50,8 +50,7 @@ class PlanViewModel @Inject constructor(
     private val _selectedCategory = MutableStateFlow<CategoryType?>(null)
     val selectedCategory get() = _selectedCategory.asStateFlow()
 
-    private val _selectedRecruitment = MutableStateFlow<String?>("1")
-    val selectedRecruitment get() = _selectedRecruitment.asStateFlow()
+    val selectedRecruitment = MutableStateFlow(DEFAULT_RECRUITMENT)
 
     private val _planLocationListState =
         MutableSharedFlow<UiState<List<PlanLocationEntity>>>()
@@ -97,21 +96,31 @@ class PlanViewModel @Inject constructor(
                 (currentPage == PlanType.TITLE.position && planTitle.isNotBlank()) ||
                 (currentPage == PlanType.DATETIME.position && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
                 (currentPage == PlanType.LOCATION.position && selectedLocation != null) ||
-                (currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && selectedRecruitment != INVALID_RECRUIT) ||
+                (
+                    currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && checkRecruitment(
+                        selectedRecruitment
+                    )
+                    ) ||
                 (currentPage == PlanType.OPENCHATTING.position && planOpenChattingLink.isNotBlank()) ||
                 (currentPage == PlanType.SUMMARY.position)
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
 
+    private fun checkRecruitment(selectedRecruitment: String): Boolean {
+        val recruitment = selectedRecruitment.toInt()
+        if (recruitment in START_RECRUITMENT..END_RECRUITMENT) return true
+        return false
+    }
+
     fun incRecruitmentNum() {
-        selectedRecruitment.value?.toInt()?.let { setSelectedRecruitment(it.plus(1).toString()) }
+        selectedRecruitment.value.toInt().let { setSelectedRecruitment(it.plus(1).toString()) }
     }
 
     fun decRecruitmentNum() {
-        selectedRecruitment.value?.toInt()?.let { setSelectedRecruitment(it.minus(1).toString()) }
+        selectedRecruitment.value.toInt().let { setSelectedRecruitment(it.minus(1).toString()) }
     }
 
     fun setSelectedRecruitment(recruitment: String) {
-        _selectedRecruitment.value = recruitment
+        selectedRecruitment.value = recruitment
     }
 
     fun setSelectedCategory(categoryType: CategoryType) {
@@ -195,7 +204,7 @@ class PlanViewModel @Inject constructor(
             runCatching {
                 _selectedCategory.value?.let { selectedCategory ->
                     _selectedLocation.value?.let { selectedLocation ->
-                        _selectedRecruitment.value?.let { selectedRecruitment ->
+                        selectedRecruitment.value?.let { selectedRecruitment ->
                             postPlanMeetingUseCase(
                                 teamId = localStorage.groupId,
                                 planMeetingEntity = PlanMeetingEntity(
@@ -239,6 +248,8 @@ class PlanViewModel @Inject constructor(
     companion object {
         const val FIRST_PAGE_POSITION = 0
         const val DEFAULT_OLD_POSITION = -1
-        const val INVALID_RECRUIT = "1"
+        const val DEFAULT_RECRUITMENT = "1"
+        const val START_RECRUITMENT = 2
+        const val END_RECRUITMENT = 99
     }
 }

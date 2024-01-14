@@ -40,6 +40,7 @@ class PlanRecruitmentFragment :
                 View.OnKeyListener { _, keyCode, event ->
                     if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                         viewModel.setSelectedRecruitment(etPlanRecruitmentInputNumber.text.toString())
+                        requireActivity().hideKeyboard(etPlanRecruitmentInputNumber)
                         return@OnKeyListener true
                     }
                     false
@@ -58,7 +59,8 @@ class PlanRecruitmentFragment :
 
     private fun collectData() {
         viewModel.selectedRecruitment.flowWithLifecycle(lifecycle).onEach { selectedRecruitment ->
-            when (selectedRecruitment.toString()) {
+            when (selectedRecruitment) {
+                INVALID_RECRUITMENT -> viewModel.setSelectedRecruitment("1")
                 MAX_RECRUITMENT -> binding.btnPlanRecruitmentPlus.isEnabled = false
                 MIN_RECRUITMENT -> binding.btnPlanRecruitmentMinus.isEnabled = false
                 else -> {
@@ -72,5 +74,6 @@ class PlanRecruitmentFragment :
     companion object {
         const val MAX_RECRUITMENT = "99"
         const val MIN_RECRUITMENT = "1"
+        const val INVALID_RECRUITMENT = "0"
     }
 }

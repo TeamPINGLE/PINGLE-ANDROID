@@ -57,10 +57,7 @@ class PingleLocalDataSourceImpl @Inject constructor(
 
     override fun clear() {
         pref.edit {
-            remove(AUTO_LOGIN)
-            remove(USER_NAME)
-            remove(ACCESS_TOKEN)
-            remove(REFRESH_TOKEN)
+            clear()
         }
     }
 

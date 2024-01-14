@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.plan
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -23,14 +24,13 @@ import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.PlanType
 import org.sopt.pingle.util.combineAll
 import org.sopt.pingle.util.view.UiState
-import javax.inject.Inject
 
 @HiltViewModel
 class PlanViewModel @Inject constructor(
     private val localStorage: PingleLocalDataSource,
     private val getPlanLocationListUseCase: GetPlanLocationListUseCase,
     private val postPlanMeetingUseCase: PostPlanMeetingUseCase,
-    private val getUserInfoUseCase: GetUserInfoUseCase,
+    private val getUserInfoUseCase: GetUserInfoUseCase
 ) : ViewModel() {
     private val _currentPage = MutableStateFlow(FIRST_PAGE_POSITION)
     val currentPage get() = _currentPage.asStateFlow()
@@ -79,7 +79,7 @@ class PlanViewModel @Inject constructor(
         selectedLocation,
         selectedRecruitment,
         planOpenChattingLink,
-        planSummary,
+        planSummary
     ).combineAll()
         .map { values ->
             val currentPage = values[0] as Int
@@ -98,7 +98,7 @@ class PlanViewModel @Inject constructor(
                 (currentPage == PlanType.LOCATION.position && selectedLocation != null) ||
                 (
                     currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && checkRecruitment(
-                        selectedRecruitment,
+                        selectedRecruitment
                     )
                     ) ||
                 (currentPage == PlanType.OPENCHATTING.position && planOpenChattingLink.isNotBlank()) ||
@@ -218,8 +218,8 @@ class PlanViewModel @Inject constructor(
                                     roadAddress = selectedLocation.roadAddress,
                                     location = selectedLocation.location,
                                     maxParticipants = selectedRecruitment.toInt(),
-                                    chatLink = planOpenChattingLink.value,
-                                ),
+                                    chatLink = planOpenChattingLink.value
+                                )
                             ).collect() { data ->
                                 _planMeetingState.emit(UiState.Success(data))
                             }

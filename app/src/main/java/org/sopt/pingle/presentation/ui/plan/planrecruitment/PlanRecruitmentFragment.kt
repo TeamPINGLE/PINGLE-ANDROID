@@ -44,7 +44,7 @@ class PlanRecruitmentFragment :
                         return@OnKeyListener true
                     }
                     false
-                },
+                }
             )
 
             btnPlanRecruitmentPlus.setOnClickListener {

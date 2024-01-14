@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.plan
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityPlanBinding
+import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.presentation.ui.plan.plancategory.PlanCategoryFragment
 import org.sopt.pingle.presentation.ui.plan.plandatetime.PlanDateTimeFragment
 import org.sopt.pingle.presentation.ui.plan.planlocation.PlanLocationFragment
@@ -117,7 +119,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
         planViewModel.planMeetingState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Success -> finish()
+                is UiState.Success -> navigateToHome()
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
@@ -132,6 +134,14 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             clickBtn = {},
             clickTextBtn = { finish() }
         ).show(supportFragmentManager, EXIT_MODAL)
+    }
+
+    private fun navigateToHome() {
+        Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(this)
+            finish()
+        }
     }
 
     companion object {

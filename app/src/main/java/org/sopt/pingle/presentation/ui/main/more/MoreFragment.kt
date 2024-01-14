@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.BuildConfig
@@ -15,11 +14,13 @@ import org.sopt.pingle.R
 import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.FragmentMoreBinding
 import org.sopt.pingle.presentation.ui.auth.AuthActivity
+import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more) {
@@ -36,8 +37,10 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     private fun initLayout() {
-        binding.tvMoreVersionDetail.text = BuildConfig.VERSION_NAME
-        binding.tvMoreMyGroupContent.text = moreViewModel.getGroupName()
+        with(binding) {
+            tvMoreVersionDetail.text = BuildConfig.VERSION_NAME
+            tvMoreMyGroupContent.text = moreViewModel.getGroupName()
+        }
         moreViewModel.getUserInfo()
     }
 
@@ -56,6 +59,9 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
 
         binding.tvMoreWithdrawTitle.setOnClickListener {
             showWithDrawLogoutDialogFragment()
+        }
+        binding.ivMoreMoveToMyGroup.setOnClickListener {
+            startActivity(Intent(requireContext(), ParticipantActivity::class.java))
         }
     }
 
@@ -137,7 +143,9 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     companion object {
         private const val LOGOUT_MODAL = "logoutModal"
         private const val WITHDRAW_MODAL = "withModal"
-        private const val CONTACT = "https://pinglepingle.notion.site/585c13c92e1842c7ada334e78b731303?pvs=4"
-        private const val NOTICE = "https://pinglepingle.notion.site/38d504b943a4479695b7ca9206c7b732?pvs=4"
+        private const val CONTACT =
+            "https://pinglepingle.notion.site/585c13c92e1842c7ada334e78b731303?pvs=4"
+        private const val NOTICE =
+            "https://pinglepingle.notion.site/38d504b943a4479695b7ca9206c7b732?pvs=4"
     }
 }

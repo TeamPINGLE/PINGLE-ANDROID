@@ -50,7 +50,7 @@ class PlanViewModel @Inject constructor(
     private val _selectedCategory = MutableStateFlow<CategoryType?>(null)
     val selectedCategory get() = _selectedCategory.asStateFlow()
 
-    val selectedRecruitment = MutableStateFlow("1")
+    val selectedRecruitment = MutableStateFlow(DEFAULT_RECRUITMENT)
 
     private val _planLocationListState =
         MutableSharedFlow<UiState<List<PlanLocationEntity>>>()
@@ -107,7 +107,7 @@ class PlanViewModel @Inject constructor(
 
     private fun checkRecruitment(selectedRecruitment: String): Boolean {
         val recruitment = selectedRecruitment.toInt()
-        if (recruitment in 2..99) return true
+        if (recruitment in START_RECRUITMENT..END_RECRUITMENT) return true
         return false
     }
 
@@ -248,5 +248,8 @@ class PlanViewModel @Inject constructor(
     companion object {
         const val FIRST_PAGE_POSITION = 0
         const val DEFAULT_OLD_POSITION = -1
+        const val DEFAULT_RECRUITMENT = "1"
+        const val START_RECRUITMENT = 2
+        const val END_RECRUITMENT = 99
     }
 }

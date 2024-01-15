@@ -30,7 +30,7 @@
             android:layout_marginStart="21dp"
             android:layout_marginTop="48dp"
             android:text="@string/plan_announcement_title"
-            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.32"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_plan_announcement_exit_btn" />

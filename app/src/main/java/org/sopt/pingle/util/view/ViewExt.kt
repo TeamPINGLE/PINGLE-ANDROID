@@ -1,6 +1,5 @@
 package org.sopt.pingle.util.view
 
-import android.content.res.Resources
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes

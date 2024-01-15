@@ -181,6 +181,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                     is UiState.Success -> {
                         if (::naverMap.isInitialized) {
                             makeMarkers(uiState.data)
+                            mapCardAdapter.clearData()
                             mapViewModel.clearSelectedMarkerPosition()
                         }
                     }

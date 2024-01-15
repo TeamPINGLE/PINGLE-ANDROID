@@ -2,6 +2,7 @@ package org.sopt.pingle.presentation.ui.main.home.map
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,6 +12,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.LocationServices
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraAnimation
@@ -39,12 +41,14 @@ import org.sopt.pingle.util.fragment.navigateToFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
+import org.sopt.pingle.util.view.toPx
 
 @AndroidEntryPoint
 class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {
     private val mapViewModel by viewModels<MapViewModel>()
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
+    private lateinit var mapCardAdapter: MapCardAdapter
     private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -63,6 +67,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         addListeners()
     }
 
+    override fun onDestroyView() {
+        binding.vpMapCard.adapter = null
+        super.onDestroyView()
+    }
+
     override fun onMapReady(naverMap: NaverMap) {
         this.naverMap = naverMap.apply {
             isNightModeEnabled = true
@@ -77,6 +86,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
             setOnMapClickListener { _, _ ->
                 mapViewModel.clearSelectedMarkerPosition()
+                mapCardAdapter.clearData()
             }
         }
 
@@ -98,6 +108,31 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun initLayout() {
+        mapCardAdapter = MapCardAdapter(
+            navigateToWebViewWithChatLink = ::navigateToWebViewWithChatLink,
+            showMapJoinModalDialogFragment = ::showMapJoinModalDialogFragment,
+            showMapCancelModalDialogFragment = ::showMapCancelModalDialogFragment
+        )
+
+        with(binding.vpMapCard) {
+            adapter = mapCardAdapter
+            addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(
+                    outRect: Rect,
+                    view: View,
+                    parent: RecyclerView,
+                    state: RecyclerView.State
+                ) {
+                    outRect.right = VIEWPAGER_ITEM_OFFSET.toPx()
+                    outRect.left = VIEWPAGER_ITEM_OFFSET.toPx()
+                }
+            })
+            offscreenPageLimit = 1
+            setPageTransformer { page, position ->
+                page.translationX = (VIEWPAGER_PAGE_TRANSFORMER).toPx() * position
+            }
+        }
+
         with(binding) {
             chipMapCategoryPlay.setChipCategoryType(CategoryType.PLAY)
             chipMapCategoryStudy.setChipCategoryType(CategoryType.STUDY)
@@ -160,7 +195,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                     with(binding) {
                         fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
                         fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
-                        cardMap.visibility = if (this@run) View.INVISIBLE else View.VISIBLE
                     }
                 }
             }.launchIn(lifecycleScope)
@@ -168,18 +202,9 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         mapViewModel.pingleListState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    with(binding.cardMap) {
-                        initLayout(uiState.data.second[SINGLE_SELECTION])
+                    with(mapCardAdapter) {
                         setPinId(uiState.data.first)
-                        setOnChatButtonClick {
-                            startActivity(navigateToWebView(uiState.data.second[SINGLE_SELECTION].chatLink))
-                        }
-                        setOnParticipateButtonClick {
-                            when (uiState.data.second[SINGLE_SELECTION].isParticipating) {
-                                true -> showMapCancelModalDialogFragment(uiState.data.second[SINGLE_SELECTION])
-                                false -> showMapModalDialogFragment(uiState.data.second[SINGLE_SELECTION])
-                            }
-                        }
+                        submitList(uiState.data.second)
                     }
                 }
 
@@ -190,8 +215,8 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         mapViewModel.pingleParticipationState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    with(binding.cardMap) {
-                        pinId?.let { mapViewModel.getPingleList(pinId = it) }
+                    mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
+                        mapViewModel.getPingleList(pinId = pinId)
                     }
                 }
 
@@ -258,6 +283,10 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
     }
 
+    private fun navigateToWebViewWithChatLink(chatLink: String) {
+        startActivity(navigateToWebView(chatLink))
+    }
+
     private fun showMapCancelModalDialogFragment(pingleEntity: PingleEntity) {
         AllModalDialogFragment(
             title = stringOf(R.string.map_cancel_modal_title),
@@ -269,7 +298,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         ).show(childFragmentManager, MAP_CANCEL_MODAL)
     }
 
-    private fun showMapModalDialogFragment(pingleEntity: PingleEntity) {
+    private fun showMapJoinModalDialogFragment(pingleEntity: PingleEntity) {
         with(pingleEntity) {
             MapModalDialogFragment(
                 category = CategoryType.fromString(categoryName = category),
@@ -307,5 +336,9 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             OverlayImage.fromResource(R.drawable.ic_pin_others_active)
 
         private const val MIN_ZOOM = 5.5
+        private const val DEFAULT_VALUE = -1L
+
+        private const val VIEWPAGER_ITEM_OFFSET = 24
+        private const val VIEWPAGER_PAGE_TRANSFORMER = -40
     }
 }

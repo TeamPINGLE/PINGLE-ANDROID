@@ -164,4 +164,9 @@
     <!-- construction -->
     <string name="construction_title">아직 공사중!</string>
     <string name="construction_detail">아직 구현중인 기능이에요\n조금만 기다려주세요</string>
+
+    <!-- my pingle -->
+    <string name="my_pingle_chat">대화하기</string>
+    <string name="my_pingle_trash">참여 취소하기</string>
+    <string name="my_pingle_topbar">마이핑글</string>
 </resources>

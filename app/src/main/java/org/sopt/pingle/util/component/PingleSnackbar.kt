@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.google.android.material.snackbar.Snackbar
 import org.sopt.pingle.databinding.ViewSnackbarBinding
-import org.sopt.pingle.util.view.toPx
+import org.sopt.pingle.util.toPx
 
 object PingleSnackbar {
     fun makeSnackbar(view: View, message: String, botMarin: Int) {

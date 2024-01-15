@@ -85,10 +85,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <org.sopt.pingle.util.component.PingleCard
-            android:id="@+id/card_map"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_map_card"
             android:layout_width="0dp"
-            android:visibility="invisible"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/card_horizontal_margin"
             android:layout_marginBottom="8dp"

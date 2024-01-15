@@ -2,6 +2,7 @@ package org.sopt.pingle.presentation.ui.main.home.map
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,6 +12,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.LocationServices
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraAnimation
@@ -39,6 +41,7 @@ import org.sopt.pingle.util.fragment.navigateToFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
+import org.sopt.pingle.util.view.toPx
 
 @AndroidEntryPoint
 class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {
@@ -111,8 +114,26 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             showMapCancelModalDialogFragment = ::showMapCancelModalDialogFragment
         )
 
+        with(binding.vpMapCard) {
+            adapter = mapCardAdapter
+            addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(
+                    outRect: Rect,
+                    view: View,
+                    parent: RecyclerView,
+                    state: RecyclerView.State
+                ) {
+                    outRect.right = VIEWPAGER_ITEM_OFFSET.toPx()
+                    outRect.left = VIEWPAGER_ITEM_OFFSET.toPx()
+                }
+            })
+            offscreenPageLimit = 1
+            setPageTransformer { page, position ->
+                page.translationX = (VIEWPAGER_PAGE_TRANSFORMER).toPx() * position
+            }
+        }
+
         with(binding) {
-            vpMapCard.adapter = mapCardAdapter
             chipMapCategoryPlay.setChipCategoryType(CategoryType.PLAY)
             chipMapCategoryStudy.setChipCategoryType(CategoryType.STUDY)
             chipMapCategoryMulti.setChipCategoryType(CategoryType.MULTI)
@@ -317,5 +338,8 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
         private const val MIN_ZOOM = 5.5
         private const val DEFAULT_VALUE = -1L
+
+        private const val VIEWPAGER_ITEM_OFFSET = 24
+        private const val VIEWPAGER_PAGE_TRANSFORMER = -40
     }
 }

@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.UserInfoEntity
@@ -18,7 +17,6 @@ import org.sopt.pingle.util.view.UiState
 class MoreViewModel @Inject constructor(
     private val localStorage: PingleLocalDataSource,
     private val authRepository: AuthRepository,
-    private val pingleLocalDataSource: PingleLocalDataSource,
     private val getUserInfoUseCase: GetUserInfoUseCase
 ) : ViewModel() {
     private val _logoutState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
@@ -38,7 +36,7 @@ class MoreViewModel @Inject constructor(
                 .onSuccess { code ->
                     if (code == SUCCESS_CODE) {
                         _logoutState.value = UiState.Success(true)
-                        pingleLocalDataSource.clear()
+                        localStorage.clear()
                     } else {
                         _logoutState.value = UiState.Error(null)
                     }
@@ -54,7 +52,7 @@ class MoreViewModel @Inject constructor(
                 .onSuccess { code ->
                     if (code == SUCCESS_CODE) {
                         _withDrawState.value = UiState.Success(true)
-                        pingleLocalDataSource.clear()
+                        localStorage.clear()
                     } else {
                         _withDrawState.value = UiState.Error(null)
                     }

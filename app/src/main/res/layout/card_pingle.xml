@@ -76,7 +76,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                    android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
                     android:textColor="@color/g_03"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -278,8 +278,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_card_bottom_map_participate"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_card_bottom_map"
-                app:strokeColor="@color/g_03" />
+                app:layout_constraintTop_toBottomOf="@id/iv_card_bottom_map" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_card_bottom_map_participate"

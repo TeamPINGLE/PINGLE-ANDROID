@@ -22,6 +22,7 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -132,32 +133,30 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun collectData() {
-        mapViewModel.category.flowWithLifecycle(lifecycle).onEach {
-            mapViewModel.getPinListWithoutFilter()
-        }.launchIn(lifecycleScope)
+        mapViewModel.category.flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
+            .onEach {
+                mapViewModel.getPinListWithoutFilter()
+            }.launchIn(lifecycleScope)
 
-        mapViewModel.pinEntityListState.flowWithLifecycle(lifecycle).onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> {
-                    if (::naverMap.isInitialized) {
-                        makeMarkers(uiState.data)
-                        with(binding) {
-                            fabMapHere.visibility = View.VISIBLE
-                            fabMapList.visibility = View.VISIBLE
-                            cardMap.visibility = View.INVISIBLE
+        mapViewModel.pinEntityListState.flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        if (::naverMap.isInitialized) {
+                            makeMarkers(uiState.data)
+                            mapViewModel.clearSelectedMarkerPosition()
                         }
-
-                        mapViewModel.clearSelectedMarkerPosition()
                     }
+
+                    else -> Unit
                 }
+            }.launchIn(lifecycleScope)
 
-                else -> Unit
-            }
-        }.launchIn(lifecycleScope)
-
-        mapViewModel.selectedMarkerPosition.flowWithLifecycle(lifecycle)
-            .onEach { selectedMarkerPosition ->
-                (selectedMarkerPosition == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
+        mapViewModel.markerModelData.flowWithLifecycle(lifecycle)
+            .onEach { markerModelData ->
+                (markerModelData.first == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
                     with(binding) {
                         fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
                         fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
@@ -241,7 +240,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun makeMarkers(pinEntityList: List<PinEntity>) {
-        mapViewModel.clearMarkerList()
+        mapViewModel.clearMarkerModelData()
 
         pinEntityList.mapIndexed { index, pinEntity ->
             pinEntity.toMarkerModel().apply {
@@ -254,7 +253,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         return@setOnClickListener true
                     }
                 }
-                mapViewModel.addMarkerList(this)
+                mapViewModel.addMarkerModelList(this)
             }
         }
     }

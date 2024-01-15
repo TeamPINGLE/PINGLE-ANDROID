@@ -64,7 +64,7 @@
             android:inputType="number"
             android:maxLength="2"
             android:paddingVertical="@dimen/spacing28"
-            android:text="@{planViewModel.selectedRecruitment}"
+            android:text="@={planViewModel.selectedRecruitment}"
             android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.32"
             android:textColor="@color/white"
             android:textCursorDrawable="@drawable/cursor_drawble"

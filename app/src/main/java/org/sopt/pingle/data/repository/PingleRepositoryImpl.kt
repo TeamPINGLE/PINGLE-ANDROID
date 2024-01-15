@@ -4,6 +4,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.sopt.pingle.data.datasource.remote.PingleRemoteDataSource
+import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.domain.repository.PingleRepository
 
 class PingleRepositoryImpl @Inject constructor(
@@ -19,6 +20,21 @@ class PingleRepositoryImpl @Inject constructor(
     override suspend fun postPingleCancel(meetingId: Long): Flow<Unit?> = flow {
         val result = runCatching {
             pingleRemoteDataSource.postPingleCancel(meetingId = meetingId).data
+        }
+        emit(result.getOrThrow())
+    }
+
+    override suspend fun getPingleParticipationList(
+        teamId: Int,
+        participation: Boolean
+    ): Flow<List<MyPingleEntity>> = flow {
+        val result = kotlin.runCatching {
+            pingleRemoteDataSource.getPingleParticipationList(
+                teamId = teamId,
+                participation = participation
+            ).data.map { myPingle ->
+                myPingle.toMyPingleEntity()
+            }
         }
         emit(result.getOrThrow())
     }

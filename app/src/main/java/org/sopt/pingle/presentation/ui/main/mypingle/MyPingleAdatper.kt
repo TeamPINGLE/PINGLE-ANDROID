@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -9,6 +10,7 @@ import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
 class MyPingleAdatper(
+    private val context: Context,
     private val navigateToMapList: () -> Unit,
     private val showChatModalDialogFragment: (PingleEntity) -> Unit,
     private val showDeleteModalDialogFragment: (PingleEntity) -> Unit
@@ -25,6 +27,7 @@ class MyPingleAdatper(
                 parent,
                 false
             ),
+            context,
             navigateToMapList,
             showChatModalDialogFragment,
             showDeleteModalDialogFragment

@@ -2,7 +2,9 @@ package org.sopt.pingle.data.datasourceimpl.remote
 
 import javax.inject.Inject
 import org.sopt.pingle.data.datasource.remote.PingleRemoteDataSource
+import org.sopt.pingle.data.model.remote.response.ResponseMyPingleDto
 import org.sopt.pingle.data.service.PingleService
+import org.sopt.pingle.util.base.BaseResponse
 import org.sopt.pingle.util.base.NullableBaseResponse
 
 class PingleRemoteDataSourceImpl @Inject constructor(
@@ -13,4 +15,10 @@ class PingleRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun postPingleCancel(meetingId: Long): NullableBaseResponse<Unit?> =
         pingleService.postPingleCancel(meetingId = meetingId)
+
+    override suspend fun getPingleParticipationList(
+        teamId: Int,
+        participation: Boolean
+    ): BaseResponse<List<ResponseMyPingleDto>> =
+        pingleService.getPingleParticipationList(teamId = teamId, participation = participation)
 }

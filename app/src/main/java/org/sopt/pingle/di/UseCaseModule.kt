@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
@@ -14,12 +13,14 @@ import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
+import org.sopt.pingle.domain.usecase.GetPingleParticipationList
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -73,4 +74,9 @@ class UseCaseModule {
     @Singleton
     fun providesPostPlanMeetingUseCase(planRepository: PlanRepository): PostPlanMeetingUseCase =
         PostPlanMeetingUseCase(planRepository = planRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetPingleParticipationList(pingleRepository: PingleRepository): GetPingleParticipationList =
+        GetPingleParticipationList(pingleRepository = pingleRepository)
 }

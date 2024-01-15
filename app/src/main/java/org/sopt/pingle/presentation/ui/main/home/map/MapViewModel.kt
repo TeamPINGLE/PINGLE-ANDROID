@@ -50,12 +50,15 @@ class MapViewModel @Inject constructor(
     private val _pingleParticipationState = MutableSharedFlow<UiState<Unit?>>()
     val pingleParticipationState get() = _pingleParticipationState.asSharedFlow()
 
-    fun setCategory(category: CategoryType?) {
-        _category.value = category
-    }
-
     private fun setMarkerModelListIsSelected(position: Int) {
         _markerModelData.value.second[position].isSelected.set(!_markerModelData.value.second[position].isSelected.get())
+    }
+
+    private fun getMarkerModelSelected(position: Int) =
+        _markerModelData.value.second[position].isSelected.get()
+
+    fun setCategory(category: CategoryType?) {
+        _category.value = category
     }
 
     fun clearMarkerModelData() {
@@ -68,9 +71,6 @@ class MapViewModel @Inject constructor(
     fun addMarkerModelList(markerEntity: MarkerModel) {
         _markerModelData.value.second.add(markerEntity)
     }
-
-    private fun getMarkerModelSelected(position: Int) =
-        _markerModelData.value.second[position].isSelected.get()
 
     fun updateMarkerModelListSelectedValue(position: Int) {
         when (_markerModelData.value.first) {

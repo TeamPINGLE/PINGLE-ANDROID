@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupCodeBinding
 import org.sopt.pingle.domain.model.JoinGroupCodeEntity
+import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.hideKeyboard
@@ -98,9 +99,9 @@ class JoinGroupCodeActivity :
                         CODE_409 -> {
                             PingleSnackbar.makeSnackbar(
                                 view = binding.root,
-                                message = getString(R.string.join_group_code_snackbar_already_message),
+                                message = getString(R.string.join_group_code_snackbar_guide_message),
                                 bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-                                isWarning = false
+                                snackbarType = SnackbarType.GUIDE
                             )
                         }
 

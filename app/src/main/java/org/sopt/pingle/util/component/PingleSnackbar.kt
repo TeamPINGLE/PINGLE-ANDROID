@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat.getColor
 import com.google.android.material.snackbar.Snackbar
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ViewSnackbarBinding
+import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.util.view.toPx
 
 object PingleSnackbar {
@@ -17,7 +18,7 @@ object PingleSnackbar {
         view: View,
         message: String,
         bottomMarin: Int,
-        isWarning: Boolean = true
+        snackbarType: SnackbarType = SnackbarType.WARNING
     ) {
         val inflater = LayoutInflater.from(view.context)
         val binding = ViewSnackbarBinding.inflate(inflater, null, false)
@@ -38,13 +39,17 @@ object PingleSnackbar {
             marginEnd = 16.toPx()
         }
 
-        if (!isWarning) {
-            with(binding) {
-                layoutSnackbar.backgroundTintList =
-                    ColorStateList.valueOf(getColor(view.context, R.color.g_02))
-                ivSnackbarNotice.setImageResource(R.drawable.ic_all_notice_24)
-                tvSnackbar.setTextColor(getColor(view.context, R.color.black))
+        when (snackbarType) {
+            SnackbarType.GUIDE -> {
+                with(binding) {
+                    layoutSnackbar.backgroundTintList =
+                        ColorStateList.valueOf(getColor(view.context, R.color.g_02))
+                    ivSnackbarNotice.setImageResource(R.drawable.ic_all_notice_24)
+                    tvSnackbar.setTextColor(getColor(view.context, R.color.black))
+                }
             }
+
+            else -> Unit
         }
 
         with(snackbarLayout) {

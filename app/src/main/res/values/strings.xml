@@ -36,7 +36,7 @@
     <string name="join_group_code_guide">단체 개설자로부터 받은 초대 코드를 입력해주세요</string>
     <string name="join_group_code_next">입장하기</string>
     <string name="join_group_code_snackbar_warning_message">초대 코드를 다시 확인해주세요!</string>
-    <string name="join_group_code_snackbar_already_message">이미 가입된 단체입니다!</string>
+    <string name="join_group_code_snackbar_guide_message">이미 가입된 단체입니다!</string>
 
     <!-- join group search -->
     <string name="join_group_search_create_text">찾는 단체가 없나요?</string>

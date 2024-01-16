@@ -171,9 +171,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
+                android:text="@{myPingleItem.location}"
                 android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
                 android:textColor="@color/g_03"
-                android:text="@{myPingleItem.location}"
                 app:layout_constraintBottom_toBottomOf="@id/iv_my_pingle_calender_map"
                 app:layout_constraintEnd_toStartOf="@id/gl_bottom_end"
                 app:layout_constraintStart_toEndOf="@id/iv_my_pingle_calender_map"
@@ -295,7 +295,7 @@
                     android:layout_marginEnd="10dp"
                     android:text="@string/my_pingle_trash"
                     android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
-                    android:textColor="@color/g_03"
+                    android:textColor="@color/g_08"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/iv_my_pingle_menu_trash"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -304,7 +304,7 @@
                     android:id="@+id/iv_my_pingle_menu_trash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_my_trash_20"
+                    android:src="@drawable/ic_my_trash_inactivated_20"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

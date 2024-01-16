@@ -11,6 +11,6 @@ class PingleRemoteDataSourceImpl @Inject constructor(
     override suspend fun postPingleJoin(meetingId: Long): NullableBaseResponse<Unit?> =
         pingleService.postPingleJoin(meetingId = meetingId)
 
-    override suspend fun postPingleCancel(meetingId: Long): NullableBaseResponse<Unit?> =
-        pingleService.postPingleCancel(meetingId = meetingId)
+    override suspend fun deletePingleCancel(meetingId: Long): NullableBaseResponse<Unit?> =
+        pingleService.deletePingleCancel(meetingId = meetingId)
 }

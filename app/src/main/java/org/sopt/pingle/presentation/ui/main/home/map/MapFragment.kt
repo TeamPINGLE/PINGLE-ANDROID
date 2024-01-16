@@ -40,8 +40,8 @@ import org.sopt.pingle.util.component.PingleChip
 import org.sopt.pingle.util.fragment.navigateToFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
+import org.sopt.pingle.util.toPx
 import org.sopt.pingle.util.view.UiState
-import org.sopt.pingle.util.view.toPx
 
 @AndroidEntryPoint
 class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {

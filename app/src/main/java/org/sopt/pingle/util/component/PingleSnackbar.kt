@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ViewSnackbarBinding
 import org.sopt.pingle.presentation.type.SnackbarType
-import org.sopt.pingle.util.view.toPx
+import org.sopt.pingle.util.toPx
 
 object PingleSnackbar {
     private const val SNACKBAR_MARGIN = 16

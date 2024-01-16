@@ -94,7 +94,7 @@ class JoinGroupCodeActivity :
                 is UiState.Success -> navigateToJoinGroupSuccess()
 
                 is UiState.Error -> {
-                    when(uiState.message) {
+                    when (uiState.message) {
                         CODE_409 -> {
                             PingleSnackbar.makeSnackbar(
                                 view = binding.root,

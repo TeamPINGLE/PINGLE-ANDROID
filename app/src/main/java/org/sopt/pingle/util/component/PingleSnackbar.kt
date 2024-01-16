@@ -14,6 +14,9 @@ import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.util.view.toPx
 
 object PingleSnackbar {
+    private const val SNACKBAR_MARGIN = 16
+    private const val SNACKBAR_PADDING = 0
+
     fun makeSnackbar(
         view: View,
         message: String,
@@ -35,8 +38,8 @@ object PingleSnackbar {
             height = ViewGroup.LayoutParams.WRAP_CONTENT
             gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
             bottomMargin = bottomMarin.toPx()
-            marginStart = 16.toPx()
-            marginEnd = 16.toPx()
+            marginStart = SNACKBAR_MARGIN.toPx()
+            marginEnd = SNACKBAR_MARGIN.toPx()
         }
 
         when (snackbarType) {
@@ -54,7 +57,7 @@ object PingleSnackbar {
 
         with(snackbarLayout) {
             removeAllViews()
-            setPadding(0, 0, 0, 0)
+            setPadding(SNACKBAR_PADDING, SNACKBAR_PADDING, SNACKBAR_PADDING, SNACKBAR_PADDING)
             addView(binding.root)
         }
 

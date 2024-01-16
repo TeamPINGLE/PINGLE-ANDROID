@@ -12,7 +12,7 @@ interface PingleService {
     ): NullableBaseResponse<Unit?>
 
     @DELETE("$VERSION/$MEETINGS/{$MEETING_ID}/$CANCEL")
-    suspend fun postPingleCancel(
+    suspend fun deletePingleCancel(
         @Path("$MEETING_ID") meetingId: Long
     ): NullableBaseResponse<Unit?>
 

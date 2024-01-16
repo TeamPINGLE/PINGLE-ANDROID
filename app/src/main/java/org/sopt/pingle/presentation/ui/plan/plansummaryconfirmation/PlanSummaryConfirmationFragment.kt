@@ -12,6 +12,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanSummaryConfirmationBinding
 import org.sopt.pingle.presentation.ui.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
+import org.sopt.pingle.util.convertToCalenderDetail
 import org.sopt.pingle.util.fragment.colorOf
 import org.sopt.pingle.util.view.UiState
 
@@ -35,9 +36,10 @@ class PlanSummaryConfirmationFragment :
                 tvPlanSummaryConfirmationName.setTextColor(colorOf((category.textColor)))
             }
             tvPlanSummaryConfirmationName.text = viewModel.planTitle.value
-            tvPlanSummaryConfirmationCalenderDetail.text =
-                convertDateFormat(viewModel.planDate.value) + "\n" + convertTimeFormat(viewModel.startTime.value) + " ~ " + convertTimeFormat(
-                viewModel.endTime.value
+            tvPlanSummaryConfirmationCalenderDetail.text = convertToCalenderDetail(
+                date = viewModel.planDate.value,
+                startAt = viewModel.startTime.value,
+                endAt = viewModel.endTime.value
             )
             tvPlanSummaryConfirmationMapDetail.text = viewModel.selectedLocation.value?.location
             tvPlanSummaryConfirmationRecruitmentDetail.text = getString(
@@ -57,29 +59,5 @@ class PlanSummaryConfirmationFragment :
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
-    }
-
-    private fun convertTimeFormat(time: String): String =
-        time.substring(TIME_START_INDEX, TIME_END_INDEX)
-
-    private fun convertDateFormat(date: String): String {
-        val year = date.substring(YEAR_START_INDEX, YEAR_END_INDEX)
-        val month = date.substring(MONTH_START_INDEX, MONTH_END_INDEX)
-        val day = date.substring(DAY_START_INDEX, DAY_END_INDEX)
-        return year + YEAR + month + MONTH + day + DAY
-    }
-
-    companion object {
-        const val TIME_START_INDEX = 0
-        const val TIME_END_INDEX = 5
-        const val YEAR_START_INDEX = 0
-        const val YEAR_END_INDEX = 4
-        const val MONTH_START_INDEX = 5
-        const val MONTH_END_INDEX = 7
-        const val DAY_START_INDEX = 8
-        const val DAY_END_INDEX = 10
-        const val YEAR = "년 "
-        const val MONTH = "월 "
-        const val DAY = "일"
     }
 }

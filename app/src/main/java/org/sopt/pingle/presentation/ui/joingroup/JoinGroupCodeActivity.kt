@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupCodeBinding
 import org.sopt.pingle.domain.model.JoinGroupCodeEntity
+import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.hideKeyboard
@@ -94,11 +95,24 @@ class JoinGroupCodeActivity :
                 is UiState.Success -> navigateToJoinGroupSuccess()
 
                 is UiState.Error -> {
-                    PingleSnackbar.makeSnackbar(
-                        binding.root,
-                        getString(R.string.join_group_code_snackbar_message),
-                        SNACKBAR_BOTTOM_MARGIN
-                    )
+                    when (uiState.message) {
+                        CODE_409 -> {
+                            PingleSnackbar.makeSnackbar(
+                                view = binding.root,
+                                message = getString(R.string.join_group_code_snackbar_guide_message),
+                                bottomMarin = SNACKBAR_BOTTOM_MARGIN,
+                                snackbarType = SnackbarType.GUIDE
+                            )
+                        }
+
+                        else -> {
+                            PingleSnackbar.makeSnackbar(
+                                view = binding.root,
+                                message = getString(R.string.join_group_code_snackbar_warning_message),
+                                bottomMarin = SNACKBAR_BOTTOM_MARGIN
+                            )
+                        }
+                    }
                 }
 
                 is UiState.Loading -> Timber.tag(JOIN_GROUP_CODE_ACTIVITY).d(LOADING)
@@ -122,5 +136,6 @@ class JoinGroupCodeActivity :
         const val EMPTY = "Empty"
         const val JOIN_GROUP_CODE_ACTIVITY = "JoinGroupCodeActivity"
         const val SNACKBAR_BOTTOM_MARGIN = 97
+        const val CODE_409 = 409.toString()
     }
 }

@@ -106,9 +106,9 @@ class JoinGroupCodeActivity :
 
                         else -> {
                             PingleSnackbar.makeSnackbar(
-                                binding.root,
-                                getString(R.string.join_group_code_snackbar_warning_message),
-                                SNACKBAR_BOTTOM_MARGIN
+                                view = binding.root,
+                                message = getString(R.string.join_group_code_snackbar_warning_message),
+                                bottomMarin = SNACKBAR_BOTTOM_MARGIN
                             )
                         }
                     }

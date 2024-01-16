@@ -17,7 +17,7 @@ import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
-import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
+import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
 
@@ -61,8 +61,8 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesPostPingleCancelUseCase(pingleRepository: PingleRepository): PostPingleCancelUseCase =
-        PostPingleCancelUseCase(pingleRepository = pingleRepository)
+    fun providesPostPingleCancelUseCase(pingleRepository: PingleRepository): DeletePingleCancelUseCase =
+        DeletePingleCancelUseCase(pingleRepository = pingleRepository)
 
     @Provides
     @Singleton

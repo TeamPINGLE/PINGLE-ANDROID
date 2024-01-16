@@ -14,7 +14,7 @@ import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
-import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
+import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
@@ -26,7 +26,7 @@ class MapViewModel @Inject constructor(
     private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase,
     private val getPingleListUseCase: GetPingleListUseCase,
     private val postPingleJoinUseCase: PostPingleJoinUseCase,
-    private val postPingleCancelUseCase: PostPingleCancelUseCase
+    private val deletePingleCancelUseCase: DeletePingleCancelUseCase
 ) : ViewModel() {
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
@@ -152,7 +152,7 @@ class MapViewModel @Inject constructor(
         viewModelScope.launch {
             _pingleParticipationState.emit(UiState.Loading)
             runCatching {
-                postPingleCancelUseCase(
+                deletePingleCancelUseCase(
                     meetingId = meetingId
                 ).collect() { data ->
                     _pingleParticipationState.emit(UiState.Success(data))

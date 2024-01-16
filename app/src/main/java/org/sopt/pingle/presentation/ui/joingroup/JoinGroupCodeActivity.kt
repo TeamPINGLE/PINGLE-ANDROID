@@ -94,11 +94,24 @@ class JoinGroupCodeActivity :
                 is UiState.Success -> navigateToJoinGroupSuccess()
 
                 is UiState.Error -> {
-                    PingleSnackbar.makeSnackbar(
-                        binding.root,
-                        getString(R.string.join_group_code_snackbar_message),
-                        SNACKBAR_BOTTOM_MARGIN
-                    )
+                    when(uiState.message) {
+                        CODE_409 -> {
+                            PingleSnackbar.makeSnackbar(
+                                view = binding.root,
+                                message = getString(R.string.join_group_code_snackbar_already_message),
+                                bottomMarin = SNACKBAR_BOTTOM_MARGIN,
+                                isWarning = false
+                            )
+                        }
+
+                        else -> {
+                            PingleSnackbar.makeSnackbar(
+                                binding.root,
+                                getString(R.string.join_group_code_snackbar_warning_message),
+                                SNACKBAR_BOTTOM_MARGIN
+                            )
+                        }
+                    }
                 }
 
                 is UiState.Loading -> Timber.tag(JOIN_GROUP_CODE_ACTIVITY).d(LOADING)
@@ -122,5 +135,6 @@ class JoinGroupCodeActivity :
         const val EMPTY = "Empty"
         const val JOIN_GROUP_CODE_ACTIVITY = "JoinGroupCodeActivity"
         const val SNACKBAR_BOTTOM_MARGIN = 97
+        const val CODE_409 = 409.toString()
     }
 }

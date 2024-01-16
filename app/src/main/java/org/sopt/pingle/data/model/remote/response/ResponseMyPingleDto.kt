@@ -7,7 +7,7 @@ import org.sopt.pingle.domain.model.MyPingleEntity
 @Serializable
 data class ResponseMyPingleDto(
     @SerialName("id")
-    val id: String,
+    val id: Int,
     @SerialName("category")
     val category: String,
     @SerialName("name")
@@ -25,9 +25,9 @@ data class ResponseMyPingleDto(
     @SerialName("endAt")
     val endAt: String,
     @SerialName("curParticipants")
-    val curParticipants: String,
+    val curParticipants: Int,
     @SerialName("maxParticipants")
-    val maxParticipants: String,
+    val maxParticipants: Int,
     @SerialName("isOwner")
     val isOwner: Boolean
 ) {

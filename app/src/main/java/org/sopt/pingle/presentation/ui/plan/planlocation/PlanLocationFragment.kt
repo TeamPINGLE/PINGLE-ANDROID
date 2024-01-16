@@ -42,14 +42,18 @@ class PlanLocationFragment :
         }
 
         binding.ivPlanLocationSearchBtn.setOnClickListener {
+            if (binding.etPlanLocationSearch.text.isNotBlank()) {
+                planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
+            }
             requireContext().hideKeyboard(binding.etPlanLocationSearch)
-            planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
         }
 
         binding.etPlanLocationSearch.setOnKeyListener(
             View.OnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                    planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
+                    if (binding.etPlanLocationSearch.text.isNotBlank()) {
+                        planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
+                    }
                     requireContext().hideKeyboard(binding.etPlanLocationSearch)
                     return@OnKeyListener true
                 }

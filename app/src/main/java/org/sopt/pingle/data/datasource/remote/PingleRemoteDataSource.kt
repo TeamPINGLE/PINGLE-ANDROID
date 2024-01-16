@@ -11,4 +11,6 @@ interface PingleRemoteDataSource {
         teamId: Int,
         participation: Boolean
     ): BaseResponse<List<ResponseMyPingleDto>>
+
+    suspend fun deletePingle(meetingId: Long): NullableBaseResponse<Unit?>
 }

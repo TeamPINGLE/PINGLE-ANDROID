@@ -27,6 +27,11 @@ interface PingleService {
         @Query(PARTICIPATION) participation: Boolean
     ): BaseResponse<List<ResponseMyPingleDto>>
 
+    @DELETE("$VERSION/$MEETINGS/$MEETING_ID")
+    suspend fun deletePingle(
+        @Path(MEETING_ID) meetingId: Long
+    ): NullableBaseResponse<Unit?>
+
     companion object {
         const val VERSION = "v1"
         const val MEETINGS = "meetings"

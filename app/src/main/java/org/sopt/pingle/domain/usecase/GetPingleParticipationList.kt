@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.domain.repository.PingleRepository
 
-class GetPingleParticipationList(
+class GetPingleParticipationListUseCase(
     private val pingleRepository: PingleRepository
 ) {
     suspend operator fun invoke(

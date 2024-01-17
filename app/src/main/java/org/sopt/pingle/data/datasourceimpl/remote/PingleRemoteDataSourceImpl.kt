@@ -16,11 +16,11 @@ class PingleRemoteDataSourceImpl @Inject constructor(
     override suspend fun deletePingleCancel(meetingId: Long): NullableBaseResponse<Unit?> =
         pingleService.deletePingleCancel(meetingId = meetingId)
 
-    override suspend fun getPingleList(
+    override suspend fun getMyPingleList(
         teamId: Int,
         participation: Boolean
     ): BaseResponse<List<ResponseMyPingleDto>> =
-        pingleService.getPingleList(teamId = teamId, participation = participation)
+        pingleService.getMyPingleList(teamId = teamId, participation = participation)
 
     override suspend fun deletePingle(meetingId: Long): NullableBaseResponse<Unit?> =
         pingleService.deletePingle(meetingId = meetingId)

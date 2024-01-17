@@ -22,7 +22,7 @@ interface PingleService {
     ): NullableBaseResponse<Unit?>
 
     @GET("$VERSION/$USERS/$ME/$MEETINGS")
-    suspend fun getPingleList(
+    suspend fun getMyPingleList(
         @Header(X_TEAM_ID) teamId: Int,
         @Query(PARTICIPATION) participation: Boolean
     ): BaseResponse<List<ResponseMyPingleDto>>

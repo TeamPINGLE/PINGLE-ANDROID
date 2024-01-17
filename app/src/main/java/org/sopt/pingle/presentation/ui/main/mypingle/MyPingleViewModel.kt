@@ -12,13 +12,13 @@ import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
-import org.sopt.pingle.domain.usecase.GetPingleParticipationListUseCase
+import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
 import org.sopt.pingle.util.view.UiState
 
 @HiltViewModel
 class MyPingleViewModel @Inject constructor(
     private val localStorage: PingleLocalDataSource,
-    private val getPingleParticipationListUseCase: GetPingleParticipationListUseCase,
+    private val getMyPingleListUseCase: GetMyPingleListUseCase,
     private val deletePingleCancelUseCase: DeletePingleCancelUseCase
 ) : ViewModel() {
     private val _myPingleState = MutableSharedFlow<UiState<List<MyPingleEntity>>>()
@@ -31,7 +31,7 @@ class MyPingleViewModel @Inject constructor(
         viewModelScope.launch {
             _myPingleState.emit(UiState.Loading)
             runCatching {
-                getPingleParticipationListUseCase(
+                getMyPingleListUseCase(
                     teamId = localStorage.groupId,
                     participation = participation
                 ).collect { myPingleEntity ->

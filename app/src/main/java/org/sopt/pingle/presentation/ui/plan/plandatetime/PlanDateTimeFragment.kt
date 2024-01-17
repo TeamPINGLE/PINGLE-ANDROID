@@ -61,7 +61,7 @@ class PlanDateTimeFragment :
             if (selectedLocalDate.before(todayLocalDate)) {
                 PingleSnackbar.makeSnackbar(
                     binding.root,
-                    getString(R.string.plan_future_date_snackber),
+                    getString(R.string.plan_future_date_snackbar),
                     126
                 )
             } else {

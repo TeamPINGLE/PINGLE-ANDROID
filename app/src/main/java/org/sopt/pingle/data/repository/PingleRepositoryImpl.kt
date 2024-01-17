@@ -24,12 +24,12 @@ class PingleRepositoryImpl @Inject constructor(
         emit(result.getOrThrow())
     }
 
-    override suspend fun getPingleParticipationList(
+    override suspend fun getPingleList(
         teamId: Int,
         participation: Boolean
     ): Flow<List<MyPingleEntity>> = flow {
         val result = runCatching {
-            pingleRemoteDataSource.getPingleParticipationList(
+            pingleRemoteDataSource.getPingleList(
                 teamId = teamId,
                 participation = participation
             ).data.map { myPingle ->

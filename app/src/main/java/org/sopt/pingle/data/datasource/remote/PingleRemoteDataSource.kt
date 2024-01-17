@@ -7,7 +7,7 @@ import org.sopt.pingle.util.base.NullableBaseResponse
 interface PingleRemoteDataSource {
     suspend fun postPingleJoin(meetingId: Long): NullableBaseResponse<Unit?>
     suspend fun deletePingleCancel(meetingId: Long): NullableBaseResponse<Unit?>
-    suspend fun getPingleParticipationList(
+    suspend fun getPingleList(
         teamId: Int,
         participation: Boolean
     ): BaseResponse<List<ResponseMyPingleDto>>

@@ -20,9 +20,7 @@ import org.sopt.pingle.util.view.UiState
 class PlanLocationFragment :
     BindingFragment<FragmentPlanLocationBinding>(R.layout.fragment_plan_location) {
     private val planLocationViewModel by activityViewModels<PlanViewModel>()
-    private val planLocationAdapter: PlanLocationAdapter by lazy {
-        PlanLocationAdapter(::deleteOldPosition)
-    }
+    private val planLocationAdapter: PlanLocationAdapter by lazy { PlanLocationAdapter(::deleteOldPosition) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

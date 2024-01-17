@@ -4,23 +4,24 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
+import org.sopt.pingle.domain.repository.ParticipantRepository
 import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
 import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
+import org.sopt.pingle.domain.usecase.GetParticipantListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
-import org.sopt.pingle.domain.usecase.GetPingleParticipationListUseCase
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -77,6 +78,11 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesGetPingleParticipationList(pingleRepository: PingleRepository): GetPingleParticipationListUseCase =
-        GetPingleParticipationListUseCase(pingleRepository = pingleRepository)
+    fun providesGetParticipantListUseCase(participantRepository: ParticipantRepository): GetParticipantListUseCase =
+        GetParticipantListUseCase(participantRepository = participantRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetPingleParticipationList(pingleRepository: PingleRepository): GetPingleListUseCase =
+        GetPingleListUseCase(pingleRepository = pingleRepository)
 }

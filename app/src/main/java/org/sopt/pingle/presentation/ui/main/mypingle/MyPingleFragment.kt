@@ -119,15 +119,9 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             detail = stringOf(R.string.map_cancel_modal_detail),
             buttonText = stringOf(R.string.map_cancel_modal_button_text),
             textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
-            clickBtn = { viewModel.postPingleCancel(meetingId = pingleEntity.id) },
+            clickBtn = { viewModel.deletePingleCancel(meetingId = pingleEntity.id) },
             clickTextBtn = { }
         ).show(childFragmentManager, "")
-    }
-
-    fun view() {
-        binding.root.setOnClickListener {
-
-        }
     }
 
     companion object {

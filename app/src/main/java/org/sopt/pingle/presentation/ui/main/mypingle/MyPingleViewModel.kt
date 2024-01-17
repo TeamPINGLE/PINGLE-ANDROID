@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.MyPingleEntity
+import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.GetPingleParticipationListUseCase
-import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
 import org.sopt.pingle.util.view.UiState
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class MyPingleViewModel @Inject constructor(
     private val localStorage: PingleLocalDataSource,
     private val getPingleParticipationListUseCase: GetPingleParticipationListUseCase,
-    private val postPingleCancelUseCase: PostPingleCancelUseCase
+    private val deletePingleCancelUseCase: DeletePingleCancelUseCase
 ) : ViewModel() {
     private val _myPingleState = MutableSharedFlow<UiState<List<MyPingleEntity>>>()
     val myPingleState get() = _myPingleState.asSharedFlow()
@@ -53,11 +53,11 @@ class MyPingleViewModel @Inject constructor(
 
     fun riversParticipation() = (!_isParticipation.value!!)
 
-    fun postPingleCancel(meetingId: Long) {
+    fun deletePingleCancel(meetingId: Long) {
         viewModelScope.launch {
             _myPingleState.emit(UiState.Loading)
             runCatching {
-                postPingleCancelUseCase(meetingId = meetingId).collect { data ->
+                deletePingleCancelUseCase(meetingId = meetingId).collect { data ->
                     _myPingleCancelState.emit(UiState.Success(data))
                 }
             }.onFailure {

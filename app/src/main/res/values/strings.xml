@@ -174,4 +174,5 @@
     <string name="my_pingle_done">아직 참여한 핑글이 없어요\n첫 핑글과 함께 네트워킹을 시작해보세요!</string>
     <string name="my_pingle_tab_soon">\t\t예정된\t\t\t</string>
     <string name="my_pingle_tab_done">\t\t참여완료\t\t\t</string>
+    <string name="my_pingle_participant">%d/%d명</string>
 </resources>

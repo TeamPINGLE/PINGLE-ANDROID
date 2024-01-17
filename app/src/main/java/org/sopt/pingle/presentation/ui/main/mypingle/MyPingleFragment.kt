@@ -38,6 +38,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     private fun initLayout() {
         myPingleAdapter = MyPingleAdatper(
             requireContext(),
+            viewModel.getUserName(),
             navigateToMapList = ::navigateToMapList,
             navigateToWebViewWithChatLink = ::navigateToWebViewWithChatLink,
             showDeleteModalDialogFragment = ::showDeleteModalDialogFragment

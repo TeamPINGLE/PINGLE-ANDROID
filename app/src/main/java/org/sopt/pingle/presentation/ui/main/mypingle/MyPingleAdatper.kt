@@ -11,6 +11,7 @@ import org.sopt.pingle.util.view.ItemDiffCallback
 
 class MyPingleAdatper(
     private val context: Context,
+    private val userName: String,
     private val navigateToMapList: () -> Unit,
     private val navigateToWebViewWithChatLink: (String) -> Unit,
     private val showDeleteModalDialogFragment: (PingleEntity) -> Unit
@@ -28,12 +29,13 @@ class MyPingleAdatper(
                 false
             ),
             context,
+            userName,
             navigateToMapList,
             navigateToWebViewWithChatLink,
             showDeleteModalDialogFragment
         )
 
     override fun onBindViewHolder(holder: MyPingleViewHolder, position: Int) {
-        holder.onBinding(getItem(position))
+        holder.onBind(getItem(position))
     }
 }

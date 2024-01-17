@@ -1,6 +1,5 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -60,4 +59,6 @@ class MyPingleViewModel @Inject constructor(
             }
         }
     }
+
+    fun getUserName(): String = localStorage.userName
 }

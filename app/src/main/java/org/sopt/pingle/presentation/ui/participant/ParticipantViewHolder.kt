@@ -10,12 +10,16 @@ class ParticipantViewHolder(private val binding: ItemParticipantBinding) :
         binding.tvParticipantName.text = item
         binding.tvParticipantOwnerName.text = item
 
-        if (absoluteAdapterPosition == 0) {
+        if (absoluteAdapterPosition == DEFAULT_POSITION) {
             with(binding) {
                 tvParticipantName.visibility = View.INVISIBLE
                 tvParticipantOwner.visibility = View.VISIBLE
                 tvParticipantOwnerName.visibility = View.VISIBLE
             }
         }
+    }
+
+    companion object {
+        const val DEFAULT_POSITION = 0
     }
 }

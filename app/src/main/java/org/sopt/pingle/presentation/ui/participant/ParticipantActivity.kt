@@ -16,9 +16,7 @@ import org.sopt.pingle.util.view.UiState
 class ParticipantActivity :
     BindingActivity<ActivityParticipantBinding>(R.layout.activity_participant) {
     private val participantViewModel by viewModels<ParticipantViewModel>()
-    private val participantAdapter: ParticipantAdapter by lazy {
-        ParticipantAdapter()
-    }
+    private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +41,7 @@ class ParticipantActivity :
         participantViewModel.participantListState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    participantAdapter.submitList(uiState.data.participant)
+                    participantAdapter.submitList(uiState.data.participants)
                 }
                 is UiState.Empty -> {
                     participantAdapter.submitList(null)

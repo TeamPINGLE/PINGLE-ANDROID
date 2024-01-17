@@ -10,6 +10,6 @@ data class ResponseParticipantDto(
     val participants: List<String>
 ) {
     fun toParticipantEntity() = ParticipantEntity(
-        participant = participants
+        participants = participants
     )
 }

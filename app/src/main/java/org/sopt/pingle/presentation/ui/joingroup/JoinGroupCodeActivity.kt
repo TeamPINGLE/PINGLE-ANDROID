@@ -15,6 +15,7 @@ import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.hideKeyboard
+import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
 
@@ -99,7 +100,7 @@ class JoinGroupCodeActivity :
                         CODE_409 -> {
                             PingleSnackbar.makeSnackbar(
                                 view = binding.root,
-                                message = getString(R.string.join_group_code_snackbar_guide_message),
+                                message = stringOf(R.string.join_group_code_snackbar_guide_message),
                                 bottomMarin = SNACKBAR_BOTTOM_MARGIN,
                                 snackbarType = SnackbarType.GUIDE
                             )
@@ -108,7 +109,7 @@ class JoinGroupCodeActivity :
                         else -> {
                             PingleSnackbar.makeSnackbar(
                                 view = binding.root,
-                                message = getString(R.string.join_group_code_snackbar_warning_message),
+                                message = stringOf(R.string.join_group_code_snackbar_warning_message),
                                 bottomMarin = SNACKBAR_BOTTOM_MARGIN
                             )
                         }
@@ -124,6 +125,7 @@ class JoinGroupCodeActivity :
 
     private fun navigateToJoinGroupSuccess() {
         Intent(this, JoinGroupSuccessActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             putExtra(GROUP_NAME, binding.tvJoinGroupCodeGroupName.text)
             startActivity(this)
         }

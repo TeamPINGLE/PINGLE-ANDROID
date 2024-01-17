@@ -5,6 +5,7 @@ import android.os.Bundle
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityOnBoardingBinding
 import org.sopt.pingle.presentation.ui.joingroup.JoinGroupSearchActivity
+import org.sopt.pingle.util.activity.setDoubleBackPressToExit
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.context.navigateToWebView
 
@@ -15,6 +16,7 @@ class OnBoardingActivity :
         super.onCreate(savedInstanceState)
 
         addListeners()
+        setDoubleBackPressToExit(binding.root)
     }
 
     private fun addListeners() {

@@ -15,7 +15,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.FragmentMoreBinding
 import org.sopt.pingle.presentation.ui.auth.AuthActivity
-import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
+import org.sopt.pingle.presentation.ui.mygroup.MyGroupActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
@@ -61,7 +61,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             showWithDrawLogoutDialogFragment()
         }
         binding.ivMoreMoveToMyGroup.setOnClickListener {
-            startActivity(Intent(requireContext(), ParticipantActivity::class.java))
+            moveToMyGroup()
         }
     }
 
@@ -106,10 +106,16 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     private fun moveToSign() {
-        val intent = Intent(requireContext(), AuthActivity::class.java)
-        intent.flags =
-            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
+        Intent(requireContext(), AuthActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(this)
+        }
+    }
+
+    private fun moveToMyGroup() {
+        Intent(requireContext(), MyGroupActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 
     private fun showLogoutDialogFragment() {

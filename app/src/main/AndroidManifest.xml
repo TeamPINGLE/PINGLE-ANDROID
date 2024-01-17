@@ -32,7 +32,6 @@
                     android:scheme="kakao${KAKAO_NATIVE_APP_KEY_MANIFEST}" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".presentation.ui.splash.SplashActivity"
             android:exported="true"
@@ -45,7 +44,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".presentation.ui.auth.AuthActivity"
             android:exported="false"
@@ -74,6 +72,11 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.ui.main.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".presentation.ui.mygroup.MyGroupActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

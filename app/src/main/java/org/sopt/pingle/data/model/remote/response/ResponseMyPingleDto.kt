@@ -29,7 +29,9 @@ data class ResponseMyPingleDto(
     @SerialName("maxParticipants")
     val maxParticipants: Int,
     @SerialName("isOwner")
-    val isOwner: Boolean
+    val isOwner: Boolean,
+    @SerialName("chatLink")
+    val chatLink: String
 ) {
     fun toMyPingleEntity() = MyPingleEntity(
         id = this.id,
@@ -43,6 +45,7 @@ data class ResponseMyPingleDto(
         endAt = this.endAt,
         curParticipants = this.curParticipants,
         maxParticipants = this.maxParticipants,
-        isOwner = this.isOwner
+        isOwner = this.isOwner,
+        chatLink = this.chatLink
     )
 }

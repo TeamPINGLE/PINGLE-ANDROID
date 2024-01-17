@@ -12,5 +12,6 @@ data class MyPingleEntity(
     val endAt: String,
     val maxParticipants: Int,
     val curParticipants: Int,
-    val isOwner: Boolean
+    val isOwner: Boolean,
+    val chatLink: String
 )

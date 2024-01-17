@@ -46,7 +46,7 @@ class MyPingleViewHolder(
             }
 
             tvMyPingleMenuChat.setOnClickListener {
-                navigateToWebViewWithChatLink
+                navigateToWebViewWithChatLink(item.chatLink)
             }
 
             tvMyPingleMenuTrash.setOnClickListener {

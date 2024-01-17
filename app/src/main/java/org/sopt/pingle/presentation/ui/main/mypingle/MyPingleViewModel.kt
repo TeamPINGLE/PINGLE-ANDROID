@@ -25,9 +25,6 @@ class MyPingleViewModel @Inject constructor(
     private val _myPingleState = MutableSharedFlow<UiState<List<MyPingleEntity>>>()
     val myPingleState get() = _myPingleState.asSharedFlow()
 
-    private var _isParticipation = MutableLiveData<Boolean>(false)
-    val isParticipation get() = _isParticipation
-
     private var _myPingleCancelState = MutableStateFlow<UiState<Unit?>>(UiState.Empty)
     val myPingleCancelState get() = _myPingleCancelState.asStateFlow()
 
@@ -50,8 +47,6 @@ class MyPingleViewModel @Inject constructor(
             }
         }
     }
-
-    fun riversParticipation() = (!_isParticipation.value!!)
 
     fun deletePingleCancel(meetingId: Long) {
         viewModelScope.launch {

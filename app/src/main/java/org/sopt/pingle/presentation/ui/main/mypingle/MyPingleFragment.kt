@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMyPingleBinding
 import org.sopt.pingle.domain.model.PingleEntity
+import org.sopt.pingle.presentation.type.MyPingleType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
@@ -43,28 +44,17 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         )
         binding.rvMyPingle.adapter = myPingleAdapter
 
-        viewModel.isParticipation.value?.let { isParticipation ->
-            viewModel.getPingleParticipationList(isParticipation)
-        }
+
+        viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
     }
 
     private fun addListeners() {
         binding.tlMyPingle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 -> {
-                        viewModel.riversParticipation()
-                        viewModel.isParticipation.value?.let { isParticipation ->
-                            viewModel.getPingleParticipationList(isParticipation)
-                        }
-                    }
+                    0 -> viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
 
-                    1 -> {
-                        viewModel.riversParticipation()
-                        viewModel.isParticipation.value?.let { isParticipation ->
-                            viewModel.getPingleParticipationList(isParticipation)
-                        }
-                    }
+                    1 -> viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
                 }
             }
 
@@ -81,23 +71,26 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     private fun collectData() {
         viewModel.myPingleState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Success -> myPingleAdapter.submitList(uiState.data)
+                is UiState.Success -> {
+                    myPingleAdapter.submitList(uiState.data)
+                    binding.tvMyPingleEmpty.visibility = View.INVISIBLE
+                }
+
                 is UiState.Error -> Timber.tag(MY_PINGLE_FRAGMENT).d(ERROR + uiState.message)
                 is UiState.Loading -> Timber.tag(MY_PINGLE_FRAGMENT).d(LODING)
                 is UiState.Empty -> {
                     myPingleAdapter.submitList(null)
-                    viewModel.isParticipation.value?.let { isParticipation ->
-                        if (isParticipation) binding.tvMyPingleEmpty.text =
-                            getString(R.string.my_pingle_done) else binding.tvMyPingleEmpty.text =
-                            getString(R.string.my_pingle_soon)
-                        binding.tvMyPingleEmpty.visibility = View.VISIBLE
-                    }
+                    if (MyPingleType.SOON.boolean) binding.tvMyPingleEmpty.text =
+                        getString(R.string.my_pingle_soon)
+                    else binding.tvMyPingleEmpty.text =
+                        getString(R.string.my_pingle_done)
+                    binding.tvMyPingleEmpty.visibility = View.VISIBLE
                 }
             }
         }.launchIn(lifecycleScope)
 
         viewModel.myPingleCancelState.flowWithLifecycle(lifecycle).onEach { uiState ->
-            when(uiState) {
+            when (uiState) {
                 is UiState.Success -> viewModel.myPingleState
 
                 else -> Unit

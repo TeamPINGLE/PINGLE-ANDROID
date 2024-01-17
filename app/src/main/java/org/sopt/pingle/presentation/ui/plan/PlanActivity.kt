@@ -97,18 +97,6 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         }
     }
 
-    private fun navigateToPreviousPage() {
-        when (binding.vpPlan.currentItem) {
-            0 -> {
-                navigateToPlanAnnouncement()
-            }
-
-            else -> {
-                binding.vpPlan.currentItem--
-            }
-        }
-    }
-
     private fun collectData() {
         planViewModel.currentPage.flowWithLifecycle(lifecycle).onEach { currentPage ->
             binding.planProgress.progress = currentPage.toFloat() + 1f
@@ -142,6 +130,18 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             clickBtn = {},
             clickTextBtn = { finish() }
         ).show(supportFragmentManager, EXIT_MODAL)
+    }
+
+    private fun navigateToPreviousPage() {
+        when (binding.vpPlan.currentItem) {
+            0 -> {
+                navigateToPlanAnnouncement()
+            }
+
+            else -> {
+                binding.vpPlan.currentItem--
+            }
+        }
     }
 
     private fun navigateToPlanAnnouncement() {

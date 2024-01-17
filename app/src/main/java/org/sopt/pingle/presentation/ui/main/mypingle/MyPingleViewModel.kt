@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,9 @@ class MyPingleViewModel @Inject constructor(
 
     private var _myPingleCancelState = MutableStateFlow<UiState<Unit?>>(UiState.Empty)
     val myPingleCancelState get() = _myPingleCancelState.asStateFlow()
+
+    private var _tabPosition = MutableLiveData<Boolean>(false)
+    val tabPosition get() = _tabPosition
 
     fun getPingleParticipationList(participation: Boolean) {
         viewModelScope.launch {
@@ -58,5 +62,13 @@ class MyPingleViewModel @Inject constructor(
                 _myPingleCancelState.emit(UiState.Error(it.message))
             }
         }
+    }
+
+    fun setTabSoon() {
+        _tabPosition.value = false
+    }
+
+    fun setTabDone() {
+        _tabPosition.value = true
     }
 }

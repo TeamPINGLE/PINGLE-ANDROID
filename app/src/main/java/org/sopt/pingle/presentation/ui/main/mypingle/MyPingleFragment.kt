@@ -19,7 +19,6 @@ import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.fragment.navigateToFragment
-import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
@@ -41,7 +40,6 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         myPingleAdapter = MyPingleAdatper(
             requireContext(),
             navigateToMapList = ::navigateToMapList,
-            navigateToWebViewWithChatLink = ::navigateToWebViewWithChatLink,
             showDeleteModalDialogFragment = ::showDeleteModalDialogFragment,
             viewClickListener = ::viewClickListener
         )
@@ -53,9 +51,15 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         binding.tlMyPingle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 -> viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
+                    0 -> {
+                        viewModel.setTabSoon()
+                        viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
+                    }
 
-                    1 -> viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
+                    1 -> {
+                        viewModel.setTabDone()
+                        viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
+                    }
                 }
             }
 
@@ -65,9 +69,15 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
-                    0 -> viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
+                    0 -> {
+                        viewModel.setTabSoon()
+                        viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
+                    }
 
-                    1 -> viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
+                    1 -> {
+                        viewModel.setTabDone()
+                        viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
+                    }
                 }
             }
         })
@@ -100,14 +110,12 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         viewModel.myPingleCancelState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    if (MyPingleType.SOON.boolean) {
-                        viewModel.getPingleParticipationList(
-                            MyPingleType.SOON.boolean
-                        )
-                    } else {
-                        viewModel.getPingleParticipationList(
-                            MyPingleType.DONE.boolean
-                        )
+                    viewModel.tabPosition.value?.let { tabPosition ->
+                        if (tabPosition) {
+                            viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
+                        } else {
+                            viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
+                        }
                     }
                 }
 
@@ -122,10 +130,6 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         navigateToFragment<MainListFragment>()
     }
 
-    private fun navigateToWebViewWithChatLink(chatLink: String) {
-        startActivity(navigateToWebView(chatLink))
-    }
-
     private fun showDeleteModalDialogFragment(myPingleEntity: MyPingleEntity) {
         AllModalDialogFragment(
             title = stringOf(R.string.map_cancel_modal_title),
@@ -134,7 +138,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
             clickBtn = { viewModel.deletePingleCancel(meetingId = myPingleEntity.id.toLong()) },
             clickTextBtn = { }
-        ).show(childFragmentManager, "")
+        ).show(childFragmentManager, MY_PINGLE_MODAL)
     }
 
     private fun viewClickListener(layout: ConstraintLayout) {
@@ -144,6 +148,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     }
 
     companion object {
+        const val MY_PINGLE_MODAL = "MyPingleModal"
         const val MY_PINGLE_FRAGMENT = "MyPingleFragment"
         const val ERROR = "Error : "
         const val LODING = "Loding"

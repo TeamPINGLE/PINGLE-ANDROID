@@ -11,13 +11,13 @@ import org.sopt.pingle.databinding.ItemMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.context.colorOf
+import org.sopt.pingle.util.context.navigateToWebView
 import org.sopt.pingle.util.convertToCalenderDetail
 
 class MyPingleViewHolder(
     private val binding: ItemMyPingleBinding,
     private val context: Context,
     private val navigateToMapList: () -> Unit,
-    private val navigateToWebViewWithChatLink: (String) -> Unit,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
     private val viewClickListener: (ConstraintLayout) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -42,7 +42,7 @@ class MyPingleViewHolder(
 
             if (item.isOwner) {
                 ivMyPingleOwner.visibility = View.VISIBLE
-                tvMyPingleMenuTrash.setTextColor(context.getColor(R.color.g_08))
+                tvMyPingleMenuTrash.setTextColor(context.colorOf(R.color.g_08))
                 ivMyPingleMenuTrash.setImageResource(R.drawable.ic_my_trash_inactivated_20)
             } else {
                 ivMyPingleOwner.visibility = View.INVISIBLE
@@ -52,11 +52,13 @@ class MyPingleViewHolder(
                 tvMyPingleDay.visibility = View.INVISIBLE
             } else if (item.dDay == DONE) {
                 tvMyPingleDay.text = DONE
-                tvMyPingleDay.setTextColor(context.getColor(R.color.g_10))
+                tvMyPingleDay.setTextColor(context.colorOf(R.color.g_10))
                 ViewCompat.setBackgroundTintList(
                     tvMyPingleDay,
                     ContextCompat.getColorStateList(context, R.color.g_07)
                 )
+                ivMyPingleEdit.visibility = View.INVISIBLE
+                layoutMyPingleMenu.visibility = View.INVISIBLE
             } else {
                 tvMyPingleDay.text = item.dDay
                 tvMyPingleDay.visibility = View.VISIBLE
@@ -78,11 +80,11 @@ class MyPingleViewHolder(
                 }
             }
 
-            tvMyPingleMenuChat.setOnClickListener {
-                navigateToWebViewWithChatLink(item.chatLink)
+            layoutMyPingleMenuChat.setOnClickListener {
+                context.startActivity(context.navigateToWebView(item.chatLink))
             }
 
-            tvMyPingleMenuTrash.setOnClickListener {
+            layoutMyPingleMenuTrash.setOnClickListener {
                 showDeleteModalDialogFragment(item)
             }
 

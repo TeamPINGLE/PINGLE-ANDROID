@@ -11,22 +11,24 @@ import org.sopt.pingle.util.context.stringOf
 fun AppCompatActivity.setDoubleBackPressToExit(view: View) {
     var backPressedTime = INIT_BACK_PRESSED_TIME
 
-    onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            if (System.currentTimeMillis() - backPressedTime <= FINISH_INTERVAL_TIME) {
-                finish()
-            } else {
-                backPressedTime = System.currentTimeMillis()
-                PingleSnackbar.makeSnackbar(
-                    view = view,
-                    message = stringOf(R.string.all_on_back_pressed_snackbar),
-                    bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-                    snackbarType = SnackbarType.GUIDE
-                )
+    onBackPressedDispatcher.addCallback(
+        this,
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (System.currentTimeMillis() - backPressedTime <= FINISH_INTERVAL_TIME) {
+                    finish()
+                } else {
+                    backPressedTime = System.currentTimeMillis()
+                    PingleSnackbar.makeSnackbar(
+                        view = view,
+                        message = stringOf(R.string.all_on_back_pressed_snackbar),
+                        bottomMarin = SNACKBAR_BOTTOM_MARGIN,
+                        snackbarType = SnackbarType.GUIDE
+                    )
+                }
             }
         }
-
-    })
+    )
 }
 
 const val FINISH_INTERVAL_TIME = 2000

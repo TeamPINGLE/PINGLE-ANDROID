@@ -31,8 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="31dp"
             android:text="@string/more_title"
-            android:textColor="@color/white"
             android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            android:textColor="@color/white"
             app:layout_constraintStart_toEndOf="@id/gl_start"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -156,6 +156,7 @@
             android:id="@+id/tv_more_logout_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
             android:paddingVertical="@dimen/spacing14"
             android:paddingStart="4dp"
             android:text="@string/more_logout_title"

@@ -19,6 +19,7 @@ import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.util.view.UiState
+import retrofit2.HttpException
 
 @HiltViewModel
 class JoinViewModel @Inject constructor(
@@ -116,8 +117,14 @@ class JoinViewModel @Inject constructor(
                             groupName = joinGroupCode.name
                         }
                     }
-            }.onFailure {
-                _joinGroupCodeState.value = UiState.Error(it.message)
+            }.onFailure { throwable ->
+                _joinGroupCodeState.value = UiState.Error(
+                    if (throwable is HttpException) {
+                        throwable.response()?.code().toString()
+                    } else {
+                        throwable.message
+                    }
+                )
             }
         }
     }

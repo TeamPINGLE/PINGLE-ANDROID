@@ -12,9 +12,9 @@ import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.domain.model.PingleEntity
+import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
-import org.sopt.pingle.domain.usecase.PostPingleCancelUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
@@ -26,7 +26,7 @@ class MapViewModel @Inject constructor(
     private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase,
     private val getPingleListUseCase: GetPingleListUseCase,
     private val postPingleJoinUseCase: PostPingleJoinUseCase,
-    private val postPingleCancelUseCase: PostPingleCancelUseCase
+    private val deletePingleCancelUseCase: DeletePingleCancelUseCase
 ) : ViewModel() {
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
@@ -34,10 +34,15 @@ class MapViewModel @Inject constructor(
     private val _pinEntityListState = MutableStateFlow<UiState<List<PinEntity>>>(UiState.Empty)
     val pinEntityListState get() = _pinEntityListState.asStateFlow()
 
-    private val _markerModelList = mutableListOf<MarkerModel>()
+    private var _markerModelData =
+        MutableStateFlow<Pair<Int, MutableList<MarkerModel>>>(
+            Pair(
+                DEFAULT_SELECTED_MARKER_POSITION,
+                mutableListOf()
+            )
+        )
 
-    private var _selectedMarkerPosition = MutableStateFlow(DEFAULT_SELECTED_MARKER_POSITION)
-    val selectedMarkerPosition get() = _selectedMarkerPosition.asStateFlow()
+    val markerModelData get() = _markerModelData.asStateFlow()
 
     private val _pingleListState = MutableSharedFlow<UiState<Pair<Long, List<PingleEntity>>>>()
     val pingleListState get() = _pingleListState.asSharedFlow()
@@ -45,50 +50,53 @@ class MapViewModel @Inject constructor(
     private val _pingleParticipationState = MutableSharedFlow<UiState<Unit?>>()
     val pingleParticipationState get() = _pingleParticipationState.asSharedFlow()
 
+    private fun setMarkerModelListIsSelected(position: Int) {
+        _markerModelData.value.second[position].isSelected.set(!_markerModelData.value.second[position].isSelected.get())
+    }
+
+    private fun getMarkerModelSelected(position: Int) =
+        _markerModelData.value.second[position].isSelected.get()
+
     fun setCategory(category: CategoryType?) {
         _category.value = category
     }
 
-    private fun setMarkerModelIsSelected(position: Int) {
-        _markerModelList[position].isSelected.set(!_markerModelList[position].isSelected.get())
+    fun clearMarkerModelData() {
+        _markerModelData.value.second.forEach { it.marker.map = null }
+        _markerModelData.value.second.clear()
+        _markerModelData.value =
+            Pair(DEFAULT_SELECTED_MARKER_POSITION, _markerModelData.value.second)
     }
 
-    fun clearMarkerList() {
-        _markerModelList.forEach { it.marker.map = null }
-        _markerModelList.clear()
+    fun addMarkerModelList(markerEntity: MarkerModel) {
+        _markerModelData.value.second.add(markerEntity)
     }
-
-    fun addMarkerList(markerEntity: MarkerModel) {
-        _markerModelList.add(markerEntity)
-    }
-
-    private fun getMarkerModelModelSelected(position: Int) =
-        _markerModelList[position].isSelected.get()
 
     fun updateMarkerModelListSelectedValue(position: Int) {
-        when (_selectedMarkerPosition.value) {
-            DEFAULT_SELECTED_MARKER_POSITION -> setMarkerModelIsSelected(position)
+        when (_markerModelData.value.first) {
+            DEFAULT_SELECTED_MARKER_POSITION -> setMarkerModelListIsSelected(position)
             position -> Unit
             else -> {
-                if (getMarkerModelModelSelected(_selectedMarkerPosition.value)) {
-                    setMarkerModelIsSelected(
-                        _selectedMarkerPosition.value
+                if (getMarkerModelSelected(_markerModelData.value.first)) {
+                    setMarkerModelListIsSelected(
+                        _markerModelData.value.first
                     )
                 }
-                if (!getMarkerModelModelSelected(position)) setMarkerModelIsSelected(position)
+                if (!getMarkerModelSelected(position)) setMarkerModelListIsSelected(position)
             }
         }
-        _selectedMarkerPosition.value = position
+        _markerModelData.value = Pair(position, _markerModelData.value.second)
     }
 
     fun clearSelectedMarkerPosition() {
-        if (_selectedMarkerPosition.value != DEFAULT_SELECTED_MARKER_POSITION) {
-            if (getMarkerModelModelSelected(_selectedMarkerPosition.value)) {
-                setMarkerModelIsSelected(
-                    _selectedMarkerPosition.value
+        if (_markerModelData.value.first != DEFAULT_SELECTED_MARKER_POSITION) {
+            if (getMarkerModelSelected(_markerModelData.value.first)) {
+                setMarkerModelListIsSelected(
+                    _markerModelData.value.first
                 )
             }
-            _selectedMarkerPosition.value = DEFAULT_SELECTED_MARKER_POSITION
+            _markerModelData.value =
+                Pair(DEFAULT_SELECTED_MARKER_POSITION, _markerModelData.value.second)
         }
     }
 
@@ -144,7 +152,7 @@ class MapViewModel @Inject constructor(
         viewModelScope.launch {
             _pingleParticipationState.emit(UiState.Loading)
             runCatching {
-                postPingleCancelUseCase(
+                deletePingleCancelUseCase(
                     meetingId = meetingId
                 ).collect() { data ->
                     _pingleParticipationState.emit(UiState.Success(data))

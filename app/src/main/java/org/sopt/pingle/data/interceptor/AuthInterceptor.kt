@@ -13,7 +13,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.sopt.pingle.BuildConfig
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
-import org.sopt.pingle.data.model.remote.response.ResponseReissueDTO
+import org.sopt.pingle.data.model.remote.response.ResponseReissueDto
 import org.sopt.pingle.util.base.BaseResponse
 
 class AuthInterceptor @Inject constructor(
@@ -39,7 +39,7 @@ class AuthInterceptor @Inject constructor(
 
                 if (refreshTokenResponse.isSuccessful) {
                     val responseRefresh =
-                        json.decodeFromString<BaseResponse<ResponseReissueDTO>>(
+                        json.decodeFromString<BaseResponse<ResponseReissueDto>>(
                             refreshTokenResponse.body?.string()
                                 ?: throw IllegalStateException("\"refreshTokenResponse is null $refreshTokenResponse\"")
                         )

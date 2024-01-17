@@ -27,8 +27,15 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initLayout()
         addListeners()
         collectData()
+    }
+
+    private fun initLayout() {
+        if (viewModel.isLocalToken()) {
+            if (viewModel.isLocalGroupId()) navigateToMain() else viewModel.getUserInfo()
+        }
     }
 
     private fun addListeners() {
@@ -38,34 +45,44 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     }
 
     private fun collectData() {
-        viewModel.loginUiState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        viewModel.loginState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Loading -> Timber.d(KAKAO_LOGIN_LADING)
+                is UiState.Success -> viewModel.getUserInfo()
+                is UiState.Error -> Timber.tag(TAG).d(KAKAO_LOGIN_ERROR + "${uiState.message}")
+                is UiState.Loading -> Timber.tag(TAG).d(KAKAO_LOGIN_LADING)
+                is UiState.Empty -> Timber.tag(TAG).d(KAKAO_LOGIN_EMPTY)
+            }
+        }.launchIn(lifecycleScope)
 
-                is UiState.Empty -> Timber.d(KAKAO_LOGIN_EMPTY)
-
-                is UiState.Success -> navigateToOnBoarding()
-
-                is UiState.Error -> Timber.d(KAKAO_LOGIN_ERROR + "${uiState.message}")
+        viewModel.userInfoState.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when (uiState) {
+                is UiState.Success -> if (uiState.data.groups.isEmpty()) navigateToOnBoarding() else navigateToMain()
+                is UiState.Error -> Timber.tag(TAG).d(USER_INFO_ERROR + uiState.message)
+                is UiState.Loading -> Timber.tag(TAG).d(USER_INFO_LADING)
+                is UiState.Empty -> Timber.tag(TAG).d(USER_INFO_EMPTY)
             }
         }.launchIn(lifecycleScope)
     }
 
     private fun navigateToOnBoarding() {
-        if (viewModel.isLocalGroupId()) {
-            Intent(this, OnBoardingActivity::class.java).apply {
-                startActivity(this)
-            }
-        } else {
-            Intent(this, MainActivity::class.java).apply {
-                startActivity(this)
-            }
+        Intent(this, OnBoardingActivity::class.java).apply {
+            startActivity(this)
+        }
+    }
+
+    private fun navigateToMain() {
+        Intent(this, MainActivity::class.java).apply {
+            startActivity(this)
         }
     }
 
     companion object {
+        const val TAG = "AuthActivity"
         const val KAKAO_LOGIN_LADING = "Kakao Login Lading..."
         const val KAKAO_LOGIN_EMPTY = "Kakao Login Empty"
         const val KAKAO_LOGIN_ERROR = "Kakao Login Error : "
+        const val USER_INFO_LADING = "User Info Lading..."
+        const val USER_INFO_EMPTY = "User Info Empty"
+        const val USER_INFO_ERROR = "User Info Error : "
     }
 }

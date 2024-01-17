@@ -59,6 +59,4 @@ class MyPingleViewModel @Inject constructor(
             }
         }
     }
-
-    fun getUserName(): String = localStorage.userName
 }

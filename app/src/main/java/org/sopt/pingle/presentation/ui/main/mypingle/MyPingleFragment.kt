@@ -1,7 +1,9 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +13,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMyPingleBinding
-import org.sopt.pingle.domain.model.PingleEntity
+import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.MyPingleType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.util.base.BindingFragment
@@ -26,6 +28,7 @@ import timber.log.Timber
 class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragment_my_pingle) {
     private val viewModel by viewModels<MyPingleViewModel>()
     private lateinit var myPingleAdapter: MyPingleAdatper
+    private var tabPosition = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,14 +41,12 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     private fun initLayout() {
         myPingleAdapter = MyPingleAdatper(
             requireContext(),
-            viewModel.getUserName(),
             navigateToMapList = ::navigateToMapList,
             navigateToWebViewWithChatLink = ::navigateToWebViewWithChatLink,
-            showDeleteModalDialogFragment = ::showDeleteModalDialogFragment
+            showDeleteModalDialogFragment = ::showDeleteModalDialogFragment,
+            viewClickListener = ::viewClickListener
         )
         binding.rvMyPingle.adapter = myPingleAdapter
-
-
         viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
     }
 
@@ -53,9 +54,15 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         binding.tlMyPingle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 -> viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
+                    0 -> {
+                        tabPosition = MyPingleType.SOON.boolean
+                        viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
+                    }
 
-                    1 -> viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
+                    1 -> {
+                        tabPosition = MyPingleType.DONE.boolean
+                        viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
+                    }
                 }
             }
 
@@ -64,7 +71,17 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                // 다시 선택된 탭에 대한 처리
+                when (tab?.position) {
+                    0 -> {
+                        tabPosition = MyPingleType.SOON.boolean
+                        viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
+                    }
+
+                    1 -> {
+                        tabPosition = MyPingleType.DONE.boolean
+                        viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
+                    }
+                }
             }
         })
     }
@@ -92,11 +109,19 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
 
         viewModel.myPingleCancelState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Success -> viewModel.myPingleState
+                is UiState.Success -> {
+                    if (tabPosition == MyPingleType.SOON.boolean) viewModel.getPingleParticipationList(
+                        MyPingleType.SOON.boolean
+                    ) else viewModel.getPingleParticipationList(
+                        MyPingleType.DONE.boolean
+                    )
+                }
+
+                is UiState.Error -> Log.d("http error", uiState.message.toString())
 
                 else -> Unit
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun navigateToMapList() {
@@ -107,20 +132,26 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         startActivity(navigateToWebView(chatLink))
     }
 
-    private fun showDeleteModalDialogFragment(pingleEntity: PingleEntity) {
+    private fun showDeleteModalDialogFragment(myPingleEntity: MyPingleEntity) {
         AllModalDialogFragment(
             title = stringOf(R.string.map_cancel_modal_title),
             detail = stringOf(R.string.map_cancel_modal_detail),
             buttonText = stringOf(R.string.map_cancel_modal_button_text),
             textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
-            clickBtn = { viewModel.deletePingleCancel(meetingId = pingleEntity.id) },
+            clickBtn = { viewModel.deletePingleCancel(meetingId = myPingleEntity.id.toLong()) },
             clickTextBtn = { }
         ).show(childFragmentManager, "")
+    }
+
+    private fun viewClickListener(layout: ConstraintLayout) {
+        binding.root.setOnClickListener {
+            layout.visibility = View.INVISIBLE
+        }
     }
 
     companion object {
         const val MY_PINGLE_FRAGMENT = "MyPingleFragment"
         const val ERROR = "Error : "
-        const val LODING = "Loging"
+        const val LODING = "Loding"
     }
 }

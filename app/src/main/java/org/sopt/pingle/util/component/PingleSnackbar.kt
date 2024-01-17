@@ -12,6 +12,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ViewSnackbarBinding
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.util.toPx
+import org.sopt.pingle.util.view.colorOf
 
 object PingleSnackbar {
     private const val SNACKBAR_MARGIN = 16
@@ -57,6 +58,7 @@ object PingleSnackbar {
 
         with(snackbarLayout) {
             removeAllViews()
+            setBackgroundColor(colorOf(android.R.color.transparent))
             setPadding(SNACKBAR_PADDING, SNACKBAR_PADDING, SNACKBAR_PADDING, SNACKBAR_PADDING)
             addView(binding.root)
         }

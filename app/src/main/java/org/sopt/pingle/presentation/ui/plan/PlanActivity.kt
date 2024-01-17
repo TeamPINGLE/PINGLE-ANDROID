@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.plan
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
@@ -30,6 +31,8 @@ import org.sopt.pingle.util.view.UiState
 class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan) {
     private val planViewModel: PlanViewModel by viewModels()
     private lateinit var fragmentList: ArrayList<Fragment>
+    private lateinit var onBackPressed: OnBackPressedCallback
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,6 +42,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         initView()
         addListeners()
         collectData()
+        onBackPressedBtn()
     }
 
     private fun initView() {
@@ -77,7 +81,6 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
     private fun addListeners() {
         binding.btnPlan.setOnClickListener {
             when (binding.vpPlan.currentItem) {
-                // TODO 핑글 개최 api 연동
                 fragmentList.size - 1 -> {
                     planViewModel.postPlanMeeting()
                 }
@@ -150,6 +153,23 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             startActivity(this)
             finish()
         }
+    }
+
+    private fun onBackPressedBtn() {
+        onBackPressed = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                when (binding.vpPlan.currentItem) {
+                    0 -> {
+                        navigateToPlanAnnouncement()
+                    }
+
+                    else -> {
+                        binding.vpPlan.currentItem--
+                    }
+                }
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, onBackPressed)
     }
 
     companion object {

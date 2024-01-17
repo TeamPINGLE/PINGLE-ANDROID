@@ -69,12 +69,12 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             this.adapter = adapter
             isUserInputEnabled = false
             registerOnPageChangeCallback(object :
-                    ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                        planViewModel.setCurrentPage(position)
-                    }
-                })
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    planViewModel.setCurrentPage(position)
+                }
+            })
         }
     }
 
@@ -84,6 +84,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                 fragmentList.size - 1 -> {
                     planViewModel.postPlanMeeting()
                 }
+
                 else -> {
                     binding.vpPlan.currentItem++
                 }
@@ -128,7 +129,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             buttonText = getString(R.string.plan_exit_modal_dialog_btn_text),
             textButtonText = getString(R.string.plan_exit_modal_dialog_text_btn_text),
             clickBtn = {},
-            clickTextBtn = { finish() }
+            clickTextBtn = { finish() },
         ).show(supportFragmentManager, EXIT_MODAL)
     }
 

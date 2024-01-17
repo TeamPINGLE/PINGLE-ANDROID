@@ -90,18 +90,22 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             }
         }
         binding.toolbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
-            when (binding.vpPlan.currentItem) {
-                0 -> {
-                    navigateToPlanAnnouncement()
-                }
-
-                else -> {
-                    binding.vpPlan.currentItem--
-                }
-            }
+            navigateToPreviousPage()
         }
         binding.tvPlanClose.setOnClickListener {
             showExitModalDialogFragment()
+        }
+    }
+
+    private fun navigateToPreviousPage() {
+        when (binding.vpPlan.currentItem) {
+            0 -> {
+                navigateToPlanAnnouncement()
+            }
+
+            else -> {
+                binding.vpPlan.currentItem--
+            }
         }
     }
 
@@ -158,15 +162,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
     private fun onBackPressedBtn() {
         onBackPressed = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                when (binding.vpPlan.currentItem) {
-                    0 -> {
-                        navigateToPlanAnnouncement()
-                    }
-
-                    else -> {
-                        binding.vpPlan.currentItem--
-                    }
-                }
+                navigateToPreviousPage()
             }
         }
         onBackPressedDispatcher.addCallback(this, onBackPressed)

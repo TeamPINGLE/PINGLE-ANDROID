@@ -1,12 +1,12 @@
 package org.sopt.pingle.util
 
 import android.content.res.Resources
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combineTransform
-import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combineTransform
+import kotlinx.coroutines.flow.flowOf
 
 inline fun <reified T> List<Flow<T>>.combineAll(): Flow<List<T>> {
     return when (size) {

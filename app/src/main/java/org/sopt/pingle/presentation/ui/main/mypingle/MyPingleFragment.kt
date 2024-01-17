@@ -98,10 +98,13 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
                 is UiState.Loading -> Timber.tag(MY_PINGLE_FRAGMENT).d(LODING)
                 is UiState.Empty -> {
                     myPingleAdapter.submitList(null)
-                    if (MyPingleType.SOON.boolean) binding.tvMyPingleEmpty.text =
-                        getString(R.string.my_pingle_soon)
-                    else binding.tvMyPingleEmpty.text =
-                        getString(R.string.my_pingle_done)
+                    if (MyPingleType.SOON.boolean) {
+                        binding.tvMyPingleEmpty.text =
+                            getString(R.string.my_pingle_soon)
+                    } else {
+                        binding.tvMyPingleEmpty.text =
+                            getString(R.string.my_pingle_done)
+                    }
                     binding.tvMyPingleEmpty.visibility = View.VISIBLE
                 }
             }
@@ -110,11 +113,15 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         viewModel.myPingleCancelState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    if (tabPosition == MyPingleType.SOON.boolean) viewModel.getPingleParticipationList(
-                        MyPingleType.SOON.boolean
-                    ) else viewModel.getPingleParticipationList(
-                        MyPingleType.DONE.boolean
-                    )
+                    if (tabPosition == MyPingleType.SOON.boolean) {
+                        viewModel.getPingleParticipationList(
+                            MyPingleType.SOON.boolean
+                        )
+                    } else {
+                        viewModel.getPingleParticipationList(
+                            MyPingleType.DONE.boolean
+                        )
+                    }
                 }
 
                 is UiState.Error -> Log.d("http error", uiState.message.toString())

@@ -43,12 +43,6 @@ class PingleCard @JvmOverloads constructor(
         binding.btnCardBottomMapParticipate.setOnClickListener {
             onParticipateButtonClick(pinId)
         }
-
-        binding.layoutCardTopParticipationStatus.setOnClickListener {
-            Intent(context, ParticipantActivity::class.java).apply {
-                context.startActivity(this)
-            }
-        }
     }
 
     fun initLayout(pingleEntity: PingleEntity) {
@@ -91,6 +85,13 @@ class PingleCard @JvmOverloads constructor(
                 tvCardTopInfoParticipationStatusMaxParticipants.text =
                     pingleEntity.maxParticipants.toString()
             }
+
+            layoutCardTopParticipationStatus.setOnClickListener {
+                Intent(context, ParticipantActivity::class.java).apply {
+                    putExtra(MEETING_ID, pingleEntity.id)
+                    context.startActivity(this)
+                }
+            }
         }
     }
 
@@ -104,5 +105,9 @@ class PingleCard @JvmOverloads constructor(
 
     fun setOnParticipateButtonClick(participateButtonClickListener: (Long?) -> Unit) {
         onParticipateButtonClick = participateButtonClickListener
+    }
+
+    companion object {
+        const val MEETING_ID = "meetingId"
     }
 }

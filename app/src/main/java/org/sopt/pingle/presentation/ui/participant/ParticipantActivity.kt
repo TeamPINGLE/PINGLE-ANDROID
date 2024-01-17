@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityParticipantBinding
 import org.sopt.pingle.util.base.BindingActivity
+import org.sopt.pingle.util.component.PingleCard.Companion.MEETING_ID
 import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
@@ -28,7 +29,7 @@ class ParticipantActivity :
 
     private fun initLayout() {
         binding.rvParticipant.adapter = participantAdapter
-        participantViewModel.getParticipantList(1)
+        participantViewModel.getParticipantList(intent.getLongExtra(MEETING_ID, DEFAULT_VALUE))
     }
 
     private fun addListeners() {
@@ -43,9 +44,11 @@ class ParticipantActivity :
                 is UiState.Success -> {
                     participantAdapter.submitList(uiState.data.participants)
                 }
+
                 is UiState.Empty -> {
                     participantAdapter.submitList(null)
                 }
+
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
@@ -54,5 +57,9 @@ class ParticipantActivity :
     override fun onDestroy() {
         binding.rvParticipant.adapter = null
         super.onDestroy()
+    }
+
+    companion object {
+        const val DEFAULT_VALUE = -1L
     }
 }

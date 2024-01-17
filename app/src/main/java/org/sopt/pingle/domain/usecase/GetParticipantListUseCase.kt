@@ -7,6 +7,6 @@ import org.sopt.pingle.domain.repository.ParticipantRepository
 class GetParticipantListUseCase(
     private val participantRepository: ParticipantRepository
 ) {
-    operator fun invoke(meetingId: Long): Flow<ParticipantEntity> =
+    suspend operator fun invoke(meetingId: Long): Flow<ParticipantEntity> =
         participantRepository.getParticipantList(meetingId = meetingId)
 }

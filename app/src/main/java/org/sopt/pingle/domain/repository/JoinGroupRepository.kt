@@ -7,9 +7,9 @@ import org.sopt.pingle.domain.model.JoinGroupInfoEntity
 import org.sopt.pingle.domain.model.JoinGroupSearchEntity
 
 interface JoinGroupRepository {
-    fun getJoinGroupSearch(teamName: String): Flow<List<JoinGroupSearchEntity>>
-    fun getJoinGroupInfo(teamId: Int): Flow<JoinGroupInfoEntity>
-    fun postJoinGroupCode(
+    suspend fun getJoinGroupSearch(teamName: String): Flow<List<JoinGroupSearchEntity>>
+    suspend fun getJoinGroupInfo(teamId: Int): Flow<JoinGroupInfoEntity>
+    suspend fun postJoinGroupCode(
         teamId: Int,
         joinGroupCodeEntity: JoinGroupCodeEntity
     ): Flow<GroupEntity>

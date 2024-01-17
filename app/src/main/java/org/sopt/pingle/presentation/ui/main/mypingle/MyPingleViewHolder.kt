@@ -8,6 +8,7 @@ import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.context.colorOf
+import org.sopt.pingle.util.convertToCalenderDetail
 
 class MyPingleViewHolder(
     private val binding: ItemMyPingleBinding,
@@ -23,9 +24,16 @@ class MyPingleViewHolder(
             tvMyPingleName.setTextColor(
                 context.colorOf(CategoryType.fromString(item.category).textColor)
             )
-            tvMyPingleCalenderDetail.text = (item.date + " | " + item.startAt + "~" + item.endAt)
-            tvMyPingleCalenderRecruitmentDetail.text =
-                (item.curParticipants.toString() + "/" + item.maxParticipants.toString() + "명")
+            tvMyPingleCalenderDetail.text =
+                convertToCalenderDetail(
+                    date = item.date,
+                    startAt = item.startAt,
+                    endAt = item.endAt
+                )
+            tvMyPingleCalenderRecruitmentDetail.text = convertToParticipant(
+                currentParticipant = item.curParticipants,
+                maxParticipant = item.maxParticipants
+            )
         }
 
         with(binding) {
@@ -51,14 +59,6 @@ class MyPingleViewHolder(
         }
     }
 
-    private fun convertTimeFormat(time: String): String =
-        time.substring(
-            TIME_START_INDEX,
-            TIME_END_INDEX
-        )
-
-    companion object {
-        const val TIME_START_INDEX = 0
-        const val TIME_END_INDEX = 5
-    }
+    private fun convertToParticipant(currentParticipant: Int, maxParticipant: Int): String =
+        (currentParticipant.toString() + "/" + maxParticipant.toString() + "명")
 }

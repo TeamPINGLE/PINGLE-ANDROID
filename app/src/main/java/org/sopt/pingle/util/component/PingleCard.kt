@@ -13,7 +13,7 @@ import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.mapper.isCompleted
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
-import org.sopt.pingle.util.convertToCalenderDetail
+import org.sopt.pingle.util.convertToCalenderDetailWithNewLine
 import org.sopt.pingle.util.view.colorOf
 import org.sopt.pingle.util.view.stringOf
 
@@ -59,7 +59,7 @@ class PingleCard @JvmOverloads constructor(
             tvCardTopInfoName.text = pingleEntity.name
             tvCardTopInfoName.setTextColor(colorOf(category.textColor))
             tvCardTopInfoOwnerName.text = pingleEntity.ownerName
-            tvCardBottomCalenderDetail.text = convertToCalenderDetail(
+            tvCardBottomCalenderDetail.text = convertToCalenderDetailWithNewLine(
                 date = pingleEntity.date,
                 startAt = pingleEntity.startAt,
                 endAt = pingleEntity.endAt

@@ -12,7 +12,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanSummaryConfirmationBinding
 import org.sopt.pingle.presentation.ui.plan.PlanViewModel
 import org.sopt.pingle.util.base.BindingFragment
-import org.sopt.pingle.util.convertToCalenderDetail
+import org.sopt.pingle.util.convertToCalenderDetailWithNewLine
 import org.sopt.pingle.util.fragment.colorOf
 import org.sopt.pingle.util.view.UiState
 
@@ -36,7 +36,7 @@ class PlanSummaryConfirmationFragment :
                 tvPlanSummaryConfirmationName.setTextColor(colorOf((category.textColor)))
             }
             tvPlanSummaryConfirmationName.text = viewModel.planTitle.value
-            tvPlanSummaryConfirmationCalenderDetail.text = convertToCalenderDetail(
+            tvPlanSummaryConfirmationCalenderDetail.text = convertToCalenderDetailWithNewLine(
                 date = viewModel.planDate.value,
                 startAt = viewModel.startTime.value,
                 endAt = viewModel.endTime.value

@@ -1,12 +1,12 @@
 package org.sopt.pingle.util
 
 import android.content.res.Resources
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.flowOf
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 inline fun <reified T> List<Flow<T>>.combineAll(): Flow<List<T>> {
     return when (size) {
@@ -29,9 +29,17 @@ fun convertToTimeFormat(localTime: LocalTime): String = localTime.format(
     DateTimeFormatter.ofPattern(TIME_FORMAT)
 )
 
+fun convertToCalenderDetailWithNewLine(date: String, startAt: String, endAt: String): String =
+    buildString {
+        append(convertToDateFormat(LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE)))
+        append(NEW_LINE)
+        append(convertToTimeFormat(LocalTime.parse(startAt, DateTimeFormatter.ISO_LOCAL_TIME)))
+        append(TIME_SEPARATOR)
+        append(convertToTimeFormat(LocalTime.parse(endAt, DateTimeFormatter.ISO_LOCAL_TIME)))
+    }
+
 fun convertToCalenderDetail(date: String, startAt: String, endAt: String): String = buildString {
     append(convertToDateFormat(LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE)))
-    append(NEW_LINE)
     append(convertToTimeFormat(LocalTime.parse(startAt, DateTimeFormatter.ISO_LOCAL_TIME)))
     append(TIME_SEPARATOR)
     append(convertToTimeFormat(LocalTime.parse(endAt, DateTimeFormatter.ISO_LOCAL_TIME)))

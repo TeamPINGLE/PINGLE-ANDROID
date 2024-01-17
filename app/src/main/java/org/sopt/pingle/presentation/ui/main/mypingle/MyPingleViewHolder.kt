@@ -13,7 +13,7 @@ class MyPingleViewHolder(
     private val binding: ItemMyPingleBinding,
     private val context: Context,
     private val navigateToMapList: () -> Unit,
-    private val showChatModalDialogFragment: (PingleEntity) -> Unit,
+    private val navigateToWebViewWithChatLink: (String) -> Unit,
     private val showDeleteModalDialogFragment: (PingleEntity) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun onBinding(item: MyPingleEntity) {
@@ -23,11 +23,10 @@ class MyPingleViewHolder(
             tvMyPingleName.setTextColor(
                 context.colorOf(CategoryType.fromString(item.category).textColor)
             )
-            tvMyPingleCalenderDetail.text = (item.date + "|" + item.startAt + "~" + item.endAt)
+            tvMyPingleCalenderDetail.text = (item.date + " | " + item.startAt + "~" + item.endAt)
             tvMyPingleCalenderRecruitmentDetail.text =
-                (item.curParticipants + "/" + item.maxParticipants + "명")
+                (item.curParticipants.toString() + "/" + item.maxParticipants.toString() + "명")
         }
-
 
         with(binding) {
             layoutMyPingleRecruitment.setOnClickListener {
@@ -39,18 +38,23 @@ class MyPingleViewHolder(
             }
 
             tvMyPingleMenuChat.setOnClickListener {
-                showChatModalDialogFragment
+                navigateToWebViewWithChatLink
             }
 
             tvMyPingleMenuTrash.setOnClickListener {
                 showDeleteModalDialogFragment
+            }
+
+            binding.root.setOnClickListener {
+                layoutMyPingleMenu.visibility = View.INVISIBLE
             }
         }
     }
 
     private fun convertTimeFormat(time: String): String =
         time.substring(
-            TIME_START_INDEX, TIME_END_INDEX
+            TIME_START_INDEX,
+            TIME_END_INDEX
         )
 
     companion object {

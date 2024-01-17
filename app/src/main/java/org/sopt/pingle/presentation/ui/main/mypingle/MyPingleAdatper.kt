@@ -12,7 +12,7 @@ import org.sopt.pingle.util.view.ItemDiffCallback
 class MyPingleAdatper(
     private val context: Context,
     private val navigateToMapList: () -> Unit,
-    private val showChatModalDialogFragment: (PingleEntity) -> Unit,
+    private val navigateToWebViewWithChatLink: (String) -> Unit,
     private val showDeleteModalDialogFragment: (PingleEntity) -> Unit
 ) : ListAdapter<MyPingleEntity, MyPingleViewHolder>(
     ItemDiffCallback<MyPingleEntity>(
@@ -29,7 +29,7 @@ class MyPingleAdatper(
             ),
             context,
             navigateToMapList,
-            showChatModalDialogFragment,
+            navigateToWebViewWithChatLink,
             showDeleteModalDialogFragment
         )
 

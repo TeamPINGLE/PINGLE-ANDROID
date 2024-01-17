@@ -16,6 +16,7 @@ import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.fragment.navigateToFragment
+import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
@@ -24,7 +25,6 @@ import timber.log.Timber
 class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragment_my_pingle) {
     private val viewModel by viewModels<MyPingleViewModel>()
     private lateinit var myPingleAdapter: MyPingleAdatper
-    private var isParticipation = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,28 +38,32 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         myPingleAdapter = MyPingleAdatper(
             requireContext(),
             navigateToMapList = ::navigateToMapList,
-            showChatModalDialogFragment = ::showChatModalDialogFragment,
+            navigateToWebViewWithChatLink = ::navigateToWebViewWithChatLink,
             showDeleteModalDialogFragment = ::showDeleteModalDialogFragment
         )
         binding.rvMyPingle.adapter = myPingleAdapter
 
-        viewModel.pingleParticipationList(isParticipation)
+        viewModel.isParticipation.value?.let { isParticipation ->
+            viewModel.getPingleParticipationList(isParticipation)
+        }
     }
 
     private fun addListeners() {
-        // TODO 예정된, 참여완료 클릭시 isParticipation값 true, false으로 변경
-
         binding.tlMyPingle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        isParticipation = false
-                        viewModel.pingleParticipationList(isParticipation)
+                        viewModel.riversParticipation()
+                        viewModel.isParticipation.value?.let { isParticipation ->
+                            viewModel.getPingleParticipationList(isParticipation)
+                        }
                     }
 
                     1 -> {
-                        isParticipation = true
-                        viewModel.pingleParticipationList(isParticipation)
+                        viewModel.riversParticipation()
+                        viewModel.isParticipation.value?.let { isParticipation ->
+                            viewModel.getPingleParticipationList(isParticipation)
+                        }
                     }
                 }
             }
@@ -77,36 +81,36 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     private fun collectData() {
         viewModel.myPingleState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Success -> {
-                    myPingleAdapter.submitList(uiState.data)
-                }
-
-                is UiState.Error -> Timber.tag(MY_PINGLE_FRAGMENT).d(LODING + uiState.message)
+                is UiState.Success -> myPingleAdapter.submitList(uiState.data)
+                is UiState.Error -> Timber.tag(MY_PINGLE_FRAGMENT).d(ERROR + uiState.message)
                 is UiState.Loading -> Timber.tag(MY_PINGLE_FRAGMENT).d(LODING)
                 is UiState.Empty -> {
                     myPingleAdapter.submitList(null)
-                    if (isParticipation) binding.tvMyPingleEmpty.text =
-                        getString(R.string.my_pingle_done) else binding.tvMyPingleEmpty.text =
-                        getString(R.string.my_pingle_soon)
-                    binding.tvMyPingleEmpty.visibility = View.VISIBLE
+                    viewModel.isParticipation.value?.let { isParticipation ->
+                        if (isParticipation) binding.tvMyPingleEmpty.text =
+                            getString(R.string.my_pingle_done) else binding.tvMyPingleEmpty.text =
+                            getString(R.string.my_pingle_soon)
+                        binding.tvMyPingleEmpty.visibility = View.VISIBLE
+                    }
                 }
             }
         }.launchIn(lifecycleScope)
+
+        viewModel.myPingleCancelState.flowWithLifecycle(lifecycle).onEach { uiState ->
+            when(uiState) {
+                is UiState.Success -> viewModel.myPingleState
+
+                else -> Unit
+            }
+        }
     }
 
     private fun navigateToMapList() {
         navigateToFragment<MainListFragment>()
     }
 
-    private fun showChatModalDialogFragment(pingleEntity: PingleEntity) {
-        AllModalDialogFragment(
-            title = stringOf(R.string.map_cancel_modal_title),
-            detail = stringOf(R.string.map_cancel_modal_detail),
-            buttonText = stringOf(R.string.map_cancel_modal_button_text),
-            textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
-            clickBtn = { },
-            clickTextBtn = { }
-        ).show(childFragmentManager, "")
+    private fun navigateToWebViewWithChatLink(chatLink: String) {
+        startActivity(navigateToWebView(chatLink))
     }
 
     private fun showDeleteModalDialogFragment(pingleEntity: PingleEntity) {
@@ -115,9 +119,15 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             detail = stringOf(R.string.map_cancel_modal_detail),
             buttonText = stringOf(R.string.map_cancel_modal_button_text),
             textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
-            clickBtn = { },
+            clickBtn = { viewModel.postPingleCancel(meetingId = pingleEntity.id) },
             clickTextBtn = { }
         ).show(childFragmentManager, "")
+    }
+
+    fun view() {
+        binding.root.setOnClickListener {
+
+        }
     }
 
     companion object {

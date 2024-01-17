@@ -28,7 +28,6 @@ import timber.log.Timber
 class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragment_my_pingle) {
     private val viewModel by viewModels<MyPingleViewModel>()
     private lateinit var myPingleAdapter: MyPingleAdatper
-    private var tabPosition = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,15 +53,9 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         binding.tlMyPingle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 -> {
-                        tabPosition = MyPingleType.SOON.boolean
-                        viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
-                    }
+                    0 -> viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
 
-                    1 -> {
-                        tabPosition = MyPingleType.DONE.boolean
-                        viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
-                    }
+                    1 -> viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
                 }
             }
 
@@ -72,15 +65,9 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
-                    0 -> {
-                        tabPosition = MyPingleType.SOON.boolean
-                        viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
-                    }
+                    0 -> viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
 
-                    1 -> {
-                        tabPosition = MyPingleType.DONE.boolean
-                        viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
-                    }
+                    1 -> viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
                 }
             }
         })
@@ -113,7 +100,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         viewModel.myPingleCancelState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
-                    if (tabPosition == MyPingleType.SOON.boolean) {
+                    if (MyPingleType.SOON.boolean) {
                         viewModel.getPingleParticipationList(
                             MyPingleType.SOON.boolean
                         )

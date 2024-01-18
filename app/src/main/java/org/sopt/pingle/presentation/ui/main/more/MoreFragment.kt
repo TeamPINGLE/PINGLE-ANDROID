@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.BuildConfig
@@ -21,8 +20,10 @@ import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.fragment.navigateToWebView
+import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more) {
@@ -85,8 +86,8 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
         moreViewModel.withDrawState.flowWithLifecycle(lifecycle).onEach { withDrawState ->
             when (withDrawState) {
                 is UiState.Success -> {
-                    moveToSign()
                     kakaoAuthService.withdrawKakao()
+                    moveToSign()
                 }
 
                 is UiState.Error -> {
@@ -94,7 +95,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                         FAILURE_OWNER -> {
                             PingleSnackbar.makeSnackbar(
                                 requireView(),
-                                FAILURE_OWNER_MESSAGE,
+                                stringOf(R.string.more_snackbar_failure),
                                 SNACKBAR_BOTTOM_MARGIN,
                                 SnackbarType.WARNING
                             )
@@ -138,11 +139,11 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             detail = getString(R.string.setting_logout_modal_detail),
             buttonText = getString(R.string.setting_modal_back),
             textButtonText = getString(R.string.setting_logout_modal_btn_text),
-            clickBtn = {},
+            clickBtn = { },
             clickTextBtn = {
                 kakaoAuthService.logoutKakao(moreViewModel::logout)
             },
-            onDialogClosed = {}
+            onDialogClosed = { }
         ).show(parentFragmentManager, LOGOUT_MODAL)
     }
 
@@ -154,13 +155,12 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             textButtonText = getString(R.string.setting_withdraw_modal_btn_text),
             clickBtn = { },
             clickTextBtn = { moreViewModel.withDraw() },
-            onDialogClosed = {}
+            onDialogClosed = { }
         ).show(parentFragmentManager, WITHDRAW_MODAL)
     }
 
     companion object {
         private const val FAILURE_OWNER = "400"
-        private const val FAILURE_OWNER_MESSAGE = "단체 개설자는 탈퇴할 수 없어요!"
         private const val SNACKBAR_BOTTOM_MARGIN = 76
         private const val FAILURE_LOGOUT = "로그아웃 실패"
         private const val LOGOUT_MODAL = "logoutModal"

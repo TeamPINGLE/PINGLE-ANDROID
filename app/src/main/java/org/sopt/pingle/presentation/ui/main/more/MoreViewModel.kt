@@ -3,8 +3,9 @@ package org.sopt.pingle.presentation.ui.main.more
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
@@ -13,6 +14,7 @@ import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.util.view.UiState
 import retrofit2.HttpException
+import javax.inject.Inject
 
 @HiltViewModel
 class MoreViewModel @Inject constructor(
@@ -23,8 +25,8 @@ class MoreViewModel @Inject constructor(
     private val _logoutState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
     val logoutState get() = _logoutState.asStateFlow()
 
-    private val _withDrawState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
-    val withDrawState get() = _withDrawState.asStateFlow()
+    private val _withDrawState = MutableSharedFlow<UiState<Boolean>>()
+    val withDrawState get() = _withDrawState.asSharedFlow()
 
     private val _userInfoState = MutableStateFlow<UiState<UserInfoEntity>>(UiState.Empty)
     val userInfoState get() = _userInfoState.asStateFlow()
@@ -52,18 +54,20 @@ class MoreViewModel @Inject constructor(
             authRepository.withDraw()
                 .onSuccess { code ->
                     if (code == SUCCESS_CODE) {
-                        _withDrawState.value = UiState.Success(true)
+                        _withDrawState.emit(UiState.Success(true))
                         localStorage.clear()
                     } else {
-                        _withDrawState.value = UiState.Error(null)
+                        _withDrawState.emit(UiState.Error(null))
                     }
                 }.onFailure { throwable ->
-                    _withDrawState.value = UiState.Error(
-                        if (throwable is HttpException) {
-                            throwable.response()?.code().toString()
-                        } else {
-                            throwable.message
-                        }
+                    _withDrawState.emit(
+                        UiState.Error(
+                            if (throwable is HttpException) {
+                                throwable.response()?.code().toString()
+                            } else {
+                                throwable.message
+                            }
+                        )
                     )
                 }
         }

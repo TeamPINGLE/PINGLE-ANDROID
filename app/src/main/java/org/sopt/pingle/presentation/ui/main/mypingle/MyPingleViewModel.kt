@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,12 +45,17 @@ class MyPingleViewModel @Inject constructor(
     }
 
     fun updateMyPingleList(newPosition: Int) {
-        when (oldPosition) {
-            DEFAULT_OLD_POSITION -> setIsSelected(newPosition)
+        when {
+            oldPosition == DEFAULT_OLD_POSITION -> setIsSelected(newPosition)
 
-            newPosition -> {
+            oldPosition == newPosition -> {
                 setIsSelected(newPosition)
                 oldPosition = DEFAULT_OLD_POSITION
+            }
+
+            oldPosition >= _myPingleList.value.size -> {
+                oldPosition = DEFAULT_OLD_POSITION
+                setIsSelected(newPosition)
             }
 
             else -> {

@@ -7,6 +7,6 @@ import org.sopt.pingle.domain.repository.JoinGroupRepository
 class GetJoinGroupInfoUseCase(
     private val joinGroupRepository: JoinGroupRepository
 ) {
-    operator fun invoke(teamId: Int): Flow<JoinGroupInfoEntity> =
+    suspend operator fun invoke(teamId: Int): Flow<JoinGroupInfoEntity> =
         joinGroupRepository.getJoinGroupInfo(teamId = teamId)
 }

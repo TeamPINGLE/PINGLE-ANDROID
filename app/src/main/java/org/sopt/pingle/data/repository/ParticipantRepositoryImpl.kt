@@ -10,7 +10,7 @@ import org.sopt.pingle.domain.repository.ParticipantRepository
 class ParticipantRepositoryImpl @Inject constructor(
     private val participantRemoteDataSource: ParticipantRemoteDataSource
 ) : ParticipantRepository {
-    override fun getParticipantList(meetingId: Long): Flow<ParticipantEntity> = flow {
+    override suspend fun getParticipantList(meetingId: Long): Flow<ParticipantEntity> = flow {
         val result = runCatching {
             participantRemoteDataSource.getParticipantList(meetingId = meetingId).data.toParticipantEntity()
         }

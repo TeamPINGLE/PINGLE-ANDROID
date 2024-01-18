@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="myPingleItem"
+            type="org.sopt.pingle.domain.model.MyPingleEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing17" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing17" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/spacing8" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="@dimen/spacing8" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_my_pingle_card_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_border_radius_15"
+            android:backgroundTint="@color/g_10"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/gl_top">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_top_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/spacing24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_top_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/spacing24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_top_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/spacing20" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_top_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/spacing20" />
+
+            <org.sopt.pingle.util.component.PingleBadge
+                android:id="@+id/badge_my_pingle_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/gl_top_start"
+                app:layout_constraintTop_toBottomOf="@id/gl_top_top" />
+
+            <TextView
+                android:id="@+id/tv_my_pingle_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/shape_border_radius_30"
+                android:backgroundTint="@color/white"
+                android:paddingHorizontal="@dimen/spacing8"
+                android:paddingVertical="@dimen/spacing3"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Bold.10"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/badge_my_pingle_category"
+                app:layout_constraintStart_toEndOf="@id/badge_my_pingle_category"
+                app:layout_constraintTop_toTopOf="@id/badge_my_pingle_category"
+                tools:text="D-1" />
+
+            <TextView
+                android:id="@+id/tv_my_pingle_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:maxLines="2"
+                android:text="@{myPingleItem.name}"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Bold.14"
+                app:layout_constraintEnd_toStartOf="@id/gl_top_end"
+                app:layout_constraintStart_toEndOf="@id/gl_top_start"
+                app:layout_constraintTop_toBottomOf="@id/badge_my_pingle_category"
+                tools:text="강남 모각작팟" />
+
+            <TextView
+                android:id="@+id/tv_my_pingle_owner_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@{myPingleItem.ownerName}"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+                android:textColor="@color/g_03"
+                app:layout_constraintBottom_toTopOf="@id/gl_top_bottom"
+                app:layout_constraintEnd_toStartOf="@id/gl_top_end"
+                app:layout_constraintStart_toEndOf="@id/gl_top_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_my_pingle_name"
+                tools:text="개최자" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_my_pingle_card_bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_border_radius_15"
+            android:backgroundTint="@color/g_10"
+            app:layout_constraintBottom_toTopOf="@id/gl_bottom"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/layout_my_pingle_card_top">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_bottom_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/spacing24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_bottom_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/spacing24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_bottom_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/spacing20" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_bottom_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/spacing20" />
+
+            <ImageView
+                android:id="@+id/iv_my_pingle_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_all_calendar_24"
+                app:layout_constraintStart_toEndOf="@id/gl_bottom_start"
+                app:layout_constraintTop_toBottomOf="@id/gl_bottom_top" />
+
+            <TextView
+                android:id="@+id/tv_my_pingle_calender_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+                android:textColor="@color/g_03"
+                app:layout_constraintBottom_toBottomOf="@id/iv_my_pingle_calendar"
+                app:layout_constraintEnd_toStartOf="@id/gl_bottom_end"
+                app:layout_constraintStart_toEndOf="@id/iv_my_pingle_calendar"
+                app:layout_constraintTop_toTopOf="@id/iv_my_pingle_calendar"
+                tools:text="2024.01.04 | 19:00 ~ 24:00" />
+
+            <ImageView
+                android:id="@+id/iv_my_pingle_calender_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_all_map_24"
+                app:layout_constraintStart_toEndOf="@id/gl_bottom_start"
+                app:layout_constraintTop_toBottomOf="@id/iv_my_pingle_calendar" />
+
+            <TextView
+                android:id="@+id/tv_my_pingle_calender_map_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="@{myPingleItem.location}"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+                android:textColor="@color/g_03"
+                app:layout_constraintBottom_toBottomOf="@id/iv_my_pingle_calender_map"
+                app:layout_constraintEnd_toStartOf="@id/gl_bottom_end"
+                app:layout_constraintStart_toEndOf="@id/iv_my_pingle_calender_map"
+                app:layout_constraintTop_toTopOf="@id/iv_my_pingle_calender_map"
+                tools:text="장소 이름" />
+
+            <ImageView
+                android:id="@+id/iv_my_pingle_calender_recruitment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_all_user_24"
+                app:layout_constraintBottom_toTopOf="@id/gl_bottom_bottom"
+                app:layout_constraintStart_toEndOf="@id/gl_bottom_start"
+                app:layout_constraintTop_toBottomOf="@id/iv_my_pingle_calender_map" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_my_pingle_recruitment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_my_pingle_calender_recruitment"
+                app:layout_constraintStart_toEndOf="@id/iv_my_pingle_calender_recruitment"
+                app:layout_constraintTop_toTopOf="@id/iv_my_pingle_calender_recruitment">
+
+                <TextView
+                    android:id="@+id/tv_my_pingle_calender_recruitment_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+                    android:textColor="@color/g_03"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="5/10명" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ic_card_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_my_pingle_calender_recruitment_detail"
+                    app:layout_constraintStart_toEndOf="@id/tv_my_pingle_calender_recruitment_detail"
+                    app:layout_constraintTop_toTopOf="@id/tv_my_pingle_calender_recruitment_detail" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/iv_my_pingle_owner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_my_56"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view_my_pingle_middle_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="22dp"
+            android:background="@color/g_07"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/layout_my_pingle_card_top" />
+
+        <ImageView
+            android:id="@+id/iv_my_pingle_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:padding="@dimen/spacing12"
+            android:src="@drawable/ic_my_edit_24"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintTop_toBottomOf="@id/gl_top" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_my_pingle_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:background="@color/g_10"
+            android:foreground="@drawable/shape_border_radius_8_stroke_1"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_my_pingle_edit">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_my_pingle_menu_chat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/spacing14"
+                android:paddingVertical="@dimen/spacing12"
+                app:layout_constraintBottom_toBottomOf="@id/view_my_pingle_menu_middle_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_my_pingle_menu_chat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_pingle_chat"
+                    android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                    android:textColor="@color/g_03"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_my_pingle_menu_chat"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_my_pingle_menu_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_my_chat_20"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_my_pingle_menu_trash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/spacing14"
+                android:paddingVertical="@dimen/spacing12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_my_pingle_menu_middle_line">
+
+                <TextView
+                    android:id="@+id/tv_my_pingle_menu_trash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/my_pingle_trash"
+                    android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                    android:textColor="@color/g_03"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_my_pingle_menu_trash"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_my_pingle_menu_trash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_my_trash_active_20"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/view_my_pingle_menu_middle_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/g_09"
+                app:layout_constraintBottom_toTopOf="@id/layout_my_pingle_menu_trash"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_my_pingle_menu_chat" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -222,7 +222,21 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
                             mapViewModel.getPingleList(pinId = pinId)
                         }
-                        mapViewModel.getPinListWithoutFilter()
+                    }
+
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        mapViewModel.pingleDeleteState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        if(mapCardAdapter.currentList.size == 1) mapViewModel.getPinListWithoutFilter()
+
+                        mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
+                            mapViewModel.getPingleList(pinId = pinId)
+                        }
                     }
 
                     else -> Unit
@@ -232,11 +246,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 

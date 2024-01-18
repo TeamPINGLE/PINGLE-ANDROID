@@ -10,6 +10,5 @@ interface PingleRepository {
         teamId: Int,
         participation: Boolean
     ): Flow<List<MyPingleEntity>>
-
-    suspend fun deletePingle(meetingId: Long): Flow<Unit?>
+    suspend fun deletePingleDelete(meetingId: Long): Flow<Unit?>
 }

@@ -27,8 +27,8 @@ interface PingleService {
         @Query(PARTICIPATION) participation: Boolean
     ): BaseResponse<List<ResponseMyPingleDto>>
 
-    @DELETE("$VERSION/$MEETINGS/$MEETING_ID")
-    suspend fun deletePingle(
+    @DELETE("$VERSION/$MEETINGS/{$MEETING_ID}")
+    suspend fun deletePingleDelete(
         @Path(MEETING_ID) meetingId: Long
     ): NullableBaseResponse<Unit?>
 

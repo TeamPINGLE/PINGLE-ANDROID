@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
@@ -12,6 +11,7 @@ import org.sopt.pingle.domain.repository.ParticipantRepository
 import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
 import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
+import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
@@ -23,10 +23,21 @@ import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class UseCaseModule {
+    @Provides
+    @Singleton
+    fun providesDeletePingleCancelUseCase(pingleRepository: PingleRepository): DeletePingleCancelUseCase =
+        DeletePingleCancelUseCase(pingleRepository = pingleRepository)
+
+    @Provides
+    @Singleton
+    fun providesDeletePingleDeleteUseCase(pingleRepository: PingleRepository): DeletePingleDeleteUseCase =
+        DeletePingleDeleteUseCase(pingleRepository = pingleRepository)
+
     @Provides
     @Singleton
     fun providesGetJoinGroupInfoUseCase(joinGroupRepository: JoinGroupRepository): GetJoinGroupInfoUseCase =
@@ -61,11 +72,6 @@ class UseCaseModule {
     @Singleton
     fun providesPostJoinGroupCodeUseCase(joinGroupRepository: JoinGroupRepository): PostJoinGroupCodeUseCase =
         PostJoinGroupCodeUseCase(joinGroupRepository = joinGroupRepository)
-
-    @Provides
-    @Singleton
-    fun providesPostPingleCancelUseCase(pingleRepository: PingleRepository): DeletePingleCancelUseCase =
-        DeletePingleCancelUseCase(pingleRepository = pingleRepository)
 
     @Provides
     @Singleton

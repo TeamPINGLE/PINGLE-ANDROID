@@ -62,7 +62,7 @@ class PingleCard @JvmOverloads constructor(
             btnCardBottomMapChat.isEnabled = pingleEntity.isParticipating
             btnCardBottomMapParticipate.isEnabled = when {
                 pingleEntity.isOwner -> true
-                else ->  pingleEntity.isParticipating || !pingleEntity.isCompleted()
+                else -> pingleEntity.isParticipating || !pingleEntity.isCompleted()
             }
 
             btnCardBottomMapParticipate.text =

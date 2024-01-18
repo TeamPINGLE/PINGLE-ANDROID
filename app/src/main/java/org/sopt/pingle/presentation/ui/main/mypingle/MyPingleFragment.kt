@@ -14,6 +14,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.MyPingleType
+import org.sopt.pingle.presentation.ui.plan.PlanViewModel.Companion.DEFAULT_OLD_POSITION
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.fragment.stringOf
@@ -37,7 +38,8 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         myPingleAdapter = MyPingleAdatper(
             requireContext(),
             showDeleteModalDialogFragment = ::showDeleteModalDialogFragment,
-            setOldItem = ::deleteOldPosition
+            updateMyPingleListSelectedPosition = ::updateMyPingleListSelectedPosition,
+            clearMyPingleListSelection = ::clearMyPingleListSelection
         )
         binding.rvMyPingle.adapter = myPingleAdapter
         viewModel.getPingleParticipationList()
@@ -68,9 +70,6 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
                     myPingleAdapter.submitList(uiState.data)
                     binding.tvMyPingleEmpty.visibility = View.INVISIBLE
                 }
-
-                is UiState.Error -> Timber.tag(MY_PINGLE_FRAGMENT).d(ERROR + uiState.message)
-                is UiState.Loading -> Timber.tag(MY_PINGLE_FRAGMENT).d(LOADING)
                 is UiState.Empty -> {
                     myPingleAdapter.submitList(null)
                     binding.tvMyPingleEmpty.visibility = View.VISIBLE
@@ -79,13 +78,13 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
                         MyPingleType.DONE -> stringOf(R.string.my_pingle_done)
                     }
                 }
+                else -> Unit
             }
         }.launchIn(lifecycleScope)
 
         viewModel.myPingleCancelState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> viewModel.getPingleParticipationList()
-                is UiState.Error -> Log.d("http error", uiState.message.toString())
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
@@ -102,14 +101,15 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         ).show(childFragmentManager, MY_PINGLE_MODAL)
     }
 
-    private fun deleteOldPosition(position: Int) {
+    private fun updateMyPingleListSelectedPosition(position: Int) {
         viewModel.updateMyPingleList(position)
+    }
+
+    private fun clearMyPingleListSelection() {
+        viewModel.clearMyPingleListSelection()
     }
 
     companion object {
         const val MY_PINGLE_MODAL = "MyPingleModal"
-        const val MY_PINGLE_FRAGMENT = "MyPingleFragment"
-        const val ERROR = "Error : "
-        const val LOADING = "Loading"
     }
 }

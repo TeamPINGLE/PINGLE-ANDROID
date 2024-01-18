@@ -1,6 +1,7 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -17,34 +18,39 @@ class MyPingleViewHolder(
     private val binding: ItemMyPingleBinding,
     private val context: Context,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
-    private val setOldItem: (Int) -> Unit
+    private val updateMyPingleListSelectedPosition: (Int) -> Unit,
+    private val clearMyPingleListSelection: () -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
+        binding.ivMyPingleEdit.setOnClickListener {
+            updateMyPingleListSelectedPosition(bindingAdapterPosition)
+        }
+
         binding.root.setOnClickListener {
-            setOldItem(bindingAdapterPosition)
+            clearMyPingleListSelection()
         }
     }
 
-    fun onBind(item: MyPingleEntity) {
+    fun onBind(myPingleEntity: MyPingleEntity) {
         with(binding) {
-            myPingleItem = item
-            badgeMyPingleCategory.setBadgeCategoryType(CategoryType.fromString(item.category))
+            this.myPingleEntity = myPingleEntity
+            badgeMyPingleCategory.setBadgeCategoryType(CategoryType.fromString(myPingleEntity.category))
             tvMyPingleName.setTextColor(
-                context.colorOf(CategoryType.fromString(item.category).textColor)
+                context.colorOf(CategoryType.fromString(myPingleEntity.category).textColor)
             )
             tvMyPingleCalenderDetail.text =
                 convertToCalenderDetail(
-                    date = item.date,
-                    startAt = item.startAt,
-                    endAt = item.endAt
+                    date = myPingleEntity.date,
+                    startAt = myPingleEntity.startAt,
+                    endAt = myPingleEntity.endAt
                 )
             tvMyPingleCalenderRecruitmentDetail.text = context.getString(
                 R.string.my_pingle_participant,
-                item.curParticipants,
-                item.maxParticipants
+                myPingleEntity.curParticipants,
+                myPingleEntity.maxParticipants
             )
 
-            if (item.isOwner) {
+            if (myPingleEntity.isOwner) {
                 ivMyPingleOwner.visibility = View.VISIBLE
                 tvMyPingleMenuTrash.setTextColor(context.colorOf(R.color.g_08))
                 ivMyPingleMenuTrash.setImageResource(R.drawable.ic_my_trash_inactivated_20)
@@ -52,9 +58,9 @@ class MyPingleViewHolder(
                 ivMyPingleOwner.visibility = View.INVISIBLE
             }
 
-            if (item.dDay.isEmpty()) {
+            if (myPingleEntity.dDay.isEmpty()) {
                 tvMyPingleDay.visibility = View.INVISIBLE
-            } else if (item.dDay == DONE) {
+            } else if (myPingleEntity.dDay == DONE) {
                 tvMyPingleDay.text = DONE
                 tvMyPingleDay.setTextColor(context.colorOf(R.color.g_10))
                 ViewCompat.setBackgroundTintList(
@@ -64,30 +70,17 @@ class MyPingleViewHolder(
                 ivMyPingleEdit.visibility = View.INVISIBLE
                 layoutMyPingleMenu.visibility = View.INVISIBLE
             } else {
-                tvMyPingleDay.text = item.dDay
+                tvMyPingleDay.text = myPingleEntity.dDay
                 tvMyPingleDay.visibility = View.VISIBLE
                 ivMyPingleEdit.visibility = View.VISIBLE
             }
 
-            ivMyPingleEdit.setOnClickListener {
-                val currentVisibility = layoutMyPingleMenu.visibility
-                if (currentVisibility == View.VISIBLE) {
-                    layoutMyPingleMenu.visibility = View.INVISIBLE
-                } else {
-                    layoutMyPingleMenu.visibility = View.VISIBLE
-                }
-            }
-
             layoutMyPingleMenuChat.setOnClickListener {
-                context.startActivity(context.navigateToWebView(item.chatLink))
+                context.startActivity(context.navigateToWebView(myPingleEntity.chatLink))
             }
 
             layoutMyPingleMenuTrash.setOnClickListener {
-                showDeleteModalDialogFragment(item)
-            }
-
-            binding.root.setOnClickListener {
-                layoutMyPingleMenu.visibility = View.INVISIBLE
+                showDeleteModalDialogFragment(myPingleEntity)
             }
         }
     }

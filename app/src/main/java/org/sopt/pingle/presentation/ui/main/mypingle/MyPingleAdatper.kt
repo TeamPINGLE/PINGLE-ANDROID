@@ -11,7 +11,8 @@ import org.sopt.pingle.util.view.ItemDiffCallback
 class MyPingleAdatper(
     private val context: Context,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
-    private val setOldItem: (Int) -> Unit
+    private val updateMyPingleListSelectedPosition: (Int) -> Unit,
+    private val clearMyPingleListSelection: () -> Unit
 ) : ListAdapter<MyPingleEntity, MyPingleViewHolder>(
     ItemDiffCallback<MyPingleEntity>(
         onItemsTheSame = { old, new -> old.id == new.id },
@@ -23,11 +24,13 @@ class MyPingleAdatper(
             ItemMyPingleBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
+
                 false
             ),
             context,
             showDeleteModalDialogFragment,
-            setOldItem
+            updateMyPingleListSelectedPosition,
+            clearMyPingleListSelection
         )
 
     override fun onBindViewHolder(holder: MyPingleViewHolder, position: Int) {

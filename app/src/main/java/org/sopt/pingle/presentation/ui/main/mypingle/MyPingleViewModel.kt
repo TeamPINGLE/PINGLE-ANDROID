@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,10 +35,8 @@ class MyPingleViewModel @Inject constructor(
     val myPingleCancelState get() = _myPingleCancelState.asStateFlow()
 
     private val _selectedMyPingleData = MutableStateFlow<MyPingleEntity?>(null)
-    val selectedMyPingleData get() = _selectedMyPingleData.asStateFlow()
 
     private val _myPingleList = MutableStateFlow<List<MyPingleEntity>>(emptyList())
-    val myPingleList get() = _myPingleList.asStateFlow()
 
     private var oldPosition = DEFAULT_OLD_POSITION
 
@@ -48,6 +47,8 @@ class MyPingleViewModel @Inject constructor(
     fun getPingleParticipationList() {
         viewModelScope.launch {
             _myPingleState.emit(UiState.Loading)
+            _myPingleList.value = emptyList()
+            _selectedMyPingleData.value = null
             runCatching {
                 getMyPingleListUseCase(
                     teamId = localStorage.groupId,
@@ -56,6 +57,7 @@ class MyPingleViewModel @Inject constructor(
                     if (myPingleEntity.isEmpty()) {
                         _myPingleState.emit(UiState.Empty)
                     } else {
+                        _myPingleList.value = myPingleEntity
                         _myPingleState.emit(UiState.Success(myPingleEntity))
                     }
                 }
@@ -95,6 +97,13 @@ class MyPingleViewModel @Inject constructor(
         _selectedMyPingleData.value =
             if (getIsSelected(newPosition)) _myPingleList.value[newPosition] else null
         oldPosition = newPosition
+    }
+
+    fun clearMyPingleListSelection() {
+        if (oldPosition != DEFAULT_OLD_POSITION && getIsSelected(oldPosition)) {
+            setIsSelected(oldPosition)
+        }
+        oldPosition = DEFAULT_OLD_POSITION
     }
 
     private fun setIsSelected(position: Int) {

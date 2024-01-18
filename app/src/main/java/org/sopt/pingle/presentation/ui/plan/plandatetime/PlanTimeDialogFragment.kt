@@ -29,8 +29,8 @@ class PlanTimeDialogFragment(
         meridiemPicker.apply {
             wrapSelectorWheel = false
             descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-            minValue = 0
-            maxValue = 1
+            minValue = TIMEPICKER_MIN
+            maxValue = TIMEPICKER_MAX
             displayedValues =
                 arrayOf(
                     getString(MeridiemType.AM.meridiemStringRes),
@@ -59,7 +59,7 @@ class PlanTimeDialogFragment(
         binding.tvTimePickerDone.setOnClickListener {
             with(binding) {
                 onDialogClosed(
-                    if (npTimePickerMeridiem.value == 0) MeridiemType.AM.name else MeridiemType.PM.name,
+                    if (npTimePickerMeridiem.value == TIMEPICKER_MIN) MeridiemType.AM.name else MeridiemType.PM.name,
                     npTimePickerHour.value,
                     npTimePickerMinute.value
                 )
@@ -73,5 +73,7 @@ class PlanTimeDialogFragment(
         const val HOUR_MAX = 12
         const val MINUTE_MIN = 0
         const val MINUTE_MAX = 59
+        const val TIMEPICKER_MIN = 0
+        const val TIMEPICKER_MAX = 1
     }
 }

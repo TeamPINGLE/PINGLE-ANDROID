@@ -210,8 +210,8 @@ class PlanViewModel @Inject constructor(
                                 planMeetingEntity = PlanMeetingEntity(
                                     category = selectedCategory.name,
                                     name = planTitle.value,
-                                    startAt = planDate.value + " " + startTime.value,
-                                    endAt = planDate.value + " " + endTime.value,
+                                    startAt = planDate.value + BLANK_STRING + startTime.value,
+                                    endAt = planDate.value + BLANK_STRING + endTime.value,
                                     x = selectedLocation.x,
                                     y = selectedLocation.y,
                                     address = selectedLocation.address,
@@ -251,5 +251,6 @@ class PlanViewModel @Inject constructor(
         const val DEFAULT_RECRUITMENT = "1"
         const val START_RECRUITMENT = 2
         const val END_RECRUITMENT = 99
+        const val BLANK_STRING = " "
     }
 }

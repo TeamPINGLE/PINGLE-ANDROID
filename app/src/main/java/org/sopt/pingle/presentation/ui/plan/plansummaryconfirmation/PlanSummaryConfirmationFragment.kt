@@ -50,7 +50,7 @@ class PlanSummaryConfirmationFragment :
     }
 
     private fun collectData() {
-        viewModel.userInfoState.flowWithLifecycle(lifecycle).onEach { userInfoState ->
+        viewModel.userInfoState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { userInfoState ->
             when (userInfoState) {
                 is UiState.Success ->
                     binding.tvPlanSummaryConfirmationOwnerName.text =
@@ -58,6 +58,6 @@ class PlanSummaryConfirmationFragment :
 
                 else -> Unit
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }

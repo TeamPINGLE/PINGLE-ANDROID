@@ -47,7 +47,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
     private fun initView() {
         with(binding.planProgress) {
-            min = 1f
+            min = DEFAULT_PROGRESSBAR
             max = fragmentList.size.toFloat()
         }
     }
@@ -81,7 +81,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
     private fun addListeners() {
         binding.btnPlan.setOnClickListener {
             when (binding.vpPlan.currentItem) {
-                fragmentList.size - 1 -> {
+                fragmentList.size - SUB_LIST_SIZE -> {
                     planViewModel.postPlanMeeting()
                 }
 
@@ -102,7 +102,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         planViewModel.currentPage.flowWithLifecycle(lifecycle).onEach { currentPage ->
             binding.planProgress.progress = currentPage.toFloat() + 1f
             when (currentPage) {
-                fragmentList.size - 1 -> {
+                fragmentList.size - SUB_LIST_SIZE -> {
                     binding.btnPlan.text = getString(R.string.plan_pingle)
                     binding.layoutClose.visibility = View.INVISIBLE
                 }
@@ -135,7 +135,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
     private fun navigateToPreviousPage() {
         when (binding.vpPlan.currentItem) {
-            0 -> {
+            FIRST_PAGE -> {
                 navigateToPlanAnnouncement()
             }
 
@@ -171,5 +171,8 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
     companion object {
         private const val EXIT_MODAL = "exitModal"
+        const val FIRST_PAGE = 0
+        const val DEFAULT_PROGRESSBAR = 1f
+        const val SUB_LIST_SIZE = 1
     }
 }

@@ -50,11 +50,10 @@ class PlanDateTimeFragment :
         }
     }
 
-    // TODO format 관련 refactor
     private fun onDateDialogFragmentClosed(year: Int, month: Int, day: Int) {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val dateFormat = SimpleDateFormat(DATE_FORMAT)
         val todayLocalDate = dateFormat.parse(LocalDate.now().toString())
-        val selectedFormatDate = String.format("%d-%02d-%02d", year, month, day)
+        val selectedFormatDate = String.format(SELECTED_DATE_FORMAT, year, month, day)
         val selectedLocalDate = dateFormat.parse(selectedFormatDate)
 
         if (selectedLocalDate != null) {
@@ -62,11 +61,11 @@ class PlanDateTimeFragment :
                 PingleSnackbar.makeSnackbar(
                     binding.root,
                     getString(R.string.plan_future_date_snackbar),
-                    126
+                    SNACKBAR_BOTTOM_MARGIN
                 )
             } else {
                 binding.includePlanTextWithTitleDate.tvText.text = String.format(
-                    "%d년 %d월 %d일",
+                    PRINT_DATE_FORMAT,
                     year,
                     month,
                     day
@@ -76,9 +75,8 @@ class PlanDateTimeFragment :
         }
     }
 
-    // TODO 가독성 좋게 refactor
     private fun onTimeDialogFragmentClosed(meridiem: String, hour: Int, minute: Int) {
-        val time12HourFormat = String.format("%02d:%02d %s", hour, minute, meridiem)
+        val time12HourFormat = String.format(HOUR12_FORMAT, hour, minute, meridiem)
         val time24Hour = convert24HFormatHours(time12HourFormat, false)
         val time24HourWithSecond = convert24HFormatHours(time12HourFormat, true)
 
@@ -114,9 +112,9 @@ class PlanDateTimeFragment :
     }
 
     private fun convert24HFormatHours(time12Hour: String, isWithSecond: Boolean): String {
-        val inputFormat = SimpleDateFormat("hh:mm a", Locale.US)
-        val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val outputFormatWithSecond = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val inputFormat = SimpleDateFormat(SIMPLE_DATE_INPUT, Locale.US)
+        val outputFormat = SimpleDateFormat(SIMPLE_DATE_OUTPUT, Locale.getDefault())
+        val outputFormatWithSecond = SimpleDateFormat(TIME_FORMAT_OUTPUT, Locale.getDefault())
 
         val date = inputFormat.parse(time12Hour)
 
@@ -132,8 +130,15 @@ class PlanDateTimeFragment :
     }
 
     companion object {
+        const val SIMPLE_DATE_INPUT = "hh:mm a"
+        const val SIMPLE_DATE_OUTPUT = "HH:mm"
+        const val TIME_FORMAT_OUTPUT = "HH:mm:ss"
         const val START_TIME = "startTime"
         const val END_TIME = "endTime"
         const val SNACKBAR_BOTTOM_MARGIN = 126
+        const val DATE_FORMAT = "yyyy-MM-dd"
+        const val SELECTED_DATE_FORMAT = "%d-%02d-%02d"
+        const val PRINT_DATE_FORMAT = "%d년 %d월 %d일"
+        const val HOUR12_FORMAT = "%02d:%02d %s"
     }
 }

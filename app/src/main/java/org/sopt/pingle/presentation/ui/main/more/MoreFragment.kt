@@ -66,7 +66,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     private fun collectData() {
-        moreViewModel.logoutState.flowWithLifecycle(lifecycle).onEach { logoutState ->
+        moreViewModel.logoutState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { logoutState ->
             when (logoutState) {
                 is UiState.Success -> {
                     moveToSign()
@@ -78,9 +78,9 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
 
                 else -> {}
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        moreViewModel.withDrawState.flowWithLifecycle(lifecycle).onEach { withDrawState ->
+        moreViewModel.withDrawState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { withDrawState ->
             when (withDrawState) {
                 is UiState.Success -> {
                     moveToSign()
@@ -92,9 +92,9 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
 
                 else -> {}
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        moreViewModel.userInfoState.flowWithLifecycle(lifecycle).onEach { userInfoState ->
+        moreViewModel.userInfoState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { userInfoState ->
             when (userInfoState) {
                 is UiState.Success -> {
                     binding.tvMoreNickname.text = userInfoState.data.name
@@ -102,7 +102,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
 
                 else -> Unit
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun moveToSign() {

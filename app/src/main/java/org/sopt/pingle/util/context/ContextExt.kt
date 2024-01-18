@@ -21,8 +21,6 @@ fun Context.stringOf(@StringRes resId: Int) = getString(resId)
 
 fun Context.colorOf(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)
 
-fun Context.drawableOf(@DrawableRes resId: Int) = ContextCompat.getDrawable(this, resId)
-
 fun Context.navigateToWebView(link: String) = Intent(this, WebViewActivity::class.java).apply {
     putExtra(WEB_VIEW_LINK, link)
 }

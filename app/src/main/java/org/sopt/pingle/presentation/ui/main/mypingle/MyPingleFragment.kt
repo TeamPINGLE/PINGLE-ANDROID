@@ -35,6 +35,11 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         collectData()
     }
 
+    override fun onDestroyView() {
+        binding.rvMyPingle.adapter = null
+        super.onDestroyView()
+    }
+
     private fun initLayout() {
         myPingleAdapter = MyPingleAdatper(
             requireContext(),

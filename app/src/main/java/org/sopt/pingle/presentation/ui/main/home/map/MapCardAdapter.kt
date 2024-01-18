@@ -10,7 +10,8 @@ import org.sopt.pingle.util.view.ItemDiffCallback
 class MapCardAdapter(
     private val navigateToWebViewWithChatLink: (String) -> Unit,
     private val showMapJoinModalDialogFragment: (PingleEntity) -> Unit,
-    private val showMapCancelModalDialogFragment: (PingleEntity) -> Unit
+    private val showMapCancelModalDialogFragment: (PingleEntity) -> Unit,
+    private val showMapDeleteModalDialogFragment: (PingleEntity) -> Unit
 ) : ListAdapter<PingleEntity, MapCardViewHolder>(
     ItemDiffCallback<PingleEntity>(
         onContentsTheSame = { old, new -> old == new },
@@ -25,7 +26,8 @@ class MapCardAdapter(
             ItemMapPingleCardBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             navigateToWebViewWithChatLink,
             showMapJoinModalDialogFragment,
-            showMapCancelModalDialogFragment
+            showMapCancelModalDialogFragment,
+            showMapDeleteModalDialogFragment
         )
 
     override fun onBindViewHolder(holder: MapCardViewHolder, position: Int) {

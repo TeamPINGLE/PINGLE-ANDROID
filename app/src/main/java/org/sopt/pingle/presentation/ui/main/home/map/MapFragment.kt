@@ -111,7 +111,8 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         mapCardAdapter = MapCardAdapter(
             navigateToWebViewWithChatLink = ::navigateToWebViewWithChatLink,
             showMapJoinModalDialogFragment = ::showMapJoinModalDialogFragment,
-            showMapCancelModalDialogFragment = ::showMapCancelModalDialogFragment
+            showMapCancelModalDialogFragment = ::showMapCancelModalDialogFragment,
+            showMapDeleteModalDialogFragment = ::showMapDeleteModalDialogFragment
         )
 
         with(binding.vpMapCard) {
@@ -294,7 +295,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             detail = stringOf(R.string.cancel_modal_detail),
             buttonText = stringOf(R.string.cancel_modal_button_text),
             textButtonText = stringOf(R.string.cancel_modal_text_button_text),
-            clickBtn = { mapViewModel.postPingleCancel(meetingId = pingleEntity.id) },
+            clickBtn = { mapViewModel.deletePingleCancel(meetingId = pingleEntity.id) },
             clickTextBtn = { }
         ).show(childFragmentManager, MAP_CANCEL_MODAL)
     }
@@ -306,8 +307,19 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 name = name,
                 ownerName = ownerName,
                 clickBtn = { mapViewModel.postPingleJoin(meetingId = pingleEntity.id) }
-            ).show(childFragmentManager, MAP_MODAL)
+            ).show(childFragmentManager, MAP_JOIN_MODAL)
         }
+    }
+
+    private fun showMapDeleteModalDialogFragment(pingleEntity: PingleEntity) {
+        AllModalDialogFragment(
+            title = stringOf(R.string.delete_modal_title),
+            detail = stringOf(R.string.delete_modal_detail),
+            buttonText = stringOf(R.string.delete_modal_button_text),
+            textButtonText = stringOf(R.string.delete_modal_text_button_text),
+            clickBtn = { mapViewModel.deletePingleDelete(meetingId = pingleEntity.id)},
+            clickTextBtn = {}
+        ).show(childFragmentManager, MAP_DELETE_MODAL)
     }
 
     companion object {
@@ -318,7 +330,8 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         )
         private const val SINGLE_SELECTION = 0
         private const val MAP_CANCEL_MODAL = "mapCancelModal"
-        private const val MAP_MODAL = "mapModal"
+        private const val MAP_JOIN_MODAL = "mapJoinModal"
+        private const val MAP_DELETE_MODAL = "mapDeleteModal"
 
         val OVERLAY_IMAGE_PIN_PLAY_DEFAULT =
             OverlayImage.fromResource(R.drawable.ic_pin_play_default)

@@ -1,10 +1,7 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
 import android.content.Context
-import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ItemMyPingleBinding
@@ -13,6 +10,7 @@ import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.context.colorOf
 import org.sopt.pingle.util.context.navigateToWebView
 import org.sopt.pingle.util.convertToCalenderDetail
+import org.sopt.pingle.util.view.setBackgroundTint
 
 class MyPingleViewHolder(
     private val binding: ItemMyPingleBinding,
@@ -54,38 +52,48 @@ class MyPingleViewHolder(
                 ivMyPingleOwner.visibility = View.VISIBLE
                 tvMyPingleMenuTrash.setTextColor(context.colorOf(R.color.g_08))
                 ivMyPingleMenuTrash.setImageResource(R.drawable.ic_my_trash_inactivated_20)
+                layoutMyPingleMenuTrash.isClickable = true
             } else {
                 ivMyPingleOwner.visibility = View.INVISIBLE
+                tvMyPingleMenuTrash.setTextColor(context.colorOf(R.color.g_03))
+                ivMyPingleMenuTrash.setImageResource(R.drawable.ic_my_trash_active_20)
+                layoutMyPingleMenuTrash.setOnClickListener {
+                    showDeleteModalDialogFragment(myPingleEntity)
+                }
             }
 
-            if (myPingleEntity.dDay.isEmpty()) {
-                tvMyPingleDay.visibility = View.INVISIBLE
-            } else if (myPingleEntity.dDay == DONE) {
-                tvMyPingleDay.text = DONE
-                tvMyPingleDay.setTextColor(context.colorOf(R.color.g_10))
-                ViewCompat.setBackgroundTintList(
-                    tvMyPingleDay,
-                    ContextCompat.getColorStateList(context, R.color.g_07)
-                )
-                ivMyPingleEdit.visibility = View.INVISIBLE
-                layoutMyPingleMenu.visibility = View.INVISIBLE
-            } else {
-                tvMyPingleDay.text = myPingleEntity.dDay
-                tvMyPingleDay.visibility = View.VISIBLE
-                ivMyPingleEdit.visibility = View.VISIBLE
+            when (myPingleEntity.dDay) {
+                EMPTY -> {
+                    ivMyPingleEdit.visibility = View.VISIBLE
+                    tvMyPingleDay.visibility = View.INVISIBLE
+                }
+
+                DONE -> {
+                    ivMyPingleEdit.visibility = View.INVISIBLE
+                    tvMyPingleDay.visibility = View.VISIBLE
+                    tvMyPingleDay.text = DONE
+                    tvMyPingleDay.setTextColor(context.colorOf(R.color.g_10))
+                    tvMyPingleDay.setBackgroundTint(R.color.g_07)
+
+                }
+
+                else -> {
+                    ivMyPingleEdit.visibility = View.VISIBLE
+                    tvMyPingleDay.visibility = View.VISIBLE
+                    tvMyPingleDay.text = myPingleEntity.dDay
+                    tvMyPingleDay.setTextColor(context.colorOf(R.color.black))
+                    tvMyPingleDay.setBackgroundTint(R.color.white)
+                }
             }
 
             layoutMyPingleMenuChat.setOnClickListener {
                 context.startActivity(context.navigateToWebView(myPingleEntity.chatLink))
-            }
-
-            layoutMyPingleMenuTrash.setOnClickListener {
-                showDeleteModalDialogFragment(myPingleEntity)
             }
         }
     }
 
     companion object {
         const val DONE = "Done"
+        const val EMPTY = ""
     }
 }

@@ -201,39 +201,49 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        mapViewModel.pingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> {
-                    with(mapCardAdapter) {
-                        setPinId(uiState.data.first)
-                        submitList(uiState.data.second)
+        mapViewModel.pingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        with(mapCardAdapter) {
+                            setPinId(uiState.data.first)
+                            submitList(uiState.data.second)
+                        }
                     }
+
+                    else -> Unit
                 }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-                else -> Unit
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-        mapViewModel.pingleParticipationState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> {
-                    mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
-                        mapViewModel.getPingleList(pinId = pinId)
+        mapViewModel.pingleParticipationState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
+                            mapViewModel.getPingleList(pinId = pinId)
+                        }
                     }
-                }
 
-                else -> Unit
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        mapViewModel.pingleDeleteState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Success -> mapViewModel.getPinListWithoutFilter()
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 

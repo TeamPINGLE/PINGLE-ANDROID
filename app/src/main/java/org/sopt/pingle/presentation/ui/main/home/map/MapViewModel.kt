@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.main.home.map
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -20,6 +19,7 @@ import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.view.UiState
+import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
@@ -51,6 +51,9 @@ class MapViewModel @Inject constructor(
 
     private val _pingleParticipationState = MutableSharedFlow<UiState<Unit?>>()
     val pingleParticipationState get() = _pingleParticipationState.asSharedFlow()
+
+    private val _pingleDeleteState = MutableSharedFlow<UiState<Unit?>>()
+    val pingleDeleteState get() = _pingleDeleteState.asSharedFlow()
 
     private fun setMarkerModelListIsSelected(position: Int) {
         _markerModelData.value.second[position].isSelected.set(!_markerModelData.value.second[position].isSelected.get())
@@ -167,13 +170,13 @@ class MapViewModel @Inject constructor(
 
     fun deletePingleDelete(meetingId: Long) {
         viewModelScope.launch {
-            _pingleParticipationState.emit(UiState.Loading)
+            _pingleDeleteState.emit(UiState.Loading)
             runCatching {
                 deletePingleDeleteUseCase(meetingId = meetingId).collect() { data ->
-                    _pingleParticipationState.emit(UiState.Success(data))
+                    _pingleDeleteState.emit(UiState.Success(data))
                 }
             }.onFailure { exception: Throwable ->
-                _pingleParticipationState.emit(UiState.Error(exception.message))
+                _pingleDeleteState.emit(UiState.Error(exception.message))
             }
         }
     }

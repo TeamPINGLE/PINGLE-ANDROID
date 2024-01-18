@@ -86,6 +86,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             when (withDrawState) {
                 is UiState.Success -> {
                     moveToSign()
+                    kakaoAuthService.withdrawKakao()
                 }
 
                 is UiState.Error -> {
@@ -152,9 +153,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             buttonText = getString(R.string.setting_modal_back),
             textButtonText = getString(R.string.setting_withdraw_modal_btn_text),
             clickBtn = { },
-            clickTextBtn = {
-                kakaoAuthService.withdrawKakao(moreViewModel::withDraw)
-            },
+            clickTextBtn = { moreViewModel.withDraw() },
             onDialogClosed = {}
         ).show(parentFragmentManager, WITHDRAW_MODAL)
     }

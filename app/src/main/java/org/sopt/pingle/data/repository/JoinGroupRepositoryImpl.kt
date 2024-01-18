@@ -14,23 +14,24 @@ import org.sopt.pingle.domain.repository.JoinGroupRepository
 class JoinGroupRepositoryImpl @Inject constructor(
     private val joinGroupRemoteDataSource: JoinGroupRemoteDataSource
 ) : JoinGroupRepository {
-    override fun getJoinGroupSearch(teamName: String): Flow<List<JoinGroupSearchEntity>> = flow {
-        val result = runCatching {
-            joinGroupRemoteDataSource.getJoinGroupSearch(teamName = teamName).data.map { joinGroupSearch ->
-                joinGroupSearch.toJoinGroupSearchEntity()
+    override suspend fun getJoinGroupSearch(teamName: String): Flow<List<JoinGroupSearchEntity>> =
+        flow {
+            val result = runCatching {
+                joinGroupRemoteDataSource.getJoinGroupSearch(teamName = teamName).data.map { joinGroupSearch ->
+                    joinGroupSearch.toJoinGroupSearchEntity()
+                }
             }
+            emit(result.getOrThrow())
         }
-        emit(result.getOrThrow())
-    }
 
-    override fun getJoinGroupInfo(teamId: Int): Flow<JoinGroupInfoEntity> = flow {
+    override suspend fun getJoinGroupInfo(teamId: Int): Flow<JoinGroupInfoEntity> = flow {
         val result = runCatching {
             joinGroupRemoteDataSource.getJoinGroupInfo(teamId = teamId).data.toJoinGroupCodeEntity()
         }
         emit(result.getOrThrow())
     }
 
-    override fun postJoinGroupCode(
+    override suspend fun postJoinGroupCode(
         teamId: Int,
         joinGroupCodeEntity: JoinGroupCodeEntity
     ): Flow<GroupEntity> = flow {

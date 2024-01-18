@@ -4,6 +4,5 @@ import kotlinx.coroutines.flow.Flow
 import org.sopt.pingle.domain.model.ParticipantEntity
 
 interface ParticipantRepository {
-
-    fun getParticipantList(meetingId: Long): Flow<ParticipantEntity>
+    suspend fun getParticipantList(meetingId: Long): Flow<ParticipantEntity>
 }

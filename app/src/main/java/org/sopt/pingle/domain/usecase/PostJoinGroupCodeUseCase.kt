@@ -8,7 +8,7 @@ import org.sopt.pingle.domain.repository.JoinGroupRepository
 class PostJoinGroupCodeUseCase(
     private val joinGroupRepository: JoinGroupRepository
 ) {
-    operator fun invoke(
+    suspend operator fun invoke(
         teamId: Int,
         joinGroupCodeEntity: JoinGroupCodeEntity
     ): Flow<GroupEntity> =

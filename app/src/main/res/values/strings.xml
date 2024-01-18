@@ -68,6 +68,7 @@
     <string name="map_card_chat">대화하기</string>
     <string name="map_card_participate">참여하기</string>
     <string name="map_card_cancel">취소하기</string>
+    <string name="map_card_delete">삭제하기</string>
     <string name="map_card_completed">모집완료</string>
 
     <!-- cancel dialog -->

@@ -2,7 +2,6 @@ package org.sopt.pingle.presentation.ui.main.mypingle
 
 import android.content.Context
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -19,8 +18,14 @@ class MyPingleViewHolder(
     private val context: Context,
     private val navigateToMapList: () -> Unit,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
-    private val viewClickListener: (ConstraintLayout) -> Unit
+    private val setOldItem: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
+    init {
+        binding.root.setOnClickListener {
+            setOldItem(bindingAdapterPosition)
+        }
+    }
+
     fun onBind(item: MyPingleEntity) {
         with(binding) {
             myPingleItem = item
@@ -62,10 +67,8 @@ class MyPingleViewHolder(
             } else {
                 tvMyPingleDay.text = item.dDay
                 tvMyPingleDay.visibility = View.VISIBLE
+                ivMyPingleEdit.visibility = View.VISIBLE
             }
-
-            // 클릭 리스너
-            viewClickListener(binding.layoutMyPingleMenu)
 
             layoutMyPingleRecruitment.setOnClickListener {
                 navigateToMapList

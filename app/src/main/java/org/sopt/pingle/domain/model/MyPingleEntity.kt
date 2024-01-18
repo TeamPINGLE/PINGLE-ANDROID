@@ -1,5 +1,7 @@
 package org.sopt.pingle.domain.model
 
+import androidx.databinding.ObservableBoolean
+
 data class MyPingleEntity(
     val id: Int,
     val category: String,
@@ -14,5 +16,5 @@ data class MyPingleEntity(
     val curParticipants: Int,
     val isOwner: Boolean,
     val chatLink: String,
-    val isSelected: Boolean
+    var isSelected: ObservableBoolean = ObservableBoolean(false)
 )

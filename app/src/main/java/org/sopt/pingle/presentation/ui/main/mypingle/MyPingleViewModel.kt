@@ -31,6 +31,12 @@ class MyPingleViewModel @Inject constructor(
     private var _tabPosition = MutableLiveData<Boolean>(false)
     val tabPosition get() = _tabPosition
 
+    private val _selectedMyPingleData = MutableStateFlow<MyPingleEntity?>(null)
+    val selectedMyPingleData get() = _selectedMyPingleData.asStateFlow()
+
+    private val _myPingleList = MutableStateFlow<List<MyPingleEntity>>(emptyList())
+    val myPingleList get() = _myPingleList.asStateFlow()
+
     fun getPingleParticipationList(participation: Boolean) {
         viewModelScope.launch {
             _myPingleState.emit(UiState.Loading)
@@ -70,5 +76,37 @@ class MyPingleViewModel @Inject constructor(
 
     fun setTabDone() {
         _tabPosition.value = true
+    }
+
+    private var oldPosition = DEFAULT_OLD_POSITION
+    fun updateMyPingleList(newPosition: Int) {
+        when (oldPosition) {
+            DEFAULT_OLD_POSITION -> setIsSelected(newPosition)
+
+            newPosition -> {
+                setIsSelected(newPosition)
+                oldPosition = DEFAULT_OLD_POSITION
+            }
+
+            else -> {
+                if (getIsSelected(oldPosition)) setIsSelected(oldPosition)
+                setIsSelected(newPosition)
+            }
+        }
+        _selectedMyPingleData.value =
+            if (getIsSelected(newPosition)) _myPingleList.value[newPosition] else null
+        oldPosition = newPosition
+    }
+
+    private fun setIsSelected(position: Int) {
+        _myPingleList.value[position].isSelected.set(
+            !_myPingleList.value[position].isSelected.get()
+        )
+    }
+
+    private fun getIsSelected(position: Int) = _myPingleList.value[position].isSelected.get()
+
+    companion object {
+        private const val DEFAULT_OLD_POSITION = -1
     }
 }

@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.main.mypingle
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -41,7 +40,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             requireContext(),
             navigateToMapList = ::navigateToMapList,
             showDeleteModalDialogFragment = ::showDeleteModalDialogFragment,
-            viewClickListener = ::viewClickListener
+            setOldItem = ::deleteOldPosition
         )
         binding.rvMyPingle.adapter = myPingleAdapter
         viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
@@ -63,23 +62,9 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
                 }
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                // 이전에 선택된 탭에 대한 처리
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0 -> {
-                        viewModel.setTabSoon()
-                        viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
-                    }
-
-                    1 -> {
-                        viewModel.setTabDone()
-                        viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
-                    }
-                }
-            }
+            override fun onTabReselected(tab: TabLayout.Tab?) = Unit
         })
     }
 
@@ -141,10 +126,8 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         ).show(childFragmentManager, MY_PINGLE_MODAL)
     }
 
-    private fun viewClickListener(layout: ConstraintLayout) {
-        binding.root.setOnClickListener {
-            layout.visibility = View.INVISIBLE
-        }
+    private fun deleteOldPosition(position: Int) {
+        viewModel.updateMyPingleList(position)
     }
 
     companion object {

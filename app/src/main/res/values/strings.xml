@@ -150,6 +150,7 @@
     <string name="more_withdraw_title"><u>탈퇴하기</u></string>
     <string name="more_title">더보기</string>
     <string name="more_my_group">나의 단체</string>
+    <string name="more_snackbar_failure">단체 개설자는 탈퇴할 수 없어요!</string>
 
     <!-- setting modal -->
     <string name="setting_logout_modal_title">정말로 로그아웃 하실건가요?</string>

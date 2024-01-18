@@ -60,7 +60,7 @@ class PlanRecruitmentFragment :
     private fun collectData() {
         viewModel.selectedRecruitment.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { selectedRecruitment ->
             when (selectedRecruitment) {
-                INVALID_RECRUITMENT -> viewModel.setSelectedRecruitment("1")
+                INVALID_RECRUITMENT -> viewModel.setSelectedRecruitment(MIN_RECRUITMENT)
                 MAX_RECRUITMENT -> binding.btnPlanRecruitmentPlus.isEnabled = false
                 MIN_RECRUITMENT -> binding.btnPlanRecruitmentMinus.isEnabled = false
                 else -> {

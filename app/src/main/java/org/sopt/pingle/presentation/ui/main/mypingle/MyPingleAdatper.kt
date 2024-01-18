@@ -10,6 +10,7 @@ import org.sopt.pingle.util.view.ItemDiffCallback
 
 class MyPingleAdatper(
     private val context: Context,
+    private val showCancelModalDialogFragment: (MyPingleEntity) -> Unit,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
     private val updateMyPingleListSelectedPosition: (Int) -> Unit,
     private val clearMyPingleListSelection: () -> Unit,
@@ -29,6 +30,7 @@ class MyPingleAdatper(
                 false
             ),
             context,
+            showCancelModalDialogFragment,
             showDeleteModalDialogFragment,
             updateMyPingleListSelectedPosition,
             clearMyPingleListSelection,

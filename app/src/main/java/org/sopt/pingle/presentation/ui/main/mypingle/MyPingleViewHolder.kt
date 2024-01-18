@@ -9,12 +9,14 @@ import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.context.colorOf
 import org.sopt.pingle.util.context.navigateToWebView
+import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.convertToCalenderDetail
 import org.sopt.pingle.util.view.setBackgroundTint
 
 class MyPingleViewHolder(
     private val binding: ItemMyPingleBinding,
     private val context: Context,
+    private val showCancelModalDialogFragment: (MyPingleEntity) -> Unit,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
     private val updateMyPingleListSelectedPosition: (Int) -> Unit,
     private val clearMyPingleListSelection: () -> Unit,
@@ -51,15 +53,15 @@ class MyPingleViewHolder(
 
             if (myPingleEntity.isOwner) {
                 ivMyPingleOwner.visibility = View.VISIBLE
-                tvMyPingleMenuTrash.setTextColor(context.colorOf(R.color.g_08))
-                ivMyPingleMenuTrash.setImageResource(R.drawable.ic_my_trash_inactivated_20)
-                layoutMyPingleMenuTrash.isClickable = true
-            } else {
-                ivMyPingleOwner.visibility = View.INVISIBLE
-                tvMyPingleMenuTrash.setTextColor(context.colorOf(R.color.g_03))
-                ivMyPingleMenuTrash.setImageResource(R.drawable.ic_my_trash_active_20)
+                tvMyPingleMenuTrash.text = context.stringOf(R.string.my_pingle_delete)
                 layoutMyPingleMenuTrash.setOnClickListener {
                     showDeleteModalDialogFragment(myPingleEntity)
+                }
+            } else {
+                ivMyPingleOwner.visibility = View.INVISIBLE
+                tvMyPingleMenuTrash.text = context.stringOf(R.string.my_pingle_cancel)
+                layoutMyPingleMenuTrash.setOnClickListener {
+                    showCancelModalDialogFragment(myPingleEntity)
                 }
             }
 

@@ -12,6 +12,7 @@ import org.sopt.pingle.domain.model.UserInfoEntity
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.util.view.UiState
+import retrofit2.HttpException
 
 @HiltViewModel
 class MoreViewModel @Inject constructor(
@@ -57,7 +58,13 @@ class MoreViewModel @Inject constructor(
                         _withDrawState.value = UiState.Error(null)
                     }
                 }.onFailure { throwable ->
-                    _withDrawState.value = UiState.Error(throwable.message)
+                    _withDrawState.value = UiState.Error(
+                        if (throwable is HttpException) {
+                            throwable.response()?.code().toString()
+                        } else {
+                            throwable.message
+                        }
+                    )
                 }
         }
     }

@@ -14,10 +14,12 @@ import org.sopt.pingle.BuildConfig
 import org.sopt.pingle.R
 import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.FragmentMoreBinding
+import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.auth.AuthActivity
 import org.sopt.pingle.presentation.ui.mygroup.MyGroupActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
+import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
@@ -73,7 +75,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                 }
 
                 is UiState.Error -> {
-                    Timber.d("로그아웃 실패")
+                    Timber.d(FAILURE_LOGOUT)
                 }
 
                 else -> {}
@@ -87,7 +89,18 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                 }
 
                 is UiState.Error -> {
-                    Timber.d("로그아웃 실패")
+                    when (withDrawState.message) {
+                        FAILURE_OWNER -> {
+                            PingleSnackbar.makeSnackbar(
+                                requireView(),
+                                FAILURE_OWNER_MESSAGE,
+                                SNACKBAR_BOTTOM_MARGIN,
+                                SnackbarType.WARNING
+                            )
+                        }
+
+                        else -> Timber.d("$FAILURE_LOGOUT : ${withDrawState.message}")
+                    }
                 }
 
                 else -> {}
@@ -147,6 +160,10 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     companion object {
+        private const val FAILURE_OWNER = "400"
+        private const val FAILURE_OWNER_MESSAGE = "단체 개설자는 탈퇴할 수 없어요!"
+        private const val SNACKBAR_BOTTOM_MARGIN = 76
+        private const val FAILURE_LOGOUT = "로그아웃 실패"
         private const val LOGOUT_MODAL = "logoutModal"
         private const val WITHDRAW_MODAL = "withModal"
         private const val CONTACT =

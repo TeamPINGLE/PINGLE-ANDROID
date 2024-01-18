@@ -131,14 +131,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 }
             })
             offscreenPageLimit = 1
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    val recyclerView = getChildAt(0) as? RecyclerView
-                    val layoutManager = recyclerView?.layoutManager as? LinearLayoutManager
-                    val currentItemView = layoutManager?.findViewByPosition(position)
-                    currentItemView?.translationX = 0F
-                }
-            })
             setPageTransformer { page, position ->
                 page.translationX = (VIEWPAGER_PAGE_TRANSFORMER).toPx() * position
             }

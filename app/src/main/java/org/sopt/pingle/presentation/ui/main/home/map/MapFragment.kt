@@ -317,7 +317,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             detail = stringOf(R.string.delete_modal_detail),
             buttonText = stringOf(R.string.delete_modal_button_text),
             textButtonText = stringOf(R.string.delete_modal_text_button_text),
-            clickBtn = { mapViewModel.deletePingleDelete(meetingId = pingleEntity.id)},
+            clickBtn = { mapViewModel.deletePingleDelete(meetingId = pingleEntity.id) },
             clickTextBtn = {}
         ).show(childFragmentManager, MAP_DELETE_MODAL)
     }

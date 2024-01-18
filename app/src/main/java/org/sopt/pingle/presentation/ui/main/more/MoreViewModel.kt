@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.main.more
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -14,7 +15,6 @@ import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.util.view.UiState
 import retrofit2.HttpException
-import javax.inject.Inject
 
 @HiltViewModel
 class MoreViewModel @Inject constructor(

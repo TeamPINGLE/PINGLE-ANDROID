@@ -75,7 +75,6 @@ class MyPingleViewHolder(
                     tvMyPingleDay.text = DONE
                     tvMyPingleDay.setTextColor(context.colorOf(R.color.g_10))
                     tvMyPingleDay.setBackgroundTint(R.color.g_07)
-
                 }
 
                 else -> {

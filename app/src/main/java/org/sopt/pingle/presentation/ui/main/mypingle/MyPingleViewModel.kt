@@ -1,7 +1,5 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +13,6 @@ import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
-import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.MyPingleType
 import org.sopt.pingle.util.view.UiState
 

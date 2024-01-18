@@ -8,7 +8,8 @@ class MapCardViewHolder(
     private val binding: ItemMapPingleCardBinding,
     private val navigateToWebView: (String) -> Unit,
     private val showMapJoinModalDialogFragment: (PingleEntity) -> Unit,
-    private val showMapCancelModalDialogFragment: (PingleEntity) -> Unit
+    private val showMapCancelModalDialogFragment: (PingleEntity) -> Unit,
+    private val showMapDeleteModalDialogFragment: (PingleEntity) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun onBind(pinId: Long, pingleEntity: PingleEntity) {
         with(binding.cardMapPingleCard) {
@@ -18,9 +19,10 @@ class MapCardViewHolder(
                 navigateToWebView(pingleEntity.chatLink)
             }
             setOnParticipateButtonClick {
-                when (pingleEntity.isParticipating) {
-                    true -> showMapCancelModalDialogFragment(pingleEntity)
-                    false -> showMapJoinModalDialogFragment(pingleEntity)
+                when {
+                    pingleEntity.isOwner -> showMapDeleteModalDialogFragment(pingleEntity)
+                    pingleEntity.isParticipating -> showMapCancelModalDialogFragment(pingleEntity)
+                    else -> showMapJoinModalDialogFragment(pingleEntity)
                 }
             }
         }

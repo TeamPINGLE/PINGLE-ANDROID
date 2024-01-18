@@ -31,20 +31,25 @@ class JoinViewModel @Inject constructor(
     private val _joinGroupSearchState =
         MutableSharedFlow<UiState<List<JoinGroupSearchEntity>>>()
     val joinGroupSearchState get() = _joinGroupSearchState.asSharedFlow()
+
     private val _selectedJoinGroup = MutableStateFlow<JoinGroupSearchEntity?>(null)
     val selectedJoinGroup get() = _selectedJoinGroup.asStateFlow()
+
     private val _joinGroupSearchData = MutableStateFlow<List<JoinGroupSearchEntity>>(emptyList())
-    val joinGroupSearchData get() = _joinGroupSearchData
 
     private val _joinGroupInfoState =
         MutableStateFlow<UiState<JoinGroupInfoEntity>>(UiState.Empty)
     val joinGroupInfoState get() = _joinGroupInfoState.asStateFlow()
+
     private var _joinGroupCodeState =
         MutableStateFlow<UiState<GroupEntity>>(UiState.Empty)
+
     val joinGroupCodeState get() = _joinGroupCodeState
     val joinGroupCodeEditText = MutableLiveData<String>()
 
-    fun joinGroupSearchState(teamName: String) {
+    private var oldPosition = DEFAULT_OLD_POSITION
+
+    fun getJoinGroupSearch(teamName: String) {
         viewModelScope.launch {
             _joinGroupSearchState.emit(UiState.Loading)
             _joinGroupSearchData.value = emptyList()
@@ -64,7 +69,6 @@ class JoinViewModel @Inject constructor(
         }
     }
 
-    private var oldPosition = DEFAULT_OLD_POSITION
     fun updateJoinGroupSearchList(newPosition: Int) {
         when (oldPosition) {
             DEFAULT_OLD_POSITION -> setIsSelected(newPosition)

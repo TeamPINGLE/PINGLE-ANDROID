@@ -27,6 +27,11 @@ class ParticipantActivity :
         collectData()
     }
 
+    override fun onDestroy() {
+        binding.rvParticipant.adapter = null
+        super.onDestroy()
+    }
+
     private fun initLayout() {
         binding.rvParticipant.adapter = participantAdapter
         participantViewModel.getParticipantList(intent.getLongExtra(MEETING_ID, DEFAULT_VALUE))
@@ -52,11 +57,6 @@ class ParticipantActivity :
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
-    }
-
-    override fun onDestroy() {
-        binding.rvParticipant.adapter = null
-        super.onDestroy()
     }
 
     companion object {

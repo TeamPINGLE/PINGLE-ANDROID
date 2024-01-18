@@ -13,6 +13,7 @@ import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
+import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
@@ -26,7 +27,8 @@ class MapViewModel @Inject constructor(
     private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase,
     private val getPingleListUseCase: GetPingleListUseCase,
     private val postPingleJoinUseCase: PostPingleJoinUseCase,
-    private val deletePingleCancelUseCase: DeletePingleCancelUseCase
+    private val deletePingleCancelUseCase: DeletePingleCancelUseCase,
+    private val deletePingleDeleteUseCase: DeletePingleDeleteUseCase
 ) : ViewModel() {
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
@@ -148,13 +150,26 @@ class MapViewModel @Inject constructor(
         }
     }
 
-    fun postPingleCancel(meetingId: Long) {
+    fun deletePingleCancel(meetingId: Long) {
         viewModelScope.launch {
             _pingleParticipationState.emit(UiState.Loading)
             runCatching {
                 deletePingleCancelUseCase(
                     meetingId = meetingId
                 ).collect() { data ->
+                    _pingleParticipationState.emit(UiState.Success(data))
+                }
+            }.onFailure { exception: Throwable ->
+                _pingleParticipationState.emit(UiState.Error(exception.message))
+            }
+        }
+    }
+
+    fun deletePingleDelete(meetingId: Long) {
+        viewModelScope.launch {
+            _pingleParticipationState.emit(UiState.Loading)
+            runCatching {
+                deletePingleDeleteUseCase(meetingId = meetingId).collect() { data ->
                     _pingleParticipationState.emit(UiState.Success(data))
                 }
             }.onFailure { exception: Throwable ->

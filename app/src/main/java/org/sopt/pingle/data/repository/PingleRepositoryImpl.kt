@@ -39,9 +39,9 @@ class PingleRepositoryImpl @Inject constructor(
         emit(result.getOrThrow())
     }
 
-    override suspend fun deletePingle(meetingId: Long): Flow<Unit?> = flow {
+    override suspend fun deletePingleDelete(meetingId: Long): Flow<Unit?> = flow {
         val result = runCatching {
-            pingleRemoteDataSource.deletePingle(
+            pingleRemoteDataSource.deletePingleDelete(
                 meetingId = meetingId
             ).data
         }

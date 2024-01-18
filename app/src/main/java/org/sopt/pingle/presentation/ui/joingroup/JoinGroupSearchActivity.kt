@@ -50,13 +50,13 @@ class JoinGroupSearchActivity :
         }
 
         binding.ivJoinGroupSearchIcon.setOnClickListener {
-            if (binding.etJoinGroupSearch.text.isNotBlank()) viewModel.joinGroupSearchState(binding.etJoinGroupSearch.text.toString())
+            if (binding.etJoinGroupSearch.text.isNotBlank()) viewModel.getJoinGroupSearch(binding.etJoinGroupSearch.text.toString())
             hideKeyboard(binding.etJoinGroupSearch)
         }
 
         binding.etJoinGroupSearch.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                if (binding.etJoinGroupSearch.text.isNotBlank()) viewModel.joinGroupSearchState(binding.etJoinGroupSearch.text.toString())
+                if (binding.etJoinGroupSearch.text.isNotBlank()) viewModel.getJoinGroupSearch(binding.etJoinGroupSearch.text.toString())
                 hideKeyboard(binding.etJoinGroupSearch)
                 return@setOnKeyListener true
             }

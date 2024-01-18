@@ -22,3 +22,9 @@ fun setTextColor(textView: TextView, resId: Int) {
 fun setSelected(view: View, isSelected: Boolean) {
     view.isSelected = isSelected
 }
+
+@BindingAdapter("visibility")
+fun View.setVisibility(isVisible: Boolean?) {
+    if (isVisible == null) return
+    this.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+}

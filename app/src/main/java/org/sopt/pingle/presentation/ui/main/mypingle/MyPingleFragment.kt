@@ -1,26 +1,26 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.MyPingleType
-import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
+import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
-import org.sopt.pingle.util.fragment.navigateToFragment
+import org.sopt.pingle.util.component.PingleCard.Companion.MEETING_ID
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragment_my_pingle) {
@@ -35,105 +35,113 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         collectData()
     }
 
+    override fun onDestroyView() {
+        binding.rvMyPingle.adapter = null
+        super.onDestroyView()
+    }
+
     private fun initLayout() {
         myPingleAdapter = MyPingleAdatper(
             requireContext(),
-            navigateToMapList = ::navigateToMapList,
+            showCancelModalDialogFragment = ::showCancelModalDialogFragment,
             showDeleteModalDialogFragment = ::showDeleteModalDialogFragment,
-            setOldItem = ::deleteOldPosition
+            updateMyPingleListSelectedPosition = ::updateMyPingleListSelectedPosition,
+            clearMyPingleListSelection = ::clearMyPingleListSelection,
+            navigateToParticipation = ::navigateToParticipation
         )
         binding.rvMyPingle.adapter = myPingleAdapter
-        viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
     }
 
     private fun addListeners() {
         binding.tlMyPingle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 -> {
-                        viewModel.setTabSoon()
-                        viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
-                    }
-
-                    1 -> {
-                        viewModel.setTabDone()
-                        viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
-                    }
+                    MyPingleType.SOON.tabPosition -> viewModel.setMyPingleType(MyPingleType.SOON)
+                    MyPingleType.DONE.tabPosition -> viewModel.setMyPingleType(MyPingleType.DONE)
                 }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
-
             override fun onTabReselected(tab: TabLayout.Tab?) = Unit
         })
     }
 
     private fun collectData() {
-        viewModel.myPingleState.flowWithLifecycle(lifecycle).onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> {
-                    myPingleAdapter.submitList(uiState.data)
-                    binding.tvMyPingleEmpty.visibility = View.INVISIBLE
-                }
+        viewModel.myPingleType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .distinctUntilChanged()
+            .onEach {
+                viewModel.getPingleParticipationList()
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-                is UiState.Error -> Timber.tag(MY_PINGLE_FRAGMENT).d(ERROR + uiState.message)
-                is UiState.Loading -> Timber.tag(MY_PINGLE_FRAGMENT).d(LODING)
-                is UiState.Empty -> {
-                    myPingleAdapter.submitList(null)
-                    if (MyPingleType.SOON.boolean) {
-                        binding.tvMyPingleEmpty.text =
-                            getString(R.string.my_pingle_soon)
-                    } else {
-                        binding.tvMyPingleEmpty.text =
-                            getString(R.string.my_pingle_done)
+        viewModel.myPingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        myPingleAdapter.submitList(uiState.data)
+                        binding.tvMyPingleEmpty.visibility = View.INVISIBLE
                     }
-                    binding.tvMyPingleEmpty.visibility = View.VISIBLE
-                }
-            }
-        }.launchIn(lifecycleScope)
 
-        viewModel.myPingleCancelState.flowWithLifecycle(lifecycle).onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> {
-                    viewModel.tabPosition.value?.let { tabPosition ->
-                        if (tabPosition) {
-                            viewModel.getPingleParticipationList(MyPingleType.DONE.boolean)
-                        } else {
-                            viewModel.getPingleParticipationList(MyPingleType.SOON.boolean)
+                    is UiState.Empty -> {
+                        myPingleAdapter.submitList(null)
+                        binding.tvMyPingleEmpty.visibility = View.VISIBLE
+                        binding.tvMyPingleEmpty.text = when (viewModel.myPingleType.value) {
+                            MyPingleType.SOON -> stringOf(R.string.my_pingle_soon)
+                            MyPingleType.DONE -> stringOf(R.string.my_pingle_done)
                         }
                     }
+
+                    else -> Unit
                 }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-                is UiState.Error -> Log.d("http error", uiState.message.toString())
-
-                else -> Unit
-            }
-        }.launchIn(lifecycleScope)
+        viewModel.myPingleState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Success -> viewModel.getPingleParticipationList()
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun navigateToMapList() {
-        navigateToFragment<MainListFragment>()
+    private fun showCancelModalDialogFragment(myPingleEntity: MyPingleEntity) {
+        AllModalDialogFragment(
+            title = stringOf(R.string.cancel_modal_title),
+            detail = stringOf(R.string.cancel_modal_detail),
+            buttonText = stringOf(R.string.cancel_modal_button_text),
+            textButtonText = stringOf(R.string.cancel_modal_text_button_text),
+            clickBtn = { viewModel.deletePingleCancel(meetingId = myPingleEntity.id.toLong()) },
+            clickTextBtn = { }
+        ).show(childFragmentManager, MY_PINGLE_CANCEL_MODAL)
     }
 
     private fun showDeleteModalDialogFragment(myPingleEntity: MyPingleEntity) {
         AllModalDialogFragment(
-            title = stringOf(R.string.map_cancel_modal_title),
-            detail = stringOf(R.string.map_cancel_modal_detail),
-            buttonText = stringOf(R.string.map_cancel_modal_button_text),
-            textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
-            clickBtn = { viewModel.deletePingleCancel(meetingId = myPingleEntity.id.toLong()) },
-            clickTextBtn = { }
-        ).show(childFragmentManager, MY_PINGLE_MODAL)
+            title = stringOf(R.string.delete_modal_title),
+            detail = stringOf(R.string.delete_modal_detail),
+            buttonText = stringOf(R.string.delete_modal_button_text),
+            textButtonText = stringOf(R.string.delete_modal_text_button_text),
+            clickBtn = { viewModel.deletePingleDelete(meetingId = myPingleEntity.id.toLong()) },
+            clickTextBtn = {}
+        ).show(childFragmentManager, MY_PINGEL_DELETE_MODAL)
     }
 
-    private fun deleteOldPosition(position: Int) {
+    private fun updateMyPingleListSelectedPosition(position: Int) {
         viewModel.updateMyPingleList(position)
     }
 
+    private fun clearMyPingleListSelection() {
+        viewModel.clearMyPingleListSelection()
+    }
+
+    private fun navigateToParticipation(meetingId: Long) {
+        Intent(context, ParticipantActivity::class.java).apply {
+            putExtra(MEETING_ID, meetingId)
+            startActivity(this)
+        }
+    }
+
     companion object {
-        const val MY_PINGLE_MODAL = "MyPingleModal"
-        const val MY_PINGLE_FRAGMENT = "MyPingleFragment"
-        const val ERROR = "Error : "
-        const val LODING = "Loding"
+        const val MY_PINGLE_CANCEL_MODAL = "MyPingleCancelModal"
+        const val MY_PINGEL_DELETE_MODAL = "MyPingelDeleteModal"
     }
 }

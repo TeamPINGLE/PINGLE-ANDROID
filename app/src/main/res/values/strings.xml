@@ -68,13 +68,20 @@
     <string name="map_card_chat">대화하기</string>
     <string name="map_card_participate">참여하기</string>
     <string name="map_card_cancel">취소하기</string>
+    <string name="map_card_delete">삭제하기</string>
     <string name="map_card_completed">모집완료</string>
 
-    <!-- map cancel dialog -->
-    <string name="map_cancel_modal_title">참여를 취소하시겠어요?</string>
-    <string name="map_cancel_modal_detail">취소한 모임은 언제든 다시 신청할 수 있어요</string>
-    <string name="map_cancel_modal_button_text">취소하기</string>
-    <string name="map_cancel_modal_text_button_text">돌아가기</string>
+    <!-- cancel dialog -->
+    <string name="cancel_modal_title">참여를 취소하시겠어요?</string>
+    <string name="cancel_modal_detail">취소한 모임은 언제든 다시 신청할 수 있어요</string>
+    <string name="cancel_modal_button_text">취소하기</string>
+    <string name="cancel_modal_text_button_text">돌아가기</string>
+
+    <!-- delete dialog -->
+    <string name="delete_modal_title">핑글을 삭제하시겠어요?</string>
+    <string name="delete_modal_detail">삭제된 핑글은 다시 되돌릴 수 없어요</string>
+    <string name="delete_modal_button_text">삭제하기</string>
+    <string name="delete_modal_text_button_text">돌아가기</string>
 
     <!--  plan  -->
     <string name="plan_later_des">나중에 만드시겠어요?</string>
@@ -176,7 +183,8 @@
 
     <!-- my pingle -->
     <string name="my_pingle_chat">대화하기</string>
-    <string name="my_pingle_trash">참여 취소하기</string>
+    <string name="my_pingle_cancel">참여 취소하기</string>
+    <string name="my_pingle_delete">핑글 삭제하기</string>
     <string name="my_pingle_topbar">마이핑글</string>
     <string name="my_pingle_soon">홈으로 이동해\n내 주변 핑글을 찾아보세요!</string>
     <string name="my_pingle_done">아직 참여한 핑글이 없어요\n첫 핑글과 함께 네트워킹을 시작해보세요!</string>

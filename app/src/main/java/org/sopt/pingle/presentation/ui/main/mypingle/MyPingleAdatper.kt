@@ -12,7 +12,8 @@ class MyPingleAdatper(
     private val context: Context,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
     private val updateMyPingleListSelectedPosition: (Int) -> Unit,
-    private val clearMyPingleListSelection: () -> Unit
+    private val clearMyPingleListSelection: () -> Unit,
+    private val navigateToParticipation: (Long) -> Unit
 ) : ListAdapter<MyPingleEntity, MyPingleViewHolder>(
     ItemDiffCallback<MyPingleEntity>(
         onItemsTheSame = { old, new -> old.id == new.id },
@@ -30,7 +31,8 @@ class MyPingleAdatper(
             context,
             showDeleteModalDialogFragment,
             updateMyPingleListSelectedPosition,
-            clearMyPingleListSelection
+            clearMyPingleListSelection,
+            navigateToParticipation
         )
 
     override fun onBindViewHolder(holder: MyPingleViewHolder, position: Int) {

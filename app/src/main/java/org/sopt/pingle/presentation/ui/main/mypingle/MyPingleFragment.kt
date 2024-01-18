@@ -1,7 +1,7 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -15,12 +15,12 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.MyPingleType
-import org.sopt.pingle.presentation.ui.plan.PlanViewModel.Companion.DEFAULT_OLD_POSITION
+import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
+import org.sopt.pingle.util.component.PingleCard.Companion.MEETING_ID
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragment_my_pingle) {
@@ -45,7 +45,8 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             requireContext(),
             showDeleteModalDialogFragment = ::showDeleteModalDialogFragment,
             updateMyPingleListSelectedPosition = ::updateMyPingleListSelectedPosition,
-            clearMyPingleListSelection = ::clearMyPingleListSelection
+            clearMyPingleListSelection = ::clearMyPingleListSelection,
+            navigateToParticipation = ::navigateToParticipation
         )
         binding.rvMyPingle.adapter = myPingleAdapter
         viewModel.getPingleParticipationList()
@@ -69,8 +70,8 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         viewModel.myPingleType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .distinctUntilChanged()
             .onEach {
-            viewModel.getPingleParticipationList()
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+                viewModel.getPingleParticipationList()
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         viewModel.myPingleState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
             when (uiState) {
@@ -78,6 +79,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
                     myPingleAdapter.submitList(uiState.data)
                     binding.tvMyPingleEmpty.visibility = View.INVISIBLE
                 }
+
                 is UiState.Empty -> {
                     myPingleAdapter.submitList(null)
                     binding.tvMyPingleEmpty.visibility = View.VISIBLE
@@ -86,16 +88,18 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
                         MyPingleType.DONE -> stringOf(R.string.my_pingle_done)
                     }
                 }
+
                 else -> Unit
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        viewModel.myPingleCancelState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> viewModel.getPingleParticipationList()
-                else -> Unit
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        viewModel.myPingleCancelState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Success -> viewModel.getPingleParticipationList()
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun showDeleteModalDialogFragment(myPingleEntity: MyPingleEntity) {
@@ -115,6 +119,13 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
 
     private fun clearMyPingleListSelection() {
         viewModel.clearMyPingleListSelection()
+    }
+
+    private fun navigateToParticipation(meetingId: Long) {
+        Intent(context, ParticipantActivity::class.java).apply {
+            putExtra(MEETING_ID, meetingId)
+            startActivity(this)
+        }
     }
 
     companion object {

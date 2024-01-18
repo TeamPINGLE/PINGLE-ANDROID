@@ -17,7 +17,8 @@ class MyPingleViewHolder(
     private val context: Context,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
     private val updateMyPingleListSelectedPosition: (Int) -> Unit,
-    private val clearMyPingleListSelection: () -> Unit
+    private val clearMyPingleListSelection: () -> Unit,
+    private val navigateToParticipation: (Long) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
         binding.ivMyPingleEdit.setOnClickListener {
@@ -88,6 +89,10 @@ class MyPingleViewHolder(
 
             layoutMyPingleMenuChat.setOnClickListener {
                 context.startActivity(context.navigateToWebView(myPingleEntity.chatLink))
+            }
+
+            binding.layoutMyPingleRecruitment.setOnClickListener {
+                navigateToParticipation(myPingleEntity.id.toLong())
             }
         }
     }

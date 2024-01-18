@@ -99,7 +99,6 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             .onEach { uiState ->
                 when (uiState) {
                     is UiState.Success -> viewModel.getPingleParticipationList()
-                    is UiState.Error -> Log.e("ㅋㅋ", uiState.message.toString())
                     else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)

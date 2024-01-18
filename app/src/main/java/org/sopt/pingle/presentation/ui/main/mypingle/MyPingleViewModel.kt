@@ -116,7 +116,7 @@ class MyPingleViewModel @Inject constructor(
     fun deletePingleDelete(meetingId: Long) {
         viewModelScope.launch {
             _myPingleState.emit(UiState.Loading)
-            kotlin.runCatching {
+            runCatching {
                 deletePingleDeleteUseCase(meetingId = meetingId).collect() { data ->
                     _myPingleState.emit(UiState.Success(data))
                 }

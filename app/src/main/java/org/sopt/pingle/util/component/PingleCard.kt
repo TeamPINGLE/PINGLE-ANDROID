@@ -59,7 +59,8 @@ class PingleCard @JvmOverloads constructor(
                 endAt = pingleEntity.endAt
             )
             tvCardBottomMapDetail.text = pingleEntity.location
-            btnCardBottomMapChat.isEnabled = pingleEntity.isParticipating
+            btnCardBottomMapChat.isEnabled = !pingleEntity.isCompleted()
+            btnCardBottomMapParticipate.isEnabled = pingleEntity.isParticipating
             btnCardBottomMapParticipate.text =
                 when {
                     pingleEntity.isOwner -> stringOf(R.string.map_card_delete)

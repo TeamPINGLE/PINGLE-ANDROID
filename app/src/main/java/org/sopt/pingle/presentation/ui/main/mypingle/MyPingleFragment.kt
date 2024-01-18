@@ -61,13 +61,13 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     }
 
     private fun collectData() {
-        viewModel.myPingleType.flowWithLifecycle(lifecycle)
+        viewModel.myPingleType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .distinctUntilChanged()
             .onEach {
             viewModel.getPingleParticipationList()
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        viewModel.myPingleState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        viewModel.myPingleState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
                     myPingleAdapter.submitList(uiState.data)
@@ -83,14 +83,14 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
                 }
                 else -> Unit
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        viewModel.myPingleCancelState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        viewModel.myPingleCancelState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> viewModel.getPingleParticipationList()
                 else -> Unit
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun showDeleteModalDialogFragment(myPingleEntity: MyPingleEntity) {

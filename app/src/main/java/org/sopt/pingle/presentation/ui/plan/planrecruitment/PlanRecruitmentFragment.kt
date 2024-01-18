@@ -58,7 +58,7 @@ class PlanRecruitmentFragment :
     }
 
     private fun collectData() {
-        viewModel.selectedRecruitment.flowWithLifecycle(lifecycle).onEach { selectedRecruitment ->
+        viewModel.selectedRecruitment.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { selectedRecruitment ->
             when (selectedRecruitment) {
                 INVALID_RECRUITMENT -> viewModel.setSelectedRecruitment("1")
                 MAX_RECRUITMENT -> binding.btnPlanRecruitmentPlus.isEnabled = false
@@ -68,7 +68,7 @@ class PlanRecruitmentFragment :
                     binding.btnPlanRecruitmentMinus.isEnabled = true
                 }
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     companion object {

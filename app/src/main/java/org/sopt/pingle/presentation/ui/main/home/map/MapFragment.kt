@@ -168,13 +168,13 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun collectData() {
-        mapViewModel.category.flowWithLifecycle(lifecycle)
+        mapViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .distinctUntilChanged()
             .onEach {
                 mapViewModel.getPinListWithoutFilter()
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        mapViewModel.pinEntityListState.flowWithLifecycle(lifecycle)
+        mapViewModel.pinEntityListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .distinctUntilChanged()
             .onEach { uiState ->
                 when (uiState) {
@@ -188,9 +188,9 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
                     else -> Unit
                 }
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        mapViewModel.markerModelData.flowWithLifecycle(lifecycle)
+        mapViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { markerModelData ->
                 (markerModelData.first == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
                     with(binding) {
@@ -198,9 +198,9 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
                     }
                 }
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        mapViewModel.pingleListState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        mapViewModel.pingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
                     with(mapCardAdapter) {
@@ -211,9 +211,9 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
                 else -> Unit
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        mapViewModel.pingleParticipationState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        mapViewModel.pingleParticipationState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
                     mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
@@ -223,7 +223,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
                 else -> Unit
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun setLocationTrackingMode() {

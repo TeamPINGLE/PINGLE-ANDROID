@@ -61,11 +61,10 @@ class PlanLocationFragment :
     }
 
     private fun collectData() {
-        planLocationViewModel.planLocationListState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        planLocationViewModel.planLocationListState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
                     planLocationAdapter.submitList(uiState.data)
-                    planLocationAdapter.currentList
                     binding.layoutPlanLocationEmpty.visibility = View.INVISIBLE
                 }
 
@@ -76,7 +75,7 @@ class PlanLocationFragment :
 
                 else -> Unit
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun deleteOldPosition(position: Int) {

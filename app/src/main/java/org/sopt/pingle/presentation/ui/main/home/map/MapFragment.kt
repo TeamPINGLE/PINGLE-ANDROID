@@ -290,10 +290,10 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun showMapCancelModalDialogFragment(pingleEntity: PingleEntity) {
         AllModalDialogFragment(
-            title = stringOf(R.string.map_cancel_modal_title),
-            detail = stringOf(R.string.map_cancel_modal_detail),
-            buttonText = stringOf(R.string.map_cancel_modal_button_text),
-            textButtonText = stringOf(R.string.map_cancel_modal_text_button_text),
+            title = stringOf(R.string.cancel_modal_title),
+            detail = stringOf(R.string.cancel_modal_detail),
+            buttonText = stringOf(R.string.cancel_modal_button_text),
+            textButtonText = stringOf(R.string.cancel_modal_text_button_text),
             clickBtn = { mapViewModel.postPingleCancel(meetingId = pingleEntity.id) },
             clickTextBtn = { }
         ).show(childFragmentManager, MAP_CANCEL_MODAL)

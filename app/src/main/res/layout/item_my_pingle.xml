@@ -347,7 +347,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="@string/my_pingle_trash"
+                    android:text="@string/my_pingle_cancel"
                     android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                     android:textColor="@color/g_03"
                     app:layout_constraintBottom_toBottomOf="parent"

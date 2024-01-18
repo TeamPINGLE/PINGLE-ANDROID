@@ -14,6 +14,8 @@ import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
+import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.type.MyPingleType
 import org.sopt.pingle.util.view.UiState
 
 @HiltViewModel
@@ -22,14 +24,14 @@ class MyPingleViewModel @Inject constructor(
     private val getMyPingleListUseCase: GetMyPingleListUseCase,
     private val deletePingleCancelUseCase: DeletePingleCancelUseCase
 ) : ViewModel() {
+    private val _myPingleType = MutableStateFlow(MyPingleType.SOON)
+    val myPingleType get() = _myPingleType.asStateFlow()
+
     private val _myPingleState = MutableSharedFlow<UiState<List<MyPingleEntity>>>()
     val myPingleState get() = _myPingleState.asSharedFlow()
 
     private var _myPingleCancelState = MutableStateFlow<UiState<Unit?>>(UiState.Empty)
     val myPingleCancelState get() = _myPingleCancelState.asStateFlow()
-
-    private var _tabPosition = MutableLiveData<Boolean>(false)
-    val tabPosition get() = _tabPosition
 
     private val _selectedMyPingleData = MutableStateFlow<MyPingleEntity?>(null)
     val selectedMyPingleData get() = _selectedMyPingleData.asStateFlow()
@@ -37,13 +39,19 @@ class MyPingleViewModel @Inject constructor(
     private val _myPingleList = MutableStateFlow<List<MyPingleEntity>>(emptyList())
     val myPingleList get() = _myPingleList.asStateFlow()
 
-    fun getPingleParticipationList(participation: Boolean) {
+    private var oldPosition = DEFAULT_OLD_POSITION
+
+    fun setMyPingleType(myPingleType: MyPingleType) {
+        _myPingleType.value = myPingleType
+    }
+
+    fun getPingleParticipationList() {
         viewModelScope.launch {
             _myPingleState.emit(UiState.Loading)
             runCatching {
                 getMyPingleListUseCase(
                     teamId = localStorage.groupId,
-                    participation = participation
+                    participation = _myPingleType.value.boolean
                 ).collect { myPingleEntity ->
                     if (myPingleEntity.isEmpty()) {
                         _myPingleState.emit(UiState.Empty)
@@ -70,15 +78,6 @@ class MyPingleViewModel @Inject constructor(
         }
     }
 
-    fun setTabSoon() {
-        _tabPosition.value = false
-    }
-
-    fun setTabDone() {
-        _tabPosition.value = true
-    }
-
-    private var oldPosition = DEFAULT_OLD_POSITION
     fun updateMyPingleList(newPosition: Int) {
         when (oldPosition) {
             DEFAULT_OLD_POSITION -> setIsSelected(newPosition)

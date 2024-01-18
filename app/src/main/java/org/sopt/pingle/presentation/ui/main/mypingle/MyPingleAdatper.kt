@@ -10,7 +10,6 @@ import org.sopt.pingle.util.view.ItemDiffCallback
 
 class MyPingleAdatper(
     private val context: Context,
-    private val navigateToMapList: () -> Unit,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
     private val setOldItem: (Int) -> Unit
 ) : ListAdapter<MyPingleEntity, MyPingleViewHolder>(
@@ -27,7 +26,6 @@ class MyPingleAdatper(
                 false
             ),
             context,
-            navigateToMapList,
             showDeleteModalDialogFragment,
             setOldItem
         )

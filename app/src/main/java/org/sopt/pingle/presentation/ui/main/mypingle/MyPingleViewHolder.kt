@@ -16,7 +16,6 @@ import org.sopt.pingle.util.convertToCalenderDetail
 class MyPingleViewHolder(
     private val binding: ItemMyPingleBinding,
     private val context: Context,
-    private val navigateToMapList: () -> Unit,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
     private val setOldItem: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -68,10 +67,6 @@ class MyPingleViewHolder(
                 tvMyPingleDay.text = item.dDay
                 tvMyPingleDay.visibility = View.VISIBLE
                 ivMyPingleEdit.visibility = View.VISIBLE
-            }
-
-            layoutMyPingleRecruitment.setOnClickListener {
-                navigateToMapList
             }
 
             ivMyPingleEdit.setOnClickListener {

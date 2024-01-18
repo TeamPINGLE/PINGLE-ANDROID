@@ -14,6 +14,7 @@ import org.sopt.pingle.presentation.ui.main.more.MoreFragment
 import org.sopt.pingle.presentation.ui.main.mypingle.MyPingleFragment
 import org.sopt.pingle.presentation.ui.main.planannouncement.PlanAnnouncementActivity
 import org.sopt.pingle.presentation.ui.main.ranking.RankingFragment
+import org.sopt.pingle.util.activity.setDoubleBackPressToExit
 import org.sopt.pingle.util.base.BindingActivity
 
 @AndroidEntryPoint
@@ -25,6 +26,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         installSplashScreen()
         initLayout()
         initBnvMainAllNaviItemSelectedListener()
+        setDoubleBackPressToExit(binding.root)
     }
 
     override fun onResume() {

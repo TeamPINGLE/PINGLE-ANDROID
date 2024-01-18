@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">PINGLE</string>
 
+    <!-- on back pressed -->
+    <string name="all_on_back_pressed_snackbar">뒤로가기를 한 번 더 누르면 종료됩니다!</string>
+
     <!--  category Type  -->
     <string name="category_play">PLAY</string>
     <string name="category_study">STUDY</string>

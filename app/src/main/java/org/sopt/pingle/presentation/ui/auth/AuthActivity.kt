@@ -14,6 +14,7 @@ import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.ActivityAuthBinding
 import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.presentation.ui.onboarding.OnBoardingActivity
+import org.sopt.pingle.util.activity.setDoubleBackPressToExit
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
@@ -30,6 +31,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
         initLayout()
         addListeners()
         collectData()
+        setDoubleBackPressToExit(binding.root)
     }
 
     private fun initLayout() {
@@ -66,12 +68,14 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
 
     private fun navigateToOnBoarding() {
         Intent(this, OnBoardingActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(this)
         }
     }
 
     private fun navigateToMain() {
         Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(this)
         }
     }

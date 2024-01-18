@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupSuccessBinding
 import org.sopt.pingle.presentation.ui.main.MainActivity
+import org.sopt.pingle.util.activity.setDoubleBackPressToExit
 import org.sopt.pingle.util.base.BindingActivity
 
 class JoinGroupSuccessActivity :
@@ -21,6 +22,7 @@ class JoinGroupSuccessActivity :
 
         initLayout()
         addListeners()
+        setDoubleBackPressToExit(binding.root)
     }
 
     private fun initLayout() {

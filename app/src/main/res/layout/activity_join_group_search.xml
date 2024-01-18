@@ -74,7 +74,7 @@
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
                 android:textColor="@color/white"
                 android:textColorHint="@color/g_07"
-                android:textCursorDrawable="@drawable/cursor_drawble"
+                android:textCursorDrawable="@drawable/shape_pingle_green_solid_width_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_join_group_search_icon"
                 app:layout_constraintStart_toStartOf="parent"

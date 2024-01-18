@@ -67,7 +67,7 @@
             android:text="@={planViewModel.selectedRecruitment}"
             android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.32"
             android:textColor="@color/white"
-            android:textCursorDrawable="@drawable/cursor_drawble"
+            android:textCursorDrawable="@drawable/shape_pingle_green_solid_width_1"
             app:layout_constraintEnd_toStartOf="@id/btn_plan_recruitment_plus"
             app:layout_constraintStart_toEndOf="@id/btn_plan_recruitment_minus"
             app:layout_constraintTop_toBottomOf="@id/tv_plan_recruitment_description" />

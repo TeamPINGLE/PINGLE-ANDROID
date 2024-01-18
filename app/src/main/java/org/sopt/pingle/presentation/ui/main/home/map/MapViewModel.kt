@@ -52,9 +52,6 @@ class MapViewModel @Inject constructor(
     private val _pingleParticipationState = MutableSharedFlow<UiState<Unit?>>()
     val pingleParticipationState get() = _pingleParticipationState.asSharedFlow()
 
-    private val _pingleDeleteState = MutableSharedFlow<UiState<Unit?>>()
-    val pingleDeleteState get() = _pingleDeleteState.asSharedFlow()
-
     private fun setMarkerModelListIsSelected(position: Int) {
         _markerModelData.value.second[position].isSelected.set(!_markerModelData.value.second[position].isSelected.get())
     }
@@ -170,13 +167,13 @@ class MapViewModel @Inject constructor(
 
     fun deletePingleDelete(meetingId: Long) {
         viewModelScope.launch {
-            _pingleDeleteState.emit(UiState.Loading)
+            _pingleParticipationState.emit(UiState.Loading)
             runCatching {
                 deletePingleDeleteUseCase(meetingId = meetingId).collect() { data ->
-                    _pingleDeleteState.emit(UiState.Success(data))
+                    _pingleParticipationState.emit(UiState.Success(data))
                 }
             }.onFailure { exception: Throwable ->
-                _pingleDeleteState.emit(UiState.Error(exception.message))
+                _pingleParticipationState.emit(UiState.Error(exception.message))
             }
         }
     }

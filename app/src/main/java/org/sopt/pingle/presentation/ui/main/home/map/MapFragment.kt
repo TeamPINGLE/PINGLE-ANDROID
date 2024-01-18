@@ -12,7 +12,9 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.location.LocationServices
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraAnimation
@@ -129,6 +131,14 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 }
             })
             offscreenPageLimit = 1
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    val recyclerView = getChildAt(0) as? RecyclerView
+                    val layoutManager = recyclerView?.layoutManager as? LinearLayoutManager
+                    val currentItemView = layoutManager?.findViewByPosition(position)
+                    currentItemView?.translationX = 0F
+                }
+            })
             setPageTransformer { page, position ->
                 page.translationX = (VIEWPAGER_PAGE_TRANSFORMER).toPx() * position
             }
@@ -222,16 +232,9 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
                             mapViewModel.getPingleList(pinId = pinId)
                         }
+                        mapViewModel.getPinListWithoutFilter()
                     }
 
-                    else -> Unit
-                }
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-        mapViewModel.pingleDeleteState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { uiState ->
-                when (uiState) {
-                    is UiState.Success -> mapViewModel.getPinListWithoutFilter()
                     else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)

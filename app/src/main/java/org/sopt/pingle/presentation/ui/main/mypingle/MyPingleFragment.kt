@@ -8,6 +8,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -60,7 +61,9 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     }
 
     private fun collectData() {
-        viewModel.myPingleType.flowWithLifecycle(lifecycle).onEach {
+        viewModel.myPingleType.flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
+            .onEach {
             viewModel.getPingleParticipationList()
         }.launchIn(lifecycleScope)
 

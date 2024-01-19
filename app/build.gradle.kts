@@ -26,7 +26,7 @@ android {
         applicationId = "org.sopt.pingle"
         minSdk = 28
         targetSdk = 34
-        versionCode = 14
+        versionCode = 15
         versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

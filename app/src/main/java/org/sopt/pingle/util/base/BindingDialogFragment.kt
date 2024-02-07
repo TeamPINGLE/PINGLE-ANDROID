@@ -32,7 +32,7 @@ abstract class BindingDialogFragment<T : ViewDataBinding>(@LayoutRes private val
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
-        dialog?.window?.setBackgroundDrawableResource(R.color.backdrop)
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog?.setCancelable(false)
         dialog?.setCanceledOnTouchOutside(true)
     }

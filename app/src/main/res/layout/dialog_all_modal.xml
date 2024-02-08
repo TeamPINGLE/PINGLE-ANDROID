@@ -8,12 +8,15 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_all_modal_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/backdrop">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:layout_marginHorizontal="@dimen/dialog_horizontal_margin"
             android:background="@drawable/shape_border_radius_15"
             android:backgroundTint="@color/g_10"

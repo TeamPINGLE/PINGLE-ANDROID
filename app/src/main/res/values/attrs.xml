@@ -5,4 +5,8 @@
         <attr name="pingleEditTextHint" format="reference|string" />
         <attr name="pingleEditTextMaxLength" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="PingleSearch">
+        <attr name="pingleSearchHint" format="reference|string" />
+    </declare-styleable>
 </resources>

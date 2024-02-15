@@ -7,15 +7,14 @@ import org.sopt.pingle.databinding.ItemParticipantBinding
 class ParticipantViewHolder(private val binding: ItemParticipantBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: String) {
-        binding.tvParticipantName.text = item
-        binding.tvParticipantOwnerName.text = item
+        with(binding) {
+            tvParticipantName.text = item
+            tvParticipantOwnerName.text = item
 
-        if (absoluteAdapterPosition == DEFAULT_POSITION) {
-            with(binding) {
-                tvParticipantName.visibility = View.INVISIBLE
-                tvParticipantOwner.visibility = View.VISIBLE
-                tvParticipantOwnerName.visibility = View.VISIBLE
-            }
+            val isDefaultPosition = absoluteAdapterPosition == DEFAULT_POSITION
+            tvParticipantName.visibility = if (isDefaultPosition) View.INVISIBLE else View.VISIBLE
+            tvParticipantOwner.visibility = if (isDefaultPosition) View.VISIBLE else View.INVISIBLE
+            tvParticipantOwnerName.visibility = if (isDefaultPosition) View.VISIBLE else View.INVISIBLE
         }
     }
 

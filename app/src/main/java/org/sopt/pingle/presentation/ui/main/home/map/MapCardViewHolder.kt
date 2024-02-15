@@ -12,7 +12,8 @@ class MapCardViewHolder(
     private val showMapDeleteModalDialogFragment: (PingleEntity) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun onBind(pinId: Long, pingleEntity: PingleEntity) {
-        with(binding.cardMapPingleCard) {
+        binding.pingleCardTopMapPingleCard.initLayout(pingleEntity)
+        with(binding.pingleCardBottomMapPingleCard) {
             initLayout(pingleEntity)
             setPinId(pinId)
             setOnChatButtonClick {

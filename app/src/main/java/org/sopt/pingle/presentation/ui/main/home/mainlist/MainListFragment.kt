@@ -12,12 +12,5 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        addListeners()
-    }
-
-    private fun addListeners() {
-        binding.fabMainListMap.setOnClickListener {
-            navigateToFragment<MapFragment>()
-        }
     }
 }

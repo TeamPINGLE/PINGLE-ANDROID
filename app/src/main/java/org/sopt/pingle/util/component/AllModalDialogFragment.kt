@@ -51,5 +51,9 @@ class AllModalDialogFragment(
             clickTextBtn()
             dismiss()
         }
+
+        binding.layoutAllModalBackground.setOnClickListener {
+            dismiss()
+        }
     }
 }

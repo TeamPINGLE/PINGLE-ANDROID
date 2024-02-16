@@ -56,9 +56,9 @@ class PingleCardBottom @JvmOverloads constructor(
 
             btnCardBottomMapParticipate.text =
                 when {
-                    pingleEntity.isOwner -> stringOf(R.string.map_card_delete)
-                    pingleEntity.isParticipating -> stringOf(R.string.map_card_cancel)
-                    else -> stringOf(R.string.map_card_participate)
+                    pingleEntity.isOwner -> stringOf(R.string.pingle_card_delete)
+                    pingleEntity.isParticipating -> stringOf(R.string.pingle_card_cancel)
+                    else -> stringOf(R.string.pingle_card_participate)
                 }
         }
     }

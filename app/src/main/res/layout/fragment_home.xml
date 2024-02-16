@@ -79,16 +79,6 @@
         </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_home_here"
-            style="@style/Theme.Pingle.Fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing8"
-            android:src="@drawable/ic_map_here_24"
-            app:layout_constraintBottom_toTopOf="@id/fab_home_change"
-            app:layout_constraintEnd_toStartOf="@id/gl_end" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_home_change"
             style="@style/Theme.Pingle.Fab"
             android:layout_width="wrap_content"

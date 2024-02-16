@@ -38,8 +38,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             fabHomeChange.setOnClickListener {
                 vpHome.setCurrentItem(
                     when (vpHome.currentItem) {
-                        HOME_INDEX -> MAIN_LIST_INDEX
-                        else -> HOME_INDEX
+                        MAP_INDEX -> MAIN_LIST_INDEX
+                        else -> MAP_INDEX
                     }, false
                 )
             }
@@ -58,16 +58,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         with(binding.vpHome) {
             adapter = fragmentStateAdapter
             isUserInputEnabled = false
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     with(binding) {
-                        fabHomeChange.setImageResource(
-                            when(vpHome.currentItem) {
-                                HOME_INDEX -> R.drawable.ic_map_list_24
-                                else -> R.drawable.ic_map_map_24
-                            }
-                        )
+                        (vpHome.currentItem == MAP_INDEX).let { isMap ->
+                            fabHomeChange.setImageResource(if (isMap) R.drawable.ic_map_list_24 else R.drawable.ic_map_map_24)
+                            fabHomeHere.visibility = if (isMap) View.VISIBLE else View.INVISIBLE
+                        }
                     }
                 }
             })
@@ -75,7 +73,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     companion object {
-        const val HOME_INDEX = 0
+        const val MAP_INDEX = 0
         const val MAIN_LIST_INDEX = 1
     }
 }

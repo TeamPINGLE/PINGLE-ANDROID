@@ -58,7 +58,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     when (vpHome.currentItem) {
                         MAP_INDEX -> MAIN_LIST_INDEX
                         else -> MAP_INDEX
-                    }, false
+                    },
+                    false
                 )
             }
         }

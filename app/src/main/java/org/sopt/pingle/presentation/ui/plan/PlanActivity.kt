@@ -23,9 +23,9 @@ import org.sopt.pingle.presentation.ui.plan.planopenchatting.PlanOpenChattingFra
 import org.sopt.pingle.presentation.ui.plan.planrecruitment.PlanRecruitmentFragment
 import org.sopt.pingle.presentation.ui.plan.plansummaryconfirmation.PlanSummaryConfirmationFragment
 import org.sopt.pingle.presentation.ui.plan.plantitle.PlanTitleFragment
-import org.sopt.pingle.util.view.PingleFragmentStateAdapter
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.AllModalDialogFragment
+import org.sopt.pingle.util.view.PingleFragmentStateAdapter
 import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint

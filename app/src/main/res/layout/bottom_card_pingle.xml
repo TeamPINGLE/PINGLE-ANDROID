@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_all_calendar_24"
-            app:layout_constraintStart_toStartOf="@+id/btn_card_bottom_map_chat"
+            app:layout_constraintStart_toStartOf="@id/btn_card_bottom_map_chat"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

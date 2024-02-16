@@ -168,6 +168,17 @@
     <string name="setting_withdraw_modal_detail">탈퇴 시 계정은 삭제되며 복구할 수 없어요</string>
     <string name="setting_withdraw_modal_btn_text">탈퇴하기</string>
 
+    <!-- my pingle -->
+    <string name="my_pingle_chat">대화하기</string>
+    <string name="my_pingle_cancel">참여 취소하기</string>
+    <string name="my_pingle_delete">핑글 삭제하기</string>
+    <string name="my_pingle_topbar">마이핑글</string>
+    <string name="my_pingle_soon">홈으로 이동해\n내 주변 핑글을 찾아보세요!</string>
+    <string name="my_pingle_done">아직 참여한 핑글이 없어요\n첫 핑글과 함께 네트워킹을 시작해보세요!</string>
+    <string name="my_pingle_tab_soon">\t\t\t\t\t\t\t예정된\t\t\t\t\t\t\t\t</string>
+    <string name="my_pingle_tab_done">\t\t\t\t\t\t참여완료\t\t\t\t\t\t</string>
+    <string name="my_pingle_participant">%d/%d명</string>
+
     <!-- on boarding -->
     <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
     <string name="on_boarding_original_group">이미 등록된\n 단체가 있어요</string>
@@ -181,14 +192,7 @@
     <string name="participant_topbar">참여현황</string>
     <string name="participant_owner">개최자</string>
 
-    <!-- my pingle -->
-    <string name="my_pingle_chat">대화하기</string>
-    <string name="my_pingle_cancel">참여 취소하기</string>
-    <string name="my_pingle_delete">핑글 삭제하기</string>
-    <string name="my_pingle_topbar">마이핑글</string>
-    <string name="my_pingle_soon">홈으로 이동해\n내 주변 핑글을 찾아보세요!</string>
-    <string name="my_pingle_done">아직 참여한 핑글이 없어요\n첫 핑글과 함께 네트워킹을 시작해보세요!</string>
-    <string name="my_pingle_tab_soon">\t\t\t\t\t\t\t예정된\t\t\t\t\t\t\t\t</string>
-    <string name="my_pingle_tab_done">\t\t\t\t\t\t참여완료\t\t\t\t\t\t</string>
-    <string name="my_pingle_participant">%d/%d명</string>
+    <!-- search -->
+    <string name="search_search_bar_hint">핑글 이름, 장소 이름 검색</string>
+    <string name="search_description">원하는 핑글을 검색해보세요!</string>
 </resources>

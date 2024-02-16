@@ -23,6 +23,7 @@ import org.sopt.pingle.presentation.ui.plan.planopenchatting.PlanOpenChattingFra
 import org.sopt.pingle.presentation.ui.plan.planrecruitment.PlanRecruitmentFragment
 import org.sopt.pingle.presentation.ui.plan.plansummaryconfirmation.PlanSummaryConfirmationFragment
 import org.sopt.pingle.presentation.ui.plan.plantitle.PlanTitleFragment
+import org.sopt.pingle.util.view.PingleFragmentStateAdapter
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.view.UiState
@@ -38,7 +39,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
         binding.viewModel = planViewModel
 
-        setPlanFragmentStateAdapter()
+        setFragmentStateAdapter()
         initView()
         addListeners()
         collectData()
@@ -52,7 +53,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         }
     }
 
-    private fun setPlanFragmentStateAdapter() {
+    private fun setFragmentStateAdapter() {
         fragmentList = ArrayList()
         fragmentList.apply {
             add(PlanCategoryFragment())
@@ -64,7 +65,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             add(PlanSummaryConfirmationFragment())
         }
 
-        val adapter = PlanFragmentStateAdapter(fragmentList, this)
+        val adapter = PingleFragmentStateAdapter(fragmentList, this)
         with(binding.vpPlan) {
             this.adapter = adapter
             isUserInputEnabled = false

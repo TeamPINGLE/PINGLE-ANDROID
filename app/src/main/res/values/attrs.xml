@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="pingleEditText">
-        <attr name="title" format="reference|string"/>
-        <attr name="hint" format="reference|string"/>
-        <attr name="maxLength" format="integer"/>
+    <declare-styleable name="PingleEditText">
+        <attr name="pingleEditTextTitle" format="reference|string" />
+        <attr name="pingleEditTextHint" format="reference|string" />
+        <attr name="pingleEditTextMaxLength" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="PingleSearch">
+        <attr name="pingleSearchHint" format="reference|string" />
     </declare-styleable>
 </resources>

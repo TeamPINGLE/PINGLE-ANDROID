@@ -30,10 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing25"
             app:etText="@={viewModel.planOpenChattingLink}"
-            app:hint="@string/plan_open_chatting_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_plan_title"
-            app:title="@string/plan_open_chatting_text_title" />
+            app:pingleEditTextHint="@string/plan_open_chatting_hint"
+            app:pingleEditTextTitle="@string/plan_open_chatting_text_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

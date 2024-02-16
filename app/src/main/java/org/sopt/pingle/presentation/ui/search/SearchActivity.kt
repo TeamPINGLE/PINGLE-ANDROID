@@ -10,7 +10,12 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initLayout()
         addListeners()
+    }
+
+    private fun initLayout() {
+        binding.pingleSearchSearch.editText.requestFocus()
     }
 
     private fun addListeners() {

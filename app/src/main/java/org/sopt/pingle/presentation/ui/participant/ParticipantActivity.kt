@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityParticipantBinding
+import org.sopt.pingle.presentation.ui.main.home.map.MapFragment.Companion.MEETING_ID
 import org.sopt.pingle.util.base.BindingActivity
-import org.sopt.pingle.util.component.PingleCardTop.Companion.MEETING_ID
 import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint

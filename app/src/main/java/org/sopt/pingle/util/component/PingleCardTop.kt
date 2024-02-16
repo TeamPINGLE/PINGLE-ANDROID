@@ -2,7 +2,6 @@ package org.sopt.pingle.util.component
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import org.sopt.pingle.databinding.TopCardPingleBinding
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.mapper.isCompleted
 import org.sopt.pingle.presentation.type.CategoryType
-import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.view.colorOf
 
 @SuppressLint("CustomViewStyleable")
@@ -21,6 +19,7 @@ class PingleCardTop @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     private val binding: TopCardPingleBinding
+    private var onParticipationStatusLayoutClick: (Long) -> Unit = {}
 
     init {
         binding = TopCardPingleBinding.inflate(LayoutInflater.from(context), this, true)
@@ -55,15 +54,12 @@ class PingleCardTop @JvmOverloads constructor(
             }
 
             layoutCardTopParticipationStatus.setOnClickListener {
-                Intent(context, ParticipantActivity::class.java).apply {
-                    putExtra(MEETING_ID, pingleEntity.id)
-                    context.startActivity(this)
-                }
+                onParticipationStatusLayoutClick(pingleEntity.id)
             }
         }
     }
 
-    companion object {
-        const val MEETING_ID = "meetingId"
+    fun setOnParticipationStatusLayoutClick(participationStatusLayoutClickListener: (Long) -> Unit) {
+        onParticipationStatusLayoutClick = participationStatusLayoutClickListener
     }
 }

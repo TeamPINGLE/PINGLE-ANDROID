@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -33,11 +33,10 @@ import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.mapper.toMarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
-import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
+import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
+import org.sopt.pingle.presentation.ui.main.home.HomeViewModel.Companion.DEFAULT_SELECTED_MARKER_POSITION
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
-import org.sopt.pingle.util.component.PingleChip
-import org.sopt.pingle.util.fragment.navigateToFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.toPx
@@ -45,7 +44,7 @@ import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
 class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), OnMapReadyCallback {
-    private val mapViewModel by viewModels<MapViewModel>()
+    private val homeViewModel: HomeViewModel by activityViewModels()
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
     private lateinit var mapCardAdapter: MapCardAdapter
@@ -85,7 +84,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             }
 
             setOnMapClickListener { _, _ ->
-                mapViewModel.clearSelectedMarkerPosition()
+                homeViewModel.clearSelectedMarkerPosition()
                 mapCardAdapter.clearData()
             }
         }
@@ -133,13 +132,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 page.translationX = (VIEWPAGER_PAGE_TRANSFORMER).toPx() * position
             }
         }
-
-        with(binding) {
-            chipMapCategoryPlay.setChipCategoryType(CategoryType.PLAY)
-            chipMapCategoryStudy.setChipCategoryType(CategoryType.STUDY)
-            chipMapCategoryMulti.setChipCategoryType(CategoryType.MULTI)
-            chipMapCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
-        }
     }
 
     private fun addListeners() {
@@ -155,27 +147,19 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 }
             }
         }
-
-        binding.cgMapCategory.setOnCheckedStateChangeListener { group, checkedIds ->
-            mapViewModel.setCategory(
-                category = checkedIds.getOrNull(SINGLE_SELECTION)
-                    ?.let { group.findViewById<PingleChip>(it).categoryType }
-            )
-        }
-
-        binding.fabMapList.setOnClickListener {
-            navigateToFragment<MainListFragment>()
-        }
     }
 
     private fun collectData() {
-        mapViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .distinctUntilChanged()
-            .onEach {
-                mapViewModel.getPinListWithoutFilter()
+        homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { markerModelData ->
+                (markerModelData.first == DEFAULT_SELECTED_MARKER_POSITION).let { isMarkerUnselected ->
+                    with(binding) {
+                        fabMapHere.visibility = if (isMarkerUnselected) View.VISIBLE else View.INVISIBLE
+                    }
+                }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        mapViewModel.pinEntityListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+        homeViewModel.pinEntityListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .distinctUntilChanged()
             .onEach { uiState ->
                 when (uiState) {
@@ -183,7 +167,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         if (::naverMap.isInitialized) {
                             makeMarkers(uiState.data)
                             mapCardAdapter.clearData()
-                            mapViewModel.clearSelectedMarkerPosition()
+                            homeViewModel.clearSelectedMarkerPosition()
                         }
                     }
 
@@ -191,17 +175,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        mapViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { markerModelData ->
-                (markerModelData.first == MapViewModel.DEFAULT_SELECTED_MARKER_POSITION).run {
-                    with(binding) {
-                        fabMapHere.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
-                        fabMapList.visibility = if (this@run) View.VISIBLE else View.INVISIBLE
-                    }
-                }
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-        mapViewModel.pingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+        homeViewModel.pingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { uiState ->
                 when (uiState) {
                     is UiState.Success -> {
@@ -215,12 +189,12 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        mapViewModel.pingleParticipationState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+        homeViewModel.pingleParticipationState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { uiState ->
                 when (uiState) {
                     is UiState.Success -> {
                         mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
-                            mapViewModel.getPingleList(pinId = pinId)
+                            homeViewModel.getPingleList(pinId = pinId)
                         }
                     }
 
@@ -228,14 +202,14 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        mapViewModel.pingleDeleteState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+        homeViewModel.pingleDeleteState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { uiState ->
                 when (uiState) {
                     is UiState.Success -> {
-                        if (mapCardAdapter.currentList.size == 1) mapViewModel.getPinListWithoutFilter()
+                        homeViewModel.getPinListWithoutFilter()
 
                         mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
-                            mapViewModel.getPingleList(pinId = pinId)
+                            homeViewModel.getPingleList(pinId = pinId)
                         }
                     }
 
@@ -246,11 +220,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
@@ -284,20 +258,20 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun makeMarkers(pinEntityList: List<PinEntity>) {
-        mapViewModel.clearMarkerModelData()
+        homeViewModel.clearMarkerModelData()
 
         pinEntityList.mapIndexed { index, pinEntity ->
             pinEntity.toMarkerModel().apply {
                 this.marker.apply {
                     map = naverMap
                     setOnClickListener {
-                        mapViewModel.updateMarkerModelListSelectedValue(index)
-                        mapViewModel.getPingleList(pinEntity.id)
+                        homeViewModel.updateMarkerModelListSelectedValue(index)
+                        homeViewModel.getPingleList(pinEntity.id)
                         moveMapCamera(position)
                         return@setOnClickListener true
                     }
                 }
-                mapViewModel.addMarkerModelList(this)
+                homeViewModel.addMarkerModelList(this)
             }
         }
     }
@@ -312,7 +286,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             detail = stringOf(R.string.cancel_modal_detail),
             buttonText = stringOf(R.string.cancel_modal_button_text),
             textButtonText = stringOf(R.string.cancel_modal_text_button_text),
-            clickBtn = { mapViewModel.deletePingleCancel(meetingId = pingleEntity.id) },
+            clickBtn = { homeViewModel.deletePingleCancel(meetingId = pingleEntity.id) },
             clickTextBtn = { }
         ).show(childFragmentManager, MAP_CANCEL_MODAL)
     }
@@ -323,7 +297,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 category = CategoryType.fromString(categoryName = category),
                 name = name,
                 ownerName = ownerName,
-                clickBtn = { mapViewModel.postPingleJoin(meetingId = pingleEntity.id) }
+                clickBtn = { homeViewModel.postPingleJoin(meetingId = pingleEntity.id) }
             ).show(childFragmentManager, MAP_JOIN_MODAL)
         }
     }
@@ -334,7 +308,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             detail = stringOf(R.string.delete_modal_detail),
             buttonText = stringOf(R.string.delete_modal_button_text),
             textButtonText = stringOf(R.string.delete_modal_text_button_text),
-            clickBtn = { mapViewModel.deletePingleDelete(meetingId = pingleEntity.id) },
+            clickBtn = { homeViewModel.deletePingleDelete(meetingId = pingleEntity.id) },
             clickTextBtn = {}
         ).show(childFragmentManager, MAP_DELETE_MODAL)
     }
@@ -345,7 +319,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
-        private const val SINGLE_SELECTION = 0
+
         private const val MAP_CANCEL_MODAL = "mapCancelModal"
         private const val MAP_JOIN_MODAL = "mapJoinModal"
         private const val MAP_DELETE_MODAL = "mapDeleteModal"

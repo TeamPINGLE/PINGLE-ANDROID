@@ -41,6 +41,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             chipHomeCategoryStudy.setChipCategoryType(CategoryType.STUDY)
             chipHomeCategoryMulti.setChipCategoryType(CategoryType.MULTI)
             chipHomeCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
+
+            when (homeViewModel.category.value) {
+                CategoryType.PLAY -> chipHomeCategoryPlay.isChecked = true
+                CategoryType.STUDY -> chipHomeCategoryStudy.isChecked = true
+                CategoryType.MULTI -> chipHomeCategoryMulti.isChecked = true
+                CategoryType.OTHERS -> chipHomeCategoryOthers.isChecked = true
+                else -> Unit
+            }
         }
     }
 

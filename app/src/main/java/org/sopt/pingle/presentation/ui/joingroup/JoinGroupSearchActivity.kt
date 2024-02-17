@@ -41,34 +41,35 @@ class JoinGroupSearchActivity :
     }
 
     private fun addListeners() {
-        binding.includeJoinGroupSearchTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
-            finish()
-        }
-
-        binding.root.setOnClickListener {
-            hideKeyboard(binding.etJoinGroupSearch)
-        }
-
-        binding.ivJoinGroupSearchIcon.setOnClickListener {
-            if (binding.etJoinGroupSearch.text.isNotBlank()) viewModel.getJoinGroupSearch(binding.etJoinGroupSearch.text.toString())
-            hideKeyboard(binding.etJoinGroupSearch)
-        }
-
-        binding.etJoinGroupSearch.setOnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                if (binding.etJoinGroupSearch.text.isNotBlank()) viewModel.getJoinGroupSearch(binding.etJoinGroupSearch.text.toString())
-                hideKeyboard(binding.etJoinGroupSearch)
-                return@setOnKeyListener true
+        with(binding) {
+            includeJoinGroupSearchTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
+                finish()
             }
-            false
-        }
 
-        binding.tvJoinGroupSearchCreate.setOnClickListener {
-            startActivity(navigateToWebView(OnBoardingActivity.NEW_GROUP_LINK))
-        }
+            (pingleSearchJoinGroupSearch.editText).let { searchEditText ->
+                root.setOnClickListener {
+                    hideKeyboard(searchEditText)
+                }
 
-        binding.btnJoinGroupCodeNext.setOnClickListener {
-            navigateToJoinGroupCode()
+                searchEditText.setOnKeyListener { _, keyCode, event ->
+                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+                        if (searchEditText.text.isNotBlank()) viewModel.getJoinGroupSearch(
+                            searchEditText.text.toString()
+                        )
+                        hideKeyboard(searchEditText)
+                        return@setOnKeyListener true
+                    }
+                    false
+                }
+            }
+
+            tvJoinGroupSearchCreate.setOnClickListener {
+                startActivity(navigateToWebView(OnBoardingActivity.NEW_GROUP_LINK))
+            }
+
+            btnJoinGroupCodeNext.setOnClickListener {
+                navigateToJoinGroupCode()
+            }
         }
     }
 

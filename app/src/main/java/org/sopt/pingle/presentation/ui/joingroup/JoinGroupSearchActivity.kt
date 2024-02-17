@@ -53,9 +53,11 @@ class JoinGroupSearchActivity :
 
                 searchEditText.setOnKeyListener { _, keyCode, event ->
                     if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                        if (searchEditText.text.isNotBlank()) viewModel.getJoinGroupSearch(
-                            searchEditText.text.toString()
-                        )
+                        if (searchEditText.text.isNotBlank()) {
+                            viewModel.getJoinGroupSearch(
+                                searchEditText.text.toString()
+                            )
+                        }
                         hideKeyboard(searchEditText)
                         return@setOnKeyListener true
                     }

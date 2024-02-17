@@ -10,7 +10,7 @@ class RankingViewHolder(private val binding: ItemRankingBinding, private val con
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(rankingLocationEntity: RankingLocationEntity, ranking: Int) {
         with(binding) {
-            tvRankingRank.text = (ranking).toString()
+            tvRankingRank.text = ranking.toString()
             tvRankingLocationCount.text = rankingLocationEntity.locationCount.toString()
             tvRankingLocationName.text = rankingLocationEntity.name
             (rankingLocationEntity.latestVisitedDate).let { latestVisitedDate ->

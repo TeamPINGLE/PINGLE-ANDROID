@@ -54,6 +54,18 @@
     <string name="join_group_success_description_group_name">%s에서</string>
     <string name="join_group_success_description">핑글 여정을 함께해보세요!</string>
 
+    <!-- new group -->
+    <string name="new_group_topbar">신규 단체 개설</string>
+    <string name="new_group_next">다음으로</string>
+
+    <!-- new group input -->
+    <string name="new_group_input_title">속해있는 단체의\n이름을 알려주세요!</string>
+    <string name="new_group_input_name_hint">단체명을 입력해주세요</string>
+    <string name="new_group_input_name_title">단체명</string>
+    <string name="new_group_input_email_hint">ex. 단체 공식 이메일, 개설자님의 이메일</string>
+    <string name="new_group_input_email_title">대표 이메일</string>
+    <string name="new_group_input_guide">해당 이메일은 초대 코드 공유 및 단체 관리를 위해 사용될 예정입니다</string>
+
     <!-- map -->
     <string name="map_participate">참여하기</string>
 

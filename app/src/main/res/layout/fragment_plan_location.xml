@@ -23,47 +23,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_plan_location_search"
+        <org.sopt.pingle.util.component.PingleSearch
+            android:id="@+id/pingle_search_plan_location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/shape_border_radius_8"
-            android:backgroundTint="@color/g_10"
+            app:pingleSearchHint="@string/plan_location_hint"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_plan_location_title"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <EditText
-                android:id="@+id/et_plan_location_search"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:layout_marginEnd="19dp"
-                android:backgroundTint="@android:color/transparent"
-                android:hint="@string/plan_location_hint"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingVertical="@dimen/spacing12"
-                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
-                android:textColor="@color/white"
-                android:textColorHint="@color/g_07"
-                android:textCursorDrawable="@drawable/shape_pingle_green_solid_width_1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_plan_location_search_btn"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_plan_location_search_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="14dp"
-                android:src="@drawable/ic_all_search_24"
-                app:layout_constraintBottom_toBottomOf="@id/et_plan_location_search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/et_plan_location_search" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_location_title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_plan_location_list"
@@ -74,7 +42,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_plan_location_search"
+            app:layout_constraintTop_toBottomOf="@id/pingle_search_plan_location"
             tools:listitem="@layout/item_plan_location" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,7 +54,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_plan_location_search">
+            app:layout_constraintTop_toBottomOf="@id/pingle_search_plan_location">
 
             <TextView
                 android:id="@+id/tv_plan_location_empty"

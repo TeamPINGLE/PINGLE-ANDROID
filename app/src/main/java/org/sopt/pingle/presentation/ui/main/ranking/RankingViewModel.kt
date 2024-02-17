@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import org.sopt.pingle.domain.model.RankingEntity
 import org.sopt.pingle.domain.model.RankingLocationEntity
 
-class RankingViewModel(): ViewModel() {
+class RankingViewModel() : ViewModel() {
     val dummyRanking = RankingEntity(
         meetingCount = 30,
         locations = listOf(

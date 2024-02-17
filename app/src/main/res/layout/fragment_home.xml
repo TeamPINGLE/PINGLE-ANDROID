@@ -45,7 +45,7 @@
             app:chipSpacingHorizontal="@dimen/chip_spacing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_home_search"
+            app:layout_constraintTop_toBottomOf="@id/iv_home_search"
             app:singleSelection="true">
 
             <org.sopt.pingle.util.component.PingleChip

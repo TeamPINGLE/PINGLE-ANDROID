@@ -49,6 +49,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 CategoryType.OTHERS -> chipHomeCategoryOthers.isChecked = true
                 else -> Unit
             }
+
+            tvHomeGroup.text = homeViewModel.getGroupName()
         }
     }
 

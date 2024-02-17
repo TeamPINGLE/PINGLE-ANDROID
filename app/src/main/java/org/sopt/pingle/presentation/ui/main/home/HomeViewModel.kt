@@ -105,6 +105,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun getGroupName(): String = localStorage.groupName
+
     fun getPinListWithoutFilter() {
         viewModelScope.launch {
             _pinEntityListState.value = UiState.Loading

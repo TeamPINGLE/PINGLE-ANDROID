@@ -151,7 +151,8 @@
 
     <!-- ranking -->
     <string name="ranking_title">랭킹</string>
-    <string name="ranking_recent_date">최근방문 %s년 %s월 %s일</string>
+    <string name="ranking_latest_visited">최근방문</string>
+    <string name="ranking_date">%s년 %s월 %s일</string>
     <string name="ranking_empty">우리 단체에서 핑글이 30회 이상 이루어지면\n랭킹을 확인할 수 있어요!</string>
 
     <!-- more -->

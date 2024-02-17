@@ -64,6 +64,14 @@
         <item name="android:textColor">@color/selector_plan_recruitment_btn_text</item>
     </style>
 
+    <style name="Theme.Pingle.Button.Check" parent="Theme.Pingle.Button">
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">3dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Bold.10</item>
+        <item name="android:backgroundTint">@color/g_02</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <!-- chip -->
     <style name="Theme.Pingle.Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:stateListAnimator">@null</item>

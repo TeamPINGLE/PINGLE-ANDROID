@@ -95,7 +95,7 @@
     <string name="delete_modal_button_text">삭제하기</string>
     <string name="delete_modal_text_button_text">돌아가기</string>
 
-    <!--  plan  -->
+    <!-- plan -->
     <string name="plan_later_des">나중에 만드시겠어요?</string>
     <string name="plan_close"><u>나가기</u></string>
     <string name="plan_next">다음으로</string>
@@ -107,7 +107,7 @@
     <string name="plan_announcement_detail_bottom">원하는 장소에서 사람들과 갖는 모임을 뜻해요</string>
     <string name="plan_announcement_btn">핑글 개최하러 가기</string>
 
-    <!--  plan modal -->
+    <!-- plan modal -->
     <string name="plan_exit_modal_dialog_title">잠깐! 나가실건가요?</string>
     <string name="plan_exit_modal_dialog_detail">지금까지 입력한 정보는 전부 사라져요</string>
     <string name="plan_exit_modal_dialog_btn_text">이어서 작성하기</string>
@@ -203,4 +203,7 @@
     <string name="my_pingle_tab_soon">\t\t\t\t\t\t\t예정된\t\t\t\t\t\t\t\t</string>
     <string name="my_pingle_tab_done">\t\t\t\t\t\t참여완료\t\t\t\t\t\t</string>
     <string name="my_pingle_participant">%d/%d명</string>
+
+    <!-- edit text custom view -->
+    <string name="view_text_with_title_button_text">중복 확인</string>
 </resources>

@@ -19,6 +19,7 @@ class PingleEditText @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     private var binding: EditTextPingleBinding
     val editText get() = binding.etEditText
+    val button get() = binding.btnCheck
 
     init {
         binding = DataBindingUtil.inflate(

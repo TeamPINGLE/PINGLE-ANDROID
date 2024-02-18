@@ -86,6 +86,10 @@
     <string name="new_group_keyword_club">동호회</string>
     <string name="new_group_keyword_etc">기타</string>
 
+    <!-- new group create -->
+    <string name="new_group_create_title">단체 정보를\n확인해주세요</string>
+    <string name="new_group_create_email">대표 이메일</string>
+
     <!-- map -->
     <string name="map_participate">참여하기</string>
 

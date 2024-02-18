@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,5 +11,83 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing24" />
+
+        <TextView
+            android:id="@+id/tv_new_group_announcement_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="108dp"
+            android:text="@string/new_group_announcement_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.32"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_new_group_announcement_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"
+            android:textColor="@color/g_03"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_group_announcement_title"
+            tools:text="@string/new_group_announcement_group_name" />
+
+
+        <TextView
+            android:id="@+id/tv_new_group_announcement_description"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/new_group_announcement_description"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"
+            android:textColor="@color/g_03"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_group_announcement_group_name" />
+
+        <ImageView
+            android:id="@+id/iv_new_group_announcement_graphic"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/img_group_graphic"
+            app:layout_constraintBottom_toTopOf="@id/btn_new_group_announcement_invitation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_group_announcement_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_new_group_announcement_invitation"
+            style="@style/Theme.Pingle.Button.L"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="28dp"
+            android:backgroundTint="@color/g_01"
+            android:text="@string/new_group_announcement_invitation"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/tv_new_group_announcement_home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_new_group_announcement_graphic" />
+
+        <TextView
+            android:id="@+id/tv_new_group_announcement_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="29dp"
+            android:text="@string/new_group_announcement_home"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

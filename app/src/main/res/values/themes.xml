@@ -93,6 +93,13 @@
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Bold.12</item>
     </style>
 
+    <style name="Theme.Pingle.Chip.Keyword" parent="Theme.Pingle.Chip.All">
+        <item name="android:backgroundTint">@color/g_09</item>
+        <item name="android:textColor">@color/g_02</item>
+        <item name="rippleColor">@color/pingle_green</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Body.Med.16</item>
+    </style>
+
     <style name="Theme.Pingle.Fab" parent="Widget.Design.FloatingActionButton">
         <item name="backgroundTint">@color/white</item>
         <item name="elevation">0dp</item>

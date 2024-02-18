@@ -58,6 +58,13 @@
     <string name="new_group_topbar">신규 단체 개설</string>
     <string name="new_group_next">다음으로</string>
 
+    <!-- new group info -->
+    <string name="new_group_info_title">신규 단체 개설 안내</string>
+    <string name="new_group_info_block_title">단체 개설자는 탈퇴할 수 없어요</string>
+    <string name="new_group_info_block_description1">해당 단체의 초대코드 및 구성원을\n관리할 책임자가 없어지기 때문이에요.</string>
+    <string name="new_group_info_block_description2">탈퇴를 원할 경우, 핑글에게 문의하기를 통해\n개설자를 변경해주셔야 해요.</string>
+    <string name="new_group_info_reissues_title">초대 코드가 유출되었다면\n핑글에게 문의 후\n재발급할 수 있어요</string>
+
     <!-- new group input -->
     <string name="new_group_input_title">속해있는 단체의\n이름을 알려주세요!</string>
     <string name="new_group_input_name_hint">단체명을 입력해주세요</string>

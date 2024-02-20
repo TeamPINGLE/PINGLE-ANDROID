@@ -68,7 +68,7 @@
         <item name="android:paddingHorizontal">10dp</item>
         <item name="android:paddingVertical">3dp</item>
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Bold.10</item>
-        <item name="android:backgroundTint">@color/g_02</item>
+        <item name="android:backgroundTint">@color/selector_new_group_btn_check</item>
         <item name="android:textColor">@color/black</item>
     </style>
 

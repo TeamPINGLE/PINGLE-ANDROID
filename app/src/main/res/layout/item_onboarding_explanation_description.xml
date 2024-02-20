@@ -11,11 +11,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/iv_onboarding_explanation"
             android:layout_width="match_parent"
+            android:layout_marginTop="58dp"
             android:layout_height="wrap_content"
             android:src="@{context.getDrawable(page.image)}"
             app:layout_constraintBottom_toTopOf="@id/tv_onboarding_explanation_description"

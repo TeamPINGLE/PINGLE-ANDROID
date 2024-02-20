@@ -11,12 +11,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/iv_onboarding_explanation_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
             android:src="@drawable/img_onboarding_explanation_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,14 +38,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/on_boarding_explanation_logo_description"
-            android:gravity="center"
-            android:textColor="@color/g_02"
             android:layout_marginTop="@dimen/spacing8"
-            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_explanation_title"
-            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center"
+            android:text="@string/on_boarding_explanation_logo_description"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"
+            android:textColor="@color/g_02"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_explanation_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

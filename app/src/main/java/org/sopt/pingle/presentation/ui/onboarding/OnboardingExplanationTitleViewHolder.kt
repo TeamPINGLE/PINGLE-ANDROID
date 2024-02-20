@@ -30,6 +30,6 @@ class OnboardingExplanationTitleViewHolder(
 
     companion object {
         private const val PINGLE_START = 7
-        private const val PINGLE_END = 13
+        private const val PINGLE_END = 14
     }
 }

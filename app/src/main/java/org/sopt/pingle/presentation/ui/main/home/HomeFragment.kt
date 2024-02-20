@@ -85,10 +85,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { markerModelData ->
                 (markerModelData.first == HomeViewModel.DEFAULT_SELECTED_MARKER_POSITION).let { isMarkerUnselected ->
-                    with(binding) {
-                        fabHomeChange.visibility =
-                            if (isMarkerUnselected) View.VISIBLE else View.INVISIBLE
-                    }
+                    binding.fabHomeChange.visibility =
+                        if (isMarkerUnselected) View.VISIBLE else View.INVISIBLE
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }

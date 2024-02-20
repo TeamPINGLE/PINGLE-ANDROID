@@ -14,18 +14,22 @@ class OnboardingExplanationAdapter(context: Context) :
     ListAdapter<String, RecyclerView.ViewHolder>(
         ItemDiffCallback<String>(
             onContentsTheSame = { old, new -> old == new },
-            onItemsTheSame = { old, new -> old == new }
-        )
+            onItemsTheSame = { old, new -> old == new },
+        ),
     ) {
     private val inflater by lazy { LayoutInflater.from(context) }
     private var onBoardingExplanationList = OnboardingExplanationType.values()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            TITLE_VIEW_TYPE -> OnboardingExplanationTitleViewHolder(ItemOnboardingExplanationTitleBinding.inflate(inflater, parent, false))
-            DESCRIPTION_VIEW_TYPE -> OnboardingExplanationDescriptionViewHolder(
-                ItemOnboardingExplanationDescriptionBinding.inflate(inflater, parent, false)
+            TITLE_VIEW_TYPE -> OnboardingExplanationTitleViewHolder(
+                ItemOnboardingExplanationTitleBinding.inflate(inflater, parent, false),
             )
+
+            DESCRIPTION_VIEW_TYPE -> OnboardingExplanationDescriptionViewHolder(
+                ItemOnboardingExplanationDescriptionBinding.inflate(inflater, parent, false),
+            )
+
             else -> throw RuntimeException()
         }
     }
@@ -33,7 +37,10 @@ class OnboardingExplanationAdapter(context: Context) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is OnboardingExplanationTitleViewHolder -> holder.onBind()
-            is OnboardingExplanationDescriptionViewHolder -> holder.onBind(onBoardingExplanationList[position])
+            is OnboardingExplanationDescriptionViewHolder -> {
+                var decPosition = position - POSITION_MINUS
+                holder.onBind(onBoardingExplanationList[decPosition])
+            }
         }
     }
 
@@ -45,11 +52,13 @@ class OnboardingExplanationAdapter(context: Context) :
         }
     }
 
-    override fun getItemCount(): Int = onBoardingExplanationList.size
+    override fun getItemCount(): Int = ONBOARDING_SIZE
 
     companion object {
         const val DEFAULT_POSITION = 0
         const val TITLE_VIEW_TYPE = 1
         const val DESCRIPTION_VIEW_TYPE = 2
+        const val ONBOARDING_SIZE = 4
+        const val POSITION_MINUS = 1
     }
 }

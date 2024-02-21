@@ -35,47 +35,43 @@ class PlanLocationFragment :
     }
 
     private fun addListeners() {
-        binding.root.setOnClickListener {
-            requireContext().hideKeyboard(binding.etPlanLocationSearch)
-        }
-
-        binding.ivPlanLocationSearchBtn.setOnClickListener {
-            if (binding.etPlanLocationSearch.text.isNotBlank()) {
-                planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
+        (binding.pingleSearchPlanLocation.editText).let { searchEditText ->
+            binding.root.setOnClickListener {
+                requireContext().hideKeyboard(searchEditText)
             }
-            requireContext().hideKeyboard(binding.etPlanLocationSearch)
-        }
 
-        binding.etPlanLocationSearch.setOnKeyListener(
-            View.OnKeyListener { _, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                    if (binding.etPlanLocationSearch.text.isNotBlank()) {
-                        planLocationViewModel.getPlanLocationList(binding.etPlanLocationSearch.text.toString())
+            searchEditText.setOnKeyListener(
+                View.OnKeyListener { _, keyCode, event ->
+                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                        if (searchEditText.text.isNotBlank()) {
+                            planLocationViewModel.getPlanLocationList(searchEditText.text.toString())
+                        }
+                        requireContext().hideKeyboard(searchEditText)
+                        return@OnKeyListener true
                     }
-                    requireContext().hideKeyboard(binding.etPlanLocationSearch)
-                    return@OnKeyListener true
+                    false
                 }
-                false
-            }
-        )
+            )
+        }
     }
 
     private fun collectData() {
-        planLocationViewModel.planLocationListState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> {
-                    planLocationAdapter.submitList(uiState.data)
-                    binding.layoutPlanLocationEmpty.visibility = View.INVISIBLE
-                }
+        planLocationViewModel.planLocationListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        planLocationAdapter.submitList(uiState.data)
+                        binding.layoutPlanLocationEmpty.visibility = View.INVISIBLE
+                    }
 
-                is UiState.Empty -> {
-                    planLocationAdapter.submitList(null)
-                    binding.layoutPlanLocationEmpty.visibility = View.VISIBLE
-                }
+                    is UiState.Empty -> {
+                        planLocationAdapter.submitList(null)
+                        binding.layoutPlanLocationEmpty.visibility = View.VISIBLE
+                    }
 
-                else -> Unit
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun deleteOldPosition(position: Int) {

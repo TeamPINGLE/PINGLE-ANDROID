@@ -1,6 +1,7 @@
 package org.sopt.pingle.presentation.ui.main.home.map
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.os.Bundle
@@ -35,6 +36,7 @@ import org.sopt.pingle.presentation.mapper.toMarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel.Companion.DEFAULT_SELECTED_MARKER_POSITION
+import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
@@ -108,6 +110,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun initLayout() {
         mapCardAdapter = MapCardAdapter(
+            navigateToParticipant = ::navigateToParticipant,
             navigateToWebViewWithChatLink = ::navigateToWebViewWithChatLink,
             showMapJoinModalDialogFragment = ::showMapJoinModalDialogFragment,
             showMapCancelModalDialogFragment = ::showMapCancelModalDialogFragment,
@@ -276,6 +279,13 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
     }
 
+    private fun navigateToParticipant(pingleEntityId: Long) {
+        Intent(context, ParticipantActivity::class.java).apply {
+            putExtra(MEETING_ID, pingleEntityId)
+            startActivity(this)
+        }
+    }
+
     private fun navigateToWebViewWithChatLink(chatLink: String) {
         startActivity(navigateToWebView(chatLink))
     }
@@ -345,5 +355,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
         private const val VIEWPAGER_ITEM_OFFSET = 24
         private const val VIEWPAGER_PAGE_TRANSFORMER = -40
+
+        const val MEETING_ID = "meetingId"
     }
 }

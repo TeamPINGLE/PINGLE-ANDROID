@@ -21,6 +21,17 @@
     <string name="all_navi_mypingle">마이핑글</string>
     <string name="all_navi_more">더보기</string>
 
+    <!-- pingle card -->
+    <string name="pingle_card_participation_status">참여현황</string>
+    <string name="pingle_card_participant_detail_slash">/</string>
+    <string name="pingle_card_calender">일시</string>
+    <string name="pingle_card_map">장소</string>
+    <string name="pingle_card_chat">대화하기</string>
+    <string name="pingle_card_participate">참여하기</string>
+    <string name="pingle_card_cancel">취소하기</string>
+    <string name="pingle_card_delete">삭제하기</string>
+    <string name="pingle_card_completed">모집완료</string>
+
     <!-- auth -->
     <string name="auth_kakao_login">카카오로 시작하기</string>
     <string name="auth_title">Ready to\nPINGLE?</string>
@@ -59,17 +70,6 @@
 
     <!-- map modal -->
     <string name="map_modal_description">이 핑글에 참여할까요?</string>
-
-    <!-- map card -->
-    <string name="map_card_participation_status">참여현황</string>
-    <string name="map_card_participant_detail_slash">/</string>
-    <string name="map_card_calender">일시</string>
-    <string name="map_card_map">장소</string>
-    <string name="map_card_chat">대화하기</string>
-    <string name="map_card_participate">참여하기</string>
-    <string name="map_card_cancel">취소하기</string>
-    <string name="map_card_delete">삭제하기</string>
-    <string name="map_card_completed">모집완료</string>
 
     <!-- cancel dialog -->
     <string name="cancel_modal_title">참여를 취소하시겠어요?</string>

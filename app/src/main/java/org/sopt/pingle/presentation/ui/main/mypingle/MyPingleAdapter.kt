@@ -8,7 +8,7 @@ import org.sopt.pingle.databinding.ItemMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
-class MyPingleAdatper(
+class MyPingleAdapter(
     private val context: Context,
     private val showCancelModalDialogFragment: (MyPingleEntity) -> Unit,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,

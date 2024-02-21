@@ -25,7 +25,7 @@ import org.sopt.pingle.util.view.UiState
 @AndroidEntryPoint
 class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragment_my_pingle) {
     private val viewModel by viewModels<MyPingleViewModel>()
-    private lateinit var myPingleAdapter: MyPingleAdatper
+    private lateinit var myPingleAdapter: MyPingleAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +41,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     }
 
     private fun initLayout() {
-        myPingleAdapter = MyPingleAdatper(
+        myPingleAdapter = MyPingleAdapter(
             requireContext(),
             showCancelModalDialogFragment = ::showCancelModalDialogFragment,
             showDeleteModalDialogFragment = ::showDeleteModalDialogFragment,

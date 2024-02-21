@@ -14,8 +14,8 @@ class OnboardingExplanationAdapter(context: Context) :
     ListAdapter<String, RecyclerView.ViewHolder>(
         ItemDiffCallback<String>(
             onContentsTheSame = { old, new -> old == new },
-            onItemsTheSame = { old, new -> old == new },
-        ),
+            onItemsTheSame = { old, new -> old == new }
+        )
     ) {
     private val inflater by lazy { LayoutInflater.from(context) }
     private var onBoardingExplanationList = OnboardingExplanationType.values()
@@ -23,11 +23,11 @@ class OnboardingExplanationAdapter(context: Context) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             TITLE_VIEW_TYPE -> OnboardingExplanationTitleViewHolder(
-                ItemOnboardingExplanationTitleBinding.inflate(inflater, parent, false),
+                ItemOnboardingExplanationTitleBinding.inflate(inflater, parent, false)
             )
 
             DESCRIPTION_VIEW_TYPE -> OnboardingExplanationDescriptionViewHolder(
-                ItemOnboardingExplanationDescriptionBinding.inflate(inflater, parent, false),
+                ItemOnboardingExplanationDescriptionBinding.inflate(inflater, parent, false)
             )
 
             else -> throw RuntimeException()

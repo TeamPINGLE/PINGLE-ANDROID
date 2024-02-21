@@ -34,7 +34,7 @@ class OnboardingExplanationActivity :
         binding.vpOnboardingExplanation.adapter = adapter
         TabLayoutMediator(
             binding.tlOnboardingIndicator,
-            binding.vpOnboardingExplanation,
+            binding.vpOnboardingExplanation
         ) { _, _ -> }.attach()
     }
 
@@ -80,7 +80,7 @@ class OnboardingExplanationActivity :
                         view = binding.root,
                         message = stringOf(R.string.all_on_back_pressed_snackbar),
                         bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-                        snackbarType = SnackbarType.GUIDE,
+                        snackbarType = SnackbarType.GUIDE
                     )
                 }
             } else {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.pingle.R
@@ -12,7 +13,6 @@ import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.databinding.ActivitySplashBinding
 import org.sopt.pingle.presentation.ui.onboarding.OnboardingExplanationActivity
 import org.sopt.pingle.util.base.BindingActivity
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_splash) {

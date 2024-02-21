@@ -67,6 +67,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_map_pingle_card_top" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

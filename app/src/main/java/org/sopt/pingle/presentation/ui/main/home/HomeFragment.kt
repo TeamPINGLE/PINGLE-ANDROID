@@ -67,7 +67,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 vpHome.setCurrentItem(
                     when (vpHome.currentItem) {
                         MAP_INDEX -> MAIN_LIST_INDEX
-                        else -> MAP_INDEX
+                        MAIN_LIST_INDEX -> MAP_INDEX
+                        else -> vpHome.currentItem
                     },
                     false
                 )

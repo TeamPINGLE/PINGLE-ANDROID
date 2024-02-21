@@ -18,8 +18,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fcv_new_group"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_new_group"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/btn_new_group_next"

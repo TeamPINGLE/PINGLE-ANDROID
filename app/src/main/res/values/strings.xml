@@ -97,6 +97,12 @@
     <string name="new_group_create_title">단체 정보를\n확인해주세요</string>
     <string name="new_group_create_email">대표 이메일</string>
 
+    <!-- new group share -->
+    <string name="new_group_share_topbar">친구 초대하기</string>
+    <string name="new_group_share_title">초대 코드를\n확인하세요</string>
+    <string name="new_group_share_guide">초대코드는 나의 단체 페이지에서 다시 확인할 수 있어요</string>
+    <string name="new_group_share">공유하기</string>
+
     <!-- map -->
     <string name="map_participate">참여하기</string>
 

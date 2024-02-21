@@ -8,14 +8,14 @@ enum class OnboardingExplanationType(@StringRes val description: Int, @DrawableR
     // For the FIRST page, check layout > item_onboarding_expansion_tile.xml
     SECOND(
         R.string.on_boarding_explanation_group_description,
-        R.drawable.img_onboarding_explanation_group,
+        R.drawable.img_onboarding_explanation_group
     ),
     THIRD(
         R.string.on_boarding_explanation_pingle_description,
-        R.drawable.img_onboarding_explanation_pingle,
+        R.drawable.img_onboarding_explanation_pingle
     ),
     FOURTH(
         R.string.on_boarding_explanation_category_description,
-        R.drawable.img_onboarding_explanation_category,
-        ),
+        R.drawable.img_onboarding_explanation_category
+    )
 }

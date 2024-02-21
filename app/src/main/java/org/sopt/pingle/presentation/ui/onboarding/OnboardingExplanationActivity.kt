@@ -3,11 +3,15 @@ package org.sopt.pingle.presentation.ui.onboarding
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityOnboardingExplanationBinding
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.auth.AuthActivity
+import org.sopt.pingle.presentation.ui.auth.AuthViewModel
+import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.util.activity.FINISH_INTERVAL_TIME
 import org.sopt.pingle.util.activity.INIT_BACK_PRESSED_TIME
 import org.sopt.pingle.util.activity.SNACKBAR_BOTTOM_MARGIN
@@ -15,9 +19,11 @@ import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.stringOf
 
+@AndroidEntryPoint
 class OnboardingExplanationActivity :
     BindingActivity<ActivityOnboardingExplanationBinding>(R.layout.activity_onboarding_explanation) {
 
+    private val viewModel by viewModels<AuthViewModel>()
     private lateinit var onBackPressed: OnBackPressedCallback
     private var backPressedTime = INIT_BACK_PRESSED_TIME
 
@@ -30,6 +36,10 @@ class OnboardingExplanationActivity :
     }
 
     private fun initLayout() {
+        if (viewModel.isLocalToken()) {
+            if (viewModel.isLocalGroupId()) navigateToMain() else viewModel.getUserInfo()
+        }
+
         val adapter = OnboardingExplanationAdapter(this)
         binding.vpOnboardingExplanation.adapter = adapter
         TabLayoutMediator(
@@ -86,6 +96,13 @@ class OnboardingExplanationActivity :
             } else {
                 vpOnboardingExplanation.currentItem--
             }
+        }
+    }
+
+    private fun navigateToMain() {
+        Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(this)
         }
     }
 }

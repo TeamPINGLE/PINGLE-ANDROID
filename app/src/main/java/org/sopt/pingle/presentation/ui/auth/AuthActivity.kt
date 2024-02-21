@@ -29,16 +29,9 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initLayout()
         addListeners()
         collectData()
         onBackPressedBtn()
-    }
-
-    private fun initLayout() {
-        if (viewModel.isLocalToken()) {
-            if (viewModel.isLocalGroupId()) navigateToMain() else viewModel.getUserInfo()
-        }
     }
 
     private fun addListeners() {
@@ -52,7 +45,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
             when (uiState) {
                 is UiState.Success -> viewModel.getUserInfo()
                 is UiState.Error -> Timber.tag(TAG).d(KAKAO_LOGIN_ERROR + "${uiState.message}")
-                is UiState.Loading -> Timber.tag(TAG).d(KAKAO_LOGIN_LADING)
+                is UiState.Loading -> Timber.tag(TAG).d(KAKAO_LOGIN_LOADING)
                 is UiState.Empty -> Timber.tag(TAG).d(KAKAO_LOGIN_EMPTY)
             }
         }.launchIn(lifecycleScope)
@@ -61,7 +54,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
             when (uiState) {
                 is UiState.Success -> if (uiState.data.groups.isEmpty()) navigateToOnBoarding() else navigateToMain()
                 is UiState.Error -> Timber.tag(TAG).d(USER_INFO_ERROR + uiState.message)
-                is UiState.Loading -> Timber.tag(TAG).d(USER_INFO_LADING)
+                is UiState.Loading -> Timber.tag(TAG).d(USER_INFO_LOADING)
                 is UiState.Empty -> Timber.tag(TAG).d(USER_INFO_EMPTY)
             }
         }.launchIn(lifecycleScope)
@@ -92,10 +85,10 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
 
     companion object {
         const val TAG = "AuthActivity"
-        const val KAKAO_LOGIN_LADING = "Kakao Login Lading..."
+        const val KAKAO_LOGIN_LOADING = "Kakao Login Loading..."
         const val KAKAO_LOGIN_EMPTY = "Kakao Login Empty"
         const val KAKAO_LOGIN_ERROR = "Kakao Login Error : "
-        const val USER_INFO_LADING = "User Info Lading..."
+        const val USER_INFO_LOADING = "User Info Loading..."
         const val USER_INFO_EMPTY = "User Info Empty"
         const val USER_INFO_ERROR = "User Info Error : "
     }

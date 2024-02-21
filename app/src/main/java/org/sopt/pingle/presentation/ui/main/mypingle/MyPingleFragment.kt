@@ -121,7 +121,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             textButtonText = stringOf(R.string.delete_modal_text_button_text),
             clickBtn = { viewModel.deletePingleDelete(meetingId = myPingleEntity.id.toLong()) },
             clickTextBtn = {}
-        ).show(childFragmentManager, MY_PINGEL_DELETE_MODAL)
+        ).show(childFragmentManager, MY_PINGLE_DELETE_MODAL)
     }
 
     private fun updateMyPingleListSelectedPosition(position: Int) {
@@ -141,6 +141,6 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
 
     companion object {
         const val MY_PINGLE_CANCEL_MODAL = "MyPingleCancelModal"
-        const val MY_PINGEL_DELETE_MODAL = "MyPingelDeleteModal"
+        const val MY_PINGLE_DELETE_MODAL = "MyPingleDeleteModal"
     }
 }

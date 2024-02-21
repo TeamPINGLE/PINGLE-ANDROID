@@ -1,6 +1,5 @@
 package org.sopt.pingle.presentation.ui.main.ranking
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -8,7 +7,7 @@ import org.sopt.pingle.databinding.ItemRankingBinding
 import org.sopt.pingle.domain.model.RankingLocationEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
-class RankingAdapter(private val context: Context) :
+class RankingAdapter() :
     ListAdapter<RankingLocationEntity, RankingViewHolder>(
         ItemDiffCallback<RankingLocationEntity>(
             onItemsTheSame = { old, new -> old.name == new.name },
@@ -22,7 +21,7 @@ class RankingAdapter(private val context: Context) :
                 parent,
                 false
             ),
-            context = context
+            context = parent.context
         )
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {

@@ -23,7 +23,7 @@ class RankingFragment : BindingFragment<FragmentRankingBinding>(R.layout.fragmen
     }
 
     private fun initLayout() {
-        rankingAdapter = RankingAdapter(context = requireContext())
+        rankingAdapter = RankingAdapter()
         binding.rvRanking.adapter = rankingAdapter
 
         // TODO 서버통신 구현 후 collectData 함수로 해당 로직 이동

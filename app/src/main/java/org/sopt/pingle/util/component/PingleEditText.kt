@@ -6,6 +6,7 @@ import android.content.res.TypedArray
 import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import org.sopt.pingle.R
@@ -19,7 +20,6 @@ class PingleEditText @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     private var binding: EditTextPingleBinding
     val editText get() = binding.etEditText
-    val button get() = binding.btnCheck
 
     init {
         binding = DataBindingUtil.inflate(
@@ -49,6 +49,19 @@ class PingleEditText @JvmOverloads constructor(
             if (maxLength > 0) {
                 binding.etEditText.filters = arrayOf(InputFilter.LengthFilter(maxLength))
             }
+
+            val checkVisibilityValue =
+                getInt(R.styleable.pingleEditText_check_visibility, View.GONE)
+            val copyVisibilityValue = getInt(R.styleable.pingleEditText_copy_visibility, View.GONE)
+            binding.btnEditCheck.visibility = visibility(checkVisibilityValue)
+            binding.ivEditCopy.visibility = visibility(copyVisibilityValue)
         }
+    }
+
+    private fun visibility(visibilityValue: Int) = when (visibilityValue) {
+        1 -> View.VISIBLE
+        2 -> View.INVISIBLE
+        3 -> View.GONE
+        else -> View.GONE
     }
 }

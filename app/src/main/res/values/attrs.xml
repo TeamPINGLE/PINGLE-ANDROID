@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="pingleEditText">
-        <attr name="title" format="reference|string"/>
-        <attr name="hint" format="reference|string"/>
-        <attr name="maxLength" format="integer"/>
+        <attr name="title" format="reference|string" />
+        <attr name="text" format="reference|string" />
+        <attr name="hint" format="reference|string" />
+        <attr name="maxLength" format="integer" />
+        <attr name="check_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="copy_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
     </declare-styleable>
 </resources>

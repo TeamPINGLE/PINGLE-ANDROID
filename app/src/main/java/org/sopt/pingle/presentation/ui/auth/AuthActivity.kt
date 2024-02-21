@@ -2,6 +2,7 @@ package org.sopt.pingle.presentation.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +25,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     @Inject
     lateinit var kakaoAuthService: KakaoAuthService
     private val viewModel by viewModels<AuthViewModel>()
+    private lateinit var onBackPressed: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +33,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
         initLayout()
         addListeners()
         collectData()
-        setDoubleBackPressToExit(binding.root)
+        onBackPressedBtn()
     }
 
     private fun initLayout() {
@@ -78,6 +80,15 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(this)
         }
+    }
+
+    private fun onBackPressedBtn() {
+        onBackPressed = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finish()
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, onBackPressed)
     }
 
     companion object {

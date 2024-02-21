@@ -30,7 +30,7 @@ class OnboardingExplanationAdapter(context: Context) :
                 ItemOnboardingExplanationDescriptionBinding.inflate(inflater, parent, false)
             )
 
-            else -> throw RuntimeException()
+            else -> throw IllegalArgumentException("$VIEWTYPE_EXCEPTION_MESSAGE $viewType")
         }
     }
 
@@ -60,5 +60,6 @@ class OnboardingExplanationAdapter(context: Context) :
         const val DESCRIPTION_VIEW_TYPE = 2
         const val ONBOARDING_SIZE = 4
         const val POSITION_MINUS = 1
+        const val VIEWTYPE_EXCEPTION_MESSAGE = "Invalid viewType: "
     }
 }

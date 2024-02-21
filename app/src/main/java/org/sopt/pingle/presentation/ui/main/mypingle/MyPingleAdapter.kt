@@ -1,6 +1,5 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

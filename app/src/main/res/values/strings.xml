@@ -149,6 +149,12 @@
     <string name="plan_summary_confirmation_recruitment">모집인원</string>
     <string name="plan_summary_confirmation_recruitment_number">%s명</string>
 
+    <!-- ranking -->
+    <string name="ranking_title">랭킹</string>
+    <string name="ranking_latest_visited">최근방문</string>
+    <string name="ranking_date">%d년 %d월 %d일</string>
+    <string name="ranking_empty">우리 단체에서 핑글이 30회 이상 이루어지면\n랭킹을 확인할 수 있어요!</string>
+
     <!-- more -->
     <string name="more_contact_title">문의하기</string>
     <string name="more_notice_title">공지사항</string>

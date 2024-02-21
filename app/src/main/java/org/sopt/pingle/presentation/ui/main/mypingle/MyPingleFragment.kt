@@ -42,7 +42,6 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
 
     private fun initLayout() {
         myPingleAdapter = MyPingleAdapter(
-            requireContext(),
             showCancelModalDialogFragment = ::showCancelModalDialogFragment,
             showDeleteModalDialogFragment = ::showDeleteModalDialogFragment,
             updateMyPingleListSelectedPosition = ::updateMyPingleListSelectedPosition,

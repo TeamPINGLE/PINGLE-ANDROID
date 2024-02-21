@@ -9,7 +9,6 @@ import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
 class MyPingleAdapter(
-    private val context: Context,
     private val showCancelModalDialogFragment: (MyPingleEntity) -> Unit,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
     private val updateMyPingleListSelectedPosition: (Int) -> Unit,
@@ -29,7 +28,7 @@ class MyPingleAdapter(
 
                 false
             ),
-            context,
+            parent.context,
             showCancelModalDialogFragment,
             showDeleteModalDialogFragment,
             updateMyPingleListSelectedPosition,

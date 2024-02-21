@@ -7,7 +7,7 @@ import org.sopt.pingle.databinding.ItemRankingBinding
 import org.sopt.pingle.domain.model.RankingLocationEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
-class RankingAdapter() :
+class RankingAdapter :
     ListAdapter<RankingLocationEntity, RankingViewHolder>(
         ItemDiffCallback<RankingLocationEntity>(
             onItemsTheSame = { old, new -> old.name == new.name },

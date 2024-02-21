@@ -33,4 +33,4 @@ fun AppCompatActivity.setDoubleBackPressToExit(view: View) {
 
 const val FINISH_INTERVAL_TIME = 2000
 const val INIT_BACK_PRESSED_TIME = 0L
-const val SNACKBAR_BOTTOM_MARGIN = 12
+const val SNACKBAR_BOTTOM_MARGIN = 97

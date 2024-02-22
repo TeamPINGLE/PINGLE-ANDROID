@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ItemMainListPingleCardBinding
 import org.sopt.pingle.domain.model.PingleEntity
+import org.sopt.pingle.presentation.type.PingleCardType
 
 class MainListViewHolder(
     private val binding: ItemMainListPingleCardBinding,
@@ -47,7 +48,7 @@ class MainListViewHolder(
 
     fun onBind(pingleEntity: PingleEntity) {
         with(binding.pingleCardTopMainListPingleCard) {
-            initLayout(pingleEntity)
+            initLayout(pingleEntity = pingleEntity, pingleCardType = PingleCardType.MAINLIST)
             setOnParticipationStatusLayoutClick {
                 navigateToParticipant(pingleEntity.id)
             }

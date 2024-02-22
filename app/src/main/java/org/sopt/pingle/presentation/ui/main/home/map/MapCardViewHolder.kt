@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.main.home.map
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.pingle.databinding.ItemMapPingleCardBinding
 import org.sopt.pingle.domain.model.PingleEntity
+import org.sopt.pingle.presentation.type.PingleCardType
 
 class MapCardViewHolder(
     private val binding: ItemMapPingleCardBinding,
@@ -14,7 +15,7 @@ class MapCardViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun onBind(pinId: Long, pingleEntity: PingleEntity) {
         with(binding.pingleCardTopMapPingleCard) {
-            initLayout(pingleEntity)
+            initLayout(pingleEntity = pingleEntity, pingleCardType = PingleCardType.MAP)
             setOnParticipationStatusLayoutClick {
                 navigateToParticipant(pingleEntity.id)
             }

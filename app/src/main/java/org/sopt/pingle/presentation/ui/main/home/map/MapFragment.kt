@@ -39,6 +39,7 @@ import org.sopt.pingle.presentation.ui.main.home.HomeViewModel.Companion.DEFAULT
 import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
+import org.sopt.pingle.util.component.PingleModalDialogFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.toPx
@@ -303,7 +304,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun showMapJoinModalDialogFragment(pingleEntity: PingleEntity) {
         with(pingleEntity) {
-            MapModalDialogFragment(
+            PingleModalDialogFragment(
                 category = CategoryType.fromString(categoryName = category),
                 name = name,
                 ownerName = ownerName,

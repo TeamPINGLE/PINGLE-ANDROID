@@ -72,8 +72,8 @@
     <!-- map -->
     <string name="map_participate">참여하기</string>
 
-    <!-- map modal -->
-    <string name="map_modal_description">이 핑글에 참여할까요?</string>
+    <!-- pingle modal -->
+    <string name="pingle_modal_description">이 핑글에 참여할까요?</string>
 
     <!-- cancel dialog -->
     <string name="cancel_modal_title">참여를 취소하시겠어요?</string>

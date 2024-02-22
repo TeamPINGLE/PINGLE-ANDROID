@@ -16,7 +16,7 @@ import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.MainListOrderType
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
-import org.sopt.pingle.presentation.ui.main.home.map.MapModalDialogFragment
+import org.sopt.pingle.util.component.PingleModalDialogFragment
 import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
@@ -116,7 +116,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
 
     private fun showMapJoinModalDialogFragment(pingleEntity: PingleEntity) {
         with(pingleEntity) {
-            MapModalDialogFragment(
+            PingleModalDialogFragment(
                 category = CategoryType.fromString(categoryName = category),
                 name = name,
                 ownerName = ownerName,

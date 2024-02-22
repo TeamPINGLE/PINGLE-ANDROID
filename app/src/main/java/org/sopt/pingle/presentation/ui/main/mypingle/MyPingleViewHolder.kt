@@ -7,10 +7,10 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ItemMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.util.DateTimeUtils
 import org.sopt.pingle.util.context.colorOf
 import org.sopt.pingle.util.context.navigateToWebView
 import org.sopt.pingle.util.context.stringOf
-import org.sopt.pingle.util.convertToCalenderDetail
 import org.sopt.pingle.util.view.setBackgroundTint
 
 class MyPingleViewHolder(
@@ -40,7 +40,7 @@ class MyPingleViewHolder(
                 context.colorOf(CategoryType.fromString(myPingleEntity.category).textColor)
             )
             tvMyPingleCalenderDetail.text =
-                convertToCalenderDetail(
+                DateTimeUtils.convertToCalenderDetail(
                     date = myPingleEntity.date,
                     startAt = myPingleEntity.startAt,
                     endAt = myPingleEntity.endAt

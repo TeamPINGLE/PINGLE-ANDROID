@@ -51,6 +51,12 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
         )
         binding.rvMainList.adapter = mainListAdapter
         mainListAdapter.submitList(homeViewModel.dummyPingleList)
+
+        // TODO 서버통신 구현 후 collectData 함수로 해당 로직 이동
+        with(homeViewModel.dummyPingleList) {
+            binding.tvMainListEmpty.visibility = if (isEmpty()) View.VISIBLE else View.INVISIBLE
+            binding.tvMainListEmpty.text = stringOf(R.string.main_list_empty_pingle)
+        }
     }
 
     private fun addListeners() {

@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.main.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -19,7 +18,9 @@ import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.type.MainListOrderType
 import org.sopt.pingle.util.view.UiState
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -54,6 +55,10 @@ class HomeViewModel @Inject constructor(
 
     private val _pingleDeleteState = MutableSharedFlow<UiState<Unit?>>()
     val pingleDeleteState get() = _pingleDeleteState.asSharedFlow()
+
+    private val _mainListOrderType = MutableStateFlow<MainListOrderType>(MainListOrderType.NEW)
+    val mainListOrderType get() = _mainListOrderType.asStateFlow()
+
 
     fun setCategory(category: CategoryType?) {
         _category.value = category
@@ -103,6 +108,10 @@ class HomeViewModel @Inject constructor(
             _markerModelData.value =
                 Pair(DEFAULT_SELECTED_MARKER_POSITION, _markerModelData.value.second)
         }
+    }
+
+    fun setMainListOrderType(mainListOrderType: MainListOrderType) {
+        _mainListOrderType.value = mainListOrderType
     }
 
     fun getGroupName(): String = localStorage.groupName

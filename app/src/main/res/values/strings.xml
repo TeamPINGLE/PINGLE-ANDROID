@@ -191,4 +191,12 @@
     <string name="my_pingle_tab_soon">\t\t\t\t\t\t\t예정된\t\t\t\t\t\t\t\t</string>
     <string name="my_pingle_tab_done">\t\t\t\t\t\t참여완료\t\t\t\t\t\t</string>
     <string name="my_pingle_participant">%d/%d명</string>
+
+    <!-- my group -->
+    <string name="my_group_title">나의 단체</string>
+    <string name="my_group_meeting">개최된 핑글 수</string>
+    <string name="my_group_member">참여자 수</string>
+    <string name="my_group_meeting_count">%s개</string>
+    <string name="my_group_member_count">%s명</string>
+    <string name="my_group_move_new_group"><b>새로운 단체 추가하러 가기</b></string>
 </resources>

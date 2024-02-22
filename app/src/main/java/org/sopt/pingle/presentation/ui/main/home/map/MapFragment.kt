@@ -37,6 +37,7 @@ import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel.Companion.DEFAULT_SELECTED_MARKER_POSITION
 import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
+import org.sopt.pingle.util.PingleCardUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.component.PingleModalDialogFragment
@@ -111,11 +112,32 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun initLayout() {
         mapCardAdapter = MapCardAdapter(
-            navigateToParticipant = ::navigateToParticipant,
-            navigateToWebViewWithChatLink = ::navigateToWebViewWithChatLink,
-            showMapJoinModalDialogFragment = ::showMapJoinModalDialogFragment,
-            showMapCancelModalDialogFragment = ::showMapCancelModalDialogFragment,
-            showMapDeleteModalDialogFragment = ::showMapDeleteModalDialogFragment
+            navigateToParticipant = { id ->
+                context?.let {
+                    PingleCardUtils.navigateToParticipant(
+                        it,
+                        id
+                    )
+                }
+            },
+            navigateToWebViewWithChatLink = { chatLink -> startActivity(navigateToWebView(chatLink)) },
+            showPingleJoinModalDialogFragment = { pingleEntity ->
+                PingleCardUtils.showPingleJoinModalDialogFragment(
+                    fragment = this,
+                    postPingleJoin = { homeViewModel.postPingleJoin(pingleEntity.id) },
+                    pingleEntity = pingleEntity
+                )
+            },
+            showPingleCancelModalDialogFragment = { pingleEntity ->
+                PingleCardUtils.showPingleCancelModalDialogFragment(
+                    fragment = this,
+                    deletePingleCancel = { homeViewModel.deletePingleCancel(pingleEntity.id) })
+            },
+            showPingleDeleteModalDialogFragment = { pingleEntity ->
+                PingleCardUtils.showMapDeleteModalDialogFragment(
+                    fragment = this,
+                    deletePingleDelete = { homeViewModel.deletePingleDelete(pingleEntity.id) })
+            }
         )
 
         with(binding.vpMapCard) {
@@ -280,60 +302,12 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         }
     }
 
-    private fun navigateToParticipant(pingleEntityId: Long) {
-        Intent(context, ParticipantActivity::class.java).apply {
-            putExtra(MEETING_ID, pingleEntityId)
-            startActivity(this)
-        }
-    }
-
-    private fun navigateToWebViewWithChatLink(chatLink: String) {
-        startActivity(navigateToWebView(chatLink))
-    }
-
-    private fun showMapCancelModalDialogFragment(pingleEntity: PingleEntity) {
-        AllModalDialogFragment(
-            title = stringOf(R.string.cancel_modal_title),
-            detail = stringOf(R.string.cancel_modal_detail),
-            buttonText = stringOf(R.string.cancel_modal_button_text),
-            textButtonText = stringOf(R.string.cancel_modal_text_button_text),
-            clickBtn = { homeViewModel.deletePingleCancel(meetingId = pingleEntity.id) },
-            clickTextBtn = { }
-        ).show(childFragmentManager, MAP_CANCEL_MODAL)
-    }
-
-    private fun showMapJoinModalDialogFragment(pingleEntity: PingleEntity) {
-        with(pingleEntity) {
-            PingleModalDialogFragment(
-                category = CategoryType.fromString(categoryName = category),
-                name = name,
-                ownerName = ownerName,
-                clickBtn = { homeViewModel.postPingleJoin(meetingId = pingleEntity.id) }
-            ).show(childFragmentManager, MAP_JOIN_MODAL)
-        }
-    }
-
-    private fun showMapDeleteModalDialogFragment(pingleEntity: PingleEntity) {
-        AllModalDialogFragment(
-            title = stringOf(R.string.delete_modal_title),
-            detail = stringOf(R.string.delete_modal_detail),
-            buttonText = stringOf(R.string.delete_modal_button_text),
-            textButtonText = stringOf(R.string.delete_modal_text_button_text),
-            clickBtn = { homeViewModel.deletePingleDelete(meetingId = pingleEntity.id) },
-            clickTextBtn = {}
-        ).show(childFragmentManager, MAP_DELETE_MODAL)
-    }
-
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
         private val LOCATION_PERMISSIONS = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
-
-        private const val MAP_CANCEL_MODAL = "mapCancelModal"
-        private const val MAP_JOIN_MODAL = "mapJoinModal"
-        private const val MAP_DELETE_MODAL = "mapDeleteModal"
 
         val OVERLAY_IMAGE_PIN_PLAY_DEFAULT =
             OverlayImage.fromResource(R.drawable.ic_pin_play_default)

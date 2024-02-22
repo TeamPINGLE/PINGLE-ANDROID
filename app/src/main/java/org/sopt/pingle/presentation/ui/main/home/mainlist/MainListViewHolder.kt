@@ -14,9 +14,9 @@ class MainListViewHolder(
     private val context: Context,
     private val navigateToParticipant: (Long) -> Unit,
     private val navigateToWebViewWithChatLink: (String) -> Unit,
-    private val showMapJoinModalDialogFragment: (PingleEntity) -> Unit,
-    private val showMapCancelModalDialogFragment: (PingleEntity) -> Unit,
-    private val showMapDeleteModalDialogFragment: (PingleEntity) -> Unit
+    private val showPingleJoinModalDialogFragment: (PingleEntity) -> Unit,
+    private val showPingleCancelModalDialogFragment: (PingleEntity) -> Unit,
+    private val showPingleDeleteModalDialogFragment: (PingleEntity) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
         with(binding) {
@@ -61,9 +61,9 @@ class MainListViewHolder(
             }
             setOnParticipateButtonClick {
                 when {
-                    pingleEntity.isOwner -> showMapDeleteModalDialogFragment(pingleEntity)
-                    pingleEntity.isParticipating -> showMapCancelModalDialogFragment(pingleEntity)
-                    else -> showMapJoinModalDialogFragment(pingleEntity)
+                    pingleEntity.isOwner -> showPingleDeleteModalDialogFragment(pingleEntity)
+                    pingleEntity.isParticipating -> showPingleCancelModalDialogFragment(pingleEntity)
+                    else -> showPingleJoinModalDialogFragment(pingleEntity)
                 }
             }
         }

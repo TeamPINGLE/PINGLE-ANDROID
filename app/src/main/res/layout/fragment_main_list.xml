@@ -30,7 +30,7 @@
             android:id="@+id/tv_main_list_search_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="149dp"
+            android:layout_marginTop="129dp"
             android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
             android:textColor='@color/g_02'
             app:layout_constraintStart_toStartOf="@id/gl_start"

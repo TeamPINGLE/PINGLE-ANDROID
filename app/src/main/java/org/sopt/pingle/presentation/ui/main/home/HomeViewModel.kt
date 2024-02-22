@@ -192,6 +192,99 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    val dummyPingleList = listOf<PingleEntity>(
+        PingleEntity(
+            id = 1L,
+            category = "STUDY",
+            name = "강남 모각작팟을 구합니다!!!!",
+            ownerName = "박소현",
+            location = "하얀집 2호점",
+            date = "2023-12-31",
+            startAt = "17:00:00",
+            endAt = "23:00:00",
+            maxParticipants = 99,
+            curParticipants = 11,
+            isParticipating = false,
+            chatLink = "https://github.com/TeamPINGLE/PINGLE-ANDROID",
+            isOwner = false
+        ),
+        PingleEntity(
+            id = 2L,
+            category = "MULTI",
+            name = "모각공하고 곱창먹자",
+            ownerName = "하지은",
+            location = "푸지미곱창",
+            date = "2024-02-23",
+            startAt = "14:00:00",
+            endAt = "23:00:00",
+            maxParticipants = 12,
+            curParticipants = 4,
+            isParticipating = true,
+            chatLink = "https://github.com/TeamPINGLE/PINGLE-ANDROID",
+            isOwner = false
+        ),
+        PingleEntity(
+            id = 3L,
+            category = "OTHERS",
+            name = "국민대 졸업하는 김승연 축하하러 올사람",
+            ownerName = "김승연",
+            location = "국민대학교",
+            date = "2024-02-14",
+            startAt = "14:30:00",
+            endAt = "21:30:00",
+            maxParticipants = 14,
+            curParticipants = 14,
+            isParticipating = false,
+            chatLink = "https://github.com/TeamPINGLE/PINGLE-ANDROID",
+            isOwner = false
+        ),
+        PingleEntity(
+            id = 4L,
+            category = "PLAY",
+            name = "건빵 QA",
+            ownerName = "배지현",
+            location = "서울역",
+            date = "2024-02-23",
+            startAt = "18:30:00",
+            endAt = "21:30:00",
+            maxParticipants = 13,
+            curParticipants = 13,
+            isParticipating = true,
+            chatLink = "https://github.com/TeamPINGLE/PINGLE-ANDROID",
+            isOwner = false
+        ),
+        PingleEntity(
+            id = 5L,
+            category = "PLAY",
+            name = "안핑이들 집합 ㅋ.ㅋ",
+            ownerName = "배지현",
+            location = "포어플랜",
+            date = "2024-02-27",
+            startAt = "19:00:00",
+            endAt = "23:00:00",
+            maxParticipants = 4,
+            curParticipants = 4,
+            isParticipating = true,
+            chatLink = "https://github.com/TeamPINGLE/PINGLE-ANDROID",
+            isOwner = true
+        ),
+        PingleEntity(
+            id = 6L,
+            category = "OTHERS",
+            name = "핑글",
+            ownerName = "배지현",
+            location = "핑글핑글",
+            date = "2024-02-29",
+            startAt = "01:00:00",
+            endAt = "03:00:00",
+            maxParticipants = 24,
+            curParticipants = 13,
+            isParticipating = true,
+            chatLink = "https://github.com/TeamPINGLE/PINGLE-ANDROID",
+            isOwner = true
+        )
+    )
+
     companion object {
         const val DEFAULT_SELECTED_MARKER_POSITION = -1
     }

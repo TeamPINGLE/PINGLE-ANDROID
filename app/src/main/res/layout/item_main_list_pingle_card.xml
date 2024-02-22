@@ -38,7 +38,7 @@
             android:id="@+id/layout_main_list_pingle_card_bottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_border_radius_15"
+            android:background="@drawable/shape_border_radius_8"
             android:backgroundTint="@color/g_10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +59,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -70,6 +71,7 @@
                 android:paddingHorizontal="38dp"
                 android:paddingVertical="10dp"
                 android:src="@drawable/ic_all_arrow_up_24"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pingle_card_bottom_main_list_pingle_card" />

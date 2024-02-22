@@ -1,4 +1,4 @@
-package org.sopt.pingle.util
+package org.sopt.pingle.util.view
 
 import android.content.Context
 import android.content.Intent

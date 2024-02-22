@@ -7,7 +7,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ItemMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.CategoryType
-import org.sopt.pingle.util.DateTimeUtils
+import org.sopt.pingle.util.view.DateTimeUtils
 import org.sopt.pingle.util.context.colorOf
 import org.sopt.pingle.util.context.navigateToWebView
 import org.sopt.pingle.util.context.stringOf

@@ -12,7 +12,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMainListBinding
 import org.sopt.pingle.presentation.type.MainListOrderType
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
-import org.sopt.pingle.util.PingleCardUtils
+import org.sopt.pingle.util.view.PingleCardUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf

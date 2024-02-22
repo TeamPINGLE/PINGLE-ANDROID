@@ -1,7 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.home.map
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.os.Bundle
@@ -31,18 +30,12 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
 import org.sopt.pingle.domain.model.PinEntity
-import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.mapper.toMarkerModel
-import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel.Companion.DEFAULT_SELECTED_MARKER_POSITION
-import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
-import org.sopt.pingle.util.PingleCardUtils
+import org.sopt.pingle.util.view.PingleCardUtils
 import org.sopt.pingle.util.base.BindingFragment
-import org.sopt.pingle.util.component.AllModalDialogFragment
-import org.sopt.pingle.util.component.PingleModalDialogFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
-import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.toPx
 import org.sopt.pingle.util.view.UiState
 

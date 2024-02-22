@@ -1,15 +1,15 @@
-package org.sopt.pingle.util
+package org.sopt.pingle.util.view
 
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 object DateTimeUtils {
-    const val DATE_FORMAT = "yyyy년 M월 d일"
-    const val TIME_FORMAT = "HH:mm"
-    const val NEW_LINE = "\n"
-    const val TIME_SEPARATOR = " ~ "
-    const val WIDTH_BAR = " | "
+    private const val DATE_FORMAT = "yyyy년 M월 d일"
+    private const val TIME_FORMAT = "HH:mm"
+    private const val NEW_LINE = "\n"
+    private const val TIME_SEPARATOR = " ~ "
+    private const val WIDTH_BAR = " | "
 
     private fun convertToDateFormat(localDate: LocalDate): String = localDate.format(
         DateTimeFormatter.ofPattern(

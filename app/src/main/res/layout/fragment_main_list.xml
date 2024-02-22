@@ -68,8 +68,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_main_list"
             android:layout_width="0dp"
@@ -82,6 +80,58 @@
             app:layout_constraintStart_toStartOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/tv_main_list_search_count"
             tools:listitem="@layout/item_main_list_pingle_card" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_main_list_order_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/shape_border_radius_8"
+            android:backgroundTint="@color/g_10"
+            android:foreground="@drawable/shape_line_g_09_radius_8"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintTop_toBottomOf="@id/layout_main_list_order">
+
+            <TextView
+                android:id="@+id/tv_main_list_order_menu_new"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:paddingStart="14dp"
+                android:text="@string/main_list_order_new"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_03"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_main_list_order_menu_upcoming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="23dp"
+                android:text="@string/main_list_order_upcoming"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_main_list_order_menu_new" />
+
+            <View
+                android:id="@+id/view_main_list_order_menu_middle_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/g_09"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_main_list_order_menu_new" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tv_main_list_empty"

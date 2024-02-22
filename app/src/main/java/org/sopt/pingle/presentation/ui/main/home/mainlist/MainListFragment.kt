@@ -13,6 +13,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMainListBinding
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.type.MainListOrderType
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapModalDialogFragment
@@ -31,6 +32,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
         super.onViewCreated(view, savedInstanceState)
 
         initLayout()
+        addListeners()
         collectData()
     }
 
@@ -49,6 +51,39 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
         )
         binding.rvMainList.adapter = mainListAdapter
         mainListAdapter.submitList(homeViewModel.dummyPingleList)
+    }
+
+    private fun addListeners() {
+        with(binding) {
+            layoutMainListOrder.setOnClickListener {
+                (layoutMainListOrderMenu.visibility == View.VISIBLE).let { isVisible ->
+                    layoutMainListOrderMenu.visibility =
+                        if (isVisible) View.INVISIBLE else View.VISIBLE
+                }
+            }
+
+            tvMainListOrderMenuNew.setOnClickListener {
+                homeViewModel.setMainListOrderType(
+                    MainListOrderType.NEW
+                )
+                layoutMainListOrderMenu.visibility = View.INVISIBLE
+            }
+
+            tvMainListOrderMenuUpcoming.setOnClickListener {
+                homeViewModel.setMainListOrderType(
+                    MainListOrderType.UPCOMING
+                )
+                layoutMainListOrderMenu.visibility = View.INVISIBLE
+            }
+        }
+    }
+
+    private fun collectData() {
+        homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { mainListOrderType ->
+                binding.tvMainListOrderType.text =
+                    stringOf(mainListOrderType.mainListOrderStringRes)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun navigateToParticipant(pingleEntityId: Long) {
@@ -70,7 +105,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
             textButtonText = stringOf(R.string.cancel_modal_text_button_text),
             clickBtn = { homeViewModel.deletePingleCancel(meetingId = pingleEntity.id) },
             clickTextBtn = { }
-        ).show(childFragmentManager,MAP_CANCEL_MODAL)
+        ).show(childFragmentManager, MAP_CANCEL_MODAL)
     }
 
     private fun showMapJoinModalDialogFragment(pingleEntity: PingleEntity) {
@@ -93,14 +128,6 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
             clickBtn = { homeViewModel.deletePingleDelete(meetingId = pingleEntity.id) },
             clickTextBtn = {}
         ).show(childFragmentManager, MAP_DELETE_MODAL)
-    }
-
-    private fun collectData() {
-        homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { mainListOrderType ->
-                binding.tvMainListOrderType.text =
-                    stringOf(mainListOrderType.mainListOrderStringRes)
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     companion object {

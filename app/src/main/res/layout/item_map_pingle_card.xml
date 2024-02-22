@@ -58,7 +58,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view_card_middle_line"
+            android:id="@+id/view_map_pingel_card_middle_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginHorizontal="21dp"

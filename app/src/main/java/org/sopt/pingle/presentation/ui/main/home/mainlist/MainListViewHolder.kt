@@ -42,7 +42,6 @@ class MainListViewHolder(
                 context,
                 if (isExpanded) R.drawable.shape_border_radius_15 else R.drawable.shape_border_radius_8
             )
-
         }
     }
 

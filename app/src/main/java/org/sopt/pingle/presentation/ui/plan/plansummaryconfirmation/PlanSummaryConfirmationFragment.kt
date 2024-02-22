@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentPlanSummaryConfirmationBinding
 import org.sopt.pingle.presentation.ui.plan.PlanViewModel
-import org.sopt.pingle.util.view.DateTimeUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.colorOf
+import org.sopt.pingle.util.view.DateTimeUtils
 import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint

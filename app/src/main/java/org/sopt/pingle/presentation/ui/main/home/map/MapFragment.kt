@@ -33,10 +33,10 @@ import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.presentation.mapper.toMarkerModel
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel.Companion.DEFAULT_SELECTED_MARKER_POSITION
-import org.sopt.pingle.util.view.PingleCardUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.toPx
+import org.sopt.pingle.util.view.PingleCardUtils
 import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
@@ -124,12 +124,14 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
             showPingleCancelModalDialogFragment = { pingleEntity ->
                 PingleCardUtils.showPingleCancelModalDialogFragment(
                     fragment = this,
-                    deletePingleCancel = { homeViewModel.deletePingleCancel(pingleEntity.id) })
+                    deletePingleCancel = { homeViewModel.deletePingleCancel(pingleEntity.id) }
+                )
             },
             showPingleDeleteModalDialogFragment = { pingleEntity ->
                 PingleCardUtils.showMapDeleteModalDialogFragment(
                     fragment = this,
-                    deletePingleDelete = { homeViewModel.deletePingleDelete(pingleEntity.id) })
+                    deletePingleDelete = { homeViewModel.deletePingleDelete(pingleEntity.id) }
+                )
             }
         )
 

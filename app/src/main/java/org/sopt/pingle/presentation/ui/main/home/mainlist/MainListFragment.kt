@@ -12,10 +12,10 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMainListBinding
 import org.sopt.pingle.presentation.type.MainListOrderType
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
-import org.sopt.pingle.util.view.PingleCardUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
+import org.sopt.pingle.util.view.PingleCardUtils
 
 @AndroidEntryPoint
 class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragment_main_list) {
@@ -56,12 +56,14 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
             showPingleCancelModalDialogFragment = { pingleEntity ->
                 PingleCardUtils.showPingleCancelModalDialogFragment(
                     fragment = this,
-                    deletePingleCancel = { homeViewModel.deletePingleCancel(pingleEntity.id) })
+                    deletePingleCancel = { homeViewModel.deletePingleCancel(pingleEntity.id) }
+                )
             },
             showPingleDeleteModalDialogFragment = { pingleEntity ->
                 PingleCardUtils.showMapDeleteModalDialogFragment(
                     fragment = this,
-                    deletePingleDelete = { homeViewModel.deletePingleDelete(pingleEntity.id) })
+                    deletePingleDelete = { homeViewModel.deletePingleDelete(pingleEntity.id) }
+                )
             }
         )
         binding.rvMainList.adapter = mainListAdapter

@@ -41,7 +41,6 @@ object PingleCardUtils {
         }
     }
 
-
     fun showPingleCancelModalDialogFragment(
         fragment: Fragment,
         deletePingleCancel: () -> Unit

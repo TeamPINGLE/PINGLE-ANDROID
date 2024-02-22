@@ -14,6 +14,10 @@
     <string name="category_multi_description">놀 땐 놀고, 일할 땐 일하자!</string>
     <string name="category_others_description">다른 활동이 하고 싶다면?</string>
 
+    <!-- main list order Type -->
+    <string name="main_list_order_new">최신순</string>
+    <string name="main_list_order_upcoming">날짜임박순</string>
+
     <!--  all navi title -->
     <string name="all_navi_home">홈</string>
     <string name="all_navi_ranking">랭킹</string>
@@ -82,6 +86,11 @@
     <string name="delete_modal_detail">삭제된 핑글은 다시 되돌릴 수 없어요</string>
     <string name="delete_modal_button_text">삭제하기</string>
     <string name="delete_modal_text_button_text">돌아가기</string>
+
+    <!-- main list -->
+    <string name="main_list_search_count">총 %d건</string>
+    <string name="main_list_empty_pingle">현재 개최된 핑글이 없어요\n핑글을 직접 개최해보세요!</string>
+    <string name="main_list_empty_search">검색 결과가 없어요</string>
 
     <!--  plan  -->
     <string name="plan_later_des">나중에 만드시겠어요?</string>

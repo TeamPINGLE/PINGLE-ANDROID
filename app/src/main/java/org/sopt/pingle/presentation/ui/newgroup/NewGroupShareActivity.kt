@@ -11,5 +11,13 @@ class NewGroupShareActivity :
     BindingActivity<ActivityNewGroupShareBinding>(R.layout.activity_new_group_share) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        addListeners()
+    }
+
+    private fun addListeners() {
+        binding.includeNewGroupShareTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
+            finish()
+        }
     }
 }

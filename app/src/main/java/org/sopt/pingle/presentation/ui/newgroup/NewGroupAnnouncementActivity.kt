@@ -2,6 +2,7 @@ package org.sopt.pingle.presentation.ui.newgroup
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityNewGroupAnnouncementBinding
@@ -19,6 +20,7 @@ class NewGroupAnnouncementActivity :
     }
 
     private fun addListeners() {
+        onBackPressedCallBack()
         binding.btnNewGroupAnnouncementInvitation.setOnClickListener {
             navigateToNewGroupShare()
         }
@@ -36,6 +38,25 @@ class NewGroupAnnouncementActivity :
     private fun navigateToHome() {
         Intent(this, MainActivity::class.java).apply {
             startActivity(this)
+            finish()
         }
+    }
+
+    private fun navigateToNewGroup() {
+        Intent(this, NewGroupActivity::class.java).apply {
+            startActivity(this)
+        }
+    }
+
+    private fun onBackPressedCallBack() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navigateToNewGroup()
+                    finish()
+                }
+            }
+        )
     }
 }

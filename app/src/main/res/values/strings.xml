@@ -84,19 +84,6 @@
     <string name="new_group_input_email_title">대표 이메일</string>
     <string name="new_group_input_guide">해당 이메일은 초대 코드 공유 및 단체 관리를 위해 사용될 예정입니다</string>
 
-    <!-- new group keyword -->
-    <string name="new_group_keyword_circle">연합동아리</string>
-    <string name="new_group_keyword_school_club">교내동아리</string>
-    <string name="new_group_keyword_student_council">학생회</string>
-    <string name="new_group_keyword_university">대학교</string>
-    <string name="new_group_keyword_high_school">고등학교</string>
-    <string name="new_group_keyword_middle_school">중학교</string>
-    <string name="new_group_keyword_study">스터디</string>
-    <string name="new_group_keyword_lecture">강의</string>
-    <string name="new_group_keyword_private_club">사모임</string>
-    <string name="new_group_keyword_club">동호회</string>
-    <string name="new_group_keyword_etc">기타</string>
-
     <!-- new group announcement -->
     <string name="new_group_announcement_title">단체가\n개설되었어요!</string>
     <string name="new_group_announcement_group_name">%s에 친구들을 초대하고</string>

@@ -29,7 +29,7 @@ class PingleEditText @JvmOverloads constructor(
             true
         )
         binding.view = this
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.pingleEditText)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PingleEditText)
         try {
             initView(typedArray)
         } finally {
@@ -39,23 +39,23 @@ class PingleEditText @JvmOverloads constructor(
 
     private fun initView(typedArray: TypedArray) {
         typedArray.apply {
-            val title = getString(R.styleable.pingleEditText_title)
+            val title = getString(R.styleable.PingleEditText_title)
             binding.tvTitle.text = title
 
-            val hint = getString(R.styleable.pingleEditText_hint)
+            val hint = getString(R.styleable.PingleEditText_hint)
             binding.etEditText.hint = hint
 
-            val maxLength = getInt(R.styleable.pingleEditText_maxLength, -1)
+            val maxLength = getInt(R.styleable.PingleEditText_maxLength, -1)
             if (maxLength > 0) {
                 binding.etEditText.filters = arrayOf(InputFilter.LengthFilter(maxLength))
             }
 
-            val focusable = getBoolean(R.styleable.pingleEditText_focusable, true)
+            val focusable = getBoolean(R.styleable.PingleEditText_focusable, true)
             binding.etEditText.isFocusable = focusable
 
             val checkVisibilityValue =
-                getInt(R.styleable.pingleEditText_checkVisibility, View.GONE)
-            val copyVisibilityValue = getInt(R.styleable.pingleEditText_copyVisibility, View.GONE)
+                getInt(R.styleable.PingleEditText_checkVisibility, View.GONE)
+            val copyVisibilityValue = getInt(R.styleable.PingleEditText_copyVisibility, View.GONE)
             binding.btnEditCheck.visibility = visibility(checkVisibilityValue)
             binding.ivEditCopy.visibility = visibility(copyVisibilityValue)
         }

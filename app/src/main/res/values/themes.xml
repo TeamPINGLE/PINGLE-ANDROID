@@ -106,4 +106,49 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
     </style>
+
+    <!-- tag -->
+    <style name="Theme.Pingle.Tag" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:stateListAnimator">@null</item>
+        <item name="chipMinTouchTargetSize">0dp</item>
+        <item name="chipEndPadding">0dp</item>
+        <item name="chipStartPadding">0dp</item>
+        <item name="android:checked">false</item>
+        <item name="chipMinHeight">0dp</item>
+        <item name="backgroundTint">@null</item>
+        <item name="rippleColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.Pingle.Tag.L" parent="Theme.Pingle.Tag">
+        <item name="cornerRadius">50dp</item>
+        <item name="textStartPadding">16dp</item>
+        <item name="textEndPadding">16dp</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:clickable">true</item>
+        <item name="chipBackgroundColor">@color/selector_pingle_tag_l_background</item>
+        <item name="android:textColor">@color/selector_pingle_tag_l_text_color</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Sub.Semi.16</item>
+    </style>
+
+    <style name="Theme.Pingle.Tag.M" parent="Theme.Pingle.Tag">
+        <item name="cornerRadius">50dp</item>
+        <item name="textStartPadding">10dp</item>
+        <item name="textEndPadding">10dp</item>
+        <item name="android:paddingVertical">4dp</item>
+        <item name="android:clickable">false</item>
+        <item name="chipBackgroundColor">@color/g_10</item>
+        <item name="android:textColor">@color/pingle_green</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Semi.12</item>
+    </style>
+
+    <style name="Theme.Pingle.Tag.S" parent="Theme.Pingle.Tag">
+        <item name="cornerRadius">50dp</item>
+        <item name="textStartPadding">8dp</item>
+        <item name="textEndPadding">8dp</item>
+        <item name="android:paddingVertical">3dp</item>
+        <item name="android:clickable">false</item>
+        <item name="chipBackgroundColor">@color/g_10</item>
+        <item name="android:textColor">@color/pingle_green</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Semi.10</item>
+    </style>
 </resources>

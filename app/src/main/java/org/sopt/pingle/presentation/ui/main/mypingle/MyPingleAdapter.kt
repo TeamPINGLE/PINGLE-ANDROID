@@ -1,6 +1,5 @@
 package org.sopt.pingle.presentation.ui.main.mypingle
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -8,8 +7,7 @@ import org.sopt.pingle.databinding.ItemMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
-class MyPingleAdatper(
-    private val context: Context,
+class MyPingleAdapter(
     private val showCancelModalDialogFragment: (MyPingleEntity) -> Unit,
     private val showDeleteModalDialogFragment: (MyPingleEntity) -> Unit,
     private val updateMyPingleListSelectedPosition: (Int) -> Unit,
@@ -29,7 +27,7 @@ class MyPingleAdatper(
 
                 false
             ),
-            context,
+            parent.context,
             showCancelModalDialogFragment,
             showDeleteModalDialogFragment,
             updateMyPingleListSelectedPosition,

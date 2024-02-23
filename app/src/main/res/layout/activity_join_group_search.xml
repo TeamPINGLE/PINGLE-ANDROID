@@ -49,47 +49,15 @@
             app:layout_constraintStart_toEndOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/include_join_group_search_topbar" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_join_group_search"
+        <org.sopt.pingle.util.component.PingleSearch
+            android:id="@+id/pingle_search_join_group_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/shape_border_radius_8"
-            android:backgroundTint="@color/g_10"
-            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toStartOf="@id/gl_start"
-            app:layout_constraintTop_toBottomOf="@id/tv_join_group_search_title">
-
-            <EditText
-                android:id="@+id/et_join_group_search"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/shape_border_radius_8"
-                android:hint="@string/join_group_search_hint"
-                android:inputType="text"
-                android:maxLength="100"
-                android:paddingVertical="@dimen/spacing12"
-                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
-                android:textColor="@color/white"
-                android:textColorHint="@color/g_07"
-                android:textCursorDrawable="@drawable/shape_pingle_green_solid_width_1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_join_group_search_icon"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_join_group_search_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="14dp"
-                android:src="@drawable/ic_all_search_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:pingleSearchHint="@string/join_group_search_hint"
+            app:layout_constraintTop_toBottomOf="@id/tv_join_group_search_title" />
 
         <TextView
             android:id="@+id/tv_join_group_search_empty"
@@ -100,10 +68,10 @@
             android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.18"
             android:textColor="@color/g_06"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/tv_join_group_search_create"
+            app:layout_constraintBottom_toBottomOf="@id/rv_join_group_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_join_group_search" />
+            app:layout_constraintTop_toTopOf="@id/rv_join_group_search" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_join_group_search"
@@ -115,7 +83,7 @@
             app:layout_constraintBottom_toTopOf="@id/tv_join_group_search_create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_join_group_search"
+            app:layout_constraintTop_toBottomOf="@id/pingle_search_join_group_search"
             tools:listitem="@layout/item_join_group_search" />
 
         <TextView

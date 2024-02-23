@@ -30,11 +30,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing25"
             app:etText="@={viewModel.planTitle}"
-            app:hint="@string/plan_et_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_plan_title"
-            app:maxLength="26"
-            app:title="@string/plan_et_title" />
+            app:pingleEditTextHint="@string/plan_et_hint"
+            app:pingleEditTextMaxLength="26"
+            app:pingleEditTextTitle="@string/plan_et_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

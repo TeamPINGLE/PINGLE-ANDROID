@@ -43,5 +43,9 @@ class MapModalDialogFragment(
             clickBtn()
             dismiss()
         }
+
+        binding.layoutMapModalBackground.setOnClickListener {
+            dismiss()
+        }
     }
 }

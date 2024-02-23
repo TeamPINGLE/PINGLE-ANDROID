@@ -167,12 +167,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing16"
-            app:hint="@string/join_group_code_invitation_hint"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toEndOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/layout_join_group_code_group_info"
-            app:maxLength="12"
-            app:title="@string/join_group_code_invitation" />
+            app:pingleEditTextMaxLength="12"
+            app:pingleEditTextHint="@string/join_group_code_invitation_hint"
+            app:pingleEditTextTitle="@string/join_group_code_invitation" />
 
         <TextView
             android:id="@+id/tv_join_group_code_guide"

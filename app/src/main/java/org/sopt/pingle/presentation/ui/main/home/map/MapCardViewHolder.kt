@@ -6,17 +6,25 @@ import org.sopt.pingle.domain.model.PingleEntity
 
 class MapCardViewHolder(
     private val binding: ItemMapPingleCardBinding,
-    private val navigateToWebView: (String) -> Unit,
+    private val navigateToParticipant: (Long) -> Unit,
+    private val navigateToWebViewWithChatLink: (String) -> Unit,
     private val showMapJoinModalDialogFragment: (PingleEntity) -> Unit,
     private val showMapCancelModalDialogFragment: (PingleEntity) -> Unit,
     private val showMapDeleteModalDialogFragment: (PingleEntity) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun onBind(pinId: Long, pingleEntity: PingleEntity) {
-        with(binding.cardMapPingleCard) {
+        with(binding.pingleCardTopMapPingleCard) {
+            initLayout(pingleEntity)
+            setOnParticipationStatusLayoutClick {
+                navigateToParticipant(pingleEntity.id)
+            }
+        }
+
+        with(binding.pingleCardBottomMapPingleCard) {
             initLayout(pingleEntity)
             setPinId(pinId)
             setOnChatButtonClick {
-                navigateToWebView(pingleEntity.chatLink)
+                navigateToWebViewWithChatLink(pingleEntity.chatLink)
             }
             setOnParticipateButtonClick {
                 when {

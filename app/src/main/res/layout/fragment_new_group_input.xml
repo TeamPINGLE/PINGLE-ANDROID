@@ -46,23 +46,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            app:checkVisibility="visible"
-            app:hint="@string/new_group_input_name_hint"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toEndOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/tv_new_group_input_title"
-            app:title="@string/new_group_input_name_title" />
+            app:pingleEditTextCheckVisibility="visible"
+            app:pingleEditTextHint="@string/new_group_input_name_hint"
+            app:pingleEditTextTitle="@string/new_group_input_name_title" />
 
         <org.sopt.pingle.util.component.PingleEditText
             android:id="@+id/include_new_group_input_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:hint="@string/new_group_input_email_hint"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toEndOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/include_new_group_input_name"
-            app:title="@string/new_group_input_email_title" />
+            app:pingleEditTextHint="@string/new_group_input_email_hint"
+            app:pingleEditTextTitle="@string/new_group_input_email_title" />
 
         <TextView
             android:id="@+id/tv_new_group_input_guide"

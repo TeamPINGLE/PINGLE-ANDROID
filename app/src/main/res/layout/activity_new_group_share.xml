@@ -49,12 +49,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            app:copyVisibility="visible"
-            app:focusable="false"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toEndOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/tv_new_group_share_title"
-            app:title="@string/join_group_code_invitation" />
+            app:pingleEditTextCopyVisibility="visible"
+            app:pingleEditTextFocusable="false"
+            app:pingleEditTextTitle="@string/join_group_code_invitation" />
 
         <TextView
             android:id="@+id/tv_new_group_share_guide"

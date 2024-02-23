@@ -42,81 +42,16 @@
             app:layout_constraintTop_toBottomOf="@id/gl_top" />
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_new_group_keyword"
+            android:id="@+id/cg_new_group_keyword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="28dp"
+            app:chipSpacingHorizontal="10dp"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toEndOf="@id/gl_start"
-            app:layout_constraintTop_toBottomOf="@id/tv_new_group_keyword_title">
+            app:layout_constraintTop_toBottomOf="@id/tv_new_group_keyword_title"
+            app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_circle" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_school_club" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_student_council" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_university" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_high_school" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_middle_school" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_lecture" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_study" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_private_club" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_club" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/Theme.Pingle.Chip.Keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/new_group_keyword_etc" />
         </com.google.android.material.chip.ChipGroup>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

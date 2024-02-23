@@ -5,6 +5,7 @@
         <attr name="text" format="reference|string" />
         <attr name="hint" format="reference|string" />
         <attr name="maxLength" format="integer" />
+        <attr name="focusable" format="boolean" />
         <attr name="check_visibility" format="enum">
             <enum name="visible" value="1" />
             <enum name="invisible" value="2" />

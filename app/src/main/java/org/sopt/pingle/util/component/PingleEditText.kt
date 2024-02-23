@@ -29,7 +29,7 @@ class PingleEditText @JvmOverloads constructor(
             true
         )
         binding.view = this
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PingleEditText)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.pingleEditText)
         try {
             initView(typedArray)
         } finally {
@@ -39,16 +39,19 @@ class PingleEditText @JvmOverloads constructor(
 
     private fun initView(typedArray: TypedArray) {
         typedArray.apply {
-            val title = getString(R.styleable.PingleEditText_pingleEditTextTitle)
+            val title = getString(R.styleable.pingleEditText_title)
             binding.tvTitle.text = title
 
-            val hint = getString(R.styleable.PingleEditText_pingleEditTextHint)
+            val hint = getString(R.styleable.pingleEditText_hint)
             binding.etEditText.hint = hint
 
-            val maxLength = getInt(R.styleable.PingleEditText_pingleEditTextMaxLength, -1)
+            val maxLength = getInt(R.styleable.pingleEditText_maxLength, -1)
             if (maxLength > 0) {
                 binding.etEditText.filters = arrayOf(InputFilter.LengthFilter(maxLength))
             }
+
+            val focusable = getBoolean(R.styleable.pingleEditText_focusable, true)
+            binding.etEditText.isFocusable = focusable
 
             val checkVisibilityValue =
                 getInt(R.styleable.pingleEditText_check_visibility, View.GONE)

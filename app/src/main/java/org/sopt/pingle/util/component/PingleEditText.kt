@@ -54,8 +54,8 @@ class PingleEditText @JvmOverloads constructor(
             binding.etEditText.isFocusable = focusable
 
             val checkVisibilityValue =
-                getInt(R.styleable.pingleEditText_check_visibility, View.GONE)
-            val copyVisibilityValue = getInt(R.styleable.pingleEditText_copy_visibility, View.GONE)
+                getInt(R.styleable.pingleEditText_checkVisibility, View.GONE)
+            val copyVisibilityValue = getInt(R.styleable.pingleEditText_copyVisibility, View.GONE)
             binding.btnEditCheck.visibility = visibility(checkVisibilityValue)
             binding.ivEditCopy.visibility = visibility(copyVisibilityValue)
         }

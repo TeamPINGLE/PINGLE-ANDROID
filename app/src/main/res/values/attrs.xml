@@ -6,12 +6,12 @@
         <attr name="hint" format="reference|string" />
         <attr name="maxLength" format="integer" />
         <attr name="focusable" format="boolean" />
-        <attr name="check_visibility" format="enum">
+        <attr name="checkVisibility" format="enum">
             <enum name="visible" value="1" />
             <enum name="invisible" value="2" />
             <enum name="gone" value="3" />
         </attr>
-        <attr name="copy_visibility" format="enum">
+        <attr name="copyVisibility" format="enum">
             <enum name="visible" value="1" />
             <enum name="invisible" value="2" />
             <enum name="gone" value="3" />

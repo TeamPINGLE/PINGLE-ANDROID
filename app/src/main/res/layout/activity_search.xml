@@ -40,11 +40,12 @@
             android:id="@+id/iv_search_search_pingle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="145dp"
             android:src="@drawable/img_search_pingle_graphic"
+            app:layout_constraintBottom_toTopOf="@id/tv_search_search_description"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toStartOf="@id/gl_start"
-            app:layout_constraintTop_toBottomOf="@id/pingle_search_search" />
+            app:layout_constraintTop_toBottomOf="@id/pingle_search_search"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/tv_search_search_description"
@@ -54,6 +55,7 @@
             android:text="@string/search_description"
             android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"
             android:textColor="@color/g_02"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toStartOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/iv_search_search_pingle" />

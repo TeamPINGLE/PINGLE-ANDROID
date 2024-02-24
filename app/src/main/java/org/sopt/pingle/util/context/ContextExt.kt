@@ -14,6 +14,7 @@ import org.sopt.pingle.presentation.ui.common.WebViewActivity.Companion.WEB_VIEW
 fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    view.clearFocus()
 }
 
 fun Context.stringOf(@StringRes resId: Int) = getString(resId)

@@ -260,7 +260,7 @@
                 android:id="@+id/iv_my_pingle_owner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_my_56"
+                android:src="@drawable/ic_my_my_56"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

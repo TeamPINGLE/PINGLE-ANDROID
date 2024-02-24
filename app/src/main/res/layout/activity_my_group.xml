@@ -148,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_my_group_owner"
-            android:visibility="@{localStorage.isOwner ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/layout_my_group_now"
             app:layout_constraintEnd_toStartOf="@id/gl_end" />
 

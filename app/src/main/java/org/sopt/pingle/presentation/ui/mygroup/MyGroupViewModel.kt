@@ -44,6 +44,8 @@ class MyGroupViewModel @Inject constructor(
         // 데이터 업데이트
     }
 
+    fun getMyGroupIsOwner(): Boolean = localStorgae.isOwner
+
     fun getGroupName(): String = localStorgae.groupName
 
     fun getGroupMeetingCount(): String = localStorgae.meetingCount

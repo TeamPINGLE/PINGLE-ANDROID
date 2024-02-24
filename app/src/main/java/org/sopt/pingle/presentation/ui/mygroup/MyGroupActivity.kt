@@ -38,6 +38,8 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun initLayout() {
+        checkMyGroupOwner()
+
         with(binding) {
             toolbar.text = getString(R.string.my_group_title)
             // TODO chip 머지되면 text에 localStorage에 저장된 keyword 가져오기
@@ -61,7 +63,16 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             layoutMyGroupMenuShare.setOnClickListener { shareGroupCode() }
         }
     }
-    
+
+    private fun checkMyGroupOwner() {
+        with(binding) {
+            if (viewModel.getMyGroupIsOwner()) { ivMyGroupNowOwner.visibility = View.VISIBLE }
+            else {
+                ivMyGroupNowOwner.visibility = View.INVISIBLE
+            }
+        }
+    }
+
     private fun showMyGroupMenu() {
         with(binding) {
             if (layoutMyGroupMenu.visibility == View.VISIBLE) { layoutMyGroupMenu.visibility = View.INVISIBLE }

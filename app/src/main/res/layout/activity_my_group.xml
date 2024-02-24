@@ -5,6 +5,13 @@
 
     <data>
 
+        <import type="android.view.View"/>
+        <variable
+            name="localStorage"
+            type="org.sopt.pingle.data.datasource.local.PingleLocalDataSource" />
+        <variable
+            name="myGroupModel"
+            type="org.sopt.pingle.presentation.model.MyGroupModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,41 +19,274 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.mygroup.MyGroupActivity">
 
-        <TextView
-            android:id="@+id/tv_my_group_construction_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="137dp"
-            android:text="@string/construction_title"
-            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/view_all_topbar_arrow_with_title" />
 
-        <TextView
-            android:id="@+id/tv_my_group_construction_detail"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/construction_detail"
-            android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_my_group_construction_title" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing16" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_my_group_now"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing16"
+            android:background="@drawable/shape_border_white_radius_12"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_now_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/spacing24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_now_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/spacing24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_now_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/spacing20" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_now_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/spacing20" />
+
+            <!-- TODO tag로 변경되면 text에 데이터바인딩 -->
+            <org.sopt.pingle.util.component.PingleBadge
+                android:id="@+id/badge_my_group_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/gl_now_start"
+                app:layout_constraintTop_toBottomOf="@id/gl_now_top" />
+
+            <TextView
+                android:id="@+id/tv_my_group_now_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing10"
+                android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@id/gl_now_end"
+                app:layout_constraintStart_toEndOf="@id/gl_now_start"
+                app:layout_constraintTop_toBottomOf="@id/badge_my_group_category"
+                tools:text="SOPT" />
+
+            <TextView
+                android:id="@+id/tv_my_group_now_meeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing10"
+                android:text="@string/my_group_meeting"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+                android:textColor="@color/g_03"
+                app:layout_constraintStart_toEndOf="@id/gl_now_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_my_group_now_name" />
+
+            <TextView
+                android:id="@+id/tv_my_group_now_meeting_count"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/spacing18"
+                android:text="@string/my_group_meeting_count"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_03"
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_group_now_meeting"
+                app:layout_constraintStart_toEndOf="@id/tv_my_group_now_meeting"
+                app:layout_constraintTop_toTopOf="@id/tv_my_group_now_meeting" />
+
+            <TextView
+                android:id="@+id/tv_my_group_now_member_count"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="45dp"
+                android:text="@string/my_group_meeting_count"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_03"
+                app:layout_constraintBottom_toBottomOf="@id/tv_my_group_now_member"
+                app:layout_constraintStart_toEndOf="@id/tv_my_group_now_member"
+                app:layout_constraintTop_toTopOf="@id/tv_my_group_now_member" />
+
+            <TextView
+                android:id="@+id/tv_my_group_now_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing4"
+                android:text="@string/my_group_member"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+                android:textColor="@color/g_03"
+                app:layout_constraintBottom_toBottomOf="@id/gl_now_bottom"
+                app:layout_constraintStart_toEndOf="@id/gl_now_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_my_group_now_meeting" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/iv_my_group_construction"
+            android:id="@+id/iv_my_group_now_owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="42dp"
-            android:layout_marginTop="35dp"
-            android:src="@drawable/img_work_graphic"
+            android:src="@drawable/ic_my_group_owner"
+            android:visibility="@{localStorage.isOwner ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/layout_my_group_now"
+            app:layout_constraintEnd_toStartOf="@id/gl_end" />
+
+        <ImageView
+            android:id="@+id/iv_my_group_now_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing8"
+            android:layout_marginEnd="@dimen/spacing4"
+            android:padding="@dimen/spacing12"
+            android:src="@drawable/ic_my_edit_24"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintTop_toTopOf="@id/layout_my_group_now" />
+
+        <View
+            android:id="@+id/view_my_group_divider"
+            android:layout_width="0dp"
+            android:layout_height="7dp"
+            android:layout_marginTop="@dimen/spacing20"
+            android:background="@color/g_10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_my_group_construction_detail" />
+            app:layout_constraintTop_toBottomOf="@id/layout_my_group_now" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_my_group_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing16"
+            android:layout_marginBottom="@dimen/spacing20"
+            android:paddingHorizontal="@dimen/spacing16"
+            android:paddingBottom="@dimen/spacing6"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/tv_my_group_move_new_group"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_my_group_divider"
+            tools:listitem="@layout/item_my_group" />
+
+        <TextView
+            android:id="@+id/tv_my_group_move_new_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/my_group_move_new_group"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
+            android:textColor="@color/g_06"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/rv_my_group_list" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_my_group_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="7dp"
+            visibility="@{myGroupModel.isSelected()}"
+            android:background="@color/g_10"
+            android:foreground="@drawable/shape_line_g_09_radius_8"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintTop_toBottomOf="@id/iv_my_group_now_menu">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_my_group_menu_copy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/spacing14"
+                android:paddingVertical="@dimen/spacing12"
+                app:layout_constraintBottom_toBottomOf="@id/view_my_group_menu_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_my_group_menu_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/my_group_menu_copy"
+                    android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                    android:textColor="@color/g_03"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="@dimen/spacing10"
+                    app:layout_constraintEnd_toStartOf="@id/iv_my_group_menu_copy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_my_group_menu_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_my_group_menu_copy"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_my_group_menu_share"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/spacing14"
+                android:paddingVertical="@dimen/spacing12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_my_group_menu_divider">
+
+                <TextView
+                    android:id="@+id/tv_my_group_menu_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/my_group_menu_share"
+                    android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                    android:textColor="@color/g_03"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_my_group_menu_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_my_group_menu_share"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/view_my_group_menu_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/g_09"
+                app:layout_constraintBottom_toTopOf="@id/layout_my_group_menu_share"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_my_group_menu_copy" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

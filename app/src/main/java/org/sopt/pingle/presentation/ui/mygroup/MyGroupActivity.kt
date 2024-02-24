@@ -44,8 +44,10 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             toolbar.text = getString(R.string.my_group_title)
             // TODO chip 머지되면 text에 localStorage에 저장된 keyword 가져오기
             tvMyGroupNowName.text = viewModel.getGroupName()
-            tvMyGroupNowMeetingCount.text = getString(R.string.my_group_meeting_count, viewModel.getGroupMeetingCount())
-            tvMyGroupNowMemberCount.text = getString(R.string.my_group_member_count, viewModel.getGroupParticipantCount())
+            tvMyGroupNowMeetingCount.text =
+                getString(R.string.my_group_meeting_count, viewModel.getGroupMeetingCount())
+            tvMyGroupNowMemberCount.text =
+                getString(R.string.my_group_member_count, viewModel.getGroupParticipantCount())
 
             val adapter = MyGroupAdapter(::showChangeGroupModal)
             rvMyGroupList.adapter = adapter
@@ -66,8 +68,9 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
 
     private fun checkMyGroupOwner() {
         with(binding) {
-            if (viewModel.getMyGroupIsOwner()) { ivMyGroupNowOwner.visibility = View.VISIBLE }
-            else {
+            if (viewModel.getMyGroupIsOwner()) {
+                ivMyGroupNowOwner.visibility = View.VISIBLE
+            } else {
                 ivMyGroupNowOwner.visibility = View.INVISIBLE
             }
         }
@@ -75,8 +78,9 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
 
     private fun showMyGroupMenu() {
         with(binding) {
-            if (layoutMyGroupMenu.visibility == View.VISIBLE) { layoutMyGroupMenu.visibility = View.INVISIBLE }
-            else {
+            if (layoutMyGroupMenu.visibility == View.VISIBLE) {
+                layoutMyGroupMenu.visibility = View.INVISIBLE
+            } else {
                 layoutMyGroupMenu.visibility = View.VISIBLE
             }
         }
@@ -119,7 +123,16 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun shareGroupCode() {
-        // TODO 초대코드 공유 로직
+        val intent = Intent(Intent.ACTION_SEND_MULTIPLE)
+        with(intent) {
+            type = "text/plain"
+            // TODO 기획에서 전달해준 템플릿 적용
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "핑글 앱을 다운받고, ${viewModel.getGroupName()} 사람들을 만나보세요!\n\n$PINGLE_SHARE_CODE ${viewModel.getGroupCode()} \n\n $PINGLE_PLAY_STORE_LINK",
+            )
+        }
+        startActivity(Intent.createChooser(intent, null))
     }
 
     private fun navigateToNewGroupInfo() {
@@ -141,5 +154,8 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         private const val CHANGE_MODAL = "ChangeGroupModal"
         private const val SNACKBAR_BOTTOM_MARGIN = 57
         private const val GROUP_CODE_COPY = "CopyGroupCode"
+        private const val PINGLE_PLAY_STORE_LINK =
+            "앱 링크 : https://play.google.com/store/apps/details?id=org.sopt.pingle&pcampaignid=web_share"
+        private const val PINGLE_SHARE_CODE = "초대코드 : "
     }
 }

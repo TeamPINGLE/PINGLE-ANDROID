@@ -10,8 +10,8 @@
             name="localStorage"
             type="org.sopt.pingle.data.datasource.local.PingleLocalDataSource" />
         <variable
-            name="myGroupModel"
-            type="org.sopt.pingle.presentation.model.MyGroupModel" />
+            name="myGroupMenuState"
+            type="org.sopt.pingle.presentation.ui.mygroup.MyGroupViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -207,7 +207,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginEnd="7dp"
-            visibility="@{myGroupModel.isSelected()}"
+            android:visibility="invisible"
             android:background="@color/g_10"
             android:foreground="@drawable/shape_line_g_09_radius_8"
             app:layout_constraintEnd_toStartOf="@id/gl_end"

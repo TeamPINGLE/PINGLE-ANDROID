@@ -10,22 +10,22 @@ import org.sopt.pingle.domain.model.GroupListEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
 class MyGroupAdapter(
-    private val groupOnClick: () -> Unit,
+    private val groupOnClick: () -> Unit
 ) : ListAdapter<GroupListEntity, RecyclerView.ViewHolder>(
     ItemDiffCallback<GroupListEntity>(
         onContentsTheSame = { old, new -> old == new },
-        onItemsTheSame = { old, new -> old.id == new.id },
-    ),
+        onItemsTheSame = { old, new -> old.id == new.id }
+    )
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             1 -> MyGroupViewHolder(
                 ItemMyGroupBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                groupOnClick,
+                groupOnClick
             )
             2 -> MyGroupOwnerViewHolder(
                 ItemMyGroupOwnerBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                groupOnClick,
+                groupOnClick
             )
             else -> throw RuntimeException()
         }

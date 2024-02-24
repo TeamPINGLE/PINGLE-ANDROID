@@ -57,7 +57,7 @@ class PingleLocalDataSourceImpl @Inject constructor(
 
     override var meetingCount: String
         get() = pref.getString(MEETING_COUNT, "") ?: ""
-        set(value) = pref.edit { putString(MEETING_COUNT, value)}
+        set(value) = pref.edit { putString(MEETING_COUNT, value) }
 
     override var participantCount: String
         get() = pref.getString(PARTICIPANTS_COUNT, "") ?: ""
@@ -65,7 +65,7 @@ class PingleLocalDataSourceImpl @Inject constructor(
 
     override var groupKeyword: String
         get() = pref.getString(GROUP_KEYWORD, "") ?: ""
-        set(value) = pref.edit{ putString(GROUP_KEYWORD, value)}
+        set(value) = pref.edit { putString(GROUP_KEYWORD, value) }
 
     override var isOwner: Boolean
         get() = pref.getBoolean(IS_OWNER, false)

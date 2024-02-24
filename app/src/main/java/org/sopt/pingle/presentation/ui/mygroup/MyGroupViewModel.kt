@@ -3,13 +3,13 @@ package org.sopt.pingle.presentation.ui.mygroup
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.GroupListEntity
-import javax.inject.Inject
 
 @HiltViewModel
 class MyGroupViewModel @Inject constructor(
-    private val localStorgae: PingleLocalDataSource,
+    private val localStorgae: PingleLocalDataSource
 ) : ViewModel() {
 
     fun Logging() {
@@ -64,7 +64,7 @@ class MyGroupViewModel @Inject constructor(
             participantCount = "76",
             keyword = "연합동아리",
             isOwner = true,
-            code = "soptcode",
+            code = "soptcode"
         ),
         GroupListEntity(
             id = 48103,
@@ -73,7 +73,7 @@ class MyGroupViewModel @Inject constructor(
             meetingCount = "3",
             participantCount = "72",
             isOwner = false,
-            code = "umccode",
+            code = "umccode"
         ),
         GroupListEntity(
             id = 314927,
@@ -82,7 +82,7 @@ class MyGroupViewModel @Inject constructor(
             meetingCount = "114",
             participantCount = "3",
             isOwner = false,
-            code = "makerscode",
+            code = "makerscode"
         ),
         GroupListEntity(
             id = 4915,
@@ -91,7 +91,7 @@ class MyGroupViewModel @Inject constructor(
             meetingCount = "98",
             participantCount = "11",
             isOwner = false,
-            code = "sonamucode",
+            code = "sonamucode"
         ),
         GroupListEntity(
             id = 12792,
@@ -100,7 +100,7 @@ class MyGroupViewModel @Inject constructor(
             meetingCount = "35",
             participantCount = "1123",
             isOwner = true,
-            code = "donggukcode",
+            code = "donggukcode"
         ),
         GroupListEntity(
             id = 852,
@@ -109,7 +109,7 @@ class MyGroupViewModel @Inject constructor(
             meetingCount = "254",
             participantCount = "56",
             isOwner = false,
-            code = "pinglecode",
+            code = "pinglecode"
         ),
         GroupListEntity(
             id = 1,
@@ -118,7 +118,7 @@ class MyGroupViewModel @Inject constructor(
             meetingCount = "2",
             participantCount = "16",
             isOwner = true,
-            code = "aaaaaaaaaaaa",
-        ),
+            code = "aaaaaaaaaaaa"
+        )
     )
 }

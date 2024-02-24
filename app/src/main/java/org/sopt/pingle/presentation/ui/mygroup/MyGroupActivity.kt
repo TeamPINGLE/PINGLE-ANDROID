@@ -87,14 +87,14 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun showChangeGroupModal() {
+        // TODO viewModel에서 Entity의 특정 position에 해당하는 값 가져와서 현재 단체랑 위치 바꾸기
         AllModalDialogFragment(
-            // TODO viewModel에서 Entity의 특정 position에 해당하는 값 가져오는 함수
             title = getString(R.string.my_group_modal_move_question, viewModel.getGroupName()),
             detail = null,
             buttonText = getString(R.string.my_group_modal_change),
             textButtonText = getString(R.string.my_group_modal_back),
             clickBtn = { chageToNewGroup() },
-            clickTextBtn = { },
+            clickTextBtn = { }
         ).show(supportFragmentManager, CHANGE_MODAL)
     }
 
@@ -105,7 +105,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_chage_group_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE,
+            snackbarType = SnackbarType.GUIDE
         )
     }
 
@@ -118,18 +118,18 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE,
+            snackbarType = SnackbarType.GUIDE
         )
     }
 
     private fun shareGroupCode() {
         val intent = Intent(Intent.ACTION_SEND_MULTIPLE)
         with(intent) {
-            type = "text/plain"
+            type = SHARE_TYPE
             // TODO 기획에서 전달해준 템플릿 적용
             putExtra(
                 Intent.EXTRA_TEXT,
-                "핑글 앱을 다운받고, ${viewModel.getGroupName()} 사람들을 만나보세요!\n\n$PINGLE_SHARE_CODE ${viewModel.getGroupCode()} \n\n $PINGLE_PLAY_STORE_LINK",
+                "핑글 앱을 다운받고, ${viewModel.getGroupName()} 사람들을 만나보세요!\n\n$PINGLE_SHARE_CODE ${viewModel.getGroupCode()} \n\n $PINGLE_PLAY_STORE_LINK"
             )
         }
         startActivity(Intent.createChooser(intent, null))
@@ -157,5 +157,6 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         private const val PINGLE_PLAY_STORE_LINK =
             "앱 링크 : https://play.google.com/store/apps/details?id=org.sopt.pingle&pcampaignid=web_share"
         private const val PINGLE_SHARE_CODE = "초대코드 : "
+        private const val SHARE_TYPE = "text/plain"
     }
 }

@@ -19,7 +19,7 @@ data class ResponseGroupListDto(
     @SerialName("isOwner")
     val isOwner: Boolean,
     @SerialName("code")
-    val code: String,
+    val code: String
 ) {
     fun toResponseGroupListEntity() = GroupListEntity(
         id = id,

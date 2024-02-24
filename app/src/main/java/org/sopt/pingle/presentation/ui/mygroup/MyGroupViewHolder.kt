@@ -10,7 +10,7 @@ class MyGroupViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(groupListEntity: GroupListEntity) {
-        with(binding){
+        with(binding) {
             this.groupListEntity = groupListEntity
             layoutMyGroupListDefault.setOnClickListener { groupOnClick() }
         }

@@ -1,5 +1,8 @@
 package org.sopt.pingle.presentation.ui.mygroup
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -92,7 +95,9 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun copyGroupCode() {
-        // TODO 초대코드 복사 로직
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip: ClipData = ClipData.newPlainText(GROUP_CODE_COPY, viewModel.getGroupCode())
+        clipboard.setPrimaryClip(clip)
 
         PingleSnackbar.makeSnackbar(
             view = binding.root,
@@ -122,7 +127,8 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     companion object {
-        private const val CHANGE_MODAL = "changeGroupModal"
+        private const val CHANGE_MODAL = "ChangeGroupModal"
         private const val SNACKBAR_BOTTOM_MARGIN = 57
+        private const val GROUP_CODE_COPY = "CopyGroupCode"
     }
 }

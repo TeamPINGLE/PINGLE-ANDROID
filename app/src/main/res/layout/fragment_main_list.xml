@@ -12,41 +12,140 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.main.home.mainlist.MainListFragment">
 
-        <TextView
-            android:id="@+id/tv_main_list_construction_title"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="137dp"
-            android:text="@string/construction_title"
-            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing16" />
 
         <TextView
-            android:id="@+id/tv_main_list_construction_detail"
+            android:id="@+id/tv_main_list_search_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/construction_detail"
+            android:layout_marginTop="129dp"
             android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_main_list_construction_title" />
+            android:textColor='@color/g_02'
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="총 5건" />
 
-        <ImageView
-            android:id="@+id/iv_main_list_construction"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_main_list_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tv_main_list_search_count"
+            app:layout_constraintEnd_toStartOf="@+id/gl_end"
+            app:layout_constraintTop_toTopOf="@id/tv_main_list_search_count">
+
+            <TextView
+                android:id="@+id/tv_main_list_order_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+                android:textColor="@color/g_02"
+                app:layout_constraintBottom_toBottomOf="@id/iv_main_list_order_arrow_down"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_main_list_order_arrow_down"
+                tools:text="최신순" />
+
+            <ImageView
+                android:id="@+id/iv_main_list_order_arrow_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_all_arrow_down_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_main_list_order_type"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_main_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_main_list_search_count"
+            tools:listitem="@layout/item_main_list_pingle_card" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_main_list_order_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="42dp"
-            android:layout_marginTop="35dp"
-            android:src="@drawable/img_work_graphic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_main_list_construction_detail" />
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/shape_border_radius_8"
+            android:backgroundTint="@color/g_10"
+            android:foreground="@drawable/shape_line_g_09_radius_8"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintTop_toBottomOf="@id/layout_main_list_order">
+
+            <TextView
+                android:id="@+id/tv_main_list_order_menu_new"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:paddingStart="14dp"
+                android:text="@string/main_list_order_new"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_03"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_main_list_order_menu_upcoming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="23dp"
+                android:text="@string/main_list_order_upcoming"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_main_list_order_menu_new" />
+
+            <View
+                android:id="@+id/view_main_list_order_menu_middle_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/g_09"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_main_list_order_menu_new" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_main_list_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.18"
+            android:textColor="@color/g_06"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/rv_main_list"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toTopOf="@id/rv_main_list"
+            tools:text="현재 개최된 핑글이 없어요\n핑글을 직접 개최해 보세요!" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

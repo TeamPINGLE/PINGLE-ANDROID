@@ -22,7 +22,7 @@ import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.PlanType
-import org.sopt.pingle.util.combineAll
+import org.sopt.pingle.util.flow.combineAll
 import org.sopt.pingle.util.view.UiState
 
 @HiltViewModel

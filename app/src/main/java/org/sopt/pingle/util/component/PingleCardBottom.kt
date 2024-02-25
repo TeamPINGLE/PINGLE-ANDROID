@@ -9,7 +9,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.BottomCardPingleBinding
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.mapper.isCompleted
-import org.sopt.pingle.util.convertToCalenderDetailWithNewLine
+import org.sopt.pingle.util.view.DateTimeUtils
 import org.sopt.pingle.util.view.stringOf
 
 @SuppressLint("CustomViewStyleable")
@@ -42,7 +42,7 @@ class PingleCardBottom @JvmOverloads constructor(
 
     fun initLayout(pingleEntity: PingleEntity) {
         with(binding) {
-            tvCardBottomCalenderDetail.text = convertToCalenderDetailWithNewLine(
+            tvCardBottomCalenderDetail.text = DateTimeUtils.convertToCalenderDetailWithNewLine(
                 date = pingleEntity.date,
                 startAt = pingleEntity.startAt,
                 endAt = pingleEntity.endAt

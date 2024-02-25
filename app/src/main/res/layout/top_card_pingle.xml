@@ -61,7 +61,6 @@
             android:layout_width="@dimen/card_participant_size"
             android:layout_height="0dp"
             android:background="@drawable/shape_oval"
-            android:backgroundTint="@color/g_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"

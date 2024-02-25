@@ -92,8 +92,11 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
 
     private fun navigateToNewGroupInfo() {
         Intent(this, NewGroupInfoActivity::class.java).apply {
-            putExtra("ActivityName", "NewGroupActivity")
-            startActivity(this)
+            startActivity(
+                this,
+                ActivityOptions.makeCustomAnimation(this@NewGroupActivity, R.anim.slide_up, 0)
+                    .toBundle()
+            )
         }
     }
 

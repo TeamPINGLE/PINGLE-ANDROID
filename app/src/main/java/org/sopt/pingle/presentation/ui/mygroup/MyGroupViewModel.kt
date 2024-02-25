@@ -1,8 +1,10 @@
 package org.sopt.pingle.presentation.ui.mygroup
 
 import android.util.Log
+import androidx.constraintlayout.widget.Group
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.GroupListEntity
@@ -22,16 +24,41 @@ class MyGroupViewModel @Inject constructor(
         Log.e("localStorage", localStorgae.code)
     }
 
+    private var _filteredGroupList = MutableStateFlow<List<GroupListEntity>>(emptyList())
+    val filteredGroupList get() = _filteredGroupList
+
+    private var _selectedMyGroup = MutableStateFlow<GroupListEntity?>(null)
+    val selectedMyGroup get() = _selectedMyGroup
+
+    // TODO 서버통신 List
+
     fun getGroupList() {
-        /* TODO 서버통신으로 단체리스트를 받아온 뒤 현재 localStorgae의 groupId과 같은 단체 탐색,
-        *   localStorage에 현재 단체를 저장하고 */
-        val selectedGroup = dummyGroupList.find {
-            it.name == localStorgae.groupName
-            // it.id == localStorgae.groupId }
-        }
-        selectedGroup?.let {
+        // TODO 서버통신
+        selectedMyGroup.value = dummyGroupList.find { it.id == localStorgae.groupId }
+        selectedMyGroup.value.let {
             with(localStorgae) {
-                // id랑 name은 joinGroupViewModel에서 저장되므로 생략
+                groupId = it!!.id
+                groupName = it!!.name
+                groupKeyword = it!!.keyword
+                meetingCount = it!!.meetingCount
+                participantCount = it!!.participantCount
+                isOwner = it!!.isOwner
+                code = it!!.code
+            }
+        }
+
+        _filteredGroupList.value = dummyGroupList.filterNot { it == selectedMyGroup.value }
+    }
+
+    fun changeGroupList(clickedPosition: Int) {
+        // _filteredGroupList의 clickedPosition에 해당하는 값을 localStorage에 저장하고,
+        // _filteredGroupList의 clickedPosition에 selectedMyGroup를 저장
+        // selectedMyGroup에는 localStorage에 저장된 값과 같은 GroupListEntity를 저장
+        val clickedGroup = _filteredGroupList.value.getOrNull(clickedPosition)
+        clickedGroup?.let {
+            with(localStorgae) {
+                groupId = it.id
+                groupName = it.name
                 groupKeyword = it.keyword
                 meetingCount = it.meetingCount
                 participantCount = it.participantCount
@@ -39,9 +66,8 @@ class MyGroupViewModel @Inject constructor(
                 code = it.code
             }
         }
-
-        val filteredGroupList = dummyGroupList.filterNot { it == selectedGroup }
-        // 데이터 업데이트
+        _selectedMyGroup.value = clickedGroup
+        _filteredGroupList.value = dummyGroupList.filterNot { it == selectedMyGroup.value }
     }
 
     fun getMyGroupIsOwner(): Boolean = localStorgae.isOwner

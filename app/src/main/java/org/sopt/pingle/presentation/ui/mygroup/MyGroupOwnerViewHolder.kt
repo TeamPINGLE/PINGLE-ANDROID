@@ -6,13 +6,14 @@ import org.sopt.pingle.domain.model.GroupListEntity
 
 class MyGroupOwnerViewHolder(
     private val binding: ItemMyGroupOwnerBinding,
-    private val groupOnClick: () -> Unit
+    private val groupOnClick: (Int) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(groupListEntity: GroupListEntity) {
         with(binding) {
             this.groupListEntity = groupListEntity
-            layoutMyGroupListOwner.setOnClickListener { groupOnClick() }
+            binding.tvMyGroupListOwnerName.text = groupListEntity.name
+            layoutMyGroupListOwner.setOnClickListener { groupOnClick(absoluteAdapterPosition) }
         }
     }
 }

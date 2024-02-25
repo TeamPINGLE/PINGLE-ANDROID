@@ -1,7 +1,7 @@
 package org.sopt.pingle.domain.model
 
 data class GroupListEntity(
-    val id: Int,
+    var id: Int,
     val keyword: String,
     val name: String,
     val meetingCount: String,

@@ -8,7 +8,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityMyGroupBinding
 import org.sopt.pingle.presentation.type.SnackbarType
@@ -23,12 +27,18 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
 
     private val viewModel by viewModels<MyGroupViewModel>()
     private lateinit var onBackPressed: OnBackPressedCallback
+    private lateinit var adapter: MyGroupAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.myGroupviewModel = viewModel
+        binding.lifecycleOwner = this
+
+        viewModel.Logging()
         initLayout()
         addListeners()
+        collectData()
         onBackPressedBtn()
     }
 
@@ -39,19 +49,15 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
 
     private fun initLayout() {
         checkMyGroupOwner()
+        viewModel.getGroupList()
 
         with(binding) {
             toolbar.text = getString(R.string.my_group_title)
-            // TODO chip 머지되면 text에 localStorage에 저장된 keyword 가져오기
-            tvMyGroupNowName.text = viewModel.getGroupName()
-            tvMyGroupNowMeetingCount.text =
-                getString(R.string.my_group_meeting_count, viewModel.getGroupMeetingCount())
-            tvMyGroupNowMemberCount.text =
-                getString(R.string.my_group_member_count, viewModel.getGroupParticipantCount())
+            // TODO chip 머지되면 text에 localStorage에 저장된 keyword 데바
 
-            val adapter = MyGroupAdapter(::showChangeGroupModal)
+            adapter = MyGroupAdapter(this@MyGroupActivity::showChangeGroupModal)
             rvMyGroupList.adapter = adapter
-            adapter.submitList(viewModel.dummyGroupList)
+            adapter.submitList(viewModel.filteredGroupList.value)
         }
     }
 
@@ -64,6 +70,12 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             layoutMyGroupMenuCopy.setOnClickListener { copyGroupCode() }
             layoutMyGroupMenuShare.setOnClickListener { shareGroupCode() }
         }
+    }
+
+    private fun collectData() {
+        viewModel.filteredGroupList.flowWithLifecycle(lifecycle).onEach { filteredList ->
+            adapter.submitList(filteredList)
+        }.launchIn(lifecycleScope)
     }
 
     private fun checkMyGroupOwner() {
@@ -86,27 +98,29 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         }
     }
 
-    private fun showChangeGroupModal() {
-        // TODO viewModel에서 Entity의 특정 position에 해당하는 값 가져와서 현재 단체랑 위치 바꾸기
+    private fun showChangeGroupModal(clickedPosition: Int) {
+        binding.layoutMyGroupMenu.visibility = View.INVISIBLE
         AllModalDialogFragment(
-            title = getString(R.string.my_group_modal_move_question, viewModel.getGroupName()),
+            title = getString(R.string.my_group_modal_move_question, viewModel.filteredGroupList.value[clickedPosition].name),
             detail = null,
             buttonText = getString(R.string.my_group_modal_change),
             textButtonText = getString(R.string.my_group_modal_back),
-            clickBtn = { chageToNewGroup() },
-            clickTextBtn = { }
+            clickBtn = { chageToNewGroup(clickedPosition) },
+            clickTextBtn = { },
         ).show(supportFragmentManager, CHANGE_MODAL)
     }
 
-    private fun chageToNewGroup() {
-        // TODO 서버통신으로 단체 get 해오고 현재 local에 저장된 것과 다른 경우만 리사이클러뷰 데이터로 업데이트
+    private fun chageToNewGroup(clickedPosition: Int) {
+        viewModel.changeGroupList(clickedPosition)
 
         PingleSnackbar.makeSnackbar(
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_chage_group_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE
+            snackbarType = SnackbarType.GUIDE,
         )
+
+        viewModel.Logging()
     }
 
     private fun copyGroupCode() {
@@ -118,7 +132,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE
+            snackbarType = SnackbarType.GUIDE,
         )
     }
 
@@ -129,7 +143,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             // TODO 기획에서 전달해준 템플릿 적용
             putExtra(
                 Intent.EXTRA_TEXT,
-                "핑글 앱을 다운받고, ${viewModel.getGroupName()} 사람들을 만나보세요!\n\n$PINGLE_SHARE_CODE ${viewModel.getGroupCode()} \n\n $PINGLE_PLAY_STORE_LINK"
+                "핑글 앱을 다운받고, ${viewModel.getGroupName()} 사람들을 만나보세요!\n\n$PINGLE_SHARE_CODE ${viewModel.getGroupCode()} \n\n $PINGLE_PLAY_STORE_LINK",
             )
         }
         startActivity(Intent.createChooser(intent, null))

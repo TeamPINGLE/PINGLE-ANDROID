@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import org.sopt.pingle.databinding.FragmentHomeBinding
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
+import org.sopt.pingle.presentation.ui.search.SearchActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.PingleChip
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter
@@ -56,6 +58,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun addListeners() {
         with(binding) {
+            ivHomeSearch.setOnClickListener {
+                navigateToSearch()
+            }
+
             cgHomeCategory.setOnCheckedStateChangeListener { group, checkedIds ->
                 homeViewModel.setCategory(
                     category = checkedIds.getOrNull(SINGLE_SELECTION)
@@ -114,6 +120,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     }
                 }
             })
+        }
+    }
+
+    private fun navigateToSearch() {
+        Intent(requireContext(), SearchActivity::class.java).apply {
+            startActivity(this)
         }
     }
 

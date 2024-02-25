@@ -5,12 +5,14 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
+
         <variable
             name="localStorage"
             type="org.sopt.pingle.data.datasource.local.PingleLocalDataSource" />
+
         <variable
-            name="myGroupMenuState"
+            name="myGroupviewModel"
             type="org.sopt.pingle.presentation.ui.mygroup.MyGroupViewModel" />
     </data>
 
@@ -90,6 +92,7 @@
                 android:layout_marginTop="@dimen/spacing10"
                 android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
                 android:textColor="@color/white"
+                android:text="@{myGroupviewModel.groupName}"
                 app:layout_constraintEnd_toStartOf="@id/gl_now_end"
                 app:layout_constraintStart_toEndOf="@id/gl_now_start"
                 app:layout_constraintTop_toBottomOf="@id/badge_my_group_category"
@@ -111,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/spacing18"
-                android:text="@string/my_group_meeting_count"
+                android:text="@{@string/my_group_meeting_count(myGroupviewModel.groupMeetingCount)}"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                 android:textColor="@color/g_03"
                 app:layout_constraintBottom_toBottomOf="@id/tv_my_group_now_meeting"
@@ -123,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="45dp"
-                android:text="@string/my_group_meeting_count"
+                android:text="@{@string/my_group_meeting_count(myGroupviewModel.groupParticipantCount)}"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                 android:textColor="@color/g_03"
                 app:layout_constraintBottom_toBottomOf="@id/tv_my_group_now_member"
@@ -207,9 +210,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginEnd="7dp"
-            android:visibility="invisible"
             android:background="@color/g_10"
             android:foreground="@drawable/shape_line_g_09_radius_8"
+            android:visibility="invisible"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintTop_toBottomOf="@id/iv_my_group_now_menu">
 
@@ -227,11 +230,11 @@
                     android:id="@+id/tv_my_group_menu_chat"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/spacing10"
                     android:text="@string/my_group_menu_copy"
                     android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                     android:textColor="@color/g_03"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginEnd="@dimen/spacing10"
                     app:layout_constraintEnd_toStartOf="@id/iv_my_group_menu_copy"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

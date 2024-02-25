@@ -38,8 +38,8 @@ class HomeViewModel @Inject constructor(
     private val _homeViewType = MutableStateFlow<HomeViewType>(HomeViewType.MAP)
     val homeViewType get() = _homeViewType.asStateFlow()
 
-    private var _searchWord = ""
-    val searchWord get() = _searchWord
+    private var _searchWord = MutableStateFlow("")
+    val searchWord get() = _searchWord.asStateFlow()
 
     private val _pinEntityListState = MutableStateFlow<UiState<List<PinEntity>>>(UiState.Empty)
     val pinEntityListState get() = _pinEntityListState.asStateFlow()
@@ -75,11 +75,11 @@ class HomeViewModel @Inject constructor(
     }
 
     fun setSearchWord(searchWord: String) {
-        _searchWord = searchWord
+        _searchWord.value= searchWord
     }
 
     fun clearSearchWord() {
-        _searchWord = ""
+        _searchWord.value = ""
     }
 
     private fun setMarkerModelListIsSelected(position: Int) {

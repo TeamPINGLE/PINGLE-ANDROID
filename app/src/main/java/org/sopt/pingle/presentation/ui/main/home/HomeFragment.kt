@@ -1,8 +1,11 @@
 package org.sopt.pingle.presentation.ui.main.home
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -13,11 +16,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentHomeBinding
+import org.sopt.pingle.presentation.model.SearchModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.HomeViewType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
 import org.sopt.pingle.presentation.ui.search.SearchActivity
+import org.sopt.pingle.presentation.ui.search.SearchActivity.Companion.SEARCH_WORD
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.PingleChip
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter
@@ -27,6 +32,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private val homeViewModel: HomeViewModel by activityViewModels()
     private lateinit var fragmentList: ArrayList<Fragment>
     private lateinit var fragmentStateAdapter: PingleFragmentStateAdapter
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,6 +41,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         addListeners()
         collectData()
         setFragmentStateAdapter()
+        setResultLauncher()
     }
 
     private fun initLayout() {
@@ -55,7 +62,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             tvHomeGroup.text = homeViewModel.getGroupName()
 
             with(pingleSearchHomeSearch.binding.etSearchPingleEditText) {
-                setText(homeViewModel.searchWord)
                 isFocusable = false
                 setOnClickListener {
                     navigateToSearch()
@@ -65,13 +71,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             pingleSearchHomeSearch.binding.ivSearchPingleClear.setOnClickListener {
                 homeViewModel.clearSearchWord()
                 navigateToSearch()
-            }
-
-            (homeViewModel.searchWord.isBlank()).let { isNotSearching ->
-                pingleSearchHomeSearch.visibility =
-                    if (isNotSearching) View.GONE else View.VISIBLE
-                tvHomeGroup.visibility = if (isNotSearching) View.VISIBLE else View.GONE
-                ivHomeSearch.visibility = if (isNotSearching) View.VISIBLE else View.GONE
             }
         }
     }
@@ -90,8 +89,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             }
 
             fabHomeChange.setOnClickListener {
-                with(homeViewModel){
-                    when(homeViewType.value) {
+                with(homeViewModel) {
+                    when (homeViewType.value) {
                         HomeViewType.MAP -> setHomeViewType(HomeViewType.MAIN_LIST)
                         HomeViewType.MAIN_LIST -> setHomeViewType(HomeViewType.MAP)
                     }
@@ -108,11 +107,26 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         homeViewModel.homeViewType.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach {
-        with(binding) {
-            vpHome.setCurrentItem(homeViewModel.homeViewType.value.index, false)
-            fabHomeChange.setImageResource(homeViewModel.homeViewType.value.fabDrawableRes)
-        }
+            with(binding) {
+                vpHome.setCurrentItem(homeViewModel.homeViewType.value.index, false)
+                fabHomeChange.setImageResource(homeViewModel.homeViewType.value.fabDrawableRes)
+            }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { searchWord ->
+                with(binding) {
+                    pingleSearchHomeSearch.binding.etSearchPingleEditText.setText(homeViewModel.searchWord.value)
+
+                    (searchWord.isBlank()).let { isNotSearching ->
+                        pingleSearchHomeSearch.visibility =
+                            if (isNotSearching) View.GONE else View.VISIBLE
+                        tvHomeGroup.visibility = if (isNotSearching) View.VISIBLE else View.GONE
+                        ivHomeSearch.visibility = if (isNotSearching) View.VISIBLE else View.GONE
+                    }
+                }
+
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { markerModelData ->
@@ -138,15 +152,32 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         }
     }
 
+    private fun setResultLauncher() {
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
+                if (activityResult.resultCode == RESULT_OK) {
+                    homeViewModel.setSearchWord(
+                        activityResult.data?.getStringExtra(SEARCH_WORD) ?: ""
+                    )
+                }
+            }
+    }
+
     private fun navigateToSearch() {
         Intent(requireContext(), SearchActivity::class.java).apply {
-            startActivity(this)
+            putExtra(
+                SEARCH_MODEL,
+                SearchModel(
+                    homeViewType = homeViewModel.homeViewType.value,
+                    searchWord = homeViewModel.searchWord.value
+                )
+            )
+            resultLauncher.launch(this)
         }
     }
 
     companion object {
         private const val SINGLE_SELECTION = 0
-        const val MAP_INDEX = 0
-        const val MAIN_LIST_INDEX = 1
+        const val SEARCH_MODEL = "searchModel"
     }
 }

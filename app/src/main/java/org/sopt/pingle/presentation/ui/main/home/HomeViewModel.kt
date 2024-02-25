@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.main.home.map
+package org.sopt.pingle.presentation.ui.main.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,7 +22,7 @@ import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.view.UiState
 
 @HiltViewModel
-class MapViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val localStorage: PingleLocalDataSource,
     private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase,
     private val getPingleListUseCase: GetPingleListUseCase,
@@ -55,16 +55,16 @@ class MapViewModel @Inject constructor(
     private val _pingleDeleteState = MutableSharedFlow<UiState<Unit?>>()
     val pingleDeleteState get() = _pingleDeleteState.asSharedFlow()
 
+    fun setCategory(category: CategoryType?) {
+        _category.value = category
+    }
+
     private fun setMarkerModelListIsSelected(position: Int) {
         _markerModelData.value.second[position].isSelected.set(!_markerModelData.value.second[position].isSelected.get())
     }
 
     private fun getMarkerModelSelected(position: Int) =
         _markerModelData.value.second[position].isSelected.get()
-
-    fun setCategory(category: CategoryType?) {
-        _category.value = category
-    }
 
     fun clearMarkerModelData() {
         _markerModelData.value.second.forEach { it.marker.map = null }
@@ -104,6 +104,8 @@ class MapViewModel @Inject constructor(
                 Pair(DEFAULT_SELECTED_MARKER_POSITION, _markerModelData.value.second)
         }
     }
+
+    fun getGroupName(): String = localStorage.groupName
 
     fun getPinListWithoutFilter() {
         viewModelScope.launch {

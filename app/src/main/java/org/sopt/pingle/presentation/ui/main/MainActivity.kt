@@ -9,6 +9,7 @@ import androidx.fragment.app.replace
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityMainBinding
+import org.sopt.pingle.presentation.ui.main.home.HomeFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
 import org.sopt.pingle.presentation.ui.main.more.MoreFragment
 import org.sopt.pingle.presentation.ui.main.mypingle.MyPingleFragment
@@ -43,7 +44,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     private fun initBnvMainAllNaviItemSelectedListener() {
         binding.bnvMainAllNavi.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.menu_all_navi_home -> navigateToFragment<MapFragment>()
+                R.id.menu_all_navi_home -> navigateToFragment<HomeFragment>()
                 R.id.menu_all_navi_ranking -> navigateToFragment<RankingFragment>()
                 R.id.menu_all_navi_plan -> navigateToPlanAnnouncement()
                 R.id.menu_all_navi_mypingle -> navigateToFragment<MyPingleFragment>()

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_card_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_card_bottom_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_all_calendar_24"
+            app:layout_constraintStart_toStartOf="@id/btn_card_bottom_map_chat"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_card_bottom_calender_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pingle_card_calender"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+            android:textColor="@color/g_01"
+            app:layout_constraintBottom_toBottomOf="@id/iv_card_bottom_calendar"
+            app:layout_constraintStart_toEndOf="@id/iv_card_bottom_calendar"
+            app:layout_constraintTop_toTopOf="@id/iv_card_bottom_calendar" />
+
+        <TextView
+            android:id="@+id/tv_card_bottom_calender_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="47dp"
+            android:layout_marginEnd="8dp"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+            android:textColor="@color/g_03"
+            app:layout_constraintEnd_toEndOf="@id/btn_card_bottom_map_participate"
+            app:layout_constraintStart_toEndOf="@id/tv_card_bottom_calender_title"
+            app:layout_constraintTop_toTopOf="@id/iv_card_bottom_calendar"
+            tools:text="2023년 12월 31일\n00:00~00:00" />
+
+        <ImageView
+            android:id="@+id/iv_card_bottom_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:src="@drawable/ic_all_map_24"
+            app:layout_constraintStart_toStartOf="@id/iv_card_bottom_calendar"
+            app:layout_constraintTop_toBottomOf="@id/tv_card_bottom_calender_detail" />
+
+        <TextView
+            android:id="@+id/tv_card_bottom_map_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pingle_card_map"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+            android:textColor="@color/g_01"
+            app:layout_constraintBottom_toBottomOf="@id/iv_card_bottom_map"
+            app:layout_constraintStart_toEndOf="@id/iv_card_bottom_map"
+            app:layout_constraintTop_toTopOf="@id/iv_card_bottom_map" />
+
+        <TextView
+            android:id="@+id/tv_card_bottom_map_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+            android:textColor="@color/g_03"
+            app:layout_constraintEnd_toEndOf="@id/tv_card_bottom_calender_detail"
+            app:layout_constraintStart_toStartOf="@id/tv_card_bottom_calender_detail"
+            app:layout_constraintTop_toTopOf="@id/tv_card_bottom_map_title"
+            tools:text="햐얀집 2호점" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_card_bottom_map_chat"
+            style="@style/Theme.Pingle.Button.S"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="11dp"
+            android:text="@string/pingle_card_chat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_card_bottom_map_participate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_card_bottom_map" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_card_bottom_map_participate"
+            style="@style/Theme.Pingle.Button.M"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/selector_pingle_btn_m"
+            android:textColor="@color/g_11"
+            app:layout_constraintBottom_toBottomOf="@id/btn_card_bottom_map_chat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_card_bottom_map_chat"
+            app:layout_constraintTop_toTopOf="@id/btn_card_bottom_map_chat"
+            tools:text="참여하기" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -15,17 +15,17 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.MyPingleType
+import org.sopt.pingle.presentation.ui.main.home.map.MapFragment.Companion.MEETING_ID
 import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
-import org.sopt.pingle.util.component.PingleCard.Companion.MEETING_ID
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
 class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragment_my_pingle) {
     private val viewModel by viewModels<MyPingleViewModel>()
-    private lateinit var myPingleAdapter: MyPingleAdatper
+    private lateinit var myPingleAdapter: MyPingleAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,8 +41,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     }
 
     private fun initLayout() {
-        myPingleAdapter = MyPingleAdatper(
-            requireContext(),
+        myPingleAdapter = MyPingleAdapter(
             showCancelModalDialogFragment = ::showCancelModalDialogFragment,
             showDeleteModalDialogFragment = ::showDeleteModalDialogFragment,
             updateMyPingleListSelectedPosition = ::updateMyPingleListSelectedPosition,
@@ -122,7 +121,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             textButtonText = stringOf(R.string.delete_modal_text_button_text),
             clickBtn = { viewModel.deletePingleDelete(meetingId = myPingleEntity.id.toLong()) },
             clickTextBtn = {}
-        ).show(childFragmentManager, MY_PINGEL_DELETE_MODAL)
+        ).show(childFragmentManager, MY_PINGLE_DELETE_MODAL)
     }
 
     private fun updateMyPingleListSelectedPosition(position: Int) {
@@ -142,6 +141,6 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
 
     companion object {
         const val MY_PINGLE_CANCEL_MODAL = "MyPingleCancelModal"
-        const val MY_PINGEL_DELETE_MODAL = "MyPingelDeleteModal"
+        const val MY_PINGLE_DELETE_MODAL = "MyPingleDeleteModal"
     }
 }

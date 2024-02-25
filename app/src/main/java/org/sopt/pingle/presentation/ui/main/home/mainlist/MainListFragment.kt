@@ -71,10 +71,28 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
         binding.rvMainList.adapter = mainListAdapter
         mainListAdapter.submitList(homeViewModel.dummyPingleList)
 
+        (homeViewModel.searchWord.isBlank()).let { isNotSearching ->
+            with(binding.tvMainListSearchCount) {
+                visibility = if (isNotSearching) View.GONE else View.VISIBLE
+                layoutParams = (this.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    topMargin =
+                        (if (isNotSearching) SEARCH_COUNT_TOP_MARGIN_WHEN_NOT_SEARCHING else SEARCH_COUNT_TOP_MARGIN_WHEN_SEARCHING).toPx()
+                }
+                text = getString(
+                    R.string.main_list_search_count,
+                    homeViewModel.dummyPingleList.size
+                )
+            }
+
+            binding.tvMainListEmpty.text =
+                if (isNotSearching) stringOf(R.string.main_list_empty_pingle) else stringOf(
+                    R.string.main_list_empty_search
+                )
+        }
+
         // TODO 서버통신 구현 후 collectData 함수로 해당 로직 이동
         with(homeViewModel.dummyPingleList) {
             binding.tvMainListEmpty.visibility = if (isEmpty()) View.VISIBLE else View.INVISIBLE
-            binding.tvMainListEmpty.text = stringOf(R.string.main_list_empty_pingle)
         }
     }
 
@@ -100,27 +118,12 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                 )
                 layoutMainListOrderMenu.visibility = View.INVISIBLE
             }
+
+
         }
     }
 
     private fun collectData() {
-        homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { searchWord ->
-                (searchWord.isBlank()).let { isNotSearching ->
-                    with(binding.tvMainListSearchCount) {
-                        visibility = if (isNotSearching) View.GONE else View.VISIBLE
-                        layoutParams = (this.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                            topMargin =
-                                (if (isNotSearching) SEARCH_COUNT_TOP_MARGIN_WHEN_NOT_SEARCHING else SEARCH_COUNT_TOP_MARGIN_WHEN_SEARCHING).toPx()
-                        }
-                        text = getString(
-                            R.string.main_list_search_count,
-                            homeViewModel.dummyPingleList.size
-                        )
-                    }
-                }
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
-
         homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { mainListOrderType ->
                 binding.tvMainListOrderType.text =

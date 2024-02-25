@@ -107,12 +107,12 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
     private fun collectData() {
         homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { searchWord ->
-                (searchWord.isBlank()).let { isNotSearching ->
+                (searchWord.isNotBlank()).let { isSearching ->
                     with(binding.tvMainListSearchCount) {
-                        visibility = if (isNotSearching) View.INVISIBLE else View.VISIBLE
+                        visibility = if (isSearching) View.VISIBLE else View.INVISIBLE
                         layoutParams = (this.layoutParams as ViewGroup.MarginLayoutParams).apply {
                             topMargin =
-                                (if (isNotSearching) SEARCH_COUNT_TOP_MARGIN_WHEN_NOT_SEARCHING else SEARCH_COUNT_TOP_MARGIN_WHEN_SEARCHING).toPx()
+                                (if (isSearching) SEARCH_COUNT_TOP_MARGIN_WHEN_SEARCHING else SEARCH_COUNT_TOP_MARGIN_WHEN_NOT_SEARCHING).toPx()
                         }
                         text = getString(
                             R.string.main_list_search_count,
@@ -121,8 +121,8 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                     }
 
                     binding.tvMainListEmpty.text =
-                        if (isNotSearching) stringOf(R.string.main_list_empty_pingle) else stringOf(
-                            R.string.main_list_empty_search
+                        if (isSearching) stringOf(R.string.main_list_empty_search) else stringOf(
+                            R.string.main_list_empty_pingle
                         )
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)

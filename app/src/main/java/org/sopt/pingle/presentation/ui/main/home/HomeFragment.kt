@@ -118,11 +118,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 with(binding) {
                     pingleSearchHomeSearch.binding.etSearchPingleEditText.setText(homeViewModel.searchWord.value)
 
-                    (searchWord.isBlank()).let { isNotSearching ->
+                    (searchWord.isNotBlank()).let { isSearching ->
                         pingleSearchHomeSearch.visibility =
-                            if (isNotSearching) View.GONE else View.VISIBLE
-                        tvHomeGroup.visibility = if (isNotSearching) View.VISIBLE else View.GONE
-                        ivHomeSearch.visibility = if (isNotSearching) View.VISIBLE else View.GONE
+                            if (isSearching) View.VISIBLE else View.GONE
+                        tvHomeGroup.visibility = if (isSearching) View.GONE else View.VISIBLE
+                        ivHomeSearch.visibility = if (isSearching) View.GONE else View.VISIBLE
                     }
                 }
 

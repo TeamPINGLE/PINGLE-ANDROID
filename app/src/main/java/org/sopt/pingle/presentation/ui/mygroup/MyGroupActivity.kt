@@ -106,7 +106,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             buttonText = getString(R.string.my_group_modal_change),
             textButtonText = getString(R.string.my_group_modal_back),
             clickBtn = { chageToNewGroup(clickedPosition) },
-            clickTextBtn = { },
+            clickTextBtn = { }
         ).show(supportFragmentManager, CHANGE_MODAL)
     }
 
@@ -117,7 +117,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_chage_group_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE,
+            snackbarType = SnackbarType.GUIDE
         )
 
         viewModel.Logging()
@@ -132,7 +132,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE,
+            snackbarType = SnackbarType.GUIDE
         )
     }
 
@@ -143,7 +143,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             // TODO 기획에서 전달해준 템플릿 적용
             putExtra(
                 Intent.EXTRA_TEXT,
-                "핑글 앱을 다운받고, ${viewModel.getGroupName()} 사람들을 만나보세요!\n\n$PINGLE_SHARE_CODE ${viewModel.getGroupCode()} \n\n $PINGLE_PLAY_STORE_LINK",
+                "핑글 앱을 다운받고, ${viewModel.getGroupName()} 사람들을 만나보세요!\n\n$PINGLE_SHARE_CODE ${viewModel.getGroupCode()} \n\n $PINGLE_PLAY_STORE_LINK"
             )
         }
         startActivity(Intent.createChooser(intent, null))

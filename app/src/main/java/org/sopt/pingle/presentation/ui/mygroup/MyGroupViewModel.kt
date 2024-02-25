@@ -1,11 +1,10 @@
 package org.sopt.pingle.presentation.ui.mygroup
 
 import android.util.Log
-import androidx.constraintlayout.widget.Group
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.GroupListEntity
 

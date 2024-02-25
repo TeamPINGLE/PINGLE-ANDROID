@@ -30,7 +30,7 @@ class NewGroupAnnouncementActivity :
     }
 
     private fun navigateToNewGroupShare() {
-        Intent(this, NewGroupShareActivity::class.java).apply {
+        Intent(this, NewGroupCodeShareActivity::class.java).apply {
             startActivity(this)
         }
     }

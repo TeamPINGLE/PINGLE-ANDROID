@@ -293,7 +293,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             visibility="@{myPingleEntity.isSelected()}"
-            android:background="@color/g_10"
+            android:background="@drawable/shape_border_radius_8"
+            android:backgroundTint="@color/g_10"
             android:foreground="@drawable/shape_line_g_09_radius_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_my_pingle_edit">

@@ -2,6 +2,7 @@ package org.sopt.pingle.presentation.ui.main.home.mainlist
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +16,7 @@ import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
+import org.sopt.pingle.util.toPx
 import org.sopt.pingle.util.view.PingleCardUtils
 
 @AndroidEntryPoint
@@ -102,10 +104,32 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
     }
 
     private fun collectData() {
+        homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { searchWord ->
+                (searchWord.isBlank()).let { isNotSearching ->
+                    with(binding.tvMainListSearchCount) {
+                        visibility = if (isNotSearching) View.GONE else View.VISIBLE
+                        layoutParams = (this.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                            topMargin =
+                                (if (isNotSearching) SEARCH_COUNT_TOP_MARGIN_WHEN_NOT_SEARCHING else SEARCH_COUNT_TOP_MARGIN_WHEN_SEARCHING).toPx()
+                        }
+                        text = getString(
+                            R.string.main_list_search_count,
+                            homeViewModel.dummyPingleList.size
+                        )
+                    }
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
         homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { mainListOrderType ->
                 binding.tvMainListOrderType.text =
                     stringOf(mainListOrderType.mainListOrderStringRes)
             }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    companion object {
+        private const val SEARCH_COUNT_TOP_MARGIN_WHEN_NOT_SEARCHING = 127
+        private const val SEARCH_COUNT_TOP_MARGIN_WHEN_SEARCHING = 147
     }
 }

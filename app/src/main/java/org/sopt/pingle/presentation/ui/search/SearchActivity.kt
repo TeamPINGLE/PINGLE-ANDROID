@@ -15,12 +15,12 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
     }
 
     private fun initLayout() {
-        binding.pingleSearchSearch.editText.requestFocus()
+        binding.pingleSearchSearch.binding.etSearchPingleEditText.requestFocus()
     }
 
     private fun addListeners() {
         binding.root.setOnClickListener {
-            hideKeyboard(binding.pingleSearchSearch.editText)
+            hideKeyboard(binding.pingleSearchSearch.binding.etSearchPingleEditText)
         }
     }
 }

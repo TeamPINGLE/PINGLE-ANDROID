@@ -19,6 +19,7 @@ import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.MainListOrderType
+import org.sopt.pingle.presentation.type.HomeViewType
 import org.sopt.pingle.util.view.UiState
 import javax.inject.Inject
 
@@ -33,6 +34,9 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
+
+    private val _homeViewType = MutableStateFlow<HomeViewType>(HomeViewType.MAP)
+    val homeViewType get() = _homeViewType.asStateFlow()
 
     private var _searchWord = ""
     val searchWord get() = _searchWord
@@ -64,6 +68,10 @@ class HomeViewModel @Inject constructor(
 
     fun setCategory(category: CategoryType?) {
         _category.value = category
+    }
+
+    fun setHomeViewType(homeViewType: HomeViewType) {
+        _homeViewType.value = homeViewType
     }
 
     fun setSearchWord(searchWord: String) {

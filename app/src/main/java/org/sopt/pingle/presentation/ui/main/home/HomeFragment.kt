@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -15,6 +14,7 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentHomeBinding
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.type.HomeViewType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
 import org.sopt.pingle.presentation.ui.search.SearchActivity
@@ -63,6 +63,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             }
 
             pingleSearchHomeSearch.binding.ivSearchPingleClear.setOnClickListener {
+                homeViewModel.clearSearchWord()
                 navigateToSearch()
             }
 
@@ -89,14 +90,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             }
 
             fabHomeChange.setOnClickListener {
-                vpHome.setCurrentItem(
-                    when (vpHome.currentItem) {
-                        MAP_INDEX -> MAIN_LIST_INDEX
-                        MAIN_LIST_INDEX -> MAP_INDEX
-                        else -> vpHome.currentItem
-                    },
-                    false
-                )
+                with(homeViewModel){
+                    when(homeViewType.value) {
+                        HomeViewType.MAP -> setHomeViewType(HomeViewType.MAIN_LIST)
+                        HomeViewType.MAIN_LIST -> setHomeViewType(HomeViewType.MAP)
+                    }
+                }
             }
         }
     }
@@ -107,6 +106,13 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             .onEach {
                 homeViewModel.getPinListWithoutFilter()
             }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        homeViewModel.homeViewType.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach {
+        with(binding) {
+            vpHome.setCurrentItem(homeViewModel.homeViewType.value.index, false)
+            fabHomeChange.setImageResource(homeViewModel.homeViewType.value.fabDrawableRes)
+        }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { markerModelData ->
@@ -129,16 +135,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         with(binding.vpHome) {
             adapter = fragmentStateAdapter
             isUserInputEnabled = false
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    with(binding) {
-                        (vpHome.currentItem == MAP_INDEX).let { isMap ->
-                            fabHomeChange.setImageResource(if (isMap) R.drawable.ic_map_list_24 else R.drawable.ic_map_map_24)
-                        }
-                    }
-                }
-            })
         }
     }
 

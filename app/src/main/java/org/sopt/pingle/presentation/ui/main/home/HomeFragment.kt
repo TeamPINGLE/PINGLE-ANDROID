@@ -125,7 +125,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                         ivHomeSearch.visibility = if (isSearching) View.GONE else View.VISIBLE
                     }
                 }
-
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)

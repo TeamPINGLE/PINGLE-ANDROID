@@ -99,8 +99,6 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                 )
                 layoutMainListOrderMenu.visibility = View.INVISIBLE
             }
-
-
         }
     }
 
@@ -121,9 +119,13 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                     }
 
                     binding.tvMainListEmpty.text =
-                        if (isSearching) stringOf(R.string.main_list_empty_search) else stringOf(
-                            R.string.main_list_empty_pingle
-                        )
+                        if (isSearching) {
+                            stringOf(R.string.main_list_empty_search)
+                        } else {
+                            stringOf(
+                                R.string.main_list_empty_pingle
+                            )
+                        }
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 

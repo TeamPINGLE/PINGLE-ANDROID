@@ -17,7 +17,8 @@ enum class HomeViewType(
         searchDescriptionRes = R.string.home_view_map_search_description
     ),
     MAIN_LIST(
-        index = 1, fabDrawableRes = R.drawable.ic_map_map_24,
+        index = 1,
+        fabDrawableRes = R.drawable.ic_map_map_24,
         searchHintRes = R.string.home_view_main_list_search_hint,
         searchDescriptionRes = R.string.home_view_main_list_search_description
     )

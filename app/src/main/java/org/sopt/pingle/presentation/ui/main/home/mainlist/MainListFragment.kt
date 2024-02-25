@@ -73,7 +73,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
 
         (homeViewModel.searchWord.isBlank()).let { isNotSearching ->
             with(binding.tvMainListSearchCount) {
-                visibility = if (isNotSearching) View.GONE else View.VISIBLE
+                visibility = if (isNotSearching) View.INVISIBLE else View.VISIBLE
                 layoutParams = (this.layoutParams as ViewGroup.MarginLayoutParams).apply {
                     topMargin =
                         (if (isNotSearching) SEARCH_COUNT_TOP_MARGIN_WHEN_NOT_SEARCHING else SEARCH_COUNT_TOP_MARGIN_WHEN_SEARCHING).toPx()

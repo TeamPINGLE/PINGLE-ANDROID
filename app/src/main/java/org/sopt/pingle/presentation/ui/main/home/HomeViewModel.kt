@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.main.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -21,6 +20,7 @@ import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.MainListOrderType
 import org.sopt.pingle.util.view.UiState
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -33,6 +33,9 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
+
+    private val _searchWord = MutableStateFlow("")
+    val searchWord get() = _searchWord.asStateFlow()
 
     private val _pinEntityListState = MutableStateFlow<UiState<List<PinEntity>>>(UiState.Empty)
     val pinEntityListState get() = _pinEntityListState.asStateFlow()
@@ -56,11 +59,15 @@ class HomeViewModel @Inject constructor(
     private val _pingleDeleteState = MutableSharedFlow<UiState<Unit?>>()
     val pingleDeleteState get() = _pingleDeleteState.asSharedFlow()
 
-    private val _mainListOrderType = MutableStateFlow<MainListOrderType>(MainListOrderType.NEW)
+    private val _mainListOrderType = MutableStateFlow(MainListOrderType.NEW)
     val mainListOrderType get() = _mainListOrderType.asStateFlow()
 
     fun setCategory(category: CategoryType?) {
         _category.value = category
+    }
+
+    fun setSearchWord(searchWord: String) {
+        _searchWord.value = searchWord
     }
 
     private fun setMarkerModelListIsSelected(position: Int) {

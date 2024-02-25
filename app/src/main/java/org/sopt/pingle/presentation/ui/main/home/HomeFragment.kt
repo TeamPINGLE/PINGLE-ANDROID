@@ -89,6 +89,20 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 homeViewModel.getPinListWithoutFilter()
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
+        homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { searchWord ->
+                with(binding) {
+                    pingleSearchHomeSearch.editText.setText(searchWord)
+
+                    (searchWord.isBlank()).let { isNotSearching ->
+                        pingleSearchHomeSearch.visibility =
+                            if (isNotSearching) View.GONE else View.VISIBLE
+                        tvHomeGroup.visibility = if (isNotSearching) View.VISIBLE else View.GONE
+                        ivHomeSearch.visibility = if (isNotSearching) View.VISIBLE else View.GONE
+                    }
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
         homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { markerModelData ->
                 (markerModelData.first == HomeViewModel.DEFAULT_SELECTED_MARKER_POSITION).let { isMarkerUnselected ->

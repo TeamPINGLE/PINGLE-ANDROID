@@ -18,6 +18,12 @@
     <string name="main_list_order_new">최신순</string>
     <string name="main_list_order_upcoming">날짜임박순</string>
 
+    <!-- home view Type -->
+    <string name="home_view_map_search_hint">장소 이름 검색</string>
+    <string name="home_view_main_list_search_hint">핑글 이름, 장소 이름 검색</string>
+    <string name="home_view_map_search_description">지도</string>
+    <string name="home_view_main_list_search_description">리스트</string>
+
     <!--  all navi title -->
     <string name="all_navi_home">홈</string>
     <string name="all_navi_ranking">랭킹</string>
@@ -208,6 +214,5 @@
     <string name="participant_owner">개최자</string>
 
     <!-- search -->
-    <string name="search_search_bar_hint">핑글 이름, 장소 이름 검색</string>
-    <string name="search_description">원하는 핑글을 검색해보세요!</string>
+    <string name="search_description">원하는 핑글을 %s에서 찾아보세요!</string>
 </resources>

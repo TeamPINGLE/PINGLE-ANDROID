@@ -54,7 +54,17 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
             tvHomeGroup.text = homeViewModel.getGroupName()
 
-            pingleSearchHomeSearch.editText.setText(homeViewModel.searchWord)
+            with(pingleSearchHomeSearch.binding.etSearchPingleEditText) {
+                setText(homeViewModel.searchWord)
+                isFocusable = false
+                setOnClickListener {
+                    navigateToSearch()
+                }
+            }
+
+            pingleSearchHomeSearch.binding.ivSearchPingleClear.setOnClickListener {
+                navigateToSearch()
+            }
 
             (homeViewModel.searchWord.isBlank()).let { isNotSearching ->
                 pingleSearchHomeSearch.visibility =

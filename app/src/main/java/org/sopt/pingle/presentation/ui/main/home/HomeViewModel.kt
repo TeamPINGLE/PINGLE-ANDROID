@@ -70,6 +70,10 @@ class HomeViewModel @Inject constructor(
         _searchWord = searchWord
     }
 
+    fun clearSearchWord() {
+        _searchWord = ""
+    }
+
     private fun setMarkerModelListIsSelected(position: Int) {
         _markerModelData.value.second[position].isSelected.set(!_markerModelData.value.second[position].isSelected.get())
     }

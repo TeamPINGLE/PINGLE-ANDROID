@@ -6,14 +6,14 @@
         <attr name="pingleEditTextMaxLength" format="integer" />
         <attr name="pingleEditTextFocusable" format="boolean" />
         <attr name="pingleEditTextCheckVisibility" format="enum">
-            <enum name="visible" value="1" />
-            <enum name="invisible" value="2" />
-            <enum name="gone" value="3" />
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
         </attr>
         <attr name="pingleEditTextCopyVisibility" format="enum">
-            <enum name="visible" value="1" />
-            <enum name="invisible" value="2" />
-            <enum name="gone" value="3" />
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
         </attr>
     </declare-styleable>
 

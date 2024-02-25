@@ -42,18 +42,12 @@ class NewGroupAnnouncementActivity :
         }
     }
 
-    private fun navigateToNewGroup() {
-        Intent(this, NewGroupActivity::class.java).apply {
-            startActivity(this)
-        }
-    }
-
     private fun onBackPressedCallBack() {
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    navigateToNewGroup()
+                    navigateToHome()
                     finish()
                 }
             }

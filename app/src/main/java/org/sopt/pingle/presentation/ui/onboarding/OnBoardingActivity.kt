@@ -25,9 +25,7 @@ class OnBoardingActivity :
         }
 
         binding.includeOnboardingGroupNew.root.setOnClickListener {
-            Intent(this, NewGroupActivity::class.java).apply {
-                startActivity(this)
-            }
+            navigateToNewGroup()
         }
     }
 
@@ -37,8 +35,9 @@ class OnBoardingActivity :
         }
     }
 
-    companion object {
-        const val NEW_GROUP_LINK =
-            "https://docs.google.com/forms/d/10WxvEzSVRrRvRGXsYf9Z5oXv4HsNuAwG2QicB4bY0aY/edit"
+    private fun navigateToNewGroup() {
+        Intent(this, NewGroupActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 }

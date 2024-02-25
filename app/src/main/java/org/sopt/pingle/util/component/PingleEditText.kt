@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.EditTextPingleBinding
+import org.sopt.pingle.util.type.Visibility
 
 @SuppressLint("CustomViewStyleable")
 class PingleEditText @JvmOverloads constructor(
@@ -63,9 +64,9 @@ class PingleEditText @JvmOverloads constructor(
     }
 
     private fun visibility(visibilityValue: Int) = when (visibilityValue) {
-        1 -> View.VISIBLE
-        2 -> View.INVISIBLE
-        3 -> View.GONE
+        Visibility.VISIBLE.ordinal -> View.VISIBLE
+        Visibility.INVISIBLE.ordinal -> View.INVISIBLE
+        Visibility.GONE.ordinal -> View.GONE
         else -> View.GONE
     }
 }

@@ -65,15 +65,34 @@
     <string name="join_group_success_description_group_name">%s에서</string>
     <string name="join_group_success_description">핑글 여정을 함께해보세요!</string>
 
+    <!-- map -->
+    <string name="map_participate">참여하기</string>
+
+    <!-- map modal -->
+    <string name="map_modal_description">이 핑글에 참여할까요?</string>
+
+    <!-- cancel dialog -->
+    <string name="cancel_modal_title">참여를 취소하시겠어요?</string>
+    <string name="cancel_modal_detail">취소한 모임은 언제든 다시 신청할 수 있어요</string>
+    <string name="cancel_modal_button_text">취소하기</string>
+    <string name="cancel_modal_text_button_text">돌아가기</string>
+
+    <!-- delete dialog -->
+    <string name="delete_modal_title">핑글을 삭제하시겠어요?</string>
+    <string name="delete_modal_detail">삭제된 핑글은 다시 되돌릴 수 없어요</string>
+    <string name="delete_modal_button_text">삭제하기</string>
+    <string name="delete_modal_text_button_text">돌아가기</string>
+
     <!-- new group -->
-    <string name="new_group_topbar">신규 단체 개설</string>
+    <string name="new_group_topbar">신규 단체 개설하기</string>
     <string name="new_group_next">다음으로</string>
+    <string name="new_group_create">개설하기</string>
 
     <!-- new group info -->
     <string name="new_group_info_title">신규 단체 개설 안내</string>
-    <string name="new_group_info_block_title">단체 개설자는 탈퇴할 수 없어요</string>
-    <string name="new_group_info_block_description1">해당 단체의 초대코드 및 구성원을\n관리할 책임자가 없어지기 때문이에요.</string>
-    <string name="new_group_info_block_description2">탈퇴를 원할 경우, 핑글에게 문의하기를 통해\n개설자를 변경해주셔야 해요.</string>
+    <string name="new_group_info_impossible_title">단체 개설자는 탈퇴할 수 없어요</string>
+    <string name="new_group_info_impossible_description1">해당 단체의 초대코드 및 구성원을\n관리할 책임자가 없어지기 때문이에요.</string>
+    <string name="new_group_info_impossible_description2">탈퇴를 원할 경우, 핑글에게 문의하기를 통해\n개설자를 변경해주셔야 해요.</string>
     <string name="new_group_info_reissues_title">초대 코드가 유출되었다면\n핑글에게 문의 후\n재발급할 수 있어요</string>
 
     <!-- new group input -->
@@ -100,24 +119,6 @@
     <string name="new_group_share_title">초대 코드를\n확인하세요</string>
     <string name="new_group_share_guide">초대코드는 나의 단체 페이지에서 다시 확인할 수 있어요</string>
     <string name="new_group_share">공유하기</string>
-
-    <!-- map -->
-    <string name="map_participate">참여하기</string>
-
-    <!-- map modal -->
-    <string name="map_modal_description">이 핑글에 참여할까요?</string>
-
-    <!-- cancel dialog -->
-    <string name="cancel_modal_title">참여를 취소하시겠어요?</string>
-    <string name="cancel_modal_detail">취소한 모임은 언제든 다시 신청할 수 있어요</string>
-    <string name="cancel_modal_button_text">취소하기</string>
-    <string name="cancel_modal_text_button_text">돌아가기</string>
-
-    <!-- delete dialog -->
-    <string name="delete_modal_title">핑글을 삭제하시겠어요?</string>
-    <string name="delete_modal_detail">삭제된 핑글은 다시 되돌릴 수 없어요</string>
-    <string name="delete_modal_button_text">삭제하기</string>
-    <string name="delete_modal_text_button_text">돌아가기</string>
 
     <!-- plan -->
     <string name="plan_later_des">나중에 만드시겠어요?</string>
@@ -234,6 +235,6 @@
     <string name="my_pingle_tab_done">\t\t\t\t\t\t참여완료\t\t\t\t\t\t</string>
     <string name="my_pingle_participant">%d/%d명</string>
 
-    <!-- edit text custom view -->
+    <!-- pingle edit text -->
     <string name="view_text_with_title_button_text">중복 확인</string>
 </resources>

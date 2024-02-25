@@ -2,9 +2,9 @@ package org.sopt.pingle.presentation.ui.newgroup
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
 
 @HiltViewModel
 class NewGroupViewModel @Inject constructor() : ViewModel() {

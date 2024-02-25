@@ -2,7 +2,6 @@ package org.sopt.pingle.presentation.ui.search
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import org.sopt.pingle.R
@@ -32,6 +31,9 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
                 binding.tvSearchSearchDescription.text = stringOf(searchDescriptionRes)
             }
 
+            binding.pingleSearchSearch.binding.etSearchPingleEditText.run {
+                if (searchModel.searchWord.isNotBlank()) setText(searchModel.searchWord)
+            }
         }
     }
 

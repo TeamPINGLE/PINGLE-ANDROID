@@ -2,6 +2,7 @@ package org.sopt.pingle.util.component
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import org.sopt.pingle.databinding.TopCardPingleBinding
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.mapper.isCompleted
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.type.PingleCardType
 import org.sopt.pingle.util.view.colorOf
 
 @SuppressLint("CustomViewStyleable")
@@ -25,8 +27,11 @@ class PingleCardTop @JvmOverloads constructor(
         binding = TopCardPingleBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun initLayout(pingleEntity: PingleEntity) {
+    fun initLayout(pingleEntity: PingleEntity, pingleCardType: PingleCardType) {
         with(binding) {
+            layoutCardTopParticipationStatus.backgroundTintList =
+                ColorStateList.valueOf(colorOf(pingleCardType.participationStatusColorRes))
+
             (CategoryType.fromString(pingleEntity.category)).let { category ->
                 badgeCardTopInfo.setBadgeCategoryType(category)
                 tvCardTopInfoParticipationStatusCurrentParticipants.setTextColor(colorOf(category.textColor))

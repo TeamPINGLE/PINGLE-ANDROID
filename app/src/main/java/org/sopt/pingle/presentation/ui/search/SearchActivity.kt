@@ -7,6 +7,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.KeyEvent
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivitySearchBinding
 import org.sopt.pingle.presentation.model.SearchModel
@@ -55,6 +56,12 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
                 if (searchModel.searchWord.isNotBlank()) setText(searchModel.searchWord)
             }
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navigateToHome(SEARCH_CLEAR)
+            }
+        })
     }
 
     private fun addListeners() {
@@ -89,5 +96,6 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
     companion object {
         private const val INVALID_INDEX = -1
         const val SEARCH_WORD = "searchWord"
+        const val SEARCH_CLEAR = ""
     }
 }

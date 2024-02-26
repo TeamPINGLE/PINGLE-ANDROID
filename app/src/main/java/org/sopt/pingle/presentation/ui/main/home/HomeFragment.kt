@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -33,6 +34,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private lateinit var fragmentList: ArrayList<Fragment>
     private lateinit var fragmentStateAdapter: PingleFragmentStateAdapter
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var stopSearchCallback: OnBackPressedCallback
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,6 +44,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         collectData()
         setFragmentStateAdapter()
         setResultLauncher()
+        setStopSearchCallback()
     }
 
     private fun initLayout() {
@@ -123,6 +126,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                             if (isSearching) View.VISIBLE else View.GONE
                         tvHomeGroup.visibility = if (isSearching) View.GONE else View.VISIBLE
                         ivHomeSearch.visibility = if (isSearching) View.GONE else View.VISIBLE
+                        if (isSearching) setStopSearchCallback() else stopSearchCallback.remove()
                     }
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -160,6 +164,20 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     )
                 }
             }
+    }
+
+    private fun setStopSearchCallback() {
+        stopSearchCallback =
+            object : OnBackPressedCallback(homeViewModel.searchWord.value.isNotBlank()) {
+                override fun handleOnBackPressed() {
+                    homeViewModel.clearSearchWord()
+                }
+            }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            stopSearchCallback
+        )
     }
 
     private fun navigateToSearch() {

@@ -75,7 +75,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         with(binding.pingleSearchSearch.binding.etSearchPingleEditText) {
             setOnKeyListener(
                 View.OnKeyListener { _, keyCode, event ->
-                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                         if (text.isNotBlank()) {
                             navigateToHome(searchWord = text.toString())
                             hideKeyboard(this)

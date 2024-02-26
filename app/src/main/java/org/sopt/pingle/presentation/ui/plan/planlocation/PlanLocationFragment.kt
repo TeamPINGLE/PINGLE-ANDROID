@@ -42,7 +42,7 @@ class PlanLocationFragment :
 
             searchEditText.setOnKeyListener(
                 View.OnKeyListener { _, keyCode, event ->
-                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                         if (searchEditText.text.isNotBlank()) {
                             planLocationViewModel.getPlanLocationList(searchEditText.text.toString())
                         }

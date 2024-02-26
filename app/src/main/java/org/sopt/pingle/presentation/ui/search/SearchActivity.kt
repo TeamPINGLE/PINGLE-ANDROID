@@ -57,11 +57,14 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
             }
         }
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                navigateToHome(SEARCH_CLEAR)
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navigateToHome(SEARCH_CLEAR)
+                }
             }
-        })
+        )
     }
 
     private fun addListeners() {

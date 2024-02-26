@@ -2,7 +2,6 @@ package org.sopt.pingle.presentation.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +13,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.ActivityAuthBinding
 import org.sopt.pingle.presentation.ui.main.MainActivity
-import org.sopt.pingle.presentation.ui.onboarding.OnBoardingActivity
+import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
@@ -24,14 +23,12 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     @Inject
     lateinit var kakaoAuthService: KakaoAuthService
     private val viewModel by viewModels<AuthViewModel>()
-    private lateinit var onBackPressed: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         addListeners()
         collectData()
-        onBackPressedBtn()
     }
 
     private fun addListeners() {
@@ -61,7 +58,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     }
 
     private fun navigateToOnBoarding() {
-        Intent(this, OnBoardingActivity::class.java).apply {
+        Intent(this, OnboardingActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(this)
         }
@@ -72,15 +69,6 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(this)
         }
-    }
-
-    private fun onBackPressedBtn() {
-        onBackPressed = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                finish()
-            }
-        }
-        onBackPressedDispatcher.addCallback(this, onBackPressed)
     }
 
     companion object {

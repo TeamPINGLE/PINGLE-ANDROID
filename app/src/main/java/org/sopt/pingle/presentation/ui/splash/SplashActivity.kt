@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.sopt.pingle.R
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.databinding.ActivitySplashBinding
-import org.sopt.pingle.presentation.ui.onboarding.OnboardingExplanationActivity
+import org.sopt.pingle.presentation.ui.onboarding.onboardingexplanation.OnboardingExplanationActivity
 import org.sopt.pingle.util.base.BindingActivity
 
 @AndroidEntryPoint

@@ -27,7 +27,7 @@
             android:id="@+id/tv_onboarding_explanation_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing24"
+            android:layout_marginTop="@dimen/spacing4"
             android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"

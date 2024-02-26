@@ -4,7 +4,6 @@
         <attr name="pingleEditTextTitle" format="reference|string" />
         <attr name="pingleEditTextHint" format="reference|string" />
         <attr name="pingleEditTextMaxLength" format="integer" />
-        <attr name="pingleEditTextFocusable" format="boolean" />
         <attr name="pingleEditTextCheckVisibility" format="enum">
             <enum name="visible" value="0" />
             <enum name="invisible" value="1" />

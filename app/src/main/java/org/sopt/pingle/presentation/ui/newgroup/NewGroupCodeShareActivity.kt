@@ -12,7 +12,12 @@ class NewGroupCodeShareActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initLayout()
         addListeners()
+    }
+
+    private fun initLayout() {
+        binding.etNewGroupCodeShareCode.editText.isEnabled = false
     }
 
     private fun addListeners() {

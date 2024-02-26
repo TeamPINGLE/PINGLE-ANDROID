@@ -51,9 +51,6 @@ class PingleEditText @JvmOverloads constructor(
                 binding.etEditText.filters = arrayOf(InputFilter.LengthFilter(maxLength))
             }
 
-            val focusable = getBoolean(R.styleable.PingleEditText_pingleEditTextFocusable, true)
-            binding.etEditText.isFocusable = focusable
-
             val checkVisibilityValue =
                 getInt(R.styleable.PingleEditText_pingleEditTextCheckVisibility, View.GONE)
             val copyVisibilityValue =

@@ -53,26 +53,28 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_end="@dimen/spacing20" />
 
-            <!-- TODO pingle tag로 변경 , text에 데바 적용 -->
-            <org.sopt.pingle.util.component.PingleBadge
-                android:id="@+id/tag_my_group_list_owner"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_my_group_list_owner_category"
+                style="@style/Theme.Pingle.Chip.Tag.M"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{groupListEntity.keyword}"
                 app:layout_constraintStart_toEndOf="@id/gl_start"
-                app:layout_constraintTop_toBottomOf="@id/gl_top" />
+                app:layout_constraintTop_toBottomOf="@id/gl_top"
+                tools:text="연합동아리" />
 
             <TextView
                 android:id="@+id/tv_my_group_list_owner_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing10"
+                android:text="@{groupListEntity.name}"
                 android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
                 android:textColor="@color/g_01"
-                android:text="@{groupListEntity.name}"
                 app:layout_constraintBottom_toTopOf="@id/gl_bottom"
                 app:layout_constraintEnd_toStartOf="@id/gl_end"
                 app:layout_constraintStart_toEndOf="@id/gl_start"
-                app:layout_constraintTop_toBottomOf="@id/tag_my_group_list_owner"
+                app:layout_constraintTop_toBottomOf="@id/chip_my_group_list_owner_category"
                 tools:text="단체1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,5 @@
-package org.sopt.pingle.presentation.ui.onboarding
+package org.sopt.pingle.presentation.ui.onboarding.onboardingexplanation
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -10,24 +9,31 @@ import org.sopt.pingle.databinding.ItemOnboardingExplanationTitleBinding
 import org.sopt.pingle.presentation.type.OnboardingExplanationType
 import org.sopt.pingle.util.view.ItemDiffCallback
 
-class OnboardingExplanationAdapter(context: Context) :
+class OnboardingExplanationAdapter() :
     ListAdapter<String, RecyclerView.ViewHolder>(
         ItemDiffCallback<String>(
             onContentsTheSame = { old, new -> old == new },
             onItemsTheSame = { old, new -> old == new }
         )
     ) {
-    private val inflater by lazy { LayoutInflater.from(context) }
     private var onBoardingExplanationList = OnboardingExplanationType.values()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             TITLE_VIEW_TYPE -> OnboardingExplanationTitleViewHolder(
-                ItemOnboardingExplanationTitleBinding.inflate(inflater, parent, false)
+                ItemOnboardingExplanationTitleBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             )
 
             DESCRIPTION_VIEW_TYPE -> OnboardingExplanationDescriptionViewHolder(
-                ItemOnboardingExplanationDescriptionBinding.inflate(inflater, parent, false)
+                ItemOnboardingExplanationDescriptionBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             )
 
             else -> throw IllegalArgumentException("$VIEWTYPE_EXCEPTION_MESSAGE $viewType")
@@ -38,8 +44,7 @@ class OnboardingExplanationAdapter(context: Context) :
         when (holder) {
             is OnboardingExplanationTitleViewHolder -> holder.onBind()
             is OnboardingExplanationDescriptionViewHolder -> {
-                var decPosition = position - POSITION_MINUS
-                holder.onBind(onBoardingExplanationList[decPosition])
+                holder.onBind(onBoardingExplanationList[position - POSITION_MINUS])
             }
         }
     }

@@ -245,6 +245,8 @@ class PlanViewModel @Inject constructor(
         }
     }
 
+    fun validityOpenChattingLink() = planOpenChattingLink.value.startsWith(OPEN_CHATTING_LINK_VALIDITY)
+
     companion object {
         const val FIRST_PAGE_POSITION = 0
         const val DEFAULT_OLD_POSITION = -1
@@ -252,5 +254,6 @@ class PlanViewModel @Inject constructor(
         const val START_RECRUITMENT = 2
         const val END_RECRUITMENT = 99
         const val BLANK_STRING = " "
+        const val OPEN_CHATTING_LINK_VALIDITY = "https://open.kakao.com/"
     }
 }

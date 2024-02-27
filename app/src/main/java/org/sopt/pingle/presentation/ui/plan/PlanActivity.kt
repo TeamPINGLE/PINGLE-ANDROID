@@ -72,37 +72,21 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             this.adapter = adapter
             isUserInputEnabled = false
             registerOnPageChangeCallback(object :
-                    ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                        planViewModel.setCurrentPage(position)
-                    }
-                })
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    planViewModel.setCurrentPage(position)
+                }
+            })
         }
     }
 
     private fun addListeners() {
         binding.btnPlan.setOnClickListener {
             when (binding.vpPlan.currentItem) {
-                fragmentList.size - SUB_LIST_SIZE -> {
-                    planViewModel.postPlanMeeting()
-                }
-
-                PLAN_OPEN_CHATTING_FRAGMENT_INDEX -> {
-                    if (planViewModel.validityOpenChattingLink()) {
-                        binding.vpPlan.currentItem++
-                    } else {
-                        PingleSnackbar.makeSnackbar(
-                            binding.root,
-                            stringOf(R.string.plan_open_chatting_snackbar),
-                            126
-                        )
-                    }
-                }
-
-                else -> {
-                    binding.vpPlan.currentItem++
-                }
+                fragmentList.size - SUB_LIST_SIZE -> planViewModel.postPlanMeeting()
+                PLAN_OPEN_CHATTING_FRAGMENT_INDEX -> validationOpenChattingLink()
+                else -> binding.vpPlan.currentItem++
             }
         }
         binding.toolbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
@@ -150,13 +134,8 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
     private fun navigateToPreviousPage() {
         when (binding.vpPlan.currentItem) {
-            FIRST_PAGE -> {
-                navigateToPlanAnnouncement()
-            }
-
-            else -> {
-                binding.vpPlan.currentItem--
-            }
+            FIRST_PAGE -> navigateToPlanAnnouncement()
+            else -> binding.vpPlan.currentItem--
         }
     }
 
@@ -184,11 +163,24 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         onBackPressedDispatcher.addCallback(this, onBackPressed)
     }
 
+    private fun validationOpenChattingLink() {
+        if (planViewModel.validityOpenChattingLink()) {
+            binding.vpPlan.currentItem++
+        } else {
+            PingleSnackbar.makeSnackbar(
+                binding.root,
+                stringOf(R.string.plan_open_chatting_snackbar),
+                SNACKBAR_BOTTOM_MARGIN
+            )
+        }
+    }
+
     companion object {
         private const val EXIT_MODAL = "exitModal"
         const val FIRST_PAGE = 0
         const val DEFAULT_PROGRESSBAR = 1f
         const val SUB_LIST_SIZE = 1
         const val PLAN_OPEN_CHATTING_FRAGMENT_INDEX = 5
+        const val SNACKBAR_BOTTOM_MARGIN = 126
     }
 }

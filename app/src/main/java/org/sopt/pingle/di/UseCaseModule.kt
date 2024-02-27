@@ -11,6 +11,7 @@ import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.ParticipantRepository
 import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
+import org.sopt.pingle.domain.repository.RankingRepository
 import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
@@ -20,6 +21,7 @@ import org.sopt.pingle.domain.usecase.GetParticipantListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
+import org.sopt.pingle.domain.usecase.GetRankingUseCase
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
@@ -50,6 +52,16 @@ class UseCaseModule {
 
     @Provides
     @Singleton
+    fun providesGetMyPingleListUseCase(pingleRepository: PingleRepository): GetMyPingleListUseCase =
+        GetMyPingleListUseCase(pingleRepository = pingleRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetParticipantListUseCase(participantRepository: ParticipantRepository): GetParticipantListUseCase =
+        GetParticipantListUseCase(participantRepository = participantRepository)
+
+    @Provides
+    @Singleton
     fun providesGetPingleListUseCase(mapRepository: MapRepository): GetPingleListUseCase =
         GetPingleListUseCase(mapRepository = mapRepository)
 
@@ -62,6 +74,11 @@ class UseCaseModule {
     @Singleton
     fun providesGetPlanLocationListUseCase(planRepository: PlanRepository): GetPlanLocationListUseCase =
         GetPlanLocationListUseCase(planRepository = planRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetRankingUseCase(rankingRepository: RankingRepository): GetRankingUseCase =
+        GetRankingUseCase(rankingRepository = rankingRepository)
 
     @Provides
     @Singleton
@@ -82,14 +99,4 @@ class UseCaseModule {
     @Singleton
     fun providesPostPlanMeetingUseCase(planRepository: PlanRepository): PostPlanMeetingUseCase =
         PostPlanMeetingUseCase(planRepository = planRepository)
-
-    @Provides
-    @Singleton
-    fun providesGetParticipantListUseCase(participantRepository: ParticipantRepository): GetParticipantListUseCase =
-        GetParticipantListUseCase(participantRepository = participantRepository)
-
-    @Provides
-    @Singleton
-    fun providesGetMyPingleListUseCase(pingleRepository: PingleRepository): GetMyPingleListUseCase =
-        GetMyPingleListUseCase(pingleRepository = pingleRepository)
 }

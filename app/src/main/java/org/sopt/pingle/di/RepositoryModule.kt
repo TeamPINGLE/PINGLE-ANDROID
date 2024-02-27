@@ -11,12 +11,14 @@ import org.sopt.pingle.data.repository.MapRepositoryImpl
 import org.sopt.pingle.data.repository.ParticipantRepositoryImpl
 import org.sopt.pingle.data.repository.PingleRepositoryImpl
 import org.sopt.pingle.data.repository.PlanRepositoryImpl
+import org.sopt.pingle.data.repository.RankingRepositoryImpl
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.ParticipantRepository
 import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
+import org.sopt.pingle.domain.repository.RankingRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -35,6 +37,10 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
+    abstract fun bindsParticipantRepository(participantRepositoryImpl: ParticipantRepositoryImpl): ParticipantRepository
+
+    @Binds
+    @Singleton
     abstract fun bindsPingleRepository(pingleRepositoryImpl: PingleRepositoryImpl): PingleRepository
 
     @Binds
@@ -43,5 +49,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindsParticipantRepository(participantRepositoryImpl: ParticipantRepositoryImpl): ParticipantRepository
+    abstract fun bindsRankingRepository(rankingRepositoryImpl: RankingRepositoryImpl): RankingRepository
 }

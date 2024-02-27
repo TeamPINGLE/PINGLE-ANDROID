@@ -49,7 +49,6 @@ class NewGroupAnnouncementActivity :
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     navigateToHome()
-                    finish()
                 }
             }
         )

@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.EditTextPingleBinding
-import org.sopt.pingle.util.type.Visibility
+import org.sopt.pingle.presentation.type.VisibilityType
 
 @SuppressLint("CustomViewStyleable")
 class PingleEditText @JvmOverloads constructor(
@@ -47,7 +47,7 @@ class PingleEditText @JvmOverloads constructor(
             binding.etEditText.hint = hint
 
             val maxLength = getInt(R.styleable.PingleEditText_pingleEditTextMaxLength, -1)
-            if (maxLength > 0) {
+            if (maxLength > INITIAL_LENGTH) {
                 binding.etEditText.filters = arrayOf(InputFilter.LengthFilter(maxLength))
             }
 
@@ -61,9 +61,13 @@ class PingleEditText @JvmOverloads constructor(
     }
 
     private fun visibility(visibilityValue: Int) = when (visibilityValue) {
-        Visibility.VISIBLE.ordinal -> View.VISIBLE
-        Visibility.INVISIBLE.ordinal -> View.INVISIBLE
-        Visibility.GONE.ordinal -> View.GONE
+        VisibilityType.VISIBLE.ordinal -> View.VISIBLE
+        VisibilityType.INVISIBLE.ordinal -> View.INVISIBLE
+        VisibilityType.GONE.ordinal -> View.GONE
         else -> View.GONE
+    }
+
+    companion object {
+        const val INITIAL_LENGTH = 0
     }
 }

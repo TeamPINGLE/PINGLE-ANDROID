@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.newgroup
+package org.sopt.pingle.presentation.ui.newgroup.newgroupcodeshare
 
 import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint

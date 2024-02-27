@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.newgroup
+package org.sopt.pingle.presentation.ui.newgroup.newgroupannouncement
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityNewGroupAnnouncementBinding
 import org.sopt.pingle.presentation.ui.main.MainActivity
+import org.sopt.pingle.presentation.ui.newgroup.newgroupcodeshare.NewGroupCodeShareActivity
 import org.sopt.pingle.util.base.BindingActivity
 
 @AndroidEntryPoint

@@ -13,6 +13,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityNewGroupBinding
+import org.sopt.pingle.presentation.ui.newgroup.newgroupannouncement.NewGroupAnnouncementActivity
+import org.sopt.pingle.presentation.ui.newgroup.newgroupcreate.NewGroupCreateFragment
+import org.sopt.pingle.presentation.ui.newgroup.newgroupinfo.NewGroupInfoActivity
+import org.sopt.pingle.presentation.ui.newgroup.newgroupinput.NewGroupInputFragment
+import org.sopt.pingle.presentation.ui.newgroup.newgroupkeyword.NewGroupKeywordFragment
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter

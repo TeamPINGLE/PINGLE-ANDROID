@@ -1,4 +1,4 @@
-package org.sopt.pingle.presentation.ui.newgroup
+package org.sopt.pingle.presentation.ui.newgroup.newgroupkeyword
 
 import android.os.Bundle
 import android.view.View

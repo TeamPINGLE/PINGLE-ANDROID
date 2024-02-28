@@ -60,7 +60,7 @@
         <item name="android:paddingVertical">8dp</item>
         <item name="cornerRadius">@dimen/button_corner_radius</item>
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Title.Semi.24</item>
-        <item name="android:backgroundTint">@color/selector_all_btn_g08_g02</item>
+        <item name="android:backgroundTint">@color/selector_plan_recruitment_btn_background</item>
         <item name="android:textColor">@color/selector_plan_recruitment_btn_text</item>
     </style>
 
@@ -68,7 +68,7 @@
         <item name="android:paddingHorizontal">10dp</item>
         <item name="android:paddingVertical">3dp</item>
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Semi.10</item>
-        <item name="android:backgroundTint">@color/selector_all_btn_g08_g02</item>
+        <item name="android:backgroundTint">@color/selector_plan_recruitment_btn_background</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -91,17 +91,6 @@
         <item name="android:paddingVertical">8dp</item>
         <item name="android:clickable">true</item>
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Bold.12</item>
-    </style>
-
-    <style name="Theme.Pingle.Chip.Keyword" parent="Theme.Pingle.Chip">
-        <item name="cornerRadius">50dp</item>
-        <item name="textStartPadding">16dp</item>
-        <item name="textEndPadding">16dp</item>
-        <item name="android:paddingVertical">8dp</item>
-        <item name="android:backgroundTint">@color/selector_new_group_keyword_background</item>
-        <item name="android:textColor">@color/selector_new_group_keyword_text_color</item>
-        <item name="android:textAppearance">@style/TextAppearance.Pingle.Body.Med.16</item>
-        <item name="android:clickable">true</item>
     </style>
 
     <style name="Theme.Pingle.Fab" parent="Widget.Design.FloatingActionButton">

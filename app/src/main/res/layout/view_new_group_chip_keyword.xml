@@ -10,8 +10,9 @@
     </data>
 
     <com.google.android.material.chip.Chip
-        style="@style/Theme.Pingle.Chip.Keyword"
+        style="@style/Theme.Pingle.Chip.Tag.L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{text}" />
+        android:text="@{text}"
+        android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16" />
 </layout>

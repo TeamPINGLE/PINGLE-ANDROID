@@ -10,12 +10,12 @@ import org.sopt.pingle.domain.model.MyGroupEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
 class MyGroupAdapter(
-    private val groupOnClick: (Int) -> Unit,
+    private val groupOnClick: (Int) -> Unit
 ) : ListAdapter<MyGroupEntity, RecyclerView.ViewHolder>(
     ItemDiffCallback<MyGroupEntity>(
         onContentsTheSame = { old, new -> old == new },
-        onItemsTheSame = { old, new -> old.id == new.id },
-    ),
+        onItemsTheSame = { old, new -> old.id == new.id }
+    )
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -23,14 +23,14 @@ class MyGroupAdapter(
                 ItemMyGroupDefaultBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
-                    false,
+                    false
                 ),
-                groupOnClick,
+                groupOnClick
             )
 
             OWNER_GROUP -> MyGroupOwnerViewHolder(
                 ItemMyGroupOwnerBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                groupOnClick,
+                groupOnClick
             )
 
             else -> throw IllegalArgumentException("$VIEWTYPE_EXCEPTION_MESSAGE $viewType")

@@ -12,7 +12,6 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import org.sopt.pingle.presentation.ui.common.WebViewActivity
 import org.sopt.pingle.presentation.ui.common.WebViewActivity.Companion.WEB_VIEW_LINK
-import org.sopt.pingle.presentation.ui.mygroup.MyGroupActivity
 
 fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -28,7 +27,7 @@ fun Context.navigateToWebView(link: String) = Intent(this, WebViewActivity::clas
     putExtra(WEB_VIEW_LINK, link)
 }
 
-fun Context.setupShareIntent(shareContent: String) {
+fun Context.sharePingle(shareContent: String) {
     val intent = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
         type = SHARE_TYPE
         putExtra(Intent.EXTRA_TEXT, shareContent)
@@ -36,7 +35,7 @@ fun Context.setupShareIntent(shareContent: String) {
     startActivity(Intent.createChooser(intent, null))
 }
 
-fun Context.copyGroupCode(copyCode: String){
+fun Context.copyGroupCode(copyCode: String) {
     val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip: ClipData = ClipData.newPlainText(GROUP_CODE_COPY, copyCode)
     clipboard.setPrimaryClip(clip)

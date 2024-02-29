@@ -4,32 +4,36 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.pingle.databinding.ItemMyGroupBinding
+import org.sopt.pingle.databinding.ItemMyGroupDefaultBinding
 import org.sopt.pingle.databinding.ItemMyGroupOwnerBinding
-import org.sopt.pingle.domain.model.GroupListEntity
+import org.sopt.pingle.domain.model.MyGroupEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
 class MyGroupAdapter(
-    private val groupOnClick: (Int) -> Unit
-) : ListAdapter<GroupListEntity, RecyclerView.ViewHolder>(
-    ItemDiffCallback<GroupListEntity>(
+    private val groupOnClick: (Int) -> Unit,
+) : ListAdapter<MyGroupEntity, RecyclerView.ViewHolder>(
+    ItemDiffCallback<MyGroupEntity>(
         onContentsTheSame = { old, new -> old == new },
-        onItemsTheSame = { old, new -> old.id == new.id }
-    )
+        onItemsTheSame = { old, new -> old.id == new.id },
+    ),
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             DEFAULT_GROUP -> MyGroupViewHolder(
-                ItemMyGroupBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                groupOnClick
+                ItemMyGroupDefaultBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false,
+                ),
+                groupOnClick,
             )
 
             OWNER_GROUP -> MyGroupOwnerViewHolder(
                 ItemMyGroupOwnerBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                groupOnClick
+                groupOnClick,
             )
 
-            else -> throw RuntimeException()
+            else -> throw IllegalArgumentException("$VIEWTYPE_EXCEPTION_MESSAGE $viewType")
         }
     }
 
@@ -51,5 +55,6 @@ class MyGroupAdapter(
     companion object {
         private const val OWNER_GROUP = 2
         private const val DEFAULT_GROUP = 1
+        private const val VIEWTYPE_EXCEPTION_MESSAGE = "Invalid viewType: "
     }
 }

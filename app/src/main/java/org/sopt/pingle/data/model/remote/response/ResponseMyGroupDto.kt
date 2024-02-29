@@ -2,10 +2,10 @@ package org.sopt.pingle.data.model.remote.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.sopt.pingle.domain.model.GroupListEntity
+import org.sopt.pingle.domain.model.MyGroupEntity
 
 @Serializable
-data class ResponseGroupListDto(
+data class ResponseMyGroupDto(
     @SerialName("id")
     val id: Int,
     @SerialName("keyword")
@@ -21,7 +21,7 @@ data class ResponseGroupListDto(
     @SerialName("code")
     val code: String
 ) {
-    fun toResponseGroupListEntity() = GroupListEntity(
+    fun toResponseMyGroupEntity() = MyGroupEntity(
         id = id,
         keyword = keyword,
         name = name,

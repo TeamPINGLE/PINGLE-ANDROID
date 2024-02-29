@@ -1,6 +1,6 @@
 package org.sopt.pingle.domain.model
 
-data class GroupListEntity(
+data class MyGroupEntity(
     var id: Int,
     val keyword: String,
     val name: String,

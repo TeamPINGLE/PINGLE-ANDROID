@@ -1,19 +1,19 @@
 package org.sopt.pingle.presentation.ui.mygroup
 
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.pingle.databinding.ItemMyGroupBinding
-import org.sopt.pingle.domain.model.GroupListEntity
+import org.sopt.pingle.databinding.ItemMyGroupDefaultBinding
+import org.sopt.pingle.domain.model.MyGroupEntity
 
 class MyGroupViewHolder(
-    private val binding: ItemMyGroupBinding,
-    private val groupOnClick: (Int) -> Unit
+    private val binding: ItemMyGroupDefaultBinding,
+    private val groupOnClick: (Int) -> Unit,
 ) :
     RecyclerView.ViewHolder(binding.root) {
-    fun onBind(groupListEntity: GroupListEntity) {
+    fun onBind(myGroupEntity: MyGroupEntity) {
         with(binding) {
-            this.groupListEntity = groupListEntity
-            tvMyGroupListDefaultName.text = groupListEntity.name
-            layoutMyGroupListDefault.setOnClickListener { groupOnClick(absoluteAdapterPosition) }
+            this.groupListEntity = myGroupEntity
+            tvMyGroupDefaultName.text = myGroupEntity.name
+            layoutMyGroupDefault.setOnClickListener { groupOnClick(absoluteAdapterPosition) }
         }
     }
 }

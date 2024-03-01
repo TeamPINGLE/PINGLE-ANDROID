@@ -39,6 +39,11 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
         collectData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.tvMoreMyGroupContent.text = moreViewModel.getGroupName()
+    }
+
     private fun initLayout() {
         with(binding) {
             tvMoreVersionDetail.text = BuildConfig.VERSION_NAME
@@ -69,55 +74,58 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     private fun collectData() {
-        moreViewModel.logoutState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { logoutState ->
-            when (logoutState) {
-                is UiState.Success -> {
-                    moveToSign()
-                }
-
-                is UiState.Error -> {
-                    Timber.d(FAILURE_LOGOUT)
-                }
-
-                else -> {}
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-        moreViewModel.withDrawState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { withDrawState ->
-            when (withDrawState) {
-                is UiState.Success -> {
-                    kakaoAuthService.withdrawKakao()
-                    moveToSign()
-                }
-
-                is UiState.Error -> {
-                    when (withDrawState.message) {
-                        FAILURE_OWNER -> {
-                            PingleSnackbar.makeSnackbar(
-                                requireView(),
-                                stringOf(R.string.more_snackbar_failure),
-                                SNACKBAR_BOTTOM_MARGIN,
-                                SnackbarType.WARNING
-                            )
-                        }
-
-                        else -> Timber.d("$FAILURE_LOGOUT : ${withDrawState.message}")
+        moreViewModel.logoutState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { logoutState ->
+                when (logoutState) {
+                    is UiState.Success -> {
+                        moveToSign()
                     }
+
+                    is UiState.Error -> {
+                        Timber.d(FAILURE_LOGOUT)
+                    }
+
+                    else -> {}
                 }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-                else -> {}
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        moreViewModel.withDrawState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { withDrawState ->
+                when (withDrawState) {
+                    is UiState.Success -> {
+                        kakaoAuthService.withdrawKakao()
+                        moveToSign()
+                    }
 
-        moreViewModel.userInfoState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { userInfoState ->
-            when (userInfoState) {
-                is UiState.Success -> {
-                    binding.tvMoreNickname.text = userInfoState.data.name
+                    is UiState.Error -> {
+                        when (withDrawState.message) {
+                            FAILURE_OWNER -> {
+                                PingleSnackbar.makeSnackbar(
+                                    requireView(),
+                                    stringOf(R.string.more_snackbar_failure),
+                                    SNACKBAR_BOTTOM_MARGIN,
+                                    SnackbarType.WARNING
+                                )
+                            }
+
+                            else -> Timber.d("$FAILURE_LOGOUT : ${withDrawState.message}")
+                        }
+                    }
+
+                    else -> {}
                 }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-                else -> Unit
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        moreViewModel.userInfoState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { userInfoState ->
+                when (userInfoState) {
+                    is UiState.Success -> {
+                        binding.tvMoreNickname.text = userInfoState.data.name
+                    }
+
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun moveToSign() {

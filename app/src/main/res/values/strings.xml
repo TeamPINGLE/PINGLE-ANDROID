@@ -219,4 +219,20 @@
     <!-- search -->
     <string name="search_search_bar_hint">핑글 이름, 장소 이름 검색</string>
     <string name="search_description">원하는 핑글을 검색해보세요!</string>
+
+    <!-- my group -->
+    <string name="my_group_title">나의 단체</string>
+    <string name="my_group_meeting">개최된 핑글 수</string>
+    <string name="my_group_member">참여자 수</string>
+    <string name="my_group_meeting_count">%s개</string>
+    <string name="my_group_member_count">%s명</string>
+    <string name="my_group_move_new_group"><u>새로운 단체 추가하러 가기</u></string>
+    <string name="my_group_modal_move_question">\'%s\'(으)로\n변경하시겠어요?</string>
+    <string name="my_group_modal_change">변경하기</string>
+    <string name="my_group_modal_back"><u>돌아가기</u></string>
+    <string name="my_group_snack_bar_code_copy_complete">초대코드가 복사되었습니다!</string>
+    <string name="my_group_snack_bar_chage_group_complete">단체가 변경되었습니다!</string>
+    <string name="my_group_menu_copy">초대코드 복사하기</string>
+    <string name="my_group_menu_share">공유하기</string>
+    <string name="my_group_share_pingle">핑글 앱을 다운받고, %s 사람들을 만나보세요!\n\n%s %s\n\n %s</string>
 </resources>

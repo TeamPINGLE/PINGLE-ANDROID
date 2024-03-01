@@ -39,6 +39,11 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
         collectData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.tvMoreMyGroupContent.text = moreViewModel.getGroupName()
+    }
+
     private fun initLayout() {
         with(binding) {
             tvMoreVersionDetail.text = BuildConfig.VERSION_NAME
@@ -75,13 +80,13 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                     navigateToOnboardingExplanation()
                 }
 
-                is UiState.Error -> {
-                    Timber.d(FAILURE_LOGOUT)
-                }
+                    is UiState.Error -> {
+                        Timber.d(FAILURE_LOGOUT)
+                    }
 
-                else -> {}
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+                    else -> {}
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         moreViewModel.withDrawState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { withDrawState ->
             when (withDrawState) {
@@ -90,34 +95,35 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                     navigateToOnboardingExplanation()
                 }
 
-                is UiState.Error -> {
-                    when (withDrawState.message) {
-                        FAILURE_OWNER -> {
-                            PingleSnackbar.makeSnackbar(
-                                requireView(),
-                                stringOf(R.string.more_snackbar_failure),
-                                SNACKBAR_BOTTOM_MARGIN,
-                                SnackbarType.WARNING
-                            )
+                    is UiState.Error -> {
+                        when (withDrawState.message) {
+                            FAILURE_OWNER -> {
+                                PingleSnackbar.makeSnackbar(
+                                    requireView(),
+                                    stringOf(R.string.more_snackbar_failure),
+                                    SNACKBAR_BOTTOM_MARGIN,
+                                    SnackbarType.WARNING
+                                )
+                            }
+
+                            else -> Timber.d("$FAILURE_LOGOUT : ${withDrawState.message}")
                         }
-
-                        else -> Timber.d("$FAILURE_LOGOUT : ${withDrawState.message}")
                     }
+
+                    else -> {}
                 }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-                else -> {}
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        moreViewModel.userInfoState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { userInfoState ->
+                when (userInfoState) {
+                    is UiState.Success -> {
+                        binding.tvMoreNickname.text = userInfoState.data.name
+                    }
 
-        moreViewModel.userInfoState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { userInfoState ->
-            when (userInfoState) {
-                is UiState.Success -> {
-                    binding.tvMoreNickname.text = userInfoState.data.name
+                    else -> Unit
                 }
-
-                else -> Unit
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun navigateToOnboardingExplanation() {

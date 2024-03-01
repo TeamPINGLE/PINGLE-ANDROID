@@ -115,7 +115,7 @@
         <item name="textEndPadding">10dp</item>
         <item name="android:paddingVertical">4dp</item>
         <item name="android:clickable">false</item>
-        <item name="chipBackgroundColor">@color/g_10</item>
+        <item name="chipBackgroundColor">@color/g_07</item>
         <item name="android:textColor">@color/pingle_green</item>
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Semi.12</item>
     </style>

@@ -236,6 +236,15 @@
     <string name="on_boarding_original_group">이미 등록된\n 단체가 있어요</string>
     <string name="on_boarding_new_group">새로운 단체를\n등록하고 싶어요</string>
 
+    <!-- on boarding explanation -->
+    <string name="on_boarding_explanation_logo_title">우리의 모임, PINGLE</string>
+    <string name="on_boarding_explanation_logo_description">원하는 장소에서 사람들과 갖는\n나만의 모임을 뜻해요</string>
+    <string name="on_boarding_explanation_group_description">속해있는 단체를 선택하거나\n직접 개설해봐요!</string>
+    <string name="on_boarding_explanation_pingle_description">내 주변에서 열리는 핑글을\n간편하게 찾고 참여해봐요!</string>
+    <string name="on_boarding_explanation_category_description">원하는 테마로 간편하게\n핑글을 개최할 수 있어요!</string>
+    <string name="on_boarding_explanation_next_button">다음으로</string>
+    <string name="on_boarding_explanation_skip_button">건너뛰기</string>
+
     <!-- construction -->
     <string name="construction_title">아직 공사중!</string>
     <string name="construction_detail">아직 구현중인 기능이에요\n조금만 기다려주세요</string>
@@ -247,6 +256,22 @@
     <!-- search -->
     <string name="search_search_bar_hint">핑글 이름, 장소 이름 검색</string>
     <string name="search_description">원하는 핑글을 검색해보세요!</string>
+
+    <!-- my group -->
+    <string name="my_group_title">나의 단체</string>
+    <string name="my_group_meeting">개최된 핑글 수</string>
+    <string name="my_group_member">참여자 수</string>
+    <string name="my_group_meeting_count">%s개</string>
+    <string name="my_group_member_count">%s명</string>
+    <string name="my_group_move_new_group"><u>새로운 단체 추가하러 가기</u></string>
+    <string name="my_group_modal_move_question">\'%s\'(으)로\n변경하시겠어요?</string>
+    <string name="my_group_modal_change">변경하기</string>
+    <string name="my_group_modal_back"><u>돌아가기</u></string>
+    <string name="my_group_snack_bar_code_copy_complete">초대코드가 복사되었습니다!</string>
+    <string name="my_group_snack_bar_chage_group_complete">단체가 변경되었습니다!</string>
+    <string name="my_group_menu_copy">초대코드 복사하기</string>
+    <string name="my_group_menu_share">공유하기</string>
+    <string name="my_group_share_pingle">핑글 앱을 다운받고, %s 사람들을 만나보세요!\n\n%s %s\n\n %s</string>
 
     <!-- pingle edit text -->
     <string name="view_text_with_title_button_text">중복 확인</string>

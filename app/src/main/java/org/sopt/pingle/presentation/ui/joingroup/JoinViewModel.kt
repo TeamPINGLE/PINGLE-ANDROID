@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -20,6 +19,7 @@ import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.util.view.UiState
 import retrofit2.HttpException
+import javax.inject.Inject
 
 @HiltViewModel
 class JoinViewModel @Inject constructor(
@@ -102,6 +102,10 @@ class JoinViewModel @Inject constructor(
             runCatching {
                 getJoinGroupInfoUseCase(teamId = teamId).collect { joinGroupInfo ->
                     _joinGroupInfoState.value = UiState.Success(joinGroupInfo)
+                    with(localStorage) {
+                        meetingCount = joinGroupInfo.meetingCount.toString()
+                        participantCount = joinGroupInfo.participantCount.toString()
+                    }
                 }
             }.onFailure {
                 _joinGroupInfoState.value = UiState.Error(it.message)

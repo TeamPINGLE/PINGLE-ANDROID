@@ -2,7 +2,6 @@ package org.sopt.pingle.presentation.ui.main.home.mainlist
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +15,6 @@ import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
-import org.sopt.pingle.util.toPx
 import org.sopt.pingle.util.view.PingleCardUtils
 
 @AndroidEntryPoint

@@ -108,10 +108,6 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                 (searchWord.isNotBlank()).let { isSearching ->
                     with(binding.tvMainListSearchCount) {
                         visibility = if (isSearching) View.VISIBLE else View.INVISIBLE
-                        layoutParams = (this.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                            topMargin =
-                                (if (isSearching) SEARCH_COUNT_TOP_MARGIN_WHEN_SEARCHING else SEARCH_COUNT_TOP_MARGIN_WHEN_NOT_SEARCHING).toPx()
-                        }
                         text = getString(
                             R.string.main_list_search_count,
                             homeViewModel.dummyPingleList.size
@@ -134,10 +130,5 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                 binding.tvMainListOrderType.text =
                     stringOf(mainListOrderType.mainListOrderStringRes)
             }.launchIn(viewLifecycleOwner.lifecycleScope)
-    }
-
-    companion object {
-        private const val SEARCH_COUNT_TOP_MARGIN_WHEN_NOT_SEARCHING = 127
-        private const val SEARCH_COUNT_TOP_MARGIN_WHEN_SEARCHING = 147
     }
 }

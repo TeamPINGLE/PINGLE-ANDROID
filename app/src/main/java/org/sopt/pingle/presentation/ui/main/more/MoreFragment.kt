@@ -80,13 +80,13 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                     navigateToOnboardingExplanation()
                 }
 
-                    is UiState.Error -> {
-                        Timber.d(FAILURE_LOGOUT)
-                    }
-
-                    else -> {}
+                is UiState.Error -> {
+                    Timber.d(FAILURE_LOGOUT)
                 }
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+                else -> {}
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         moreViewModel.withDrawState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { withDrawState ->
             when (withDrawState) {
@@ -95,24 +95,24 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                     navigateToOnboardingExplanation()
                 }
 
-                    is UiState.Error -> {
-                        when (withDrawState.message) {
-                            FAILURE_OWNER -> {
-                                PingleSnackbar.makeSnackbar(
-                                    requireView(),
-                                    stringOf(R.string.more_snackbar_failure),
-                                    SNACKBAR_BOTTOM_MARGIN,
-                                    SnackbarType.WARNING
-                                )
-                            }
-
-                            else -> Timber.d("$FAILURE_LOGOUT : ${withDrawState.message}")
+                is UiState.Error -> {
+                    when (withDrawState.message) {
+                        FAILURE_OWNER -> {
+                            PingleSnackbar.makeSnackbar(
+                                requireView(),
+                                stringOf(R.string.more_snackbar_failure),
+                                SNACKBAR_BOTTOM_MARGIN,
+                                SnackbarType.WARNING
+                            )
                         }
-                    }
 
-                    else -> {}
+                        else -> Timber.d("$FAILURE_LOGOUT : ${withDrawState.message}")
+                    }
                 }
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+                else -> {}
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         moreViewModel.userInfoState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { userInfoState ->

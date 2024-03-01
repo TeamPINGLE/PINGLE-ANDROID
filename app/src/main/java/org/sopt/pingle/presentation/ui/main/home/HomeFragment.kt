@@ -123,9 +123,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
                     (searchWord.isNotBlank()).let { isSearching ->
                         pingleSearchHomeSearch.visibility =
-                            if (isSearching) View.VISIBLE else View.GONE
-                        tvHomeGroup.visibility = if (isSearching) View.GONE else View.VISIBLE
-                        ivHomeSearch.visibility = if (isSearching) View.GONE else View.VISIBLE
+                            if (isSearching) View.VISIBLE else View.INVISIBLE
+                        tvHomeGroup.visibility = if (isSearching) View.INVISIBLE else View.VISIBLE
+                        ivHomeSearch.visibility = if (isSearching) View.INVISIBLE else View.VISIBLE
                         if (isSearching) setStopSearchCallback() else stopSearchCallback.remove()
                     }
                 }

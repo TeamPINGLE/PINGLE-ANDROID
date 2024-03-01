@@ -54,9 +54,10 @@
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
                 android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/pingle_search_home_search"
                 app:layout_constraintEnd_toStartOf="@id/iv_home_search"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/pingle_search_home_search"
                 tools:text="SOPT" />
 
             <ImageView
@@ -71,10 +72,10 @@
                 android:id="@+id/pingle_search_home_search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_home_group" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -82,7 +83,7 @@
             android:id="@+id/cg_home_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             app:chipSpacingHorizontal="@dimen/chip_spacing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

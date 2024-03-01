@@ -12,10 +12,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupSearchBinding
-import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
+import org.sopt.pingle.presentation.ui.newgroup.NewGroupActivity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.context.hideKeyboard
-import org.sopt.pingle.util.context.navigateToWebView
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
 
@@ -66,7 +65,7 @@ class JoinGroupSearchActivity :
             }
 
             tvJoinGroupSearchCreate.setOnClickListener {
-                startActivity(navigateToWebView(OnboardingActivity.NEW_GROUP_LINK))
+                navigateToNewGroup()
             }
 
             btnJoinGroupCodeNext.setOnClickListener {
@@ -113,6 +112,12 @@ class JoinGroupSearchActivity :
     private fun navigateToJoinGroupCode() {
         Intent(this, JoinGroupCodeActivity::class.java).apply {
             putExtra(TEAM_ID, teamId)
+            startActivity(this)
+        }
+    }
+
+    private fun navigateToNewGroup() {
+        Intent(this, NewGroupActivity::class.java).apply {
             startActivity(this)
         }
     }

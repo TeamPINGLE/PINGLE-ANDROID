@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing26" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing26" />
+
+        <ImageView
+            android:id="@+id/iv_new_group_info_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="12dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_all_x_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_new_group_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="@string/new_group_info_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_new_group_info_x" />
+
+        <ImageView
+            android:id="@+id/img_new_group_info_impossible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/img_info_impossible"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_group_info_title" />
+
+        <TextView
+            android:id="@+id/tv_new_group_info_impossible_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="@string/new_group_info_impossible_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/img_new_group_info_impossible"
+            app:layout_constraintTop_toTopOf="@id/img_new_group_info_impossible" />
+
+        <TextView
+            android:id="@+id/tv_new_group_info_impossible_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/new_group_info_impossible_description1"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+            android:textColor="@color/g_04"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/tv_new_group_info_impossible_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_group_info_impossible_title" />
+
+        <TextView
+            android:id="@+id/tv_new_group_info_impossible_description2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/new_group_info_impossible_description2"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+            android:textColor="@color/g_04"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/tv_new_group_info_impossible_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_group_info_impossible_description" />
+
+        <ImageView
+            android:id="@+id/img_new_group_info_reissue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:src="@drawable/img_info_reissue"
+            app:layout_constraintStart_toStartOf="@id/img_new_group_info_impossible"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_group_info_impossible_description2" />
+
+        <TextView
+            android:id="@+id/tv_new_group_info_reissues_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="@string/new_group_info_reissues_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/img_new_group_info_reissue"
+            app:layout_constraintTop_toTopOf="@id/img_new_group_info_reissue" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -92,7 +92,44 @@
     <string name="main_list_empty_pingle">현재 개최된 핑글이 없어요\n핑글을 직접 개최해보세요!</string>
     <string name="main_list_empty_search">검색 결과가 없어요</string>
 
-    <!--  plan  -->
+    <!-- new group -->
+    <string name="new_group_topbar">신규 단체 개설하기</string>
+    <string name="new_group_next">다음으로</string>
+    <string name="new_group_create">개설하기</string>
+
+    <!-- new group info -->
+    <string name="new_group_info_title">신규 단체 개설 안내</string>
+    <string name="new_group_info_impossible_title">단체 개설자는 탈퇴할 수 없어요</string>
+    <string name="new_group_info_impossible_description1">해당 단체의 초대코드 및 구성원을\n관리할 책임자가 없어지기 때문이에요.</string>
+    <string name="new_group_info_impossible_description2">탈퇴를 원할 경우, 핑글에게 문의하기를 통해\n개설자를 변경해주셔야 해요.</string>
+    <string name="new_group_info_reissues_title">초대 코드가 유출되었다면\n핑글에게 문의 후\n재발급할 수 있어요</string>
+
+    <!-- new group input -->
+    <string name="new_group_input_title">속해있는 단체의\n이름을 알려주세요!</string>
+    <string name="new_group_input_name_hint">단체명을 입력해주세요</string>
+    <string name="new_group_input_name_title">단체명</string>
+    <string name="new_group_input_email_hint">ex. 단체 공식 이메일, 개설자님의 이메일</string>
+    <string name="new_group_input_email_title">대표 이메일</string>
+    <string name="new_group_input_guide">해당 이메일은 초대 코드 공유 및 단체 관리를 위해 사용될 예정입니다</string>
+
+    <!-- new group announcement -->
+    <string name="new_group_announcement_title">단체가\n개설되었어요!</string>
+    <string name="new_group_announcement_group_name">%s에 친구들을 초대하고</string>
+    <string name="new_group_announcement_description">핑글 여정을 함께해보세요!</string>
+    <string name="new_group_announcement_invitation">친구 초대하러 가기</string>
+    <string name="new_group_announcement_home">홈으로 시작하기</string>
+
+    <!-- new group create -->
+    <string name="new_group_create_title">단체 정보를\n확인해주세요</string>
+    <string name="new_group_create_email">대표 이메일</string>
+
+    <!-- new group code share -->
+    <string name="new_group_code_share_topbar">친구 초대하기</string>
+    <string name="new_group_code_share_title">초대 코드를\n확인하세요</string>
+    <string name="new_group_code_share_guide">초대코드는 나의 단체 페이지에서 다시 확인할 수 있어요</string>
+    <string name="new_group_code_share">공유하기</string>
+
+    <!-- plan -->
     <string name="plan_later_des">나중에 만드시겠어요?</string>
     <string name="plan_close"><u>나가기</u></string>
     <string name="plan_next">다음으로</string>
@@ -104,7 +141,7 @@
     <string name="plan_announcement_detail_bottom">원하는 장소에서 사람들과 갖는 모임을 뜻해요</string>
     <string name="plan_announcement_btn">핑글 개최하러 가기</string>
 
-    <!--  plan modal -->
+    <!-- plan modal -->
     <string name="plan_exit_modal_dialog_title">잠깐! 나가실건가요?</string>
     <string name="plan_exit_modal_dialog_detail">지금까지 입력한 정보는 전부 사라져요</string>
     <string name="plan_exit_modal_dialog_btn_text">이어서 작성하기</string>
@@ -198,7 +235,7 @@
     <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
     <string name="on_boarding_original_group">이미 등록된\n 단체가 있어요</string>
     <string name="on_boarding_new_group">새로운 단체를\n등록하고 싶어요</string>
-    
+
     <!-- on boarding explanation -->
     <string name="on_boarding_explanation_logo_title">우리의 모임, PINGLE</string>
     <string name="on_boarding_explanation_logo_description">원하는 장소에서 사람들과 갖는\n나만의 모임을 뜻해요</string>
@@ -235,4 +272,7 @@
     <string name="my_group_menu_copy">초대코드 복사하기</string>
     <string name="my_group_menu_share">공유하기</string>
     <string name="my_group_share_pingle">핑글 앱을 다운받고, %s 사람들을 만나보세요!\n\n%s %s\n\n %s</string>
+
+    <!-- pingle edit text -->
+    <string name="view_text_with_title_button_text">중복 확인</string>
 </resources>

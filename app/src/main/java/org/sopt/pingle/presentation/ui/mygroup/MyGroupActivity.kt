@@ -13,7 +13,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityMyGroupBinding
 import org.sopt.pingle.domain.model.MyGroupEntity
 import org.sopt.pingle.presentation.type.SnackbarType
-import org.sopt.pingle.presentation.ui.onboarding.OnBoardingActivity
+import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
@@ -129,7 +129,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun navigateToNewGroupInfo() {
-        Intent(this, OnBoardingActivity::class.java).apply {
+        Intent(this, OnboardingActivity::class.java).apply {
             startActivity(this)
         }
     }

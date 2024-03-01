@@ -69,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing16"
-            android:layout_marginBottom="62dp"
+            android:layout_marginBottom="@dimen/spacing25"
             android:backgroundTint="@color/kakao_btn"
             android:text="@string/auth_kakao_login"
             android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"

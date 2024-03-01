@@ -198,6 +198,15 @@
     <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
     <string name="on_boarding_original_group">이미 등록된\n 단체가 있어요</string>
     <string name="on_boarding_new_group">새로운 단체를\n등록하고 싶어요</string>
+    
+    <!-- on boarding explanation -->
+    <string name="on_boarding_explanation_logo_title">우리의 모임, PINGLE</string>
+    <string name="on_boarding_explanation_logo_description">원하는 장소에서 사람들과 갖는\n나만의 모임을 뜻해요</string>
+    <string name="on_boarding_explanation_group_description">속해있는 단체를 선택하거나\n직접 개설해봐요!</string>
+    <string name="on_boarding_explanation_pingle_description">내 주변에서 열리는 핑글을\n간편하게 찾고 참여해봐요!</string>
+    <string name="on_boarding_explanation_category_description">원하는 테마로 간편하게\n핑글을 개최할 수 있어요!</string>
+    <string name="on_boarding_explanation_next_button">다음으로</string>
+    <string name="on_boarding_explanation_skip_button">건너뛰기</string>
 
     <!-- construction -->
     <string name="construction_title">아직 공사중!</string>

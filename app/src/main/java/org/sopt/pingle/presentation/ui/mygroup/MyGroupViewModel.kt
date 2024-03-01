@@ -27,11 +27,8 @@ class MyGroupViewModel @Inject constructor(
             with(localStorgae) {
                 groupId = selectedMyGroup.id
                 groupName = selectedMyGroup.name
-                groupKeyword = selectedMyGroup.keyword
                 meetingCount = selectedMyGroup.meetingCount
                 participantCount = selectedMyGroup.participantCount
-                isOwner = selectedMyGroup.isOwner
-                code = selectedMyGroup.code
             }
         }
 
@@ -46,11 +43,8 @@ class MyGroupViewModel @Inject constructor(
             with(localStorgae) {
                 groupId = clickedEntity.id
                 groupName = clickedEntity.name
-                groupKeyword = clickedEntity.keyword
                 meetingCount = clickedEntity.meetingCount
                 participantCount = clickedEntity.participantCount
-                isOwner = clickedEntity.isOwner
-                code = clickedEntity.code
             }
         }
         _selectedMyGroup.value = clickedEntity

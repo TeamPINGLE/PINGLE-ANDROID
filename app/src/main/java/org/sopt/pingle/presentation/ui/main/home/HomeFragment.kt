@@ -171,6 +171,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             object : OnBackPressedCallback(homeViewModel.searchWord.value.isNotBlank()) {
                 override fun handleOnBackPressed() {
                     homeViewModel.clearSearchWord()
+                    navigateToSearch()
                 }
             }
 

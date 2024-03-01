@@ -9,11 +9,11 @@ import org.sopt.pingle.databinding.ItemOnboardingExplanationTitleBinding
 import org.sopt.pingle.presentation.type.OnboardingExplanationType
 import org.sopt.pingle.util.view.ItemDiffCallback
 
-class OnboardingExplanationAdapter() :
-    ListAdapter<String, RecyclerView.ViewHolder>(
-        ItemDiffCallback<String>(
+class OnboardingExplanationAdapter :
+    ListAdapter<OnboardingExplanationType, RecyclerView.ViewHolder>(
+        ItemDiffCallback<OnboardingExplanationType>(
             onContentsTheSame = { old, new -> old == new },
-            onItemsTheSame = { old, new -> old == new }
+            onItemsTheSame = { old, new -> old.image == new.image }
         )
     ) {
     private var onBoardingExplanationList = OnboardingExplanationType.values()

@@ -16,56 +16,43 @@
             android:id="@+id/vp_onboarding_explanation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/spacing25"
             app:layout_constraintTop_toBottomOf="@id/tv_onboarding_explanation_skip"
-            android:layout_marginTop="@dimen/spacing4"
+            app:layout_constraintBottom_toTopOf="@id/tl_onboarding_indicator" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_onboarding_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@id/btn_onboarding_explanation_next"
+            android:layout_marginBottom="58dp"
+            app:tabBackground="@drawable/selector_indicator_onboarding"
+            app:tabIndicatorHeight="0dp"
+            app:tabPaddingStart="@dimen/spacing4" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_onboarding"
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_onboarding_explanation_next"
+            style="@style/Theme.Pingle.Button.L"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing16"
+            android:layout_marginBottom="@dimen/spacing25"
+            android:text="@string/on_boarding_explanation_next_button"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tl_onboarding_indicator"
-                android:layout_width="wrap_content"
-                android:background="@null"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tabBackground="@drawable/selector_indicator_onboarding"
-                app:tabIndicatorHeight="0dp"
-                app:tabPaddingStart="@dimen/spacing4"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_onboarding_explanation_next"
-                style="@style/Theme.Pingle.Button.L"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing25"
-                android:layout_marginTop="58dp"
-                android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@id/tl_onboarding_indicator"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="@string/on_boarding_explanation_next_button" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_onboarding_explanation_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing34"
-            android:layout_marginEnd="@dimen/spacing26"
+            android:layout_marginTop="@dimen/spacing30"
+            android:layout_marginEnd="@dimen/spacing16"
+            android:paddingHorizontal="@dimen/spacing10"
+            android:paddingVertical="@dimen/spacing4"
             android:text="@string/on_boarding_explanation_skip_button"
             android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
             android:textColor="@color/white"

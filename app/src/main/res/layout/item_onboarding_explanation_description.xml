@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="page"
+            name="onboardingExplanationType"
             type="org.sopt.pingle.presentation.type.OnboardingExplanationType" />
     </data>
 
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="58dp"
             android:layout_height="wrap_content"
-            android:src="@{context.getDrawable(page.image)}"
+            android:src="@{context.getDrawable(onboardingExplanationType.image)}"
             app:layout_constraintBottom_toTopOf="@id/tv_onboarding_explanation_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
             android:paddingBottom="@dimen/spacing8"
             android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
             android:textColor="@color/white"
-            android:text="@{context.getString(page.description)}" />
+            android:text="@{context.getString(onboardingExplanationType.description)}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

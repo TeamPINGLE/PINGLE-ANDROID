@@ -9,6 +9,6 @@ class OnboardingExplanationDescriptionViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun onBind(onboarding: OnboardingExplanationType) {
-        binding.page = onboarding
+        binding.onboardingExplanationType = onboarding
     }
 }

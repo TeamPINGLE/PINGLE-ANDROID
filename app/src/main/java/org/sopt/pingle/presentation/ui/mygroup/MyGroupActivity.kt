@@ -15,7 +15,6 @@ import org.sopt.pingle.domain.model.MyGroupEntity
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.onboarding.OnBoardingActivity
 import org.sopt.pingle.util.base.BindingActivity
-import org.sopt.pingle.util.component.MyGroupModalDialogFragment
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
 import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
@@ -48,10 +47,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     private fun initLayout() {
         viewModel.getGroupList()
         binding.toolbarMyGroup.text = stringOf(R.string.my_group_title)
-        initAdapter()
-    }
 
-    private fun initAdapter() {
         runCatching {
             adapter = MyGroupAdapter(this@MyGroupActivity::showChangeGroupModal)
             binding.rvMyGroupSelected.adapter = adapter
@@ -76,13 +72,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         }.launchIn(lifecycleScope)
 
         viewModel.selectedMyGroup.flowWithLifecycle(lifecycle).onEach { selectedMyGroup ->
-            with(binding) {
-                if (selectedMyGroup?.isOwner == true) {
-                    ivMyGroupSelectedOwner.visibility = View.VISIBLE
-                } else {
-                    ivMyGroupSelectedOwner.visibility = View.INVISIBLE
-                }
-            }
+            binding.ivMyGroupSelectedOwner.visibility = if (selectedMyGroup?.isOwner == true) View.VISIBLE else View.INVISIBLE
         }.launchIn(lifecycleScope)
     }
 

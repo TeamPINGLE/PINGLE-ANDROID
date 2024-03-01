@@ -1,4 +1,4 @@
-package org.sopt.pingle.util.component
+package org.sopt.pingle.presentation.ui.mygroup
 
 import android.content.DialogInterface
 import android.graphics.Paint

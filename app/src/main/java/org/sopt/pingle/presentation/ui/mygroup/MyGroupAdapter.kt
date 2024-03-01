@@ -10,7 +10,7 @@ import org.sopt.pingle.domain.model.MyGroupEntity
 import org.sopt.pingle.util.view.ItemDiffCallback
 
 class MyGroupAdapter(
-    private val groupOnClick: (Int) -> Unit
+    private val groupOnClick: (MyGroupEntity) -> Unit
 ) : ListAdapter<MyGroupEntity, RecyclerView.ViewHolder>(
     ItemDiffCallback<MyGroupEntity>(
         onContentsTheSame = { old, new -> old == new },

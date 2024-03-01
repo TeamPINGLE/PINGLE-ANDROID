@@ -23,52 +23,51 @@ class MyGroupViewModel @Inject constructor(
     fun getGroupList() {
         // TODO 서버통신
         selectedMyGroup.value = dummyGroupList.find { it.id == localStorgae.groupId }
-        selectedMyGroup.value.let {
+        selectedMyGroup.value?.let { selectedMyGroup ->
             with(localStorgae) {
-                groupId = it!!.id
-                groupName = it!!.name
-                groupKeyword = it!!.keyword
-                meetingCount = it!!.meetingCount
-                participantCount = it!!.participantCount
-                isOwner = it!!.isOwner
-                code = it!!.code
+                groupId = selectedMyGroup.id
+                groupName = selectedMyGroup.name
+                groupKeyword = selectedMyGroup.keyword
+                meetingCount = selectedMyGroup.meetingCount
+                participantCount = selectedMyGroup.participantCount
+                isOwner = selectedMyGroup.isOwner
+                code = selectedMyGroup.code
             }
         }
 
         _filteredGroupList.value = dummyGroupList.filterNot { it == selectedMyGroup.value }
     }
 
-    fun changeGroupList(clickedPosition: Int) {
+    fun changeGroupList(clickedEntity: MyGroupEntity) {
         // _filteredGroupList의 clickedPosition에 해당하는 값을 localStorage에 저장하고,
         // _filteredGroupList의 clickedPosition에 selectedMyGroup를 저장
         // selectedMyGroup에는 localStorage에 저장된 값과 같은 GroupListEntity를 저장
-        val clickedGroup = _filteredGroupList.value.getOrNull(clickedPosition)
-        clickedGroup?.let {
+        clickedEntity?.let { clickedEntity ->
             with(localStorgae) {
-                groupId = it.id
-                groupName = it.name
-                groupKeyword = it.keyword
-                meetingCount = it.meetingCount
-                participantCount = it.participantCount
-                isOwner = it.isOwner
-                code = it.code
+                groupId = clickedEntity.id
+                groupName = clickedEntity.name
+                groupKeyword = clickedEntity.keyword
+                meetingCount = clickedEntity.meetingCount
+                participantCount = clickedEntity.participantCount
+                isOwner = clickedEntity.isOwner
+                code = clickedEntity.code
             }
         }
-        _selectedMyGroup.value = clickedGroup
+        _selectedMyGroup.value = clickedEntity
         _filteredGroupList.value = dummyGroupList.filterNot { it == selectedMyGroup.value }
     }
 
-    fun getMyGroupIsOwner(): Boolean = _selectedMyGroup.value!!.isOwner
+    fun getMyGroupIsOwner(): Boolean = _selectedMyGroup.value?.isOwner ?: false
 
-    fun getGroupName(): String = _selectedMyGroup.value!!.name
+    fun getGroupName(): String = _selectedMyGroup.value?.name.orEmpty()
 
-    fun getGroupMeetingCount(): String = _selectedMyGroup.value!!.meetingCount
+    fun getGroupMeetingCount(): String = _selectedMyGroup.value?.meetingCount.orEmpty()
 
-    fun getGroupParticipantCount(): String = _selectedMyGroup.value!!.participantCount
+    fun getGroupParticipantCount(): String = _selectedMyGroup.value?.participantCount.orEmpty()
 
-    fun getGroupCode(): String = _selectedMyGroup.value!!.code
+    fun getGroupCode(): String = _selectedMyGroup.value?.code.orEmpty()
 
-    fun getGroupKeyword(): String = _selectedMyGroup.value!!.keyword
+    fun getGroupKeyword(): String = _selectedMyGroup.value?.keyword.orEmpty()
 
     val dummyGroupList = listOf<MyGroupEntity>(
         MyGroupEntity(

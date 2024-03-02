@@ -8,6 +8,7 @@ import javax.inject.Singleton
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
+import org.sopt.pingle.domain.repository.MyGroupListRepository
 import org.sopt.pingle.domain.repository.ParticipantRepository
 import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
@@ -15,6 +16,7 @@ import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
+import org.sopt.pingle.domain.usecase.GetMyGroupListUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetParticipantListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
@@ -92,4 +94,9 @@ class UseCaseModule {
     @Singleton
     fun providesGetMyPingleListUseCase(pingleRepository: PingleRepository): GetMyPingleListUseCase =
         GetMyPingleListUseCase(pingleRepository = pingleRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetMyGroupListUseCase(myGroupListRepository: MyGroupListRepository): GetMyGroupListUseCase =
+        GetMyGroupListUseCase(myGroupListRepository = myGroupListRepository)
 }

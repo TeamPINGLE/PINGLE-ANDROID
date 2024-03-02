@@ -8,6 +8,7 @@ import javax.inject.Singleton
 import org.sopt.pingle.data.service.AuthService
 import org.sopt.pingle.data.service.JoinGroupService
 import org.sopt.pingle.data.service.MapService
+import org.sopt.pingle.data.service.MyGroupListService
 import org.sopt.pingle.data.service.ParticipantService
 import org.sopt.pingle.data.service.PingleService
 import org.sopt.pingle.data.service.PlanService
@@ -47,4 +48,9 @@ object ServiceModule {
     @Singleton
     fun providesParticipantService(@Pingle retrofit: Retrofit): ParticipantService =
         retrofit.create(ParticipantService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesMyGroupListService(@Pingle retrofit: Retrofit): MyGroupListService =
+        retrofit.create(MyGroupListService::class.java)
 }

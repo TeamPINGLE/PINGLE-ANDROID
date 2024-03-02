@@ -45,7 +45,6 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun initLayout() {
-        viewModel.getGroupList()
         binding.toolbarMyGroup.text = stringOf(R.string.my_group_title)
 
         runCatching {

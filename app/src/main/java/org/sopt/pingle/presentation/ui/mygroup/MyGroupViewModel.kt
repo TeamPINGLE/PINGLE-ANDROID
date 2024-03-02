@@ -1,16 +1,24 @@
 package org.sopt.pingle.presentation.ui.mygroup
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.MyGroupEntity
+import org.sopt.pingle.domain.usecase.GetMyGroupListUseCase
+import org.sopt.pingle.util.view.UiState
 
 @HiltViewModel
 class MyGroupViewModel @Inject constructor(
-    private val localStorgae: PingleLocalDataSource
+    private val localStorgae: PingleLocalDataSource,
+    private val getMyGroupListUseCase: GetMyGroupListUseCase
 ) : ViewModel() {
+    private val _myGroupListState = MutableStateFlow<UiState<List<MyGroupEntity>>>(UiState.Empty)
+    val myGroupListState get() = _myGroupListState.asStateFlow()
 
     private var _filteredGroupList = MutableStateFlow<List<MyGroupEntity>>(emptyList())
     val filteredGroupList get() = _filteredGroupList
@@ -18,28 +26,35 @@ class MyGroupViewModel @Inject constructor(
     private var _selectedMyGroup = MutableStateFlow<MyGroupEntity?>(null)
     val selectedMyGroup get() = _selectedMyGroup
 
-    // TODO 서버통신 List
+    private var _myGroupList = MutableStateFlow<List<MyGroupEntity>>(emptyList())
 
-    fun getGroupList() {
-        // TODO 서버통신
-        selectedMyGroup.value = dummyGroupList.find { it.id == localStorgae.groupId }
-        selectedMyGroup.value?.let { selectedMyGroup ->
-            with(localStorgae) {
-                groupId = selectedMyGroup.id
-                groupName = selectedMyGroup.name
-                meetingCount = selectedMyGroup.meetingCount
-                participantCount = selectedMyGroup.participantCount
+    init {
+        getGroupList()
+    }
+
+    private fun getGroupList() {
+        viewModelScope.launch {
+            getMyGroupListUseCase().onSuccess { myGroupListEntity ->
+                _myGroupListState.value = UiState.Success(myGroupListEntity)
+                _selectedMyGroup.value = myGroupListEntity.find { it.id == localStorgae.groupId }
+                _selectedMyGroup.value?.let { selectedMyGroup ->
+                    with(localStorgae) {
+                        groupId = selectedMyGroup.id
+                        groupName = selectedMyGroup.name
+                        meetingCount = selectedMyGroup.meetingCount
+                        participantCount = selectedMyGroup.participantCount
+                    }
+                }
+                _myGroupList.value = myGroupListEntity
+                _filteredGroupList.value = myGroupListEntity.filterNot { it == selectedMyGroup.value }
+            }.onFailure { throwable ->
+                _myGroupListState.value = UiState.Error(throwable.message)
             }
         }
-
-        _filteredGroupList.value = dummyGroupList.filterNot { it == selectedMyGroup.value }
     }
 
     fun changeGroupList(clickedEntity: MyGroupEntity) {
-        // _filteredGroupList의 clickedPosition에 해당하는 값을 localStorage에 저장하고,
-        // _filteredGroupList의 clickedPosition에 selectedMyGroup를 저장
-        // selectedMyGroup에는 localStorage에 저장된 값과 같은 GroupListEntity를 저장
-        clickedEntity?.let { clickedEntity ->
+        clickedEntity.let { clickedEntity ->
             with(localStorgae) {
                 groupId = clickedEntity.id
                 groupName = clickedEntity.name
@@ -48,7 +63,7 @@ class MyGroupViewModel @Inject constructor(
             }
         }
         _selectedMyGroup.value = clickedEntity
-        _filteredGroupList.value = dummyGroupList.filterNot { it == selectedMyGroup.value }
+        _filteredGroupList.value = _myGroupList.value.filterNot { it == selectedMyGroup.value }
     }
 
     fun getMyGroupIsOwner(): Boolean = _selectedMyGroup.value?.isOwner ?: false

@@ -63,7 +63,6 @@ class PingleLocalDataSourceImpl @Inject constructor(
         get() = pref.getString(PARTICIPANTS_COUNT, "") ?: ""
         set(value) = pref.edit { putString(PARTICIPANTS_COUNT, value) }
 
-
     override fun clear() {
         pref.edit {
             clear()

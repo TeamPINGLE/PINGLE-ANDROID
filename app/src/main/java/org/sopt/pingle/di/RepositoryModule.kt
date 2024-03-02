@@ -8,6 +8,7 @@ import javax.inject.Singleton
 import org.sopt.pingle.data.repository.AuthRepositoryImpl
 import org.sopt.pingle.data.repository.JoinGroupRepositoryImpl
 import org.sopt.pingle.data.repository.MapRepositoryImpl
+import org.sopt.pingle.data.repository.NewGroupRepositoryImpl
 import org.sopt.pingle.data.repository.ParticipantRepositoryImpl
 import org.sopt.pingle.data.repository.PingleRepositoryImpl
 import org.sopt.pingle.data.repository.PlanRepositoryImpl
@@ -15,6 +16,7 @@ import org.sopt.pingle.data.repository.RankingRepositoryImpl
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
+import org.sopt.pingle.domain.repository.NewGroupRepository
 import org.sopt.pingle.domain.repository.ParticipantRepository
 import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
@@ -50,4 +52,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsRankingRepository(rankingRepositoryImpl: RankingRepositoryImpl): RankingRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsNewGroupRepository(newGroupRepositoryImpl: NewGroupRepositoryImpl): NewGroupRepository
 }

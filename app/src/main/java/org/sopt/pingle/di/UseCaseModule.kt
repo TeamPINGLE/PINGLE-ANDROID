@@ -8,6 +8,7 @@ import javax.inject.Singleton
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MapRepository
+import org.sopt.pingle.domain.repository.NewGroupRepository
 import org.sopt.pingle.domain.repository.ParticipantRepository
 import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
@@ -17,6 +18,7 @@ import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
+import org.sopt.pingle.domain.usecase.GetNewGroupKeywordsUserCase
 import org.sopt.pingle.domain.usecase.GetParticipantListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPingleListUseCase
@@ -99,4 +101,9 @@ class UseCaseModule {
     @Singleton
     fun providesPostPlanMeetingUseCase(planRepository: PlanRepository): PostPlanMeetingUseCase =
         PostPlanMeetingUseCase(planRepository = planRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetNewGroupKeywordsUseCase(newGroupRepository: NewGroupRepository): GetNewGroupKeywordsUserCase =
+        GetNewGroupKeywordsUserCase(newGroupRepository = newGroupRepository)
 }

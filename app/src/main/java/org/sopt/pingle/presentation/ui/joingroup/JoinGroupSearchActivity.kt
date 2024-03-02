@@ -45,7 +45,7 @@ class JoinGroupSearchActivity :
                 finish()
             }
 
-            (pingleSearchJoinGroupSearch.editText).let { searchEditText ->
+            (pingleSearchJoinGroupSearch.binding.etSearchPingleEditText).let { searchEditText ->
                 root.setOnClickListener {
                     hideKeyboard(searchEditText)
                 }

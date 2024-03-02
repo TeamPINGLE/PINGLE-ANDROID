@@ -35,14 +35,14 @@ class PlanLocationFragment :
     }
 
     private fun addListeners() {
-        (binding.pingleSearchPlanLocation.editText).let { searchEditText ->
+        (binding.pingleSearchPlanLocation.binding.etSearchPingleEditText).let { searchEditText ->
             binding.root.setOnClickListener {
                 requireContext().hideKeyboard(searchEditText)
             }
 
             searchEditText.setOnKeyListener(
                 View.OnKeyListener { _, keyCode, event ->
-                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                         if (searchEditText.text.isNotBlank()) {
                             planLocationViewModel.getPlanLocationList(searchEditText.text.toString())
                         }

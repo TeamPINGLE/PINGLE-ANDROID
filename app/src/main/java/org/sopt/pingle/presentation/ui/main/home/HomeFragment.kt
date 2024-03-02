@@ -121,7 +121,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 with(binding) {
                     pingleSearchHomeSearch.binding.etSearchPingleEditText.setText(homeViewModel.searchWord.value)
 
-                    (searchWord.isNotBlank()).let { isSearching ->
+                    (!searchWord.isNullOrBlank()).let { isSearching ->
                         pingleSearchHomeSearch.visibility =
                             if (isSearching) View.VISIBLE else View.INVISIBLE
                         tvHomeGroup.visibility = if (isSearching) View.INVISIBLE else View.VISIBLE
@@ -168,7 +168,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun setStopSearchCallback() {
         stopSearchCallback =
-            object : OnBackPressedCallback(homeViewModel.searchWord.value.isNotBlank()) {
+            object : OnBackPressedCallback(!homeViewModel.searchWord.value.isNullOrEmpty()) {
                 override fun handleOnBackPressed() {
                     homeViewModel.clearSearchWord()
                     navigateToSearch()

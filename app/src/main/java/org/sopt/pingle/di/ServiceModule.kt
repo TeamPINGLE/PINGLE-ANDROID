@@ -52,11 +52,6 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun providesParticipantService(@Pingle retrofit: Retrofit): ParticipantService =
-        retrofit.create(ParticipantService::class.java)
-
-    @Provides
-    @Singleton
     fun providesRankingService(@Pingle retrofit: Retrofit): RankingService =
         retrofit.create(RankingService::class.java)
 

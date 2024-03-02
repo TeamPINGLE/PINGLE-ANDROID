@@ -57,10 +57,6 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindsParticipantRemoteDataSource(participantRemoteDataSourceImpl: ParticipantRemoteDataSourceImpl): ParticipantRemoteDataSource
-
-    @Binds
-    @Singleton
     abstract fun bindsRankingRemoteDataSource(rankingRemoteDataSourceImpl: RankingRemoteDataSourceImpl): RankingRemoteDataSource
 
     @Binds

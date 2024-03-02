@@ -39,10 +39,6 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindsParticipantRepository(participantRepositoryImpl: ParticipantRepositoryImpl): ParticipantRepository
-
-    @Binds
-    @Singleton
     abstract fun bindsPingleRepository(pingleRepositoryImpl: PingleRepositoryImpl): PingleRepository
 
     @Binds

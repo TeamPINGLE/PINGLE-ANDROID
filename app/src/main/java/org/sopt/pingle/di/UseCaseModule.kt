@@ -104,16 +104,6 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesGetParticipantListUseCase(participantRepository: ParticipantRepository): GetParticipantListUseCase =
-        GetParticipantListUseCase(participantRepository = participantRepository)
-
-    @Provides
-    @Singleton
-    fun providesGetMyPingleListUseCase(pingleRepository: PingleRepository): GetMyPingleListUseCase =
-        GetMyPingleListUseCase(pingleRepository = pingleRepository)
-
-    @Provides
-    @Singleton
     fun providesGetMyGroupListUseCase(myGroupListRepository: MyGroupListRepository): GetMyGroupListUseCase =
         GetMyGroupListUseCase(myGroupListRepository = myGroupListRepository)
 }

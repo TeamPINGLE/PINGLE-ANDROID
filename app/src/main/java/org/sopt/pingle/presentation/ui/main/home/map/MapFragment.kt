@@ -24,6 +24,7 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -171,16 +172,14 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun collectData() {
-        homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .distinctUntilChanged()
-            .onEach {
-                homeViewModel.getPinListWithoutFilter()
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-        homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { searchWord ->
-                homeViewModel.getPinListWithoutFilter()
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+        combine(
+            homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .distinctUntilChanged(),
+            homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+        ) { _, _ ->
+        }.onEach {
+            homeViewModel.getPinListWithoutFilter()
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { markerModelData ->
@@ -253,11 +252,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 

@@ -13,8 +13,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.ActivityAuthBinding
 import org.sopt.pingle.presentation.ui.main.MainActivity
-import org.sopt.pingle.presentation.ui.onboarding.OnBoardingActivity
-import org.sopt.pingle.util.activity.setDoubleBackPressToExit
+import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
@@ -28,16 +27,8 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initLayout()
         addListeners()
         collectData()
-        setDoubleBackPressToExit(binding.root)
-    }
-
-    private fun initLayout() {
-        if (viewModel.isLocalToken()) {
-            if (viewModel.isLocalGroupId()) navigateToMain() else viewModel.getUserInfo()
-        }
     }
 
     private fun addListeners() {
@@ -51,7 +42,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
             when (uiState) {
                 is UiState.Success -> viewModel.getUserInfo()
                 is UiState.Error -> Timber.tag(TAG).d(KAKAO_LOGIN_ERROR + "${uiState.message}")
-                is UiState.Loading -> Timber.tag(TAG).d(KAKAO_LOGIN_LADING)
+                is UiState.Loading -> Timber.tag(TAG).d(KAKAO_LOGIN_LOADING)
                 is UiState.Empty -> Timber.tag(TAG).d(KAKAO_LOGIN_EMPTY)
             }
         }.launchIn(lifecycleScope)
@@ -60,14 +51,14 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
             when (uiState) {
                 is UiState.Success -> if (uiState.data.groups.isEmpty()) navigateToOnBoarding() else navigateToMain()
                 is UiState.Error -> Timber.tag(TAG).d(USER_INFO_ERROR + uiState.message)
-                is UiState.Loading -> Timber.tag(TAG).d(USER_INFO_LADING)
+                is UiState.Loading -> Timber.tag(TAG).d(USER_INFO_LOADING)
                 is UiState.Empty -> Timber.tag(TAG).d(USER_INFO_EMPTY)
             }
         }.launchIn(lifecycleScope)
     }
 
     private fun navigateToOnBoarding() {
-        Intent(this, OnBoardingActivity::class.java).apply {
+        Intent(this, OnboardingActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(this)
         }
@@ -82,10 +73,10 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
 
     companion object {
         const val TAG = "AuthActivity"
-        const val KAKAO_LOGIN_LADING = "Kakao Login Lading..."
+        const val KAKAO_LOGIN_LOADING = "Kakao Login Loading..."
         const val KAKAO_LOGIN_EMPTY = "Kakao Login Empty"
         const val KAKAO_LOGIN_ERROR = "Kakao Login Error : "
-        const val USER_INFO_LADING = "User Info Lading..."
+        const val USER_INFO_LOADING = "User Info Loading..."
         const val USER_INFO_EMPTY = "User Info Empty"
         const val USER_INFO_ERROR = "User Info Error : "
     }

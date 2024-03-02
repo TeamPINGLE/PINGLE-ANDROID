@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.sopt.pingle.R
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.databinding.ActivitySplashBinding
-import org.sopt.pingle.presentation.ui.auth.AuthActivity
+import org.sopt.pingle.presentation.ui.onboarding.onboardingexplanation.OnboardingExplanationActivity
 import org.sopt.pingle.util.base.BindingActivity
 
 @AndroidEntryPoint
@@ -32,7 +32,7 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
     }
 
     private fun navigateToAuth() {
-        Intent(this, AuthActivity::class.java).apply {
+        Intent(this, OnboardingExplanationActivity::class.java).apply {
             startActivity(this)
         }
         finish()

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing16" />
+
+        <include
+            android:id="@+id/include_new_group_code_share_topbar"
+            layout="@layout/view_all_topbar_arrow_with_title"
+            text="@{@string/new_group_code_share_topbar}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_new_group_code_share_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/new_group_code_share_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/include_new_group_code_share_topbar" />
+
+        <org.sopt.pingle.util.component.PingleEditText
+            android:id="@+id/et_new_group_code_share_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_group_code_share_title"
+            app:pingleEditTextCopyVisibility="visible"
+            app:pingleEditTextTitle="@string/join_group_code_invitation" />
+
+        <TextView
+            android:id="@+id/tv_new_group_code_share_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_all_info_14"
+            android:drawablePadding="4dp"
+            android:text="@string/new_group_code_share_guide"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.10"
+            android:textColor="@color/g_04"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/et_new_group_code_share_code" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_new_group_code_share"
+            style="@style/Theme.Pingle.Button.L"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:enabled="false"
+            android:text="@string/new_group_code_share"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

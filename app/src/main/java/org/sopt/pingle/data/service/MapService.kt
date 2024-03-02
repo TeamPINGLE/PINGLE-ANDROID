@@ -29,7 +29,7 @@ interface MapService {
         const val PINS = "pins"
         const val PIN_ID = "pinId"
         const val CATEGORY = "category"
-        const val SEARCH_WORD= "q"
+        const val SEARCH_WORD = "q"
         const val MEETINGS = "meetings"
     }
 }

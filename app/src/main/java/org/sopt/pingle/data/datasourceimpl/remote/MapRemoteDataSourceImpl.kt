@@ -1,11 +1,11 @@
 package org.sopt.pingle.data.datasourceimpl.remote
 
+import javax.inject.Inject
 import org.sopt.pingle.data.datasource.remote.MapRemoteDataSource
 import org.sopt.pingle.data.model.remote.response.ResponsePinListDto
 import org.sopt.pingle.data.model.remote.response.ResponsePingleListDto
 import org.sopt.pingle.data.service.MapService
 import org.sopt.pingle.util.base.BaseResponse
-import javax.inject.Inject
 
 class MapRemoteDataSourceImpl @Inject constructor(
     private val mapService: MapService

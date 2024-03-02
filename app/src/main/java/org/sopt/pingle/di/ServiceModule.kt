@@ -12,6 +12,7 @@ import org.sopt.pingle.data.service.MyGroupListService
 import org.sopt.pingle.data.service.ParticipantService
 import org.sopt.pingle.data.service.PingleService
 import org.sopt.pingle.data.service.PlanService
+import org.sopt.pingle.data.service.RankingService
 import org.sopt.pingle.di.qualifier.Pingle
 import retrofit2.Retrofit
 import retrofit2.create
@@ -36,6 +37,11 @@ object ServiceModule {
 
     @Provides
     @Singleton
+    fun providesParticipantService(@Pingle retrofit: Retrofit): ParticipantService =
+        retrofit.create(ParticipantService::class.java)
+
+    @Provides
+    @Singleton
     fun providesPingleService(@Pingle retrofit: Retrofit): PingleService =
         retrofit.create(PingleService::class.java)
 
@@ -48,6 +54,11 @@ object ServiceModule {
     @Singleton
     fun providesParticipantService(@Pingle retrofit: Retrofit): ParticipantService =
         retrofit.create(ParticipantService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesRankingService(@Pingle retrofit: Retrofit): RankingService =
+        retrofit.create(RankingService::class.java)
 
     @Provides
     @Singleton

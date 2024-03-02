@@ -60,8 +60,16 @@
         <item name="android:paddingVertical">8dp</item>
         <item name="cornerRadius">@dimen/button_corner_radius</item>
         <item name="android:textAppearance">@style/TextAppearance.Pingle.Title.Semi.24</item>
-        <item name="android:backgroundTint">@color/selector_plan_recruitment_btn</item>
+        <item name="android:backgroundTint">@color/selector_plan_recruitment_btn_background</item>
         <item name="android:textColor">@color/selector_plan_recruitment_btn_text</item>
+    </style>
+
+    <style name="Theme.Pingle.Button.Check" parent="Theme.Pingle.Button">
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">3dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pingle.Cap.Semi.10</item>
+        <item name="android:backgroundTint">@color/selector_plan_recruitment_btn_background</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- chip -->

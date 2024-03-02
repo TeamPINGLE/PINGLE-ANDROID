@@ -13,6 +13,7 @@ import org.sopt.pingle.data.datasource.remote.MyGroupListRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.ParticipantRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.PingleRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.PlanRemoteDataSource
+import org.sopt.pingle.data.datasource.remote.RankingRemoteDataSource
 import org.sopt.pingle.data.datasourceimpl.local.PingleLocalDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.AuthRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.JoinGroupRemoteDataSourceImpl
@@ -21,6 +22,7 @@ import org.sopt.pingle.data.datasourceimpl.remote.MyGroupListRemoteDataSourceImp
 import org.sopt.pingle.data.datasourceimpl.remote.ParticipantRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PingleRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PlanRemoteDataSourceImpl
+import org.sopt.pingle.data.datasourceimpl.remote.RankingRemoteDataSourceImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -43,6 +45,10 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
+    abstract fun bindsParticipantRemoteDataSource(participantRemoteDataSourceImpl: ParticipantRemoteDataSourceImpl): ParticipantRemoteDataSource
+
+    @Binds
+    @Singleton
     abstract fun bindsPingleRemoteDataSource(pingleRemoteDataSourceImpl: PingleRemoteDataSourceImpl): PingleRemoteDataSource
 
     @Binds
@@ -52,6 +58,10 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsParticipantRemoteDataSource(participantRemoteDataSourceImpl: ParticipantRemoteDataSourceImpl): ParticipantRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsRankingRemoteDataSource(rankingRemoteDataSourceImpl: RankingRemoteDataSourceImpl): RankingRemoteDataSource
 
     @Binds
     @Singleton

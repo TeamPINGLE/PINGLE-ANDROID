@@ -81,6 +81,26 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name=".presentation.ui.newgroup.NewGroupActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".presentation.ui.newgroup.newgroupinfo.NewGroupInfoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".presentation.ui.newgroup.newgroupannouncement.NewGroupAnnouncementActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".presentation.ui.newgroup.newgroupcodeshare.NewGroupCodeShareActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".presentation.ui.main.planannouncement.PlanAnnouncementActivity"
             android:exported="false"
             android:screenOrientation="portrait"

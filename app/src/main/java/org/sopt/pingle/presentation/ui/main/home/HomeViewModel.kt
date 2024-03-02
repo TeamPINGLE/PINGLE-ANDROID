@@ -74,7 +74,7 @@ class HomeViewModel @Inject constructor(
         _homeViewType.value = homeViewType
     }
 
-    fun setSearchWord(searchWord: String) {
+    fun setSearchWord(searchWord: String?) {
         _searchWord.value = searchWord
     }
 

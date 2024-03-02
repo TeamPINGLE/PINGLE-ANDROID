@@ -119,6 +119,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { searchWord ->
                 with(binding) {
+                    homeViewModel.getPinListWithoutFilter()
                     pingleSearchHomeSearch.binding.etSearchPingleEditText.setText(homeViewModel.searchWord.value)
 
                     (!searchWord.isNullOrBlank()).let { isSearching ->
@@ -160,7 +161,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
                 if (activityResult.resultCode == RESULT_OK) {
                     homeViewModel.setSearchWord(
-                        activityResult.data?.getStringExtra(SEARCH_WORD) ?: ""
+                        activityResult.data?.getStringExtra(SEARCH_WORD)
                     )
                 }
             }

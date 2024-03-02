@@ -117,6 +117,8 @@
     <string name="new_group_input_email_hint">ex. 단체 공식 이메일, 개설자님의 이메일</string>
     <string name="new_group_input_email_title">대표 이메일</string>
     <string name="new_group_input_guide">해당 이메일은 초대 코드 공유 및 단체 관리를 위해 사용될 예정입니다</string>
+    <string name="new_group_input_snackbar_guide">등록 가능한 단체명입니다.</string>
+    <string name="new_group_input_snackbar_warning">같은 이름을 가진 단체가 존재합니다!</string>
 
     <!-- new group announcement -->
     <string name="new_group_announcement_title">단체가\n개설되었어요!</string>

@@ -11,7 +11,8 @@ interface MapService {
     @GET("$VERSION/$TEAMS/{$TEAM_ID}/$PINS")
     suspend fun getPinListWithoutFiltering(
         @Path("$TEAM_ID") teamId: Long,
-        @Query(CATEGORY) category: String?
+        @Query(CATEGORY) category: String?,
+        @Query(SEARCH_WORD) searchWord: String?
     ): BaseResponse<List<ResponsePinListDto>>
 
     @GET("$VERSION/$TEAMS/{$TEAM_ID}/$PINS/{$PIN_ID}/$MEETINGS")
@@ -28,6 +29,7 @@ interface MapService {
         const val PINS = "pins"
         const val PIN_ID = "pinId"
         const val CATEGORY = "category"
+        const val SEARCH_WORD= "q"
         const val MEETINGS = "meetings"
     }
 }

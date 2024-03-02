@@ -18,6 +18,7 @@ import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
+import org.sopt.pingle.domain.usecase.GetNewGroupCheckNameUseCase
 import org.sopt.pingle.domain.usecase.GetNewGroupKeywordsUserCase
 import org.sopt.pingle.domain.usecase.GetParticipantListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
@@ -106,4 +107,9 @@ class UseCaseModule {
     @Singleton
     fun providesGetNewGroupKeywordsUseCase(newGroupRepository: NewGroupRepository): GetNewGroupKeywordsUserCase =
         GetNewGroupKeywordsUserCase(newGroupRepository = newGroupRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetNewGroupCheckNameUseCase(newGroupRepository: NewGroupRepository): GetNewGroupCheckNameUseCase =
+        GetNewGroupCheckNameUseCase(newGroupRepository = newGroupRepository)
 }

@@ -103,12 +103,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun collectData() {
-        homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .distinctUntilChanged()
-            .onEach {
-                homeViewModel.getPinListWithoutFilter()
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
-
         homeViewModel.homeViewType.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach {
             with(binding) {
                 vpHome.setCurrentItem(homeViewModel.homeViewType.value.index, false)
@@ -119,7 +113,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { searchWord ->
                 with(binding) {
-                    homeViewModel.getPinListWithoutFilter()
                     pingleSearchHomeSearch.binding.etSearchPingleEditText.setText(homeViewModel.searchWord.value)
 
                     (!searchWord.isNullOrBlank()).let { isSearching ->

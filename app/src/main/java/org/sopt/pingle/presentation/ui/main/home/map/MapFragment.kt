@@ -171,11 +171,24 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun collectData() {
+        homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .distinctUntilChanged()
+            .onEach {
+                homeViewModel.getPinListWithoutFilter()
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+
+        homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { searchWord ->
+                homeViewModel.getPinListWithoutFilter()
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
         homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { markerModelData ->
                 (markerModelData.first == DEFAULT_SELECTED_MARKER_POSITION).let { isMarkerUnselected ->
                     with(binding) {
-                        fabMapHere.visibility = if (isMarkerUnselected) View.VISIBLE else View.INVISIBLE
+                        fabMapHere.visibility =
+                            if (isMarkerUnselected) View.VISIBLE else View.INVISIBLE
                     }
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -241,11 +254,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 

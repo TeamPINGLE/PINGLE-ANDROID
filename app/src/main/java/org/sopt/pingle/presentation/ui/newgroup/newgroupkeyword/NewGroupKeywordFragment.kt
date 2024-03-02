@@ -33,7 +33,7 @@ class NewGroupKeywordFragment :
     }
 
     private fun collectData() {
-        newGroupViewModel.newGroupKeywords.flowWithLifecycle(lifecycle).onEach { uiState ->
+        newGroupViewModel.newGroupKeywordsState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> {
                     setChipKeyword(uiState.data)

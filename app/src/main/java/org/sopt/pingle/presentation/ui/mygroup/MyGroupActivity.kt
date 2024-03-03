@@ -97,12 +97,12 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         MyGroupModalDialogFragment(
             title = getString(
                 R.string.my_group_modal_move_question,
-                clickedEntity.name,
+                clickedEntity.name
             ),
             buttonText = stringOf(R.string.my_group_modal_change),
             textButtonText = stringOf(R.string.my_group_modal_back),
             clickBtn = { changeMyGroup(clickedEntity) },
-            clickTextBtn = { },
+            clickTextBtn = { }
         ).show(supportFragmentManager, CHANGE_MODAL)
     }
 
@@ -112,7 +112,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_chage_group_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE,
+            snackbarType = SnackbarType.GUIDE
         )
     }
 
@@ -123,7 +123,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE,
+            snackbarType = SnackbarType.GUIDE
         )
     }
 
@@ -136,8 +136,8 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
                 viewModel.getGroupName(),
                 PINGLE_SHARE_CODE,
                 viewModel.getGroupCode(),
-                PINGLE_PLAY_STORE_LINK,
-            ),
+                PINGLE_PLAY_STORE_LINK
+            )
         )
     }
 

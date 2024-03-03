@@ -3,7 +3,7 @@ package org.sopt.pingle.data.datasourceimpl.remote
 import javax.inject.Inject
 import org.sopt.pingle.data.datasource.remote.MapRemoteDataSource
 import org.sopt.pingle.data.model.remote.response.ResponsePinListDto
-import org.sopt.pingle.data.model.remote.response.ResponsePingleListDto
+import org.sopt.pingle.data.model.remote.response.ResponseMapPingleListDto
 import org.sopt.pingle.data.service.MapService
 import org.sopt.pingle.util.base.BaseResponse
 
@@ -25,6 +25,6 @@ class MapRemoteDataSourceImpl @Inject constructor(
         teamId: Long,
         pinId: Long,
         category: String?
-    ): BaseResponse<List<ResponsePingleListDto>> =
+    ): BaseResponse<List<ResponseMapPingleListDto>> =
         mapService.getPingleList(teamId = teamId, pinId = pinId, category = category)
 }

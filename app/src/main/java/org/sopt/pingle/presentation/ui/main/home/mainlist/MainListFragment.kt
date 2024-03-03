@@ -115,6 +115,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                     is UiState.Success -> {
                         mainListPingleListUiState.data.let { mainListPingleList ->
                             mainListAdapter.submitList(mainListPingleList)
+                            binding.rvMainList.smoothScrollToPosition(TOP)
                             binding.tvMainListEmpty.visibility = if(mainListPingleList.isEmpty()) View.VISIBLE else View.INVISIBLE
                         }
 
@@ -144,6 +145,9 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                     else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
 
+    companion object {
+        private const val TOP = 0
     }
 }

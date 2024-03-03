@@ -10,5 +10,5 @@ data class RequestNewGroupCreateDto(
     @SerialName("email")
     val email: String,
     @SerialName("keyword")
-    val keyword: String,
+    val keyword: String
 )

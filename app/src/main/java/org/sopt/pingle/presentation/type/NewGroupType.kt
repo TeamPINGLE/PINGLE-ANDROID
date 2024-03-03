@@ -5,5 +5,5 @@ enum class NewGroupType(
 ) {
     INPUT(0),
     KEYWORD(1),
-    CREATE(2),
+    CREATE(2)
 }

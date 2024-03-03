@@ -1,11 +1,11 @@
 package org.sopt.pingle.data.repository
 
+import javax.inject.Inject
 import org.sopt.pingle.data.datasource.remote.NewGroupRemoteDataSource
 import org.sopt.pingle.data.model.remote.request.RequestNewGroupCreateDto
 import org.sopt.pingle.domain.model.NewGroupCheckNameEntity
 import org.sopt.pingle.domain.model.NewGroupKeywordEntity
 import org.sopt.pingle.domain.repository.NewGroupRepository
-import javax.inject.Inject
 
 class NewGroupRepositoryImpl @Inject constructor(
     private val newGroupRemoteDataSource: NewGroupRemoteDataSource

@@ -81,8 +81,9 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     private fun collectData() {
         newGroupViewModel.currentPage.flowWithLifecycle(lifecycle).onEach { currentPage ->
             when (currentPage) {
-                fragmentList.size - LAST_INDEX_OFFSET -> binding.btnNewGroupNext.text =
-                    stringOf(R.string.new_group_create)
+                fragmentList.size - LAST_INDEX_OFFSET ->
+                    binding.btnNewGroupNext.text =
+                        stringOf(R.string.new_group_create)
 
                 else -> binding.btnNewGroupNext.text = stringOf(R.string.new_group_next)
             }
@@ -112,12 +113,12 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
             isUserInputEnabled = false
 
             registerOnPageChangeCallback(object :
-                ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    newGroupViewModel.setCurrentPage(position)
-                }
-            })
+                    ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        newGroupViewModel.setCurrentPage(position)
+                    }
+                })
         }
     }
 

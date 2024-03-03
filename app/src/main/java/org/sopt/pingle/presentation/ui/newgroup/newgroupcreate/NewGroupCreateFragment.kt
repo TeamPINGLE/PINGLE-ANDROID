@@ -1,7 +1,6 @@
 package org.sopt.pingle.presentation.ui.newgroup.newgroupcreate
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint

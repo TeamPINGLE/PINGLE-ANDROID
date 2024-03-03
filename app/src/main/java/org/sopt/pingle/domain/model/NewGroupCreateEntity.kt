@@ -5,5 +5,5 @@ data class NewGroupCreateEntity(
     val name: String,
     val email: String,
     val keyword: String,
-    val code: String,
+    val code: String
 )

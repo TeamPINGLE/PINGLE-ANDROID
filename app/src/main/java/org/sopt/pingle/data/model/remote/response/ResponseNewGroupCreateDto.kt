@@ -15,13 +15,13 @@ data class ResponseNewGroupCreateDto(
     @SerialName("keyword")
     val keyword: String,
     @SerialName("code")
-    val code: String,
+    val code: String
 ) {
     fun toNewGroupCreateEntity() = NewGroupCreateEntity(
         id = this.id,
         name = this.name,
         email = this.email,
         keyword = this.keyword,
-        code = this.code,
+        code = this.code
     )
 }

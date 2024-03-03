@@ -88,7 +88,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         }
     }
 
-    private fun navigateToHome(searchWord: String) {
+    private fun navigateToHome(searchWord: String?) {
         Intent().apply {
             putExtra(SEARCH_WORD, searchWord)
             setResult(RESULT_OK, this)
@@ -98,7 +98,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
 
     companion object {
         private const val INVALID_INDEX = -1
+        private val SEARCH_CLEAR = null
         const val SEARCH_WORD = "searchWord"
-        const val SEARCH_CLEAR = ""
     }
 }

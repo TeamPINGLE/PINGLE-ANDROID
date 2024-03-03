@@ -32,6 +32,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
 import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.presentation.mapper.toMarkerModel
+import org.sopt.pingle.presentation.type.HomeViewType
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel.Companion.DEFAULT_SELECTED_MARKER_POSITION
 import org.sopt.pingle.util.base.BindingFragment
@@ -202,8 +203,12 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                             homeViewModel.clearSelectedMarkerPosition()
                         }
 
-                        if (!homeViewModel.searchWord.value.isNullOrBlank() && uiState.data.isNotEmpty()) {
-                            moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
+                        homeViewModel.searchWord.value?.let { searchWord ->
+                            when {
+                                searchWord.isBlank() -> return@let
+                                uiState.data.isEmpty() -> homeViewModel.setHomeViewType(HomeViewType.MAIN_LIST)
+                                else -> moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
+                            }
                         }
                     }
 

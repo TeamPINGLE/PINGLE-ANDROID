@@ -2,7 +2,7 @@ package org.sopt.pingle.data.model.remote.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.sopt.pingle.domain.model.NewGroupKeywordsEntity
+import org.sopt.pingle.domain.model.NewGroupKeywordEntity
 
 @Serializable
 data class ResponseNewGroupKeywordsDto(
@@ -11,7 +11,7 @@ data class ResponseNewGroupKeywordsDto(
     @SerialName("value")
     val value: String
 ) {
-    fun toNewGroupKeywordsEntity() = NewGroupKeywordsEntity(
+    fun toNewGroupKeywordsEntity() = NewGroupKeywordEntity(
         name = this.name,
         value = this.value
     )

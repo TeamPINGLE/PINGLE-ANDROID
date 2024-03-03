@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.newgroup
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
@@ -21,11 +22,13 @@ import org.sopt.pingle.presentation.ui.newgroup.newgroupkeyword.NewGroupKeywordF
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter
+import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
 class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activity_new_group) {
-    private val viewModel: NewGroupViewModel by viewModels()
+    private val newGroupViewModel: NewGroupViewModel by viewModels()
     private lateinit var fragmentList: ArrayList<Fragment>
+    private lateinit var onBackPressed: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,15 +41,13 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     private fun initLayout() {
         navigateToNewGroupInfo()
         setPlanFragmentStateAdapter()
+        onBackPressedBtn()
     }
 
     private fun addListeners() {
         binding.btnNewGroupNext.setOnClickListener {
             when (binding.vpNewGroup.currentItem) {
-                fragmentList.size - LAST_INDEX_OFFSET -> {
-                    navigateToNewGroupAnnouncement()
-                    finish()
-                }
+                fragmentList.size - LAST_INDEX_OFFSET -> newGroupViewModel.postNewGroupCreate()
 
                 else -> binding.vpNewGroup.currentItem++
             }
@@ -62,15 +63,23 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     }
 
     private fun collectData() {
-        viewModel.currentPage.flowWithLifecycle(lifecycle).onEach { currentPage ->
+        newGroupViewModel.currentPage.flowWithLifecycle(lifecycle).onEach { currentPage ->
             when (currentPage) {
-                fragmentList.size - LAST_INDEX_OFFSET ->
-                    binding.btnNewGroupNext.text =
-                        stringOf(R.string.new_group_create)
+                fragmentList.size - LAST_INDEX_OFFSET -> binding.btnNewGroupNext.text =
+                    stringOf(R.string.new_group_create)
 
                 else -> binding.btnNewGroupNext.text = stringOf(R.string.new_group_next)
             }
         }.launchIn(lifecycleScope)
+
+        newGroupViewModel.newGroupCreateState.flowWithLifecycle(lifecycle)
+            .onEach { newGroupCreateState ->
+                when (newGroupCreateState) {
+                    is UiState.Success -> navigateToNewGroupAnnouncement()
+
+                    else -> {}
+                }
+            }.launchIn(lifecycleScope)
     }
 
     private fun setPlanFragmentStateAdapter() {
@@ -87,12 +96,12 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
             isUserInputEnabled = false
 
             registerOnPageChangeCallback(object :
-                    ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                        viewModel.setCurrentPage(position)
-                    }
-                })
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    newGroupViewModel.setCurrentPage(position)
+                }
+            })
         }
     }
 
@@ -110,6 +119,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
         Intent(this, NewGroupAnnouncementActivity::class.java).apply {
             startActivity(this)
         }
+        finish()
     }
 
     private fun navigateToPreviousPage() {
@@ -117,6 +127,15 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
             FIRST_PAGE -> finish()
             else -> binding.vpNewGroup.currentItem--
         }
+    }
+
+    private fun onBackPressedBtn() {
+        onBackPressed = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navigateToPreviousPage()
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, onBackPressed)
     }
 
     companion object {

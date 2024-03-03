@@ -1,6 +1,7 @@
 package org.sopt.pingle.presentation.ui.newgroup.newgroupinput
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -21,6 +22,7 @@ import org.sopt.pingle.util.view.UiState
 class NewGroupInputFragment :
     BindingFragment<FragmentNewGroupInputBinding>(R.layout.fragment_new_group_input) {
     private val newGroupViewModel by viewModels<NewGroupViewModel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.newGroupViewModel = newGroupViewModel
@@ -30,14 +32,22 @@ class NewGroupInputFragment :
     }
 
     private fun addListeners() {
-        binding.etNewGroupInputTeamName.btnEditTextCheck.setOnClickListener {
-            newGroupViewModel.getNewGroupCheckName(newGroupViewModel.newGroupTeamName.value)
+        binding.etNewGroupInputGroupName.btnEditTextCheck.setOnClickListener {
+            newGroupViewModel.getNewGroupCheckName()
         }
     }
 
     private fun collectData() {
         collectNewGroupTeamNameIsEnabled()
         collectNewGroupCheckNameState()
+
+        newGroupViewModel.newGroupEmail.flowWithLifecycle(lifecycle).onEach { email ->
+            Log.d("ㅁㅇ email", email)
+        }.launchIn(lifecycleScope)
+
+        newGroupViewModel.isNewGroupBtnEnabled.flowWithLifecycle(lifecycle).onEach {
+            Log.d("ㅁㅇ isNewGroupBtnEnabled", it.toString())
+        }.launchIn(lifecycleScope)
     }
 
     private fun collectNewGroupCheckNameState() {
@@ -51,6 +61,7 @@ class NewGroupInputFragment :
                             SNACKBAR_BOTTOM_MARGIN,
                             SnackbarType.GUIDE
                         )
+                        binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = false
                     } else {
                         PingleSnackbar.makeSnackbar(
                             binding.root,
@@ -67,8 +78,8 @@ class NewGroupInputFragment :
     }
 
     private fun collectNewGroupTeamNameIsEnabled() {
-        newGroupViewModel.newGroupTeamName.flowWithLifecycle(lifecycle).onEach { newGroupTeamName ->
-            binding.etNewGroupInputTeamName.btnEditTextCheck.isEnabled = (newGroupTeamName != "")
+        newGroupViewModel.newGroupName.flowWithLifecycle(lifecycle).onEach { newGroupName ->
+            binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = newGroupName.isNotBlank()
         }.launchIn(lifecycleScope)
     }
 

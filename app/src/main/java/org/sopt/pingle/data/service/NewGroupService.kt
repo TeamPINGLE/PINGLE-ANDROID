@@ -1,9 +1,13 @@
 package org.sopt.pingle.data.service
 
+import org.sopt.pingle.data.model.remote.request.RequestNewGroupCreateDto
 import org.sopt.pingle.data.model.remote.response.ResponseNewGroupCheckNameDto
+import org.sopt.pingle.data.model.remote.response.ResponseNewGroupCreateDto
 import org.sopt.pingle.data.model.remote.response.ResponseNewGroupKeywordsDto
 import org.sopt.pingle.util.base.BaseResponse
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface NewGroupService {
@@ -14,6 +18,11 @@ interface NewGroupService {
 
     @GET("$VERSION/$TEAMS/$KEYWORDS")
     suspend fun getNewGroupKeywords(): BaseResponse<List<ResponseNewGroupKeywordsDto>>
+
+    @POST("$VERSION/$TEAMS")
+    suspend fun postNewGroupCreate(
+        @Body requestNewGroupCreateDto: RequestNewGroupCreateDto
+    ): BaseResponse<ResponseNewGroupCreateDto>
 
     companion object {
         const val VERSION = "v1"

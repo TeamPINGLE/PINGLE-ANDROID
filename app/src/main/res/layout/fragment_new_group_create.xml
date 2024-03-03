@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="NewGroupViewModel"
+            type="org.sopt.pingle.presentation.ui.newgroup.NewGroupViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,20 +85,14 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_end="@dimen/spacing20" />
 
-
-            <TextView
+            <com.google.android.material.chip.Chip
                 android:id="@+id/tv_new_group_create_tag"
+                style="@style/Theme.Pingle.Chip.Tag.M"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="@drawable/shape_border_radius_50"
-                android:backgroundTint="@color/g_10"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
-                android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
-                android:textColor="@color/pingle_green"
+                android:layout_height="wrap_content"
+                android:text="@={NewGroupViewModel.newGroupKeywordValue}"
                 app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
-                app:layout_constraintTop_toBottomOf="@id/gl_group_info_top"
-                tools:text="연합동아리" />
+                app:layout_constraintTop_toBottomOf="@id/gl_group_info_top" />
 
             <TextView
                 android:id="@+id/tv_new_group_create_name"
@@ -103,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:maxLines="2"
+                android:text="@={NewGroupViewModel.newGroupName}"
                 android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toStartOf="@id/gl_group_info_end"
@@ -129,6 +127,7 @@
                 android:layout_marginStart="33dp"
                 android:layout_marginEnd="5dp"
                 android:maxLines="2"
+                android:text="@={NewGroupViewModel.newGroupEmail}"
                 android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
                 android:textColor="@color/g_08"
                 app:layout_constraintBottom_toTopOf="@id/gl_group_info_bottom"

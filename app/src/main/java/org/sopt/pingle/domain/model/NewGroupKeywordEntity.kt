@@ -1,6 +1,6 @@
 package org.sopt.pingle.domain.model
 
-data class NewGroupKeywordsEntity(
+data class NewGroupKeywordEntity(
     val name: String,
     val value: String
 )

@@ -103,7 +103,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
     private fun collectData() {
         homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { searchWord ->
-                (searchWord.isNotBlank()).let { isSearching ->
+                (!searchWord.isNullOrBlank()).let { isSearching ->
                     with(binding.tvMainListSearchCount) {
                         visibility = if (isSearching) View.VISIBLE else View.INVISIBLE
                         text = getString(

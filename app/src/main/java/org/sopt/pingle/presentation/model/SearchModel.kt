@@ -7,5 +7,5 @@ import org.sopt.pingle.presentation.type.HomeViewType
 @Parcelize
 data class SearchModel(
     val homeViewType: HomeViewType,
-    val searchWord: String
+    val searchWord: String?
 ) : Parcelable

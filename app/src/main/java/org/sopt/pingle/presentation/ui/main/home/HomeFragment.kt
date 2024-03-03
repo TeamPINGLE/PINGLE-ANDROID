@@ -12,7 +12,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -103,12 +102,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun collectData() {
-        homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .distinctUntilChanged()
-            .onEach {
-                homeViewModel.getPinListWithoutFilter()
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
-
         homeViewModel.homeViewType.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach {
             with(binding) {
                 vpHome.setCurrentItem(homeViewModel.homeViewType.value.index, false)
@@ -121,7 +114,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 with(binding) {
                     pingleSearchHomeSearch.binding.etSearchPingleEditText.setText(homeViewModel.searchWord.value)
 
-                    (searchWord.isNotBlank()).let { isSearching ->
+                    (!searchWord.isNullOrBlank()).let { isSearching ->
                         pingleSearchHomeSearch.visibility =
                             if (isSearching) View.VISIBLE else View.INVISIBLE
                         tvHomeGroup.visibility = if (isSearching) View.INVISIBLE else View.VISIBLE
@@ -160,7 +153,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
                 if (activityResult.resultCode == RESULT_OK) {
                     homeViewModel.setSearchWord(
-                        activityResult.data?.getStringExtra(SEARCH_WORD) ?: ""
+                        activityResult.data?.getStringExtra(SEARCH_WORD)
                     )
                 }
             }
@@ -168,7 +161,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun setStopSearchCallback() {
         stopSearchCallback =
-            object : OnBackPressedCallback(homeViewModel.searchWord.value.isNotBlank()) {
+            object : OnBackPressedCallback(!homeViewModel.searchWord.value.isNullOrEmpty()) {
                 override fun handleOnBackPressed() {
                     homeViewModel.clearSearchWord()
                     navigateToSearch()

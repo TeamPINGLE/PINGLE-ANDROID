@@ -61,7 +61,7 @@ class HomeViewModel @Inject constructor(
     private val _mapPingleListState = MutableSharedFlow<UiState<Pair<Long, List<PingleEntity>>>>()
     val mapPingleListState get() = _mapPingleListState.asSharedFlow()
 
-    private val _pingleParticipationState = MutableSharedFlow<UiState<Unit?>>()
+    private val _pingleParticipationState = MutableSharedFlow<UiState<Long>>()
     val pingleParticipationState get() = _pingleParticipationState.asSharedFlow()
 
     private val _pingleDeleteState = MutableSharedFlow<UiState<Unit?>>()
@@ -147,8 +147,8 @@ class HomeViewModel @Inject constructor(
             runCatching {
                 deletePingleCancelUseCase(
                     meetingId = meetingId
-                ).collect() { data ->
-                    _pingleParticipationState.emit(UiState.Success(data))
+                ).collect() {
+                    _pingleParticipationState.emit(UiState.Success(meetingId))
                 }
             }.onFailure { exception: Throwable ->
                 _pingleParticipationState.emit(UiState.Error(exception.message))
@@ -225,8 +225,8 @@ class HomeViewModel @Inject constructor(
             runCatching {
                 postPingleJoinUseCase(
                     meetingId = meetingId
-                ).collect() { data ->
-                    _pingleParticipationState.emit(UiState.Success(data))
+                ).collect() {
+                    _pingleParticipationState.emit(UiState.Success(meetingId))
                 }
             }.onFailure { exception: Throwable ->
                 _pingleParticipationState.emit(UiState.Error(exception.message))

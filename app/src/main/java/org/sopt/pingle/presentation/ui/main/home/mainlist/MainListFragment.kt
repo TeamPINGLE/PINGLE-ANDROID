@@ -100,9 +100,12 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
 
     private fun collectData() {
         combine(
-            homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged(),
-            homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged(),
-            homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged()
+            homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .distinctUntilChanged(),
+            homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .distinctUntilChanged(),
+            homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .distinctUntilChanged()
         ) { _, _, _ ->
         }.onEach {
             homeViewModel.getMainListPingleList()
@@ -115,7 +118,8 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                         mainListPingleListUiState.data.let { mainListPingleList ->
                             mainListAdapter.submitList(mainListPingleList)
                             binding.rvMainList.smoothScrollToPosition(TOP)
-                            binding.tvMainListEmpty.visibility = if (mainListPingleList.isEmpty()) View.VISIBLE else View.INVISIBLE
+                            binding.tvMainListEmpty.visibility =
+                                if (mainListPingleList.isEmpty()) View.VISIBLE else View.INVISIBLE
                         }
 
                         binding.tvMainListOrderType.text =
@@ -149,7 +153,9 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
             .onEach { pingleParticipationUiState ->
                 when (pingleParticipationUiState) {
                     is UiState.Success -> {
-                        // TODO jihyun 아요와 논의 후 리스트뷰 초기화 구현
+                        with(mainListAdapter) {
+                            submitList(currentList.map { mainListPingleModel -> if (mainListPingleModel.pingleEntity.id == pingleParticipationUiState.data) mainListPingleModel.updateMainListPingleModel() else mainListPingleModel })
+                        }
                     }
 
                     else -> Unit

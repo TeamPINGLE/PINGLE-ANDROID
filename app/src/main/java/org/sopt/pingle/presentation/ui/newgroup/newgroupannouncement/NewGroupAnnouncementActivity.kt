@@ -21,13 +21,9 @@ class NewGroupAnnouncementActivity :
     }
 
     private fun addListeners() {
+        binding.btnNewGroupAnnouncementInvitation.setOnClickListener { navigateToNewGroupShare() }
+        binding.tvNewGroupAnnouncementHome.setOnClickListener { navigateToHome() }
         onBackPressedCallBack()
-        binding.btnNewGroupAnnouncementInvitation.setOnClickListener {
-            navigateToNewGroupShare()
-        }
-        binding.tvNewGroupAnnouncementHome.setOnClickListener {
-            navigateToHome()
-        }
     }
 
     private fun navigateToNewGroupShare() {

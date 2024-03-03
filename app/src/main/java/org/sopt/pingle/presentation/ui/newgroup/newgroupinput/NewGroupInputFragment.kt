@@ -31,9 +31,7 @@ class NewGroupInputFragment :
     }
 
     private fun addListeners() {
-        binding.etNewGroupInputGroupName.btnEditTextCheck.setOnClickListener {
-            newGroupViewModel.getNewGroupCheckName()
-        }
+        binding.etNewGroupInputGroupName.btnEditTextCheck.setOnClickListener { newGroupViewModel.getNewGroupCheckName() }
     }
 
     private fun collectData() {

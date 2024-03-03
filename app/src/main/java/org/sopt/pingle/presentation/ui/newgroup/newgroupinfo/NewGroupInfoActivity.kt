@@ -16,8 +16,6 @@ class NewGroupInfoActivity :
     }
 
     private fun addListeners() {
-        binding.ivNewGroupInfoX.setOnClickListener {
-            finish()
-        }
+        binding.ivNewGroupInfoX.setOnClickListener { finish() }
     }
 }

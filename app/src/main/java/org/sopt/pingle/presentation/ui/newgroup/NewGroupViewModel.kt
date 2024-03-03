@@ -49,7 +49,7 @@ class NewGroupViewModel @Inject constructor(
     val newGroupKeywordName = MutableStateFlow<String>("")
     val newGroupKeywordValue = MutableStateFlow<String>("")
 
-    private val _newGroupCode = MutableStateFlow<String>("dosopt33-1=0")
+    private val _newGroupCode = MutableStateFlow<String>("")
     val newGroupCode get() = _newGroupCode.asStateFlow()
 
     val isNewGroupBtnEnabled: StateFlow<Boolean> = listOf(

@@ -48,17 +48,11 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     }
 
     private fun addListeners() {
-        binding.btnNewGroupNext.setOnClickListener {
-            replaceFragment()
-        }
+        binding.btnNewGroupNext.setOnClickListener { replaceFragment() }
 
-        binding.includeNewGroupTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
-            navigateToPreviousPage()
-        }
+        binding.includeNewGroupTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener { navigateToPreviousPage() }
 
-        binding.ivNewGroupTopbarInfo.setOnClickListener {
-            navigateToNewGroupInfo()
-        }
+        binding.ivNewGroupTopbarInfo.setOnClickListener { navigateToNewGroupInfo() }
     }
 
     private fun collectData() {
@@ -103,12 +97,12 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
             isUserInputEnabled = false
 
             registerOnPageChangeCallback(object :
-                    ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                        newGroupViewModel.setCurrentPage(position)
-                    }
-                })
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    newGroupViewModel.setCurrentPage(position)
+                }
+            })
         }
     }
 
@@ -123,9 +117,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     }
 
     private fun navigateToNewGroupAnnouncement() {
-        Intent(this, NewGroupAnnouncementActivity::class.java).apply {
-            startActivity(this)
-        }
+        Intent(this, NewGroupAnnouncementActivity::class.java).apply { startActivity(this) }
         finish()
     }
 
@@ -153,6 +145,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     private fun navigateToPreviousPage() {
         when (binding.vpNewGroup.currentItem) {
             FIRST_PAGE -> finish()
+
             else -> binding.vpNewGroup.currentItem--
         }
     }

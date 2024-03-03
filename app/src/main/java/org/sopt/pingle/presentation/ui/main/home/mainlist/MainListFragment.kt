@@ -1,7 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.home.mainlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -111,12 +110,12 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
 
         homeViewModel.mainListPingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { mainListPingleListUiState ->
-                when(mainListPingleListUiState) {
+                when (mainListPingleListUiState) {
                     is UiState.Success -> {
                         mainListPingleListUiState.data.let { mainListPingleList ->
                             mainListAdapter.submitList(mainListPingleList)
                             binding.rvMainList.smoothScrollToPosition(TOP)
-                            binding.tvMainListEmpty.visibility = if(mainListPingleList.isEmpty()) View.VISIBLE else View.INVISIBLE
+                            binding.tvMainListEmpty.visibility = if (mainListPingleList.isEmpty()) View.VISIBLE else View.INVISIBLE
                         }
 
                         binding.tvMainListOrderType.text =
@@ -148,7 +147,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
 
         homeViewModel.pingleParticipationState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { pingleParticipationUiState ->
-                when(pingleParticipationUiState) {
+                when (pingleParticipationUiState) {
                     is UiState.Success -> {
                         // TODO jihyun 아요와 논의 후 리스트뷰 초기화 구현
                     }
@@ -159,7 +158,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
 
         homeViewModel.pingleDeleteState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { pingleDeleteState ->
-                when(pingleDeleteState) {
+                when (pingleDeleteState) {
                     is UiState.Success -> {
                         homeViewModel.getMainListPingleList()
                     }

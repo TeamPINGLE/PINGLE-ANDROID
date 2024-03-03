@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MainListRepository
@@ -17,17 +18,16 @@ import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.GetMainListPingleListUseCase
+import org.sopt.pingle.domain.usecase.GetMapPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetParticipantListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
-import org.sopt.pingle.domain.usecase.GetMapPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.domain.usecase.GetRankingUseCase
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

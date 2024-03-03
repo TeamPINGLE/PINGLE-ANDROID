@@ -1,7 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.home.mainlist
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.Observable
@@ -81,11 +80,11 @@ class MainListViewHolder(
 
         mainListPingleModel.isExpanded.let { isExpanded ->
             isExpanded.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    setCardExpandable(isExpanded = isExpanded.get())
-                }
-            })
+                    Observable.OnPropertyChangedCallback() {
+                    override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                        setCardExpandable(isExpanded = isExpanded.get())
+                    }
+                })
         }
     }
 }

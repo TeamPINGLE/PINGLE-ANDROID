@@ -4,6 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.data.datasource.remote.AuthRemoteDataSource
 import org.sopt.pingle.data.datasource.remote.JoinGroupRemoteDataSource
@@ -22,7 +23,6 @@ import org.sopt.pingle.data.datasourceimpl.remote.ParticipantRemoteDataSourceImp
 import org.sopt.pingle.data.datasourceimpl.remote.PingleRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PlanRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.RankingRemoteDataSourceImpl
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

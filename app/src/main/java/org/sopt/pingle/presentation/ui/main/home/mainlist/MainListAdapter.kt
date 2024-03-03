@@ -1,6 +1,5 @@
 package org.sopt.pingle.presentation.ui.main.home.mainlist
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -38,6 +37,5 @@ class MainListAdapter(
 
     override fun onBindViewHolder(holder: MainListViewHolder, position: Int) {
         holder.onBind(mainListPingleModel = currentList[position])
-        Log.e("ㅋㅋ", currentList[position].pingleEntity.name + " " + currentList[position].isExpanded.get())
     }
 }

@@ -45,6 +45,7 @@ class NewGroupViewModel @Inject constructor(
 
     val newGroupName = MutableStateFlow<String>("")
     val newGroupEmail = MutableStateFlow<String>("")
+    val newGroupBtnCheckName = MutableStateFlow<Boolean>(false)
     val newGroupKeywordName = MutableStateFlow<String>("")
     val newGroupKeywordValue = MutableStateFlow<String>("")
 
@@ -52,16 +53,18 @@ class NewGroupViewModel @Inject constructor(
         currentPage,
         newGroupName,
         newGroupEmail,
-        newGroupKeywordValue,
+        newGroupBtnCheckName,
+        newGroupKeywordValue
     ).combineAll().map { values ->
         val currentPage = values[0] as Int
         val newGroupName = values[1] as String
         val newGroupEmail = values[2] as String
-        val newGroupKeyword = values[3] as String
+        val newGroupBtnCheckName = values[3] as Boolean
+        val newGroupKeyword = values[4] as String
 
-        (currentPage == NewGroupType.INPUT.position && newGroupName.isNotBlank() && newGroupEmail.isNotBlank())
-                || (currentPage == NewGroupType.KEYWORD.position && newGroupKeyword.isNotBlank())
-                || (currentPage == NewGroupType.CREATE.position)
+        (currentPage == NewGroupType.INPUT.position && newGroupName.isNotBlank() && newGroupEmail.isNotBlank() && newGroupBtnCheckName) ||
+                (currentPage == NewGroupType.KEYWORD.position && newGroupKeyword.isNotBlank()) ||
+                (currentPage == NewGroupType.CREATE.position)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), true)
 
     fun setCurrentPage(position: Int) {
@@ -71,6 +74,10 @@ class NewGroupViewModel @Inject constructor(
     fun setNewGroupKeyword(keywordName: String, keywordValue: String) {
         newGroupKeywordName.value = keywordName
         newGroupKeywordValue.value = keywordValue
+    }
+
+    fun setNewGroupBtnTrue() {
+        newGroupBtnCheckName.value = true
     }
 
     fun getNewGroupCheckName() {

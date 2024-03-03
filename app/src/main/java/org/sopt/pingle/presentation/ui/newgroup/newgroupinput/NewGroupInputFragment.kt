@@ -1,10 +1,8 @@
 package org.sopt.pingle.presentation.ui.newgroup.newgroupinput
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,14 +39,6 @@ class NewGroupInputFragment :
     private fun collectData() {
         collectNewGroupTeamNameIsEnabled()
         collectNewGroupCheckNameState()
-
-        newGroupViewModel.newGroupEmail.flowWithLifecycle(lifecycle).onEach { email ->
-            Log.d("ㅁㅇ email", email)
-        }.launchIn(lifecycleScope)
-
-        newGroupViewModel.isNewGroupBtnEnabled.flowWithLifecycle(lifecycle).onEach {
-            Log.d("ㅁㅇ isNewGroupBtnEnabled", it.toString())
-        }.launchIn(lifecycleScope)
     }
 
     private fun collectNewGroupCheckNameState() {
@@ -63,6 +53,7 @@ class NewGroupInputFragment :
                             SnackbarType.GUIDE
                         )
                         binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = false
+                        newGroupViewModel.setNewGroupBtnTrue()
                     } else {
                         PingleSnackbar.makeSnackbar(
                             binding.root,

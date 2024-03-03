@@ -201,6 +201,10 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                             mapCardAdapter.clearData()
                             homeViewModel.clearSelectedMarkerPosition()
                         }
+
+                        if (!homeViewModel.searchWord.value.isNullOrBlank()) {
+                            moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
+                        }
                     }
 
                     else -> Unit
@@ -309,6 +313,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     companion object {
+        private const val FIRST_INDEX = 0
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
         private val LOCATION_PERMISSIONS = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,

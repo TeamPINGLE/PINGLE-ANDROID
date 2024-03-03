@@ -7,7 +7,7 @@ import org.sopt.pingle.R
 enum class SnackbarType(
     @ColorRes val textColorRes: Int,
     @ColorRes val backgroundColorRes: Int,
-    @DrawableRes val snackbarIconRes: Int,
+    @DrawableRes val snackbarIconRes: Int
 ) {
     WARNING(
         textColorRes = R.color.white,

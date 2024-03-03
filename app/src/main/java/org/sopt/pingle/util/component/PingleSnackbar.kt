@@ -22,7 +22,7 @@ object PingleSnackbar {
         view: View,
         message: String,
         bottomMarin: Int,
-        snackbarType: SnackbarType = SnackbarType.WARNING,
+        snackbarType: SnackbarType = SnackbarType.WARNING
     ) {
         val inflater = LayoutInflater.from(view.context)
         val binding = ViewSnackbarBinding.inflate(inflater, null, false)

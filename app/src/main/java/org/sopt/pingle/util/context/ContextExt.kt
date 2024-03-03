@@ -14,7 +14,6 @@ import org.sopt.pingle.R
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.common.WebViewActivity
 import org.sopt.pingle.presentation.ui.common.WebViewActivity.Companion.WEB_VIEW_LINK
-import org.sopt.pingle.presentation.ui.mygroup.MyGroupActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 
 fun Context.hideKeyboard(view: View) {

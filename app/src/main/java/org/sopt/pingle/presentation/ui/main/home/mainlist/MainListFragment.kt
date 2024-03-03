@@ -145,6 +145,28 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                     else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        homeViewModel.pingleParticipationState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { pingleParticipationUiState ->
+                when(pingleParticipationUiState) {
+                    is UiState.Success -> {
+                        // TODO jihyun 아요와 논의 후 리스트뷰 초기화 구현
+                    }
+
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        homeViewModel.pingleDeleteState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { pingleDeleteState ->
+                when(pingleDeleteState) {
+                    is UiState.Success -> {
+                        homeViewModel.getMainListPingleList()
+                    }
+
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     companion object {

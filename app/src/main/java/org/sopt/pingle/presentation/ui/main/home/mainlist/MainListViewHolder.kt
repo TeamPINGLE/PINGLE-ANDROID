@@ -46,6 +46,7 @@ class MainListViewHolder(
     }
 
     fun onBind(pingleEntity: PingleEntity) {
+        setCardExpandable(isExpanded = false)
         with(binding.pingleCardTopMainListPingleCard) {
             initLayout(pingleEntity = pingleEntity, pingleCardType = PingleCardType.MAINLIST)
             setOnParticipationStatusLayoutClick {

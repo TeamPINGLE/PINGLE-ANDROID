@@ -41,6 +41,12 @@ class NewGroupInputFragment :
         collectNewGroupCheckNameState()
     }
 
+    private fun collectNewGroupTeamNameIsEnabled() {
+        newGroupViewModel.newGroupName.flowWithLifecycle(lifecycle).onEach { newGroupName ->
+            binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = newGroupName.isNotBlank()
+        }.launchIn(lifecycleScope)
+    }
+
     private fun collectNewGroupCheckNameState() {
         newGroupViewModel.newGroupCheckNameState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
@@ -66,12 +72,6 @@ class NewGroupInputFragment :
 
                 else -> {}
             }
-        }.launchIn(lifecycleScope)
-    }
-
-    private fun collectNewGroupTeamNameIsEnabled() {
-        newGroupViewModel.newGroupName.flowWithLifecycle(lifecycle).onEach { newGroupName ->
-            binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = newGroupName.isNotBlank()
         }.launchIn(lifecycleScope)
     }
 

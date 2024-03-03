@@ -80,6 +80,8 @@ class NewGroupViewModel @Inject constructor(
         newGroupBtnCheckName.value = true
     }
 
+    fun isEmailValid() = EMAIL_PATTERN.matches(newGroupEmail.value)
+
     fun getNewGroupCheckName() {
         viewModelScope.launch {
             _newGroupCheckNameState.emit(UiState.Loading)
@@ -118,8 +120,6 @@ class NewGroupViewModel @Inject constructor(
             }
         }
     }
-
-    fun isEmailValid() = EMAIL_PATTERN.matches(newGroupEmail.value)
 
     companion object {
         const val FIRST_PAGE_POSITION = 0

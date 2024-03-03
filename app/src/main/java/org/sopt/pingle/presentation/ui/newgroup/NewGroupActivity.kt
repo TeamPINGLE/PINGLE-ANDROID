@@ -49,24 +49,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
 
     private fun addListeners() {
         binding.btnNewGroupNext.setOnClickListener {
-            when (binding.vpNewGroup.currentItem) {
-                NEW_GROUP_INPUT_FRAGMENT_INDEX -> {
-                    if (newGroupViewModel.isEmailValid()) {
-                        binding.vpNewGroup.currentItem++
-                    } else {
-                        PingleSnackbar.makeSnackbar(
-                            binding.root,
-                            stringOf(R.string.new_group_email_snackbar),
-                            SNACKBAR_BOTTOM_MARGIN,
-                            SnackbarType.WARNING
-                        )
-                    }
-                }
-
-                fragmentList.size - LAST_INDEX_OFFSET -> newGroupViewModel.postNewGroupCreate()
-
-                else -> binding.vpNewGroup.currentItem++
-            }
+            replaceFragment()
         }
 
         binding.includeNewGroupTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
@@ -79,6 +62,11 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     }
 
     private fun collectData() {
+        collectCurrentPage()
+        collectNewGroupCreateState()
+    }
+
+    private fun collectCurrentPage() {
         newGroupViewModel.currentPage.flowWithLifecycle(lifecycle).onEach { currentPage ->
             when (currentPage) {
                 fragmentList.size - LAST_INDEX_OFFSET ->
@@ -88,7 +76,9 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
                 else -> binding.btnNewGroupNext.text = stringOf(R.string.new_group_next)
             }
         }.launchIn(lifecycleScope)
+    }
 
+    private fun collectNewGroupCreateState() {
         newGroupViewModel.newGroupCreateState.flowWithLifecycle(lifecycle)
             .onEach { newGroupCreateState ->
                 when (newGroupCreateState) {
@@ -137,6 +127,27 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
             startActivity(this)
         }
         finish()
+    }
+
+    private fun replaceFragment() {
+        when (binding.vpNewGroup.currentItem) {
+            NEW_GROUP_INPUT_FRAGMENT_INDEX -> {
+                if (newGroupViewModel.isEmailValid()) {
+                    binding.vpNewGroup.currentItem++
+                } else {
+                    PingleSnackbar.makeSnackbar(
+                        binding.root,
+                        stringOf(R.string.new_group_email_snackbar),
+                        SNACKBAR_BOTTOM_MARGIN,
+                        SnackbarType.WARNING
+                    )
+                }
+            }
+
+            fragmentList.size - LAST_INDEX_OFFSET -> newGroupViewModel.postNewGroupCreate()
+
+            else -> binding.vpNewGroup.currentItem++
+        }
     }
 
     private fun navigateToPreviousPage() {

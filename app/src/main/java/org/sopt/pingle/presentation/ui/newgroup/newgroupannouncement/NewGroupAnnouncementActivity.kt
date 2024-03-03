@@ -6,8 +6,10 @@ import androidx.activity.OnBackPressedCallback
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityNewGroupAnnouncementBinding
+import org.sopt.pingle.presentation.model.NewGroupModel
 import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.presentation.ui.newgroup.newgroupcodeshare.NewGroupCodeShareActivity
+import org.sopt.pingle.util.Intent.getCompatibleParcelableExtra
 import org.sopt.pingle.util.base.BindingActivity
 
 @AndroidEntryPoint
@@ -28,6 +30,10 @@ class NewGroupAnnouncementActivity :
 
     private fun navigateToNewGroupShare() {
         Intent(this, NewGroupCodeShareActivity::class.java).apply {
+            putExtra(
+                NEW_GROUP_CODE,
+                intent.getCompatibleParcelableExtra<NewGroupModel>(NEW_GROUP_CODE)
+            )
             startActivity(this)
         }
     }
@@ -48,5 +54,9 @@ class NewGroupAnnouncementActivity :
                 }
             }
         )
+    }
+
+    companion object {
+        const val NEW_GROUP_CODE = "NewGroupCode"
     }
 }

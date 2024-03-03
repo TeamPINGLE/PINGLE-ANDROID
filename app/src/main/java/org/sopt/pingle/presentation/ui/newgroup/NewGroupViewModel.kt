@@ -49,9 +49,6 @@ class NewGroupViewModel @Inject constructor(
     val newGroupKeywordName = MutableStateFlow<String>("")
     val newGroupKeywordValue = MutableStateFlow<String>("")
 
-    private val _newGroupCode = MutableStateFlow<String>("")
-    val newGroupCode get() = _newGroupCode.asStateFlow()
-
     val isNewGroupBtnEnabled: StateFlow<Boolean> = listOf(
         currentPage,
         newGroupName,
@@ -118,7 +115,6 @@ class NewGroupViewModel @Inject constructor(
                 )
             ).onSuccess { newGroupCreateData ->
                 _newGroupCreateState.value = UiState.Success(newGroupCreateData)
-                _newGroupCode.value = newGroupCreateData.code
             }.onFailure { throwable ->
                 _newGroupCreateState.value = UiState.Error(throwable.message)
             }

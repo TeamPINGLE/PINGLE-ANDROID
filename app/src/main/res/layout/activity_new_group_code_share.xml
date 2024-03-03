@@ -50,7 +50,6 @@
 
         <org.sopt.pingle.util.component.PingleEditText
             android:id="@+id/et_new_group_code_copy"
-            etText="@{NewGroupViewModel.newGroupCode}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"

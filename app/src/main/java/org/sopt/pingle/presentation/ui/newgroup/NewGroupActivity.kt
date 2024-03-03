@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityNewGroupBinding
+import org.sopt.pingle.presentation.model.NewGroupModel
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.newgroup.newgroupannouncement.NewGroupAnnouncementActivity
 import org.sopt.pingle.presentation.ui.newgroup.newgroupcreate.NewGroupCreateFragment
@@ -28,7 +29,7 @@ import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
 class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activity_new_group) {
-    private val newGroupViewModel: NewGroupViewModel by viewModels()
+    private val newGroupViewModel by viewModels<NewGroupViewModel>()
     private lateinit var fragmentList: ArrayList<Fragment>
     private lateinit var onBackPressed: OnBackPressedCallback
 
@@ -76,7 +77,12 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
         newGroupViewModel.newGroupCreateState.flowWithLifecycle(lifecycle)
             .onEach { newGroupCreateState ->
                 when (newGroupCreateState) {
-                    is UiState.Success -> navigateToNewGroupAnnouncement()
+                    is UiState.Success -> navigateToNewGroupAnnouncement(
+                        NewGroupModel(
+                            name = newGroupCreateState.data.name,
+                            code = newGroupCreateState.data.code,
+                        )
+                    )
 
                     else -> {}
                 }
@@ -106,20 +112,6 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
         }
     }
 
-    private fun navigateToNewGroupInfo() {
-        Intent(this, NewGroupInfoActivity::class.java).apply {
-            startActivity(
-                this,
-                ActivityOptions.makeCustomAnimation(this@NewGroupActivity, R.anim.slide_up, 0)
-                    .toBundle()
-            )
-        }
-    }
-
-    private fun navigateToNewGroupAnnouncement() {
-        Intent(this, NewGroupAnnouncementActivity::class.java).apply { startActivity(this) }
-        finish()
-    }
 
     private fun replaceFragment() {
         when (binding.vpNewGroup.currentItem) {
@@ -140,6 +132,24 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
 
             else -> binding.vpNewGroup.currentItem++
         }
+    }
+
+    private fun navigateToNewGroupInfo() {
+        Intent(this, NewGroupInfoActivity::class.java).apply {
+            startActivity(
+                this,
+                ActivityOptions.makeCustomAnimation(this@NewGroupActivity, R.anim.slide_up, 0)
+                    .toBundle()
+            )
+        }
+    }
+
+    private fun navigateToNewGroupAnnouncement(newGroupModel: NewGroupModel) {
+        Intent(this, NewGroupAnnouncementActivity::class.java).apply {
+            putExtra(NEW_GROUP_CODE, newGroupModel)
+            startActivity(this)
+        }
+        finish()
     }
 
     private fun navigateToPreviousPage() {
@@ -164,5 +174,6 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
         const val LAST_INDEX_OFFSET = 1
         const val NEW_GROUP_INPUT_FRAGMENT_INDEX = 0
         const val SNACKBAR_BOTTOM_MARGIN = 97
+        const val NEW_GROUP_CODE = "NewGroupCode"
     }
 }

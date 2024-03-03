@@ -207,7 +207,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        homeViewModel.pingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+        homeViewModel.mapPingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { uiState ->
                 when (uiState) {
                     is UiState.Success -> {

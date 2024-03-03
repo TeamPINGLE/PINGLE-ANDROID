@@ -12,5 +12,5 @@ class GetMapPingleListUseCase(
         pinId: Long,
         category: String?
     ): Flow<List<PingleEntity>> =
-        mapRepository.getPingleList(teamId = teamId, pinId = pinId, category = category)
+        mapRepository.getMapPingleList(teamId = teamId, pinId = pinId, category = category)
 }

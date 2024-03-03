@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.sopt.pingle.domain.model.PingleEntity
 
 @Serializable
-data class ResponseMapPingleListDto(
+data class ResponsePingleDto(
     @SerialName("id")
     val id: Long,
     @SerialName("category")

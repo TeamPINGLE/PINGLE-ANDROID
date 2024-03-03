@@ -4,9 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
+import org.sopt.pingle.domain.repository.MainListRepository
 import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.ParticipantRepository
 import org.sopt.pingle.domain.repository.PingleRepository
@@ -16,6 +16,7 @@ import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupInfoUseCase
 import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
+import org.sopt.pingle.domain.usecase.GetMainListPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetParticipantListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
@@ -26,6 +27,7 @@ import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -49,6 +51,11 @@ class UseCaseModule {
     @Singleton
     fun providesGetJoinGroupSearchUseCase(joinGroupRepository: JoinGroupRepository): GetJoinGroupSearchUseCase =
         GetJoinGroupSearchUseCase(joinGroupRepository = joinGroupRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetMainListPingleListUseCase(mainListRepository: MainListRepository): GetMainListPingleListUseCase =
+        GetMainListPingleListUseCase(mainListRepository = mainListRepository)
 
     @Provides
     @Singleton

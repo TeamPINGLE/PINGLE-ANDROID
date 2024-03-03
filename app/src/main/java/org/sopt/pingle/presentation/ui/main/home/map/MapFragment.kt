@@ -202,7 +202,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                             homeViewModel.clearSelectedMarkerPosition()
                         }
 
-                        if (!homeViewModel.searchWord.value.isNullOrBlank()) {
+                        if (!homeViewModel.searchWord.value.isNullOrBlank() && uiState.data.isNotEmpty()) {
                             moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
                         }
                     }

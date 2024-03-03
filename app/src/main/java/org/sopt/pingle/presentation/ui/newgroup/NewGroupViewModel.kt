@@ -1,6 +1,5 @@
 package org.sopt.pingle.presentation.ui.newgroup
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -72,8 +71,6 @@ class NewGroupViewModel @Inject constructor(
     fun setNewGroupKeyword(keywordName: String, keywordValue: String) {
         newGroupKeywordName.value = keywordName
         newGroupKeywordValue.value = keywordValue
-        Log.d("ㅁㅇ newGroupKeywordName", newGroupKeywordName.value)
-        Log.d("ㅁㅇ newGroupKeywordValue", newGroupKeywordValue.value)
     }
 
     fun getNewGroupCheckName() {
@@ -115,7 +112,10 @@ class NewGroupViewModel @Inject constructor(
         }
     }
 
+    fun isEmailValid() = EMAIL_PATTERN.matches(newGroupEmail.value)
+
     companion object {
         const val FIRST_PAGE_POSITION = 0
+        val EMAIL_PATTERN = """[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,64}""".toRegex()
     }
 }

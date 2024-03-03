@@ -14,12 +14,14 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityNewGroupBinding
+import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.newgroup.newgroupannouncement.NewGroupAnnouncementActivity
 import org.sopt.pingle.presentation.ui.newgroup.newgroupcreate.NewGroupCreateFragment
 import org.sopt.pingle.presentation.ui.newgroup.newgroupinfo.NewGroupInfoActivity
 import org.sopt.pingle.presentation.ui.newgroup.newgroupinput.NewGroupInputFragment
 import org.sopt.pingle.presentation.ui.newgroup.newgroupkeyword.NewGroupKeywordFragment
 import org.sopt.pingle.util.base.BindingActivity
+import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter
 import org.sopt.pingle.util.view.UiState
@@ -32,6 +34,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.newGroupViewModel = newGroupViewModel
 
         initLayout()
         addListeners()
@@ -47,6 +50,19 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     private fun addListeners() {
         binding.btnNewGroupNext.setOnClickListener {
             when (binding.vpNewGroup.currentItem) {
+                NEW_GROUP_INPUT_FRAGMENT_INDEX -> {
+                    if (newGroupViewModel.isEmailValid()) {
+                        binding.vpNewGroup.currentItem++
+                    } else {
+                        PingleSnackbar.makeSnackbar(
+                            binding.root,
+                            stringOf(R.string.new_group_email_snackbar),
+                            SNACKBAR_BOTTOM_MARGIN,
+                            SnackbarType.WARNING
+                        )
+                    }
+                }
+
                 fragmentList.size - LAST_INDEX_OFFSET -> newGroupViewModel.postNewGroupCreate()
 
                 else -> binding.vpNewGroup.currentItem++
@@ -141,5 +157,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     companion object {
         const val FIRST_PAGE = 0
         const val LAST_INDEX_OFFSET = 1
+        const val NEW_GROUP_INPUT_FRAGMENT_INDEX = 0
+        const val SNACKBAR_BOTTOM_MARGIN = 97
     }
 }

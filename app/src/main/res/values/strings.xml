@@ -102,6 +102,7 @@
     <string name="new_group_topbar">신규 단체 개설하기</string>
     <string name="new_group_next">다음으로</string>
     <string name="new_group_create">개설하기</string>
+    <string name="new_group_email_snackbar">"유효하지 않은 이메일입니다!"</string>
 
     <!-- new group info -->
     <string name="new_group_info_title">신규 단체 개설 안내</string>

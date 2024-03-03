@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.newgroup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +20,7 @@ import org.sopt.pingle.domain.usecase.PostNewGroupCreateUseCase
 import org.sopt.pingle.presentation.type.NewGroupType
 import org.sopt.pingle.util.flow.combineAll
 import org.sopt.pingle.util.view.UiState
+import javax.inject.Inject
 
 @HiltViewModel
 class NewGroupViewModel @Inject constructor(
@@ -49,6 +49,9 @@ class NewGroupViewModel @Inject constructor(
     val newGroupKeywordName = MutableStateFlow<String>("")
     val newGroupKeywordValue = MutableStateFlow<String>("")
 
+    private val _newGroupCode = MutableStateFlow<String>("dosopt33-1=0")
+    val newGroupCode get() = _newGroupCode.asStateFlow()
+
     val isNewGroupBtnEnabled: StateFlow<Boolean> = listOf(
         currentPage,
         newGroupName,
@@ -63,8 +66,8 @@ class NewGroupViewModel @Inject constructor(
         val newGroupKeyword = values[4] as String
 
         (currentPage == NewGroupType.INPUT.position && newGroupName.isNotBlank() && newGroupEmail.isNotBlank() && newGroupBtnCheckName) ||
-            (currentPage == NewGroupType.KEYWORD.position && newGroupKeyword.isNotBlank()) ||
-            (currentPage == NewGroupType.CREATE.position)
+                (currentPage == NewGroupType.KEYWORD.position && newGroupKeyword.isNotBlank()) ||
+                (currentPage == NewGroupType.CREATE.position)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), true)
 
     fun setCurrentPage(position: Int) {
@@ -115,6 +118,7 @@ class NewGroupViewModel @Inject constructor(
                 )
             ).onSuccess { newGroupCreateData ->
                 _newGroupCreateState.value = UiState.Success(newGroupCreateData)
+                _newGroupCode.value = newGroupCreateData.code
             }.onFailure { throwable ->
                 _newGroupCreateState.value = UiState.Error(throwable.message)
             }

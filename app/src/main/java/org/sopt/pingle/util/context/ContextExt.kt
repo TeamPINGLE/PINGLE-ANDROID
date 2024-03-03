@@ -10,8 +10,12 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import org.sopt.pingle.R
+import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.common.WebViewActivity
 import org.sopt.pingle.presentation.ui.common.WebViewActivity.Companion.WEB_VIEW_LINK
+import org.sopt.pingle.presentation.ui.mygroup.MyGroupActivity
+import org.sopt.pingle.util.component.PingleSnackbar
 
 fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -35,10 +39,17 @@ fun Context.sharePingle(shareContent: String) {
     }
 }
 
-fun Context.copyGroupCode(copyCode: String) {
+fun Context.copyGroupCode(copyCode: String, view: View) {
     val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip: ClipData = ClipData.newPlainText(GROUP_CODE_COPY, copyCode)
     clipboard.setPrimaryClip(clip)
+
+    PingleSnackbar.makeSnackbar(
+        view = view,
+        message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
+        bottomMarin = SNACKBAR_BOTTOM_MARGIN,
+        snackbarType = SnackbarType.CHECK
+    )
 }
 
 const val PINGLE_PLAY_STORE_LINK =
@@ -46,3 +57,4 @@ const val PINGLE_PLAY_STORE_LINK =
 const val PINGLE_SHARE_CODE = "초대코드 : "
 const val SHARE_TYPE = "text/plain"
 const val GROUP_CODE_COPY = "CopyGroupCode"
+const val SNACKBAR_BOTTOM_MARGIN = 57

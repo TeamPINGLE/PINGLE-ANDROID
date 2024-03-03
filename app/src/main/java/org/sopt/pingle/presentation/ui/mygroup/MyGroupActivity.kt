@@ -113,13 +113,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
 
     private fun copyGroupCode() {
         binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
-        copyGroupCode(viewModel.getGroupCode())
-        PingleSnackbar.makeSnackbar(
-            view = binding.root,
-            message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
-            bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE
-        )
+        copyGroupCode(viewModel.getGroupCode(), binding.root)
     }
 
     private fun shareGroupCode() {

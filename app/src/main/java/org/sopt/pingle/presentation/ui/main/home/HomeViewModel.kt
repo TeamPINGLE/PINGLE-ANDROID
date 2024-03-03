@@ -17,6 +17,8 @@ import org.sopt.pingle.domain.usecase.GetMainListPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetMapPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
+import org.sopt.pingle.presentation.mapper.toMainListPingleModel
+import org.sopt.pingle.presentation.model.MainListPingleModel
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.HomeViewType
@@ -68,7 +70,7 @@ class HomeViewModel @Inject constructor(
     private val _mainListOrderType = MutableStateFlow(MainListOrderType.NEW)
     val mainListOrderType get() = _mainListOrderType.asStateFlow()
 
-    private val _mainListPingleListState = MutableSharedFlow<UiState<List<PingleEntity>>>()
+    private val _mainListPingleListState = MutableSharedFlow<UiState<List<MainListPingleModel>>>()
     val mainListPingleListState get() = _mainListPingleListState.asSharedFlow()
 
     fun setCategory(category: CategoryType?) {
@@ -176,7 +178,7 @@ class HomeViewModel @Inject constructor(
                 teamId = localStorage.groupId.toLong(),
                 order = _mainListOrderType.value.name
             ).onSuccess { mainListPingleList ->
-                _mainListPingleListState.emit(UiState.Success(mainListPingleList))
+                _mainListPingleListState.emit(UiState.Success(mainListPingleList.map { pingleEntity -> pingleEntity.toMainListPingleModel() }))
             }.onFailure {  throwable ->
                 _mainListPingleListState.emit(UiState.Error(throwable.message))
             }

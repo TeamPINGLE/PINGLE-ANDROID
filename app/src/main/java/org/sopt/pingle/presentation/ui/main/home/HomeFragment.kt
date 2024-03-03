@@ -26,6 +26,7 @@ import org.sopt.pingle.presentation.ui.search.SearchActivity.Companion.SEARCH_WO
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.PingleChip
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter
+import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
@@ -124,11 +125,19 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { markerModelData ->
-                (markerModelData.first == HomeViewModel.DEFAULT_SELECTED_MARKER_POSITION).let { isMarkerUnselected ->
-                    binding.fabHomeChange.visibility =
-                        if (isMarkerUnselected) View.VISIBLE else View.INVISIBLE
+        homeViewModel.mapPingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Empty -> {
+                        binding.fabHomeChange.visibility = View.VISIBLE
+                    }
+
+                    is UiState.Success -> {
+                        binding.fabHomeChange.visibility =
+                            if (uiState.data.second.isNotEmpty()) View.INVISIBLE else View.VISIBLE
+                    }
+
+                    else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }

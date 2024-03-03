@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.newgroup.newgroupinput
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +22,7 @@ import org.sopt.pingle.util.view.UiState
 @AndroidEntryPoint
 class NewGroupInputFragment :
     BindingFragment<FragmentNewGroupInputBinding>(R.layout.fragment_new_group_input) {
-    private val newGroupViewModel by viewModels<NewGroupViewModel>()
+    private val newGroupViewModel: NewGroupViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -1,9 +1,8 @@
 package org.sopt.pingle.presentation.ui.newgroup.newgroupkeyword
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.chip.Chip
@@ -20,20 +19,13 @@ import org.sopt.pingle.util.view.UiState
 @AndroidEntryPoint
 class NewGroupKeywordFragment :
     BindingFragment<FragmentNewGroupKeywordBinding>(R.layout.fragment_new_group_keyword) {
-    private val newGroupViewModel by viewModels<NewGroupViewModel>()
+    private val newGroupViewModel: NewGroupViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initLayout()
         collectData()
-
-        Log.d("NewGroupKeywordFragment newGroupName", newGroupViewModel.newGroupName.value)
-        Log.d("NewGroupKeywordFragment newGroupEmail", newGroupViewModel.newGroupEmail.value)
-        Log.d(
-            "NewGroupKeywordFragment newGroupKeyword",
-            newGroupViewModel.newGroupKeywordName.value
-        )
     }
 
     private fun initLayout() {

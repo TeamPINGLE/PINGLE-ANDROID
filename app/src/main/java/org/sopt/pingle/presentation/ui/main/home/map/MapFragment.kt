@@ -175,7 +175,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         combine(
             homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .distinctUntilChanged(),
-            homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged()
         ) { _, _ ->
         }.onEach {
             homeViewModel.getPinListWithoutFilter()

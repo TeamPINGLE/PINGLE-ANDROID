@@ -52,6 +52,14 @@ object PingleSnackbar {
                     tvSnackbar.setTextColor(getColor(view.context, R.color.black))
                 }
             }
+            SnackbarType.CHECK -> {
+                with(binding) {
+                    layoutSnackbar.backgroundTintList =
+                        ColorStateList.valueOf(getColor(view.context, R.color.white))
+                    ivSnackbarNotice.setImageResource(R.drawable.ic_all_check_24)
+                    tvSnackbar.setTextColor(getColor(view.context, R.color.black))
+                }
+            }
 
             else -> Unit
         }

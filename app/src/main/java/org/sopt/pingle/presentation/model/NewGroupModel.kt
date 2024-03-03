@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class NewGroupModel(
     val name: String,
-    val code: String,
+    val code: String
 ) : Parcelable

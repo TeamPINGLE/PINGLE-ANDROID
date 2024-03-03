@@ -43,7 +43,7 @@ class NewGroupCodeShareActivity :
                 view = binding.root,
                 message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
                 bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-                snackbarType = SnackbarType.GUIDE,
+                snackbarType = SnackbarType.GUIDE
             )
         }
 

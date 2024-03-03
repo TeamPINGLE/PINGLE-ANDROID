@@ -80,7 +80,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
                     is UiState.Success -> navigateToNewGroupAnnouncement(
                         NewGroupModel(
                             name = newGroupCreateState.data.name,
-                            code = newGroupCreateState.data.code,
+                            code = newGroupCreateState.data.code
                         )
                     )
 
@@ -103,15 +103,14 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
             isUserInputEnabled = false
 
             registerOnPageChangeCallback(object :
-                ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    newGroupViewModel.setCurrentPage(position)
-                }
-            })
+                    ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        newGroupViewModel.setCurrentPage(position)
+                    }
+                })
         }
     }
-
 
     private fun replaceFragment() {
         when (binding.vpNewGroup.currentItem) {

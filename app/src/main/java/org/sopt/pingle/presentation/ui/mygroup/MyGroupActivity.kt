@@ -21,6 +21,7 @@ import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
 import org.sopt.pingle.util.context.copyGroupCode
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf
+import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -46,11 +47,11 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
 
     private fun initLayout() {
         binding.toolbarMyGroup.text = stringOf(R.string.my_group_title)
+        viewModel.getGroupList()
 
         runCatching {
             adapter = MyGroupAdapter(this@MyGroupActivity::showChangeGroupModal)
             binding.rvMyGroupSelected.adapter = adapter
-            adapter.submitList(viewModel.filteredGroupList.value)
         }.onFailure { throwable -> Timber.e(throwable.message) }
     }
 
@@ -66,8 +67,14 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun collectData() {
-        viewModel.filteredGroupList.flowWithLifecycle(lifecycle).onEach { filteredList ->
-            adapter.submitList(filteredList)
+        viewModel.myGroupListState.flowWithLifecycle(lifecycle).onEach { myGroupListState ->
+            when (myGroupListState) {
+                is UiState.Success -> {
+                    adapter.submitList(myGroupListState.data.filterNot { it.id == viewModel.getMyGroupId() })
+                }
+
+                else -> Unit
+            }
         }.launchIn(lifecycleScope)
 
         viewModel.selectedMyGroup.flowWithLifecycle(lifecycle).onEach { selectedMyGroup ->
@@ -90,23 +97,22 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         MyGroupModalDialogFragment(
             title = getString(
                 R.string.my_group_modal_move_question,
-                clickedEntity.name
+                clickedEntity.name,
             ),
             buttonText = stringOf(R.string.my_group_modal_change),
             textButtonText = stringOf(R.string.my_group_modal_back),
-            clickBtn = { chageToNewGroup(clickedEntity) },
-            clickTextBtn = { }
+            clickBtn = { changeMyGroup(clickedEntity) },
+            clickTextBtn = { },
         ).show(supportFragmentManager, CHANGE_MODAL)
     }
 
-    private fun chageToNewGroup(clickedEntity: MyGroupEntity) {
-        viewModel.changeGroupList(clickedEntity)
-
+    private fun changeMyGroup(clickedEntity: MyGroupEntity) {
+        viewModel.changeMyGroupInfo(clickedEntity, adapter)
         PingleSnackbar.makeSnackbar(
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_chage_group_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE
+            snackbarType = SnackbarType.GUIDE,
         )
     }
 
@@ -117,14 +123,22 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE
+            snackbarType = SnackbarType.GUIDE,
         )
     }
 
     private fun shareGroupCode() {
         // TODO 콘텐츠 내용 알려주면 ContextExt와 함께 수정
         binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
-        this.sharePingle(getString(R.string.my_group_share_pingle, viewModel.getGroupName(), PINGLE_SHARE_CODE, viewModel.getGroupCode(), PINGLE_PLAY_STORE_LINK))
+        this.sharePingle(
+            getString(
+                R.string.my_group_share_pingle,
+                viewModel.getGroupName(),
+                PINGLE_SHARE_CODE,
+                viewModel.getGroupCode(),
+                PINGLE_PLAY_STORE_LINK,
+            ),
+        )
     }
 
     private fun navigateToNewGroupInfo() {

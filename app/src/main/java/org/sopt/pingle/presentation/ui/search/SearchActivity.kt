@@ -53,7 +53,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
             }
 
             binding.pingleSearchSearch.binding.etSearchPingleEditText.run {
-                if (searchModel.searchWord.isNotBlank()) setText(searchModel.searchWord)
+                if (!searchModel.searchWord.isNullOrBlank()) setText(searchModel.searchWord)
             }
         }
 

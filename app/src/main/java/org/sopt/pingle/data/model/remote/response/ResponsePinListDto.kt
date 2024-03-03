@@ -13,15 +13,12 @@ data class ResponsePinListDto(
     @SerialName("y")
     val y: Double,
     @SerialName("category")
-    val category: String,
-    @SerialName("meetingCount")
-    val meetingCount: Int
+    val category: String
 ) {
     fun toPinEntity() = PinEntity(
         id = this.id,
         x = this.x,
         y = this.y,
-        category = this.category,
-        meetingCount = this.meetingCount
+        category = this.category
     )
 }

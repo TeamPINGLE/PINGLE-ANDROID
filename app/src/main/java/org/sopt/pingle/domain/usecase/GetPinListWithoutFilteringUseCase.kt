@@ -7,6 +7,14 @@ import org.sopt.pingle.domain.repository.MapRepository
 class GetPinListWithoutFilteringUseCase(
     private val mapRepository: MapRepository
 ) {
-    suspend operator fun invoke(teamId: Long, category: String?): Flow<List<PinEntity>> =
-        mapRepository.getPinListWithoutFiltering(teamId = teamId, category = category)
+    suspend operator fun invoke(
+        teamId: Long,
+        category: String?,
+        searchWord: String?
+    ): Flow<List<PinEntity>> =
+        mapRepository.getPinListWithoutFiltering(
+            teamId = teamId,
+            category = category,
+            searchWord = searchWord
+        )
 }

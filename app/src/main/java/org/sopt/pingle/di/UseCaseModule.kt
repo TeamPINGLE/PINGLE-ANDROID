@@ -19,7 +19,7 @@ import org.sopt.pingle.domain.usecase.GetJoinGroupSearchUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetParticipantListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
-import org.sopt.pingle.domain.usecase.GetPingleListUseCase
+import org.sopt.pingle.domain.usecase.GetMapPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.domain.usecase.GetRankingUseCase
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
@@ -52,6 +52,11 @@ class UseCaseModule {
 
     @Provides
     @Singleton
+    fun providesGetMapPingleListUseCase(mapRepository: MapRepository): GetMapPingleListUseCase =
+        GetMapPingleListUseCase(mapRepository = mapRepository)
+
+    @Provides
+    @Singleton
     fun providesGetMyPingleListUseCase(pingleRepository: PingleRepository): GetMyPingleListUseCase =
         GetMyPingleListUseCase(pingleRepository = pingleRepository)
 
@@ -59,11 +64,6 @@ class UseCaseModule {
     @Singleton
     fun providesGetParticipantListUseCase(participantRepository: ParticipantRepository): GetParticipantListUseCase =
         GetParticipantListUseCase(participantRepository = participantRepository)
-
-    @Provides
-    @Singleton
-    fun providesGetPingleListUseCase(mapRepository: MapRepository): GetPingleListUseCase =
-        GetPingleListUseCase(mapRepository = mapRepository)
 
     @Provides
     @Singleton

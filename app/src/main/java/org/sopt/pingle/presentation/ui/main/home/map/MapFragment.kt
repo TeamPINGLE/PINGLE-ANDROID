@@ -226,7 +226,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 when (uiState) {
                     is UiState.Success -> {
                         mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
-                            homeViewModel.getPingleList(pinId = pinId)
+                            homeViewModel.getMapPingleList(pinId = pinId)
                         }
                     }
 
@@ -241,7 +241,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         homeViewModel.getPinListWithoutFilter()
 
                         mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
-                            homeViewModel.getPingleList(pinId = pinId)
+                            homeViewModel.getMapPingleList(pinId = pinId)
                         }
                     }
 
@@ -298,7 +298,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                     map = naverMap
                     setOnClickListener {
                         homeViewModel.updateMarkerModelListSelectedValue(index)
-                        homeViewModel.getPingleList(pinEntity.id)
+                        homeViewModel.getMapPingleList(pinEntity.id)
                         moveMapCamera(position)
                         return@setOnClickListener true
                     }

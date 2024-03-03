@@ -15,7 +15,7 @@ import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
-import org.sopt.pingle.domain.usecase.GetPingleListUseCase
+import org.sopt.pingle.domain.usecase.GetMapPingleListUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
@@ -27,7 +27,7 @@ import org.sopt.pingle.util.view.UiState
 class HomeViewModel @Inject constructor(
     private val localStorage: PingleLocalDataSource,
     private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase,
-    private val getPingleListUseCase: GetPingleListUseCase,
+    private val getMapPingleListUseCase: GetMapPingleListUseCase,
     private val postPingleJoinUseCase: PostPingleJoinUseCase,
     private val deletePingleCancelUseCase: DeletePingleCancelUseCase,
     private val deletePingleDeleteUseCase: DeletePingleDeleteUseCase
@@ -151,11 +151,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getPingleList(pinId: Long) {
+    fun getMapPingleList(pinId: Long) {
         viewModelScope.launch {
             _pingleListState.emit(UiState.Loading)
             runCatching {
-                getPingleListUseCase(
+                getMapPingleListUseCase(
                     teamId = localStorage.groupId.toLong(),
                     pinId = pinId,
                     category = category.value?.name

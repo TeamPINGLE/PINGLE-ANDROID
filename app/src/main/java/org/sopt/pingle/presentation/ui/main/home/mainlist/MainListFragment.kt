@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.main.home.mainlist
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -111,7 +112,10 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
             homeViewModel.getMainListPingleList()
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        homeViewModel.mainListPingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+        homeViewModel.mainListPingleListState.flowWithLifecycle(
+            viewLifecycleOwner.lifecycle,
+            Lifecycle.State.CREATED
+        )
             .onEach { mainListPingleListUiState ->
                 when (mainListPingleListUiState) {
                     is UiState.Success -> {

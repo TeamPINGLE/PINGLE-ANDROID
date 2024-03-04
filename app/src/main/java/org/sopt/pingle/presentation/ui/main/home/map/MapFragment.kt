@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -206,7 +207,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
                         homeViewModel.searchWord.value?.let { searchWord ->
                             when {
-                                searchWord.isBlank() -> return@let
                                 uiState.data.isEmpty() -> homeViewModel.setHomeViewType(HomeViewType.MAIN_LIST)
                                 else -> moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
                             }

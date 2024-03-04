@@ -1,9 +1,9 @@
 package org.sopt.pingle.presentation.ui.main.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -25,6 +25,7 @@ import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.HomeViewType
 import org.sopt.pingle.presentation.type.MainListOrderType
 import org.sopt.pingle.util.view.UiState
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -215,16 +216,20 @@ class HomeViewModel @Inject constructor(
     fun getPinListWithoutFilter() {
         viewModelScope.launch {
             _pinEntityListState.value = UiState.Loading
-            runCatching {
-                getPinListWithoutFilteringUseCase(
-                    teamId = localStorage.groupId.toLong(),
-                    category = _category.value?.name,
-                    searchWord = _searchWord.value
-                ).collect() { pinList ->
-                    _pinEntityListState.value = UiState.Success(pinList)
+            if (_searchWord.value?.isBlank() == true) {
+                _pinEntityListState.emit(UiState.Success(emptyList()))
+            } else {
+                runCatching {
+                    getPinListWithoutFilteringUseCase(
+                        teamId = localStorage.groupId.toLong(),
+                        category = _category.value?.name,
+                        searchWord = _searchWord.value
+                    ).collect() { pinList ->
+                        _pinEntityListState.value = UiState.Success(pinList)
+                    }
+                }.onFailure { exception: Throwable ->
+                    _pinEntityListState.value = UiState.Error(exception.message)
                 }
-            }.onFailure { exception: Throwable ->
-                _pinEntityListState.value = UiState.Error(exception.message)
             }
         }
     }

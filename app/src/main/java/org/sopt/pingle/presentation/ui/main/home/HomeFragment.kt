@@ -47,20 +47,17 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         setStopSearchCallback()
     }
 
+    override fun onResume() {
+        super.onResume()
+        initChip()
+    }
+
     private fun initLayout() {
         with(binding) {
             chipHomeCategoryPlay.setChipCategoryType(CategoryType.PLAY)
             chipHomeCategoryStudy.setChipCategoryType(CategoryType.STUDY)
             chipHomeCategoryMulti.setChipCategoryType(CategoryType.MULTI)
             chipHomeCategoryOthers.setChipCategoryType(CategoryType.OTHERS)
-
-            when (homeViewModel.category.value) {
-                CategoryType.PLAY -> chipHomeCategoryPlay.isChecked = true
-                CategoryType.STUDY -> chipHomeCategoryStudy.isChecked = true
-                CategoryType.MULTI -> chipHomeCategoryMulti.isChecked = true
-                CategoryType.OTHERS -> chipHomeCategoryOthers.isChecked = true
-                else -> Unit
-            }
 
             tvHomeGroup.text = homeViewModel.getGroupName()
 
@@ -76,6 +73,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 navigateToSearch()
             }
         }
+
+        initChip()
     }
 
     private fun addListeners() {
@@ -161,6 +160,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
                 if (activityResult.resultCode == RESULT_OK) {
+                    homeViewModel.clearCategory()
                     homeViewModel.setSearchWord(
                         activityResult.data?.getStringExtra(SEARCH_WORD)
                     )
@@ -181,6 +181,17 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             viewLifecycleOwner,
             stopSearchCallback
         )
+    }
+
+    private fun initChip() {
+        with(binding) {
+            homeViewModel.category.value.let {  selectedCategory ->
+                chipHomeCategoryPlay.isChecked = selectedCategory == CategoryType.PLAY
+                chipHomeCategoryStudy.isChecked = selectedCategory == CategoryType.STUDY
+                chipHomeCategoryMulti.isChecked = selectedCategory == CategoryType.MULTI
+                chipHomeCategoryOthers.isChecked = selectedCategory == CategoryType.OTHERS
+            }
+        }
     }
 
     private fun navigateToSearch() {

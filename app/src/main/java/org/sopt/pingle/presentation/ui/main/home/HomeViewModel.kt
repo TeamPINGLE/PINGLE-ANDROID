@@ -77,6 +77,10 @@ class HomeViewModel @Inject constructor(
         _category.value = category
     }
 
+    fun clearCategory() {
+        _category.value = null
+    }
+
     fun setHomeViewType(homeViewType: HomeViewType) {
         _homeViewType.value = homeViewType
     }

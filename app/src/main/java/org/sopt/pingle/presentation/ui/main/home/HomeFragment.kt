@@ -185,7 +185,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun initChip() {
         with(binding) {
-            homeViewModel.category.value.let {  selectedCategory ->
+            homeViewModel.category.value.let { selectedCategory ->
                 chipHomeCategoryPlay.isChecked = selectedCategory == CategoryType.PLAY
                 chipHomeCategoryStudy.isChecked = selectedCategory == CategoryType.STUDY
                 chipHomeCategoryMulti.isChecked = selectedCategory == CategoryType.MULTI

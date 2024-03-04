@@ -53,7 +53,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
             }
 
             binding.pingleSearchSearch.binding.etSearchPingleEditText.run {
-                if (!searchModel.searchWord.isNullOrBlank()) setText(searchModel.searchWord)
+                if (!searchModel.searchWord.isNullOrEmpty()) setText(searchModel.searchWord)
             }
         }
 
@@ -76,7 +76,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
             setOnKeyListener(
                 View.OnKeyListener { _, keyCode, event ->
                     if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                        if (text.isNotBlank()) {
+                        if (text.isNotEmpty()) {
                             navigateToHome(searchWord = text.toString())
                             hideKeyboard(this)
                         }

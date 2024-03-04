@@ -178,15 +178,19 @@ class HomeViewModel @Inject constructor(
     fun getMainListPingleList() {
         viewModelScope.launch {
             _mainListPingleListState.emit(UiState.Loading)
-            getMainListPingleListUseCase(
-                searchWord = _searchWord.value,
-                category = _category.value?.name,
-                teamId = localStorage.groupId.toLong(),
-                order = _mainListOrderType.value.name
-            ).onSuccess { mainListPingleList ->
-                _mainListPingleListState.emit(UiState.Success(mainListPingleList.map { pingleEntity -> pingleEntity.toMainListPingleModel() }))
-            }.onFailure { throwable ->
-                _mainListPingleListState.emit(UiState.Error(throwable.message))
+            if (_searchWord.value?.isBlank() == true) {
+                _mainListPingleListState.emit(UiState.Success(emptyList()))
+            } else {
+                getMainListPingleListUseCase(
+                    searchWord = _searchWord.value,
+                    category = _category.value?.name,
+                    teamId = localStorage.groupId.toLong(),
+                    order = _mainListOrderType.value.name
+                ).onSuccess { mainListPingleList ->
+                    _mainListPingleListState.emit(UiState.Success(mainListPingleList.map { pingleEntity -> pingleEntity.toMainListPingleModel() }))
+                }.onFailure { throwable ->
+                    _mainListPingleListState.emit(UiState.Error(throwable.message))
+                }
             }
         }
     }

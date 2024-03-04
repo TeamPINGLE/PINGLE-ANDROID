@@ -125,7 +125,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                         binding.tvMainListOrderType.text =
                             stringOf(homeViewModel.mainListOrderType.value.mainListOrderStringRes)
 
-                        (!homeViewModel.searchWord.value.isNullOrBlank()).let { isSearching ->
+                        (!homeViewModel.searchWord.value.isNullOrEmpty()).let { isSearching ->
                             with(binding.tvMainListSearchCount) {
                                 visibility = if (isSearching) View.VISIBLE else View.INVISIBLE
                                 text = getString(

@@ -7,6 +7,7 @@ import com.naver.maps.map.NaverMapSdk
 import dagger.hilt.android.HiltAndroidApp
 import org.sopt.pingle.BuildConfig.KAKAO_NATIVE_APP_KEY
 import org.sopt.pingle.BuildConfig.NAVER_MAP_CLIENT_ID
+import org.sopt.pingle.util.AmplitudeUtils.initAmplitude
 import org.sopt.pingle.util.PingleDebugTree
 import timber.log.Timber
 
@@ -19,6 +20,7 @@ class PingleApp : Application() {
         setDarkMode()
         setNaverMap()
         setKakao()
+        initAmplitude(applicationContext)
     }
 
     private fun setTimber() {

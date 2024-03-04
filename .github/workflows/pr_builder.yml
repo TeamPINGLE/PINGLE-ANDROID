@@ -47,11 +47,6 @@ jobs:
           HFM_BASE_URL: ${{ secrets.BASE_URL }}
         run: echo "base.url=\"$BASE_URL\"" >> local.properties
 
-      - name: Access ACCESS_TOKEN
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        run: echo "access.token=\"$ACCESS_TOKEN\"" >> local.properties
-
       - name: Access IO_SENTRY_DSN
         env:
           IO_SENTRY_TOKEN: ${{ secrets.IO_SENTRY_DSN }}
@@ -66,6 +61,11 @@ jobs:
         env:
           KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
         run: echo "kakao.native.app.key=\"$KAKAO_NATIVE_APP_KEY\"" >> local.properties
+
+      - name: Access AMPLITUDE_API_KEY
+        env:
+          KAKAO_NATIVE_APP_KEY: ${{ secrets.AMPLITUDE_API_KEY }}
+        run: echo "amplitude.api.key=\"AMPLITUDE_API_KEY\"" >> local.properties
 
       - name: Access DEFAULTS_ORG
         env:

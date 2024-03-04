@@ -57,7 +57,7 @@ class NewGroupInputFragment :
                             SnackbarType.GUIDE
                         )
                         binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = false
-                        newGroupViewModel.setNewGroupBtnTrue()
+                        newGroupViewModel.setNewGroupBtnEnabledValue(true)
                     } else {
                         PingleSnackbar.makeSnackbar(
                             binding.root,
@@ -65,6 +65,7 @@ class NewGroupInputFragment :
                             SNACKBAR_BOTTOM_MARGIN,
                             SnackbarType.WARNING
                         )
+                        newGroupViewModel.setNewGroupBtnEnabledValue(false)
                     }
                 }
 

@@ -31,7 +31,6 @@ import org.sopt.pingle.util.view.UiState
 class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activity_new_group) {
     private val newGroupViewModel by viewModels<NewGroupViewModel>()
     private lateinit var fragmentList: ArrayList<Fragment>
-    private lateinit var onBackPressed: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -160,12 +159,14 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     }
 
     private fun onBackPressedBtn() {
-        onBackPressed = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                navigateToPreviousPage()
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navigateToPreviousPage()
+                }
             }
-        }
-        onBackPressedDispatcher.addCallback(this, onBackPressed)
+        )
     }
 
     companion object {

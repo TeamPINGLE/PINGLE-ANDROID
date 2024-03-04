@@ -45,7 +45,7 @@ class NewGroupViewModel @Inject constructor(
 
     val newGroupName = MutableStateFlow<String>("")
     val newGroupEmail = MutableStateFlow<String>("")
-    val newGroupBtnCheckName = MutableStateFlow<Boolean>(false)
+    val newGroupBtnEnabled = MutableStateFlow<Boolean>(false)
     val newGroupKeywordName = MutableStateFlow<String>("")
     val newGroupKeywordValue = MutableStateFlow<String>("")
 
@@ -53,16 +53,16 @@ class NewGroupViewModel @Inject constructor(
         currentPage,
         newGroupName,
         newGroupEmail,
-        newGroupBtnCheckName,
+        newGroupBtnEnabled,
         newGroupKeywordValue
     ).combineAll().map { values ->
         val currentPage = values[0] as Int
         val newGroupName = values[1] as String
         val newGroupEmail = values[2] as String
-        val newGroupBtnCheckName = values[3] as Boolean
+        val newGroupBtnEnabled = values[3] as Boolean
         val newGroupKeyword = values[4] as String
 
-        (currentPage == NewGroupType.INPUT.position && newGroupName.isNotBlank() && newGroupEmail.isNotBlank() && newGroupBtnCheckName) ||
+        (currentPage == NewGroupType.INPUT.position && newGroupName.isNotBlank() && newGroupEmail.isNotBlank() && newGroupBtnEnabled) ||
             (currentPage == NewGroupType.KEYWORD.position && newGroupKeyword.isNotBlank()) ||
             (currentPage == NewGroupType.CREATE.position)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), true)
@@ -76,15 +76,15 @@ class NewGroupViewModel @Inject constructor(
         newGroupKeywordValue.value = keywordValue
     }
 
-    fun setNewGroupBtnTrue() {
-        newGroupBtnCheckName.value = true
+    fun setNewGroupBtnEnabledValue(boolean: Boolean) {
+        newGroupBtnEnabled.value = boolean
     }
 
     fun isEmailValid() = EMAIL_PATTERN.matches(newGroupEmail.value)
 
     fun getNewGroupCheckName() {
         viewModelScope.launch {
-            _newGroupCheckNameState.emit(UiState.Loading)
+            _newGroupCheckNameState.value = UiState.Loading
             getNewGroupCheckNameUseCase(teamName = newGroupName.value).onSuccess { newGroupCheckNameData ->
                 _newGroupCheckNameState.value = UiState.Success(newGroupCheckNameData)
             }.onFailure { throwable ->
@@ -95,7 +95,7 @@ class NewGroupViewModel @Inject constructor(
 
     fun getNewGroupKeywords() {
         viewModelScope.launch {
-            _newGroupKeywordsState.emit(UiState.Loading)
+            _newGroupKeywordsState.value = UiState.Loading
             getNewGroupKeywordsUserCase().onSuccess { newGroupKeywordsData ->
                 _newGroupKeywordsState.value = UiState.Success(newGroupKeywordsData)
             }.onFailure { throwable ->

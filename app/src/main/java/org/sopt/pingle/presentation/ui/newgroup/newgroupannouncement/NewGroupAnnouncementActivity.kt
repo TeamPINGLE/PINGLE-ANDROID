@@ -15,11 +15,19 @@ import org.sopt.pingle.util.base.BindingActivity
 @AndroidEntryPoint
 class NewGroupAnnouncementActivity :
     BindingActivity<ActivityNewGroupAnnouncementBinding>(R.layout.activity_new_group_announcement) {
+    private val newGroupModel =
+        intent.getCompatibleParcelableExtra<NewGroupModel>(NEW_GROUP_CODE) ?: NewGroupModel("", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initLayout()
         addListeners()
+    }
+
+    private fun initLayout() {
+        binding.tvNewGroupAnnouncementGroupName.text =
+            getString(R.string.new_group_announcement_group_name, newGroupModel.name)
     }
 
     private fun addListeners() {
@@ -32,7 +40,7 @@ class NewGroupAnnouncementActivity :
         Intent(this, NewGroupCodeShareActivity::class.java).apply {
             putExtra(
                 NEW_GROUP_CODE,
-                intent.getCompatibleParcelableExtra<NewGroupModel>(NEW_GROUP_CODE)
+                newGroupModel.code
             )
             startActivity(this)
         }

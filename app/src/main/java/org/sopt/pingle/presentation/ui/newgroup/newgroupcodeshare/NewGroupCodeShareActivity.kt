@@ -18,9 +18,8 @@ import org.sopt.pingle.util.context.stringOf
 @AndroidEntryPoint
 class NewGroupCodeShareActivity :
     BindingActivity<ActivityNewGroupCodeShareBinding>(R.layout.activity_new_group_code_share) {
-    private val newGroupModel by lazy {
+    private val newGroupModel =
         intent.getCompatibleParcelableExtra(NEW_GROUP_CODE) ?: NewGroupModel("", "")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +47,15 @@ class NewGroupCodeShareActivity :
         }
 
         binding.btnNewGroupCodeShare.setOnClickListener {
-            sharePingle(getString(R.string.my_group_share_pingle, newGroupModel.name, PINGLE_SHARE_CODE, newGroupModel.code, PINGLE_PLAY_STORE_LINK))
+            sharePingle(
+                getString(
+                    R.string.my_group_share_pingle,
+                    newGroupModel.name,
+                    PINGLE_SHARE_CODE,
+                    newGroupModel.code,
+                    PINGLE_PLAY_STORE_LINK
+                )
+            )
         }
     }
 

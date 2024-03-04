@@ -35,9 +35,7 @@ class NewGroupKeywordFragment :
     private fun collectData() {
         newGroupViewModel.newGroupKeywordsState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Success -> {
-                    setChipKeyword(uiState.data)
-                }
+                is UiState.Success -> setChipKeyword(uiState.data)
 
                 else -> {}
             }
@@ -55,10 +53,19 @@ class NewGroupKeywordFragment :
                 when (isChecked) {
                     true -> {
                         chip.setTextAppearance(R.style.TextAppearance_Pingle_Sub_Semi_16)
-                        newGroupViewModel.setNewGroupKeyword(item.name, item.value)
+                        newGroupViewModel.setNewGroupKeyword(
+                            keywordName = item.name,
+                            keywordValue = item.value
+                        )
                     }
 
-                    false -> chip.setTextAppearance(R.style.TextAppearance_Pingle_Body_Med_16)
+                    false -> {
+                        chip.setTextAppearance(R.style.TextAppearance_Pingle_Body_Med_16)
+                        newGroupViewModel.setNewGroupKeyword(
+                            keywordName = "",
+                            keywordValue = ""
+                        )
+                    }
                 }
             }
             binding.cgNewGroupKeyword.addView(chip)

@@ -13,7 +13,7 @@ class NewGroupRemoteDataSourceImpl @Inject constructor(
     private val newGroupService: NewGroupService
 ) : NewGroupRemoteDataSource {
     override suspend fun getNewGroupCheckName(teamName: String): BaseResponse<ResponseNewGroupCheckNameDto> =
-        newGroupService.getNewGroupCheckName(teamName)
+        newGroupService.getNewGroupCheckName(teamName = teamName)
 
     override suspend fun getNewGroupKeyword(): BaseResponse<List<ResponseNewGroupKeywordsDto>> =
         newGroupService.getNewGroupKeywords()

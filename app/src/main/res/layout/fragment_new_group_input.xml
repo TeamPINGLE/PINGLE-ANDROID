@@ -50,12 +50,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            app:pingleEditTextMaxLength="20"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toEndOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/tv_new_group_input_title"
             app:pingleEditTextCheckVisibility="visible"
             app:pingleEditTextHint="@string/new_group_input_name_hint"
+            app:pingleEditTextMaxLength="20"
             app:pingleEditTextTitle="@string/new_group_input_name_title" />
 
         <org.sopt.pingle.util.component.PingleEditText

@@ -13,12 +13,14 @@ class MapRepositoryImpl @Inject constructor(
 ) : MapRepository {
     override suspend fun getPinListWithoutFiltering(
         teamId: Long,
-        category: String?
+        category: String?,
+        searchWord: String?
     ): Flow<List<PinEntity>> = flow {
         val result = runCatching {
             mapRemoteDataSource.getPinListWithoutFiltering(
                 teamId = teamId,
-                category = category
+                category = category,
+                searchWord = searchWord
             ).data.map { pin ->
                 pin.toPinEntity()
             }

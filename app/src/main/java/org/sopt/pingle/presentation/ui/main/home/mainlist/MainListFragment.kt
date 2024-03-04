@@ -72,7 +72,6 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
         // TODO 서버통신 구현 후 collectData 함수로 해당 로직 이동
         with(homeViewModel.dummyPingleList) {
             binding.tvMainListEmpty.visibility = if (isEmpty()) View.VISIBLE else View.INVISIBLE
-            binding.tvMainListEmpty.text = stringOf(R.string.main_list_empty_pingle)
         }
     }
 
@@ -102,6 +101,28 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
     }
 
     private fun collectData() {
+        homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { searchWord ->
+                (!searchWord.isNullOrBlank()).let { isSearching ->
+                    with(binding.tvMainListSearchCount) {
+                        visibility = if (isSearching) View.VISIBLE else View.INVISIBLE
+                        text = getString(
+                            R.string.main_list_search_count,
+                            homeViewModel.dummyPingleList.size
+                        )
+                    }
+
+                    binding.tvMainListEmpty.text =
+                        if (isSearching) {
+                            stringOf(R.string.main_list_empty_search)
+                        } else {
+                            stringOf(
+                                R.string.main_list_empty_pingle
+                            )
+                        }
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
         homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { mainListOrderType ->
                 binding.tvMainListOrderType.text =

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/spacing16" />
+
+        <TextView
+            android:id="@+id/tv_new_group_create_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing8"
+            android:text="@string/new_group_create_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/gl_top" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_new_group_create_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/shape_border_radius_12"
+            android:backgroundTint="@color/g_01"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_group_create_title">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_group_info_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/spacing24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_group_info_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/spacing24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_group_info_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/spacing20" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_group_info_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/spacing20" />
+
+
+            <TextView
+                android:id="@+id/tv_new_group_create_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/shape_border_radius_50"
+                android:backgroundTint="@color/g_10"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
+                android:textColor="@color/pingle_green"
+                app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
+                app:layout_constraintTop_toBottomOf="@id/gl_group_info_top"
+                tools:text="연합동아리" />
+
+            <TextView
+                android:id="@+id/tv_new_group_create_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/gl_group_info_end"
+                app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_new_group_create_tag"
+                tools:text="SOPT" />
+
+            <TextView
+                android:id="@+id/tv_new_group_create_email_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/new_group_create_email"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+                android:textColor="@color/g_11"
+                app:layout_constraintBottom_toTopOf="@id/gl_group_info_bottom"
+                app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_new_group_create_name" />
+
+            <TextView
+                android:id="@+id/tv_new_group_create_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="5dp"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_08"
+                app:layout_constraintBottom_toTopOf="@id/gl_group_info_bottom"
+                app:layout_constraintEnd_toStartOf="@id/gl_group_info_end"
+                app:layout_constraintStart_toEndOf="@id/tv_new_group_create_email_text"
+                app:layout_constraintTop_toTopOf="@id/tv_new_group_create_email_text"
+                tools:text="이메일" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

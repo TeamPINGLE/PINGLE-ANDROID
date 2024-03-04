@@ -12,9 +12,14 @@ class MapRemoteDataSourceImpl @Inject constructor(
 ) : MapRemoteDataSource {
     override suspend fun getPinListWithoutFiltering(
         teamId: Long,
-        category: String?
+        category: String?,
+        searchWord: String?
     ): BaseResponse<List<ResponsePinListDto>> =
-        mapService.getPinListWithoutFiltering(teamId = teamId, category = category)
+        mapService.getPinListWithoutFiltering(
+            teamId = teamId,
+            category = category,
+            searchWord = searchWord
+        )
 
     override suspend fun getPingleList(
         teamId: Long,

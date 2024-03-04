@@ -15,8 +15,8 @@ import org.sopt.pingle.R
 import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.FragmentMoreBinding
 import org.sopt.pingle.presentation.type.SnackbarType
-import org.sopt.pingle.presentation.ui.auth.AuthActivity
 import org.sopt.pingle.presentation.ui.mygroup.MyGroupActivity
+import org.sopt.pingle.presentation.ui.onboarding.onboardingexplanation.OnboardingExplanationActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.component.PingleSnackbar
@@ -37,6 +37,11 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
         initLayout()
         addListeners()
         collectData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.tvMoreMyGroupContent.text = moreViewModel.getGroupName()
     }
 
     private fun initLayout() {
@@ -64,7 +69,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             showWithDrawLogoutDialogFragment()
         }
         binding.ivMoreMoveToMyGroup.setOnClickListener {
-            moveToMyGroup()
+            navigateToMyGroup()
         }
     }
 
@@ -72,7 +77,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
         moreViewModel.logoutState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { logoutState ->
             when (logoutState) {
                 is UiState.Success -> {
-                    moveToSign()
+                    navigateToOnboardingExplanation()
                 }
 
                 is UiState.Error -> {
@@ -87,7 +92,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             when (withDrawState) {
                 is UiState.Success -> {
                     kakaoAuthService.withdrawKakao()
-                    moveToSign()
+                    navigateToOnboardingExplanation()
                 }
 
                 is UiState.Error -> {
@@ -109,25 +114,26 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        moreViewModel.userInfoState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { userInfoState ->
-            when (userInfoState) {
-                is UiState.Success -> {
-                    binding.tvMoreNickname.text = userInfoState.data.name
-                }
+        moreViewModel.userInfoState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { userInfoState ->
+                when (userInfoState) {
+                    is UiState.Success -> {
+                        binding.tvMoreNickname.text = userInfoState.data.name
+                    }
 
-                else -> Unit
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun moveToSign() {
-        Intent(requireContext(), AuthActivity::class.java).apply {
+    private fun navigateToOnboardingExplanation() {
+        Intent(requireContext(), OnboardingExplanationActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(this)
         }
     }
 
-    private fun moveToMyGroup() {
+    private fun navigateToMyGroup() {
         Intent(requireContext(), MyGroupActivity::class.java).apply {
             startActivity(this)
         }

@@ -1,16 +1,16 @@
-package org.sopt.pingle.presentation.ui.onboarding
+package org.sopt.pingle.presentation.ui.onboarding.onboarding
 
 import android.content.Intent
 import android.os.Bundle
 import org.sopt.pingle.R
-import org.sopt.pingle.databinding.ActivityOnBoardingBinding
+import org.sopt.pingle.databinding.ActivityOnboardingBinding
 import org.sopt.pingle.presentation.ui.joingroup.JoinGroupSearchActivity
+import org.sopt.pingle.presentation.ui.newgroup.NewGroupActivity
 import org.sopt.pingle.util.activity.setDoubleBackPressToExit
 import org.sopt.pingle.util.base.BindingActivity
-import org.sopt.pingle.util.context.navigateToWebView
 
-class OnBoardingActivity :
-    BindingActivity<ActivityOnBoardingBinding>(R.layout.activity_on_boarding) {
+class OnboardingActivity :
+    BindingActivity<ActivityOnboardingBinding>(R.layout.activity_onboarding) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class OnBoardingActivity :
         }
 
         binding.includeOnboardingGroupNew.root.setOnClickListener {
-            startActivity(navigateToWebView(NEW_GROUP_LINK))
+            navigateToNewGroup()
         }
     }
 
@@ -35,8 +35,9 @@ class OnBoardingActivity :
         }
     }
 
-    companion object {
-        const val NEW_GROUP_LINK =
-            "https://docs.google.com/forms/d/10WxvEzSVRrRvRGXsYf9Z5oXv4HsNuAwG2QicB4bY0aY/edit"
+    private fun navigateToNewGroup() {
+        Intent(this, NewGroupActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 }

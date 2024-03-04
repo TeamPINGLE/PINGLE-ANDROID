@@ -19,6 +19,7 @@ import org.sopt.pingle.domain.usecase.GetPingleListUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.presentation.type.HomeViewType
 import org.sopt.pingle.presentation.type.MainListOrderType
 import org.sopt.pingle.util.view.UiState
 
@@ -33,6 +34,12 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
+
+    private val _homeViewType = MutableStateFlow<HomeViewType>(HomeViewType.MAP)
+    val homeViewType get() = _homeViewType.asStateFlow()
+
+    private var _searchWord = MutableStateFlow<String?>(null)
+    val searchWord get() = _searchWord.asStateFlow()
 
     private val _pinEntityListState = MutableStateFlow<UiState<List<PinEntity>>>(UiState.Empty)
     val pinEntityListState get() = _pinEntityListState.asStateFlow()
@@ -56,11 +63,23 @@ class HomeViewModel @Inject constructor(
     private val _pingleDeleteState = MutableSharedFlow<UiState<Unit?>>()
     val pingleDeleteState get() = _pingleDeleteState.asSharedFlow()
 
-    private val _mainListOrderType = MutableStateFlow<MainListOrderType>(MainListOrderType.NEW)
+    private val _mainListOrderType = MutableStateFlow(MainListOrderType.NEW)
     val mainListOrderType get() = _mainListOrderType.asStateFlow()
 
     fun setCategory(category: CategoryType?) {
         _category.value = category
+    }
+
+    fun setHomeViewType(homeViewType: HomeViewType) {
+        _homeViewType.value = homeViewType
+    }
+
+    fun setSearchWord(searchWord: String?) {
+        _searchWord.value = searchWord
+    }
+
+    fun clearSearchWord() {
+        _searchWord.value = null
     }
 
     private fun setMarkerModelListIsSelected(position: Int) {
@@ -121,7 +140,8 @@ class HomeViewModel @Inject constructor(
             runCatching {
                 getPinListWithoutFilteringUseCase(
                     teamId = localStorage.groupId.toLong(),
-                    category = category.value?.name
+                    category = category.value?.name,
+                    searchWord = searchWord.value
                 ).collect() { pinList ->
                     _pinEntityListState.value = UiState.Success(pinList)
                 }

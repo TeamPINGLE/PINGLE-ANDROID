@@ -28,11 +28,19 @@ fun Context.navigateToWebView(link: String) = Intent(this, WebViewActivity::clas
 }
 
 fun Context.sharePingle(shareContent: String) {
-    Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+    val sendIntent = Intent().apply {
+        action = Intent.ACTION_SEND
+        type = SHARE_TYPE
+        putExtra(Intent.EXTRA_TEXT, shareContent)
+    }
+    val shareIntent = Intent.createChooser(sendIntent, null)
+    startActivity(shareIntent)
+
+    /*Intent(Intent.ACTION_SEND_MULTIPLE).apply {
         type = SHARE_TYPE
         putExtra(Intent.EXTRA_TEXT, shareContent)
         startActivity(Intent.createChooser(this, null))
-    }
+    }*/
 }
 
 fun Context.copyGroupCode(copyCode: String) {

@@ -9,8 +9,12 @@ data class MainListPingleModel(
 ) {
     fun updateMainListPingleModel() = this.copy(
         pingleEntity = this.pingleEntity.copy(
-            curParticipants = if (this.pingleEntity.isParticipating) this.pingleEntity.curParticipants + 1 else this.pingleEntity.curParticipants - 1,
+            curParticipants = this.pingleEntity.curParticipants + if (this.pingleEntity.isParticipating) PARTICIPANT_COUNT_STEP else -PARTICIPANT_COUNT_STEP,
             isParticipating = !this.pingleEntity.isParticipating
         )
     )
+
+    companion object {
+        private const val PARTICIPANT_COUNT_STEP = 1
+    }
 }

@@ -71,6 +71,9 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             when (myGroupListState) {
                 is UiState.Success -> {
                     adapter.submitList(myGroupListState.data.filterNot { it.id == viewModel.getMyGroupId() })
+                    myGroupListState.data.find { it.id == viewModel.getMyGroupId() }
+                        ?.let { viewModel.setSelectedMyGroup(it) }
+                    viewModel.myGroupList = myGroupListState.data
                 }
 
                 else -> Unit
@@ -78,6 +81,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         }.launchIn(lifecycleScope)
 
         viewModel.selectedMyGroup.flowWithLifecycle(lifecycle).onEach { selectedMyGroup ->
+            adapter.submitList(viewModel.myGroupList.filterNot { it == selectedMyGroup })
             binding.ivMyGroupSelectedOwner.visibility = if (selectedMyGroup?.isOwner == true) View.VISIBLE else View.INVISIBLE
         }.launchIn(lifecycleScope)
     }

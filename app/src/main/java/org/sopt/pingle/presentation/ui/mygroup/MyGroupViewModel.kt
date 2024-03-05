@@ -23,14 +23,12 @@ class MyGroupViewModel @Inject constructor(
     private var _selectedMyGroup = MutableStateFlow<MyGroupEntity?>(null)
     val selectedMyGroup get() = _selectedMyGroup
 
-    private var _myGroupList = MutableStateFlow<List<MyGroupEntity>>(emptyList())
+    var myGroupList: List<MyGroupEntity> = emptyList<MyGroupEntity>()
 
     fun getGroupList() {
         viewModelScope.launch {
             getMyGroupListUseCase().onSuccess { myGroupListEntity ->
                 _myGroupListState.value = UiState.Success(myGroupListEntity)
-                _selectedMyGroup.value = myGroupListEntity.find { it.id == localStorage.groupId }
-                _myGroupList.value = myGroupListEntity
             }.onFailure { throwable ->
                 _myGroupListState.value = UiState.Error(throwable.message)
             }
@@ -45,10 +43,15 @@ class MyGroupViewModel @Inject constructor(
             }
         }
         _selectedMyGroup.value = clickedEntity
-        adapter.submitList(_myGroupList.value.filterNot { it == clickedEntity })
+        adapter.submitList(myGroupList.filterNot { it == clickedEntity })
     }
 
     fun getMyGroupId(): Int = localStorage.groupId
+
+    fun setSelectedMyGroup(myGroupEntity: MyGroupEntity) {
+        _selectedMyGroup.value = myGroupEntity
+    }
+
 
     fun getMyGroupIsOwner(): Boolean = _selectedMyGroup.value?.isOwner ?: false
 

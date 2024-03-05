@@ -1,8 +1,6 @@
 package org.sopt.pingle.util.context
 
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -10,11 +8,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import org.sopt.pingle.R
-import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.common.WebViewActivity
 import org.sopt.pingle.presentation.ui.common.WebViewActivity.Companion.WEB_VIEW_LINK
-import org.sopt.pingle.util.component.PingleSnackbar
 
 fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -36,19 +31,6 @@ fun Context.sharePingle(shareContent: String) {
         putExtra(Intent.EXTRA_TEXT, shareContent)
         startActivity(Intent.createChooser(this, null))
     }
-}
-
-fun Context.copyGroupCode(copyCode: String, view: View) {
-    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val clip: ClipData = ClipData.newPlainText(GROUP_CODE_COPY, copyCode)
-    clipboard.setPrimaryClip(clip)
-
-    PingleSnackbar.makeSnackbar(
-        view = view,
-        message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
-        bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-        snackbarType = SnackbarType.CHECK
-    )
 }
 
 const val PINGLE_PLAY_STORE_LINK =

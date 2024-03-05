@@ -18,9 +18,9 @@ import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
 import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
-import org.sopt.pingle.util.context.copyGroupCode
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf
+import org.sopt.pingle.util.view.copyGroupCode
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -72,7 +72,8 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         }.launchIn(lifecycleScope)
 
         viewModel.selectedMyGroup.flowWithLifecycle(lifecycle).onEach { selectedMyGroup ->
-            binding.ivMyGroupSelectedOwner.visibility = if (selectedMyGroup?.isOwner == true) View.VISIBLE else View.INVISIBLE
+            binding.ivMyGroupSelectedOwner.visibility =
+                if (selectedMyGroup?.isOwner == true) View.VISIBLE else View.INVISIBLE
         }.launchIn(lifecycleScope)
     }
 
@@ -112,14 +113,24 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun copyGroupCode() {
-        binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
-        copyGroupCode(viewModel.getGroupCode(), binding.root)
+        with(binding) {
+            layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
+            root.copyGroupCode(viewModel.getGroupCode())
+        }
     }
 
     private fun shareGroupCode() {
         // TODO 콘텐츠 내용 알려주면 ContextExt와 함께 수정
         binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
-        this.sharePingle(getString(R.string.my_group_share_pingle, viewModel.getGroupName(), PINGLE_SHARE_CODE, viewModel.getGroupCode(), PINGLE_PLAY_STORE_LINK))
+        this.sharePingle(
+            getString(
+                R.string.my_group_share_pingle,
+                viewModel.getGroupName(),
+                PINGLE_SHARE_CODE,
+                viewModel.getGroupCode(),
+                PINGLE_PLAY_STORE_LINK
+            )
+        )
     }
 
     private fun navigateToNewGroupInfo() {

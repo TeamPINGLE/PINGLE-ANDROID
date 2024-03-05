@@ -42,6 +42,7 @@ android {
             "KAKAO_NATIVE_APP_KEY",
             properties["kakao.native.app.key"].toString()
         )
+        buildConfigField("String", "AMPLITUDE_API_KEY", properties["amplitude.api.key"].toString())
 
         manifestPlaceholders["IO_SENTRY_DSN"] = properties["io.sentry.dsn"] as String
         manifestPlaceholders["KAKAO_NATIVE_APP_KEY_MANIFEST"] = properties["kakao.native.app.key.manifest"] as String
@@ -115,6 +116,9 @@ dependencies {
 
     // Kakao
     implementation(libs.kakao)
+
+    // Amplitude
+    implementation(libs.amplitude)
 }
 
 ktlint {

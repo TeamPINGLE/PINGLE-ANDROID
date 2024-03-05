@@ -17,7 +17,6 @@ import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
-import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
 import org.sopt.pingle.util.context.copyGroupCode
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf

@@ -52,7 +52,6 @@ class MyGroupViewModel @Inject constructor(
         _selectedMyGroup.value = myGroupEntity
     }
 
-
     fun getMyGroupIsOwner(): Boolean = _selectedMyGroup.value?.isOwner ?: false
 
     fun getGroupName(): String = _selectedMyGroup.value?.name.orEmpty()

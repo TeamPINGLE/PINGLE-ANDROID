@@ -20,8 +20,8 @@ import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
 import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf
-import org.sopt.pingle.util.view.copyGroupCode
 import org.sopt.pingle.util.view.UiState
+import org.sopt.pingle.util.view.copyGroupCode
 import timber.log.Timber
 
 @AndroidEntryPoint

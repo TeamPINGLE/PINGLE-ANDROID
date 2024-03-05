@@ -64,8 +64,8 @@ jobs:
 
       - name: Access AMPLITUDE_API_KEY
         env:
-          KAKAO_NATIVE_APP_KEY: ${{ secrets.AMPLITUDE_API_KEY }}
-        run: echo "amplitude.api.key=\"AMPLITUDE_API_KEY\"" >> local.properties
+          AMPLITUDE_API_KEY: ${{ secrets.AMPLITUDE_API_KEY }}
+        run: echo "amplitude.dev.api.key=\"AMPLITUDE_API_KEY\"" >> local.properties
 
       - name: Access DEFAULTS_ORG
         env:

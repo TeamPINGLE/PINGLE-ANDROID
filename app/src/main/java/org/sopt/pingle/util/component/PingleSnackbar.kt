@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat.getColor
 import com.google.android.material.snackbar.Snackbar
-import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ViewSnackbarBinding
 import org.sopt.pingle.presentation.type.SnackbarType
+import org.sopt.pingle.util.context.colorOf
 import org.sopt.pingle.util.toPx
 import org.sopt.pingle.util.view.colorOf
 
@@ -43,17 +43,11 @@ object PingleSnackbar {
             marginEnd = SNACKBAR_MARGIN.toPx()
         }
 
-        when (snackbarType) {
-            SnackbarType.GUIDE -> {
-                with(binding) {
-                    layoutSnackbar.backgroundTintList =
-                        ColorStateList.valueOf(getColor(view.context, R.color.g_02))
-                    ivSnackbarNotice.setImageResource(R.drawable.ic_all_notice_24)
-                    tvSnackbar.setTextColor(getColor(view.context, R.color.black))
-                }
-            }
-
-            else -> Unit
+        with(binding) {
+            layoutSnackbar.backgroundTintList =
+                ColorStateList.valueOf(getColor(view.context, snackbarType.backgroundColorRes))
+            ivSnackbarNotice.setImageResource(snackbarType.snackbarIconRes)
+            tvSnackbar.setTextColor(view.context.colorOf(snackbarType.textColorRes))
         }
 
         with(snackbarLayout) {

@@ -87,6 +87,7 @@
                 android:id="@+id/tv_my_group_selected_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:maxLines="2"
                 android:layout_marginTop="@dimen/spacing10"
                 android:text="@{myGroupviewModel.selectedMyGroup.name}"
                 android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"

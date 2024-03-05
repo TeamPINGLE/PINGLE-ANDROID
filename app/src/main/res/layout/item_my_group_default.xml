@@ -68,6 +68,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing10"
+                android:maxLines="2"
                 android:text="@{groupListEntity.name}"
                 android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
                 android:textColor="@color/g_01"

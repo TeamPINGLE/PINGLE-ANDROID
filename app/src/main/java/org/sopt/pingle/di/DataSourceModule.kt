@@ -17,7 +17,7 @@ import org.sopt.pingle.data.datasource.remote.RankingRemoteDataSource
 import org.sopt.pingle.data.datasourceimpl.local.PingleLocalDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.AuthRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.JoinGroupRemoteDataSourceImpl
-import org.sopt.pingle.data.datasourceimpl.remote.MainListRemoteDateSourceImpl
+import org.sopt.pingle.data.datasourceimpl.remote.MainListRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.MapRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.ParticipantRemoteDataSourceImpl
 import org.sopt.pingle.data.datasourceimpl.remote.PingleRemoteDataSourceImpl
@@ -41,7 +41,7 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindsMainListRemoteDataSource(mainListRemoteDateSourceImpl: MainListRemoteDateSourceImpl): MainListRemoteDataSource
+    abstract fun bindsMainListRemoteDataSource(mainListRemoteDataSourceImpl: MainListRemoteDataSourceImpl): MainListRemoteDataSource
 
     @Binds
     @Singleton

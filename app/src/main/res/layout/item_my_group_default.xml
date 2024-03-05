@@ -19,7 +19,7 @@
             android:id="@+id/layout_my_group_default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_border_radius_12"
+            android:background="@drawable/shape_border_radius_12_13"
             android:backgroundTint="@color/g_10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

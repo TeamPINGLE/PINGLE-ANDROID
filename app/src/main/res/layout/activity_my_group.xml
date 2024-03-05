@@ -38,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing16"
-            android:background="@drawable/shape_border_radius_12_13"
+            android:background="@drawable/shape_border_radius_12"
             android:backgroundTint="@color/g_10"
             android:foreground="@drawable/shape_line_white_radius_12"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
@@ -149,7 +149,7 @@
             android:id="@+id/iv_my_group_selected_owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_my_group_owner_58"
+            android:src="@drawable/ic_my_group_selected_owner_58"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/layout_my_group_selected"
             app:layout_constraintEnd_toStartOf="@id/gl_end" />

@@ -123,9 +123,8 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun shareGroupCode() {
-        // TODO 콘텐츠 내용 알려주면 ContextExt와 함께 수정
         binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
-        this.sharePingle(getString(R.string.my_group_share_pingle, viewModel.getGroupName(), PINGLE_SHARE_CODE, viewModel.getGroupCode(), PINGLE_PLAY_STORE_LINK))
+        this.sharePingle(getString(R.string.my_group_share_pingle, viewModel.getGroupName(), viewModel.getGroupName(), viewModel.getGroupCode(), PINGLE_PLAY_STORE_LINK))
     }
 
     private fun navigateToNewGroupInfo() {

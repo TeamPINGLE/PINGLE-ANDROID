@@ -121,9 +121,11 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                     is UiState.Success -> {
                         mainListPingleListUiState.data.let { mainListPingleList ->
                             mainListAdapter.submitList(mainListPingleList)
-                            binding.rvMainList.smoothScrollToPosition(TOP)
-                            binding.tvMainListEmpty.visibility =
-                                if (mainListPingleList.isEmpty()) View.VISIBLE else View.INVISIBLE
+                            with(binding) {
+                                rvMainList.smoothScrollToPosition(TOP)
+                                tvMainListEmpty.visibility =
+                                    if (mainListPingleList.isEmpty()) View.VISIBLE else View.INVISIBLE
+                            }
                         }
 
                         binding.tvMainListOrderType.text =

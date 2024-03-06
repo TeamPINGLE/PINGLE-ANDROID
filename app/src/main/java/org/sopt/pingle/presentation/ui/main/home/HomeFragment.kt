@@ -127,14 +127,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         homeViewModel.mapPingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { uiState ->
                 when (uiState) {
-                    is UiState.Empty -> {
-                        binding.fabHomeChange.visibility = View.VISIBLE
-                    }
+                    is UiState.Empty -> binding.fabHomeChange.visibility = View.VISIBLE
 
-                    is UiState.Success -> {
+                    is UiState.Success ->
                         binding.fabHomeChange.visibility =
                             if (uiState.data.second.isNotEmpty()) View.INVISIBLE else View.VISIBLE
-                    }
 
                     else -> Unit
                 }

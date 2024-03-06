@@ -7,13 +7,16 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.pingle.data.service.AuthService
 import org.sopt.pingle.data.service.JoinGroupService
+import org.sopt.pingle.data.service.MainListService
 import org.sopt.pingle.data.service.MapService
+import org.sopt.pingle.data.service.MyGroupListService
 import org.sopt.pingle.data.service.ParticipantService
 import org.sopt.pingle.data.service.PingleService
 import org.sopt.pingle.data.service.PlanService
 import org.sopt.pingle.data.service.RankingService
 import org.sopt.pingle.di.qualifier.Pingle
 import retrofit2.Retrofit
+import retrofit2.create
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -27,6 +30,11 @@ object ServiceModule {
     @Singleton
     fun providesJoinGroupService(@Pingle retrofit: Retrofit): JoinGroupService =
         retrofit.create(JoinGroupService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesMainListService(@Pingle retrofit: Retrofit): MainListService =
+        retrofit.create(MainListService::class.java)
 
     @Provides
     @Singleton
@@ -52,4 +60,9 @@ object ServiceModule {
     @Singleton
     fun providesRankingService(@Pingle retrofit: Retrofit): RankingService =
         retrofit.create(RankingService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesMyGroupListService(@Pingle retrofit: Retrofit): MyGroupListService =
+        retrofit.create(MyGroupListService::class.java)
 }

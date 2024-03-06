@@ -17,9 +17,12 @@ import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
+import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
 import org.sopt.pingle.util.context.copyGroupCode
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf
+import org.sopt.pingle.util.view.UiState
+import org.sopt.pingle.util.view.copyGroupCode
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -44,13 +47,12 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun initLayout() {
-        viewModel.getGroupList()
         binding.toolbarMyGroup.text = stringOf(R.string.my_group_title)
+        viewModel.getGroupList()
 
         runCatching {
             adapter = MyGroupAdapter(this@MyGroupActivity::showChangeGroupModal)
             binding.rvMyGroupSelected.adapter = adapter
-            adapter.submitList(viewModel.filteredGroupList.value)
         }.onFailure { throwable -> Timber.e(throwable.message) }
     }
 
@@ -66,11 +68,20 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun collectData() {
-        viewModel.filteredGroupList.flowWithLifecycle(lifecycle).onEach { filteredList ->
-            adapter.submitList(filteredList)
+        viewModel.myGroupListState.flowWithLifecycle(lifecycle).onEach { myGroupListState ->
+            when (myGroupListState) {
+                is UiState.Success -> {
+                    myGroupListState.data.find { it.id == viewModel.getMyGroupId() }
+                        ?.let { viewModel.setSelectedMyGroup(it) }
+                    viewModel.myGroupList = myGroupListState.data
+                }
+
+                else -> Unit
+            }
         }.launchIn(lifecycleScope)
 
         viewModel.selectedMyGroup.flowWithLifecycle(lifecycle).onEach { selectedMyGroup ->
+            adapter.submitList(viewModel.myGroupList.filterNot { it == selectedMyGroup })
             binding.ivMyGroupSelectedOwner.visibility = if (selectedMyGroup?.isOwner == true) View.VISIBLE else View.INVISIBLE
         }.launchIn(lifecycleScope)
     }
@@ -94,14 +105,13 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             ),
             buttonText = stringOf(R.string.my_group_modal_change),
             textButtonText = stringOf(R.string.my_group_modal_back),
-            clickBtn = { chageToNewGroup(clickedEntity) },
+            clickBtn = { changeMyGroup(clickedEntity) },
             clickTextBtn = { }
         ).show(supportFragmentManager, CHANGE_MODAL)
     }
 
-    private fun chageToNewGroup(clickedEntity: MyGroupEntity) {
-        viewModel.changeGroupList(clickedEntity)
-
+    private fun changeMyGroup(clickedEntity: MyGroupEntity) {
+        viewModel.changeMyGroupInfo(clickedEntity)
         PingleSnackbar.makeSnackbar(
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_chage_group_complete),
@@ -111,14 +121,10 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun copyGroupCode() {
-        binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
-        copyGroupCode(viewModel.getGroupCode())
-        PingleSnackbar.makeSnackbar(
-            view = binding.root,
-            message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
-            bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE
-        )
+        with(binding) {
+            layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
+            root.copyGroupCode(viewModel.getGroupCode())
+        }
     }
 
     private fun shareGroupCode() {

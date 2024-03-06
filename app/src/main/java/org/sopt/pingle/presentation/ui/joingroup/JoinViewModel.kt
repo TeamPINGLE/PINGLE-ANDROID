@@ -102,10 +102,6 @@ class JoinViewModel @Inject constructor(
             runCatching {
                 getJoinGroupInfoUseCase(teamId = teamId).collect { joinGroupInfo ->
                     _joinGroupInfoState.value = UiState.Success(joinGroupInfo)
-                    with(localStorage) {
-                        meetingCount = joinGroupInfo.meetingCount.toString()
-                        participantCount = joinGroupInfo.participantCount.toString()
-                    }
                 }
             }.onFailure {
                 _joinGroupInfoState.value = UiState.Error(it.message)

@@ -53,7 +53,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
             }
 
             binding.pingleSearchSearch.binding.etSearchPingleEditText.run {
-                if (!searchModel.searchWord.isNullOrBlank()) setText(searchModel.searchWord)
+                if (!searchModel.searchWord.isNullOrEmpty()) setText(searchModel.searchWord)
             }
         }
 
@@ -76,7 +76,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
             setOnKeyListener(
                 View.OnKeyListener { _, keyCode, event ->
                     if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                        if (text.isNotBlank()) {
+                        if (text.isNotEmpty()) {
                             navigateToHome(searchWord = text.toString())
                             hideKeyboard(this)
                         }
@@ -88,7 +88,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         }
     }
 
-    private fun navigateToHome(searchWord: String) {
+    private fun navigateToHome(searchWord: String?) {
         Intent().apply {
             putExtra(SEARCH_WORD, searchWord)
             setResult(RESULT_OK, this)
@@ -98,7 +98,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
 
     companion object {
         private const val INVALID_INDEX = -1
+        private val SEARCH_CLEAR = null
         const val SEARCH_WORD = "searchWord"
-        const val SEARCH_CLEAR = ""
     }
 }

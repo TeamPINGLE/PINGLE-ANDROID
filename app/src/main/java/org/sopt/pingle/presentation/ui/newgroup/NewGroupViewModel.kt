@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.newgroup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +20,7 @@ import org.sopt.pingle.domain.usecase.PostNewGroupCreateUseCase
 import org.sopt.pingle.presentation.type.NewGroupType
 import org.sopt.pingle.util.flow.combineAll
 import org.sopt.pingle.util.view.UiState
+import javax.inject.Inject
 
 @HiltViewModel
 class NewGroupViewModel @Inject constructor(
@@ -45,7 +45,7 @@ class NewGroupViewModel @Inject constructor(
 
     val newGroupName = MutableStateFlow<String>("")
     val newGroupEmail = MutableStateFlow<String>("")
-    val newGroupBtnEnabled = MutableStateFlow<Boolean>(false)
+    val isNewGroupBtnCheckName = MutableStateFlow<Boolean>(false)
     val newGroupKeywordName = MutableStateFlow<String>("")
     val newGroupKeywordValue = MutableStateFlow<String>("")
 
@@ -53,18 +53,18 @@ class NewGroupViewModel @Inject constructor(
         currentPage,
         newGroupName,
         newGroupEmail,
-        newGroupBtnEnabled,
+        isNewGroupBtnCheckName,
         newGroupKeywordValue
     ).combineAll().map { values ->
         val currentPage = values[0] as Int
         val newGroupName = values[1] as String
         val newGroupEmail = values[2] as String
-        val newGroupBtnEnabled = values[3] as Boolean
+        val isNewGroupBtnCheckName = values[3] as Boolean
         val newGroupKeyword = values[4] as String
 
-        (currentPage == NewGroupType.INPUT.position && newGroupName.isNotBlank() && newGroupEmail.isNotBlank() && newGroupBtnEnabled) ||
-            (currentPage == NewGroupType.KEYWORD.position && newGroupKeyword.isNotBlank()) ||
-            (currentPage == NewGroupType.CREATE.position)
+        (currentPage == NewGroupType.INPUT.position && newGroupName.isNotBlank() && newGroupEmail.isNotBlank() && isNewGroupBtnCheckName) ||
+                (currentPage == NewGroupType.KEYWORD.position && newGroupKeyword.isNotBlank()) ||
+                (currentPage == NewGroupType.CREATE.position)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), true)
 
     fun setCurrentPage(position: Int) {
@@ -76,8 +76,8 @@ class NewGroupViewModel @Inject constructor(
         newGroupKeywordValue.value = keywordValue
     }
 
-    fun setNewGroupBtnEnabledValue(boolean: Boolean) {
-        newGroupBtnEnabled.value = boolean
+    fun setIsNewGroupBtnCheckName(boolean: Boolean) {
+        isNewGroupBtnCheckName.value = boolean
     }
 
     fun isEmailValid() = EMAIL_PATTERN.matches(newGroupEmail.value)

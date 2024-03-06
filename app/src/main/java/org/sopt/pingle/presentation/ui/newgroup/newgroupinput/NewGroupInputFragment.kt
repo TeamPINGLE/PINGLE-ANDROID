@@ -42,6 +42,7 @@ class NewGroupInputFragment :
     private fun collectNewGroupTeamNameIsEnabled() {
         newGroupViewModel.newGroupName.flowWithLifecycle(lifecycle).onEach { newGroupName ->
             binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = newGroupName.isNotBlank()
+            newGroupViewModel.setIsNewGroupBtnCheckName(false)
         }.launchIn(lifecycleScope)
     }
 
@@ -57,7 +58,7 @@ class NewGroupInputFragment :
                             SnackbarType.GUIDE
                         )
                         binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = false
-                        newGroupViewModel.setNewGroupBtnEnabledValue(true)
+                        newGroupViewModel.setIsNewGroupBtnCheckName(true)
                     } else {
                         PingleSnackbar.makeSnackbar(
                             binding.root,
@@ -65,7 +66,6 @@ class NewGroupInputFragment :
                             SNACKBAR_BOTTOM_MARGIN,
                             SnackbarType.WARNING
                         )
-                        newGroupViewModel.setNewGroupBtnEnabledValue(false)
                     }
                 }
 

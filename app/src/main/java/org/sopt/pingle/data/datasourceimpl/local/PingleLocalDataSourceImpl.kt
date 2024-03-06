@@ -55,26 +55,6 @@ class PingleLocalDataSourceImpl @Inject constructor(
         get() = pref.getString(GROUP_NAME, "") ?: ""
         set(value) = pref.edit { putString(GROUP_NAME, value) }
 
-    override var meetingCount: String
-        get() = pref.getString(MEETING_COUNT, "") ?: ""
-        set(value) = pref.edit { putString(MEETING_COUNT, value) }
-
-    override var participantCount: String
-        get() = pref.getString(PARTICIPANTS_COUNT, "") ?: ""
-        set(value) = pref.edit { putString(PARTICIPANTS_COUNT, value) }
-
-    override var groupKeyword: String
-        get() = pref.getString(GROUP_KEYWORD, "") ?: ""
-        set(value) = pref.edit { putString(GROUP_KEYWORD, value) }
-
-    override var isOwner: Boolean
-        get() = pref.getBoolean(IS_OWNER, false)
-        set(value) = pref.edit { putBoolean(IS_OWNER, value) }
-
-    override var code: String
-        get() = pref.getString(GROUP_CODE, "") ?: ""
-        set(value) = pref.edit { putString(GROUP_CODE, value) }
-
     override fun clear() {
         pref.edit {
             clear()

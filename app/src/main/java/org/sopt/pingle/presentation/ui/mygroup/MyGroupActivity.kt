@@ -20,6 +20,7 @@ import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
 import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf
+import org.sopt.pingle.util.view.UiState
 import org.sopt.pingle.util.view.copyGroupCode
 import timber.log.Timber
 
@@ -45,13 +46,12 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun initLayout() {
-        viewModel.getGroupList()
         binding.toolbarMyGroup.text = stringOf(R.string.my_group_title)
+        viewModel.getGroupList()
 
         runCatching {
             adapter = MyGroupAdapter(this@MyGroupActivity::showChangeGroupModal)
             binding.rvMyGroupSelected.adapter = adapter
-            adapter.submitList(viewModel.filteredGroupList.value)
         }.onFailure { throwable -> Timber.e(throwable.message) }
     }
 
@@ -67,13 +67,21 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun collectData() {
-        viewModel.filteredGroupList.flowWithLifecycle(lifecycle).onEach { filteredList ->
-            adapter.submitList(filteredList)
+        viewModel.myGroupListState.flowWithLifecycle(lifecycle).onEach { myGroupListState ->
+            when (myGroupListState) {
+                is UiState.Success -> {
+                    myGroupListState.data.find { it.id == viewModel.getMyGroupId() }
+                        ?.let { viewModel.setSelectedMyGroup(it) }
+                    viewModel.myGroupList = myGroupListState.data
+                }
+
+                else -> Unit
+            }
         }.launchIn(lifecycleScope)
 
         viewModel.selectedMyGroup.flowWithLifecycle(lifecycle).onEach { selectedMyGroup ->
-            binding.ivMyGroupSelectedOwner.visibility =
-                if (selectedMyGroup?.isOwner == true) View.VISIBLE else View.INVISIBLE
+            adapter.submitList(viewModel.myGroupList.filterNot { it == selectedMyGroup })
+            binding.ivMyGroupSelectedOwner.visibility = if (selectedMyGroup?.isOwner == true) View.VISIBLE else View.INVISIBLE
         }.launchIn(lifecycleScope)
     }
 
@@ -96,14 +104,13 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             ),
             buttonText = stringOf(R.string.my_group_modal_change),
             textButtonText = stringOf(R.string.my_group_modal_back),
-            clickBtn = { chageToNewGroup(clickedEntity) },
+            clickBtn = { changeMyGroup(clickedEntity) },
             clickTextBtn = { }
         ).show(supportFragmentManager, CHANGE_MODAL)
     }
 
-    private fun chageToNewGroup(clickedEntity: MyGroupEntity) {
-        viewModel.changeGroupList(clickedEntity)
-
+    private fun changeMyGroup(clickedEntity: MyGroupEntity) {
+        viewModel.changeMyGroupInfo(clickedEntity)
         PingleSnackbar.makeSnackbar(
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_chage_group_complete),

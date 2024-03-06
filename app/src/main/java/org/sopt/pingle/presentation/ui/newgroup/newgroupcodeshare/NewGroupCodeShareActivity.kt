@@ -29,33 +29,37 @@ class NewGroupCodeShareActivity :
     }
 
     private fun initLayout() {
-        binding.etNewGroupCodeCopy.editText.setText(newGroupModel.code)
-        binding.etNewGroupCodeCopy.editText.isEnabled = false
+        with(binding) {
+            etNewGroupCodeCopy.editText.setText(newGroupModel.code)
+            etNewGroupCodeCopy.editText.isEnabled = false
+        }
     }
 
     private fun addListeners() {
-        binding.includeNewGroupCodeShareTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener { finish() }
+        with(binding) {
+            includeNewGroupCodeShareTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener { finish() }
 
-        binding.etNewGroupCodeCopy.setOnClickListener {
-            copyGroupCode(copyCode = newGroupModel.code)
-            PingleSnackbar.makeSnackbar(
-                view = binding.root,
-                message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
-                bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-                snackbarType = SnackbarType.GUIDE
-            )
-        }
-
-        binding.btnNewGroupCodeShare.setOnClickListener {
-            sharePingle(
-                getString(
-                    R.string.my_group_share_pingle,
-                    newGroupModel.name,
-                    PINGLE_SHARE_CODE,
-                    newGroupModel.code,
-                    PINGLE_PLAY_STORE_LINK
+            etNewGroupCodeCopy.setOnClickListener {
+                copyGroupCode(copyCode = newGroupModel.code)
+                PingleSnackbar.makeSnackbar(
+                    view = binding.root,
+                    message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
+                    bottomMarin = SNACKBAR_BOTTOM_MARGIN,
+                    snackbarType = SnackbarType.GUIDE
                 )
-            )
+            }
+
+            btnNewGroupCodeShare.setOnClickListener {
+                sharePingle(
+                    getString(
+                        R.string.my_group_share_pingle,
+                        newGroupModel.name,
+                        PINGLE_SHARE_CODE,
+                        newGroupModel.code,
+                        PINGLE_PLAY_STORE_LINK
+                    )
+                )
+            }
         }
     }
 

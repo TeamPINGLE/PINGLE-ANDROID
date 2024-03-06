@@ -48,11 +48,11 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     }
 
     private fun addListeners() {
-        binding.btnNewGroupNext.setOnClickListener { replaceFragment() }
-
-        binding.includeNewGroupTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener { navigateToPreviousPage() }
-
-        binding.ivNewGroupTopbarInfo.setOnClickListener { navigateToNewGroupInfo() }
+        with(binding) {
+            btnNewGroupNext.setOnClickListener { replaceFragment() }
+            includeNewGroupTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener { navigateToPreviousPage() }
+            ivNewGroupTopbarInfo.setOnClickListener { navigateToNewGroupInfo() }
+        }
     }
 
     private fun collectData() {

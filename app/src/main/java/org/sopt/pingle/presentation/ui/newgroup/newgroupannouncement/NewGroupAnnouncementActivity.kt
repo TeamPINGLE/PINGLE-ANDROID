@@ -31,8 +31,10 @@ class NewGroupAnnouncementActivity :
     }
 
     private fun addListeners() {
-        binding.btnNewGroupAnnouncementInvitation.setOnClickListener { navigateToNewGroupShare() }
-        binding.tvNewGroupAnnouncementHome.setOnClickListener { navigateToHome() }
+        with(binding) {
+            btnNewGroupAnnouncementInvitation.setOnClickListener { navigateToNewGroupShare() }
+            tvNewGroupAnnouncementHome.setOnClickListener { navigateToHome() }
+        }
         onBackPressedCallBack()
     }
 

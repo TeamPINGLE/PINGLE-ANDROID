@@ -70,7 +70,6 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         viewModel.myGroupListState.flowWithLifecycle(lifecycle).onEach { myGroupListState ->
             when (myGroupListState) {
                 is UiState.Success -> {
-                    adapter.submitList(myGroupListState.data.filterNot { it.id == viewModel.getMyGroupId() })
                     myGroupListState.data.find { it.id == viewModel.getMyGroupId() }
                         ?.let { viewModel.setSelectedMyGroup(it) }
                     viewModel.myGroupList = myGroupListState.data

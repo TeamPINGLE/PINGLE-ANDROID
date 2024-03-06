@@ -51,15 +51,7 @@ class MyGroupViewModel @Inject constructor(
         _selectedMyGroup.value = myGroupEntity
     }
 
-    fun getMyGroupIsOwner(): Boolean = _selectedMyGroup.value?.isOwner ?: false
-
     fun getGroupName(): String = _selectedMyGroup.value?.name.orEmpty()
 
-    fun getGroupMeetingCount(): String = _selectedMyGroup.value?.meetingCount.orEmpty()
-
-    fun getGroupParticipantCount(): String = _selectedMyGroup.value?.participantCount.orEmpty()
-
     fun getGroupCode(): String = _selectedMyGroup.value?.code.orEmpty()
-
-    fun getGroupKeyword(): String = _selectedMyGroup.value?.keyword.orEmpty()
 }

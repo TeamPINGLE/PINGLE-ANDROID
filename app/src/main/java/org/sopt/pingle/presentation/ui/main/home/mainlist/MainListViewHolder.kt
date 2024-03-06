@@ -3,10 +3,12 @@ package org.sopt.pingle.presentation.ui.main.home.mainlist
 import android.content.Context
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.databinding.Observable
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ItemMainListPingleCardBinding
 import org.sopt.pingle.domain.model.PingleEntity
+import org.sopt.pingle.presentation.model.MainListPingleModel
 import org.sopt.pingle.presentation.type.PingleCardType
 
 class MainListViewHolder(
@@ -18,18 +20,6 @@ class MainListViewHolder(
     private val showPingleCancelModalDialogFragment: (PingleEntity) -> Unit,
     private val showPingleDeleteModalDialogFragment: (PingleEntity) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
-    init {
-        with(binding) {
-            ivMainListPingleCardBottomArrowUp.setOnClickListener {
-                setCardExpandable(isExpanded = false)
-            }
-
-            ivMainListPingleCardBottomArrowDown.setOnClickListener {
-                setCardExpandable(isExpanded = true)
-            }
-        }
-    }
-
     private fun setCardExpandable(isExpanded: Boolean) {
         with(binding) {
             ivMainListPingleCardBottomArrowUp.visibility =
@@ -45,26 +35,56 @@ class MainListViewHolder(
         }
     }
 
-    fun onBind(pingleEntity: PingleEntity) {
+    fun onBind(mainListPingleModel: MainListPingleModel) {
+        setCardExpandable(mainListPingleModel.isExpanded.get())
+
+        with(binding) {
+            ivMainListPingleCardBottomArrowUp.setOnClickListener {
+                mainListPingleModel.isExpanded.set(false)
+            }
+
+            ivMainListPingleCardBottomArrowDown.setOnClickListener {
+                mainListPingleModel.isExpanded.set(true)
+            }
+        }
+
         with(binding.pingleCardTopMainListPingleCard) {
-            initLayout(pingleEntity = pingleEntity, pingleCardType = PingleCardType.MAINLIST)
+            initLayout(
+                pingleEntity = mainListPingleModel.pingleEntity,
+                pingleCardType = PingleCardType.MAINLIST
+            )
             setOnParticipationStatusLayoutClick {
-                navigateToParticipant(pingleEntity.id)
+                navigateToParticipant(mainListPingleModel.pingleEntity.id)
             }
         }
 
         with(binding.pingleCardBottomMainListPingleCard) {
-            initLayout(pingleEntity)
+            initLayout(mainListPingleModel.pingleEntity)
             setOnChatButtonClick {
-                navigateToWebViewWithChatLink(pingleEntity.chatLink)
+                navigateToWebViewWithChatLink(mainListPingleModel.pingleEntity.chatLink)
             }
             setOnParticipateButtonClick {
                 when {
-                    pingleEntity.isOwner -> showPingleDeleteModalDialogFragment(pingleEntity)
-                    pingleEntity.isParticipating -> showPingleCancelModalDialogFragment(pingleEntity)
-                    else -> showPingleJoinModalDialogFragment(pingleEntity)
+                    mainListPingleModel.pingleEntity.isOwner -> showPingleDeleteModalDialogFragment(
+                        mainListPingleModel.pingleEntity
+                    )
+
+                    mainListPingleModel.pingleEntity.isParticipating -> showPingleCancelModalDialogFragment(
+                        mainListPingleModel.pingleEntity
+                    )
+
+                    else -> showPingleJoinModalDialogFragment(mainListPingleModel.pingleEntity)
                 }
             }
+        }
+
+        mainListPingleModel.isExpanded.let { isExpanded ->
+            isExpanded.addOnPropertyChangedCallback(object :
+                    Observable.OnPropertyChangedCallback() {
+                    override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                        setCardExpandable(isExpanded = isExpanded.get())
+                    }
+                })
         }
     }
 }

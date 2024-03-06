@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.pingle.data.repository.AuthRepositoryImpl
 import org.sopt.pingle.data.repository.JoinGroupRepositoryImpl
+import org.sopt.pingle.data.repository.MainListRepositoryImpl
 import org.sopt.pingle.data.repository.MapRepositoryImpl
 import org.sopt.pingle.data.repository.MyGroupListRepositoryImpl
 import org.sopt.pingle.data.repository.ParticipantRepositoryImpl
@@ -15,6 +16,7 @@ import org.sopt.pingle.data.repository.PlanRepositoryImpl
 import org.sopt.pingle.data.repository.RankingRepositoryImpl
 import org.sopt.pingle.domain.repository.AuthRepository
 import org.sopt.pingle.domain.repository.JoinGroupRepository
+import org.sopt.pingle.domain.repository.MainListRepository
 import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.MyGroupListRepository
 import org.sopt.pingle.domain.repository.ParticipantRepository
@@ -32,6 +34,10 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsJoinGroupRepository(joinGroupRepositoryImpl: JoinGroupRepositoryImpl): JoinGroupRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsMainListRepository(mainListRepositoryImpl: MainListRepositoryImpl): MainListRepository
 
     @Binds
     @Singleton

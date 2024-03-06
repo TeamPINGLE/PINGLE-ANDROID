@@ -9,6 +9,7 @@ import org.sopt.pingle.presentation.type.CategoryType
 
 fun PinEntity.toMarkerModel(): MarkerModel {
     val markerModel = MarkerModel(
+        id = this.id,
         Marker().apply {
             position = LatLng(y, x)
             icon = CategoryType.fromString(category).toMarkerIcon(false)

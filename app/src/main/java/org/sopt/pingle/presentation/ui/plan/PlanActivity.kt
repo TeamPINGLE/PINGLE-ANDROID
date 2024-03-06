@@ -25,8 +25,6 @@ import org.sopt.pingle.presentation.ui.plan.plansummaryconfirmation.PlanSummaryC
 import org.sopt.pingle.presentation.ui.plan.plantitle.PlanTitleFragment
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.AllModalDialogFragment
-import org.sopt.pingle.util.component.PingleSnackbar
-import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter
 import org.sopt.pingle.util.view.UiState
 
@@ -85,7 +83,6 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         binding.btnPlan.setOnClickListener {
             when (binding.vpPlan.currentItem) {
                 fragmentList.size - SUB_LIST_SIZE -> planViewModel.postPlanMeeting()
-                PLAN_OPEN_CHATTING_FRAGMENT_INDEX -> validationOpenChattingLink()
                 else -> binding.vpPlan.currentItem++
             }
         }
@@ -163,24 +160,10 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         onBackPressedDispatcher.addCallback(this, onBackPressed)
     }
 
-    private fun validationOpenChattingLink() {
-        if (planViewModel.validityOpenChattingLink()) {
-            binding.vpPlan.currentItem++
-        } else {
-            PingleSnackbar.makeSnackbar(
-                binding.root,
-                stringOf(R.string.plan_open_chatting_snackbar),
-                SNACKBAR_BOTTOM_MARGIN
-            )
-        }
-    }
-
     companion object {
         private const val EXIT_MODAL = "exitModal"
         const val FIRST_PAGE = 0
         const val DEFAULT_PROGRESSBAR = 1f
         const val SUB_LIST_SIZE = 1
-        const val PLAN_OPEN_CHATTING_FRAGMENT_INDEX = 5
-        const val SNACKBAR_BOTTOM_MARGIN = 126
     }
 }

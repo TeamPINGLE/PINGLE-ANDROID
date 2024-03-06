@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.pingle.data.service.AuthService
 import org.sopt.pingle.data.service.JoinGroupService
+import org.sopt.pingle.data.service.MainListService
 import org.sopt.pingle.data.service.MapService
 import org.sopt.pingle.data.service.ParticipantService
 import org.sopt.pingle.data.service.PingleService
@@ -27,6 +28,11 @@ object ServiceModule {
     @Singleton
     fun providesJoinGroupService(@Pingle retrofit: Retrofit): JoinGroupService =
         retrofit.create(JoinGroupService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesMainListService(@Pingle retrofit: Retrofit): MainListService =
+        retrofit.create(MainListService::class.java)
 
     @Provides
     @Singleton

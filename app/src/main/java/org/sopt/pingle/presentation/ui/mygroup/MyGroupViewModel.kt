@@ -35,15 +35,14 @@ class MyGroupViewModel @Inject constructor(
         }
     }
 
-    fun changeMyGroupInfo(clickedEntity: MyGroupEntity, adapter: MyGroupAdapter) {
+    fun changeMyGroupInfo(clickedEntity: MyGroupEntity) {
+        _selectedMyGroup.value = clickedEntity
         clickedEntity.let { clickedEntity ->
             with(localStorage) {
                 groupId = clickedEntity.id
                 groupName = clickedEntity.name
             }
         }
-        _selectedMyGroup.value = clickedEntity
-        adapter.submitList(myGroupList.filterNot { it == clickedEntity })
     }
 
     fun getMyGroupId(): Int = localStorage.groupId

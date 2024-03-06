@@ -111,7 +111,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun changeMyGroup(clickedEntity: MyGroupEntity) {
-        viewModel.changeMyGroupInfo(clickedEntity, adapter)
+        viewModel.changeMyGroupInfo(clickedEntity)
         PingleSnackbar.makeSnackbar(
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_chage_group_complete),

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.sopt.pingle.domain.model.PinEntity
 
 @Serializable
-data class ResponsePinListDto(
+data class ResponsePinDto(
     @SerialName("id")
     val id: Long,
     @SerialName("x")

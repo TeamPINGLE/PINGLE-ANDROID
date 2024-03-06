@@ -15,7 +15,7 @@
     <string name="category_others_description">다른 활동이 하고 싶다면?</string>
 
     <!-- main list order Type -->
-    <string name="main_list_order_new">최신순</string>
+    <string name="main_list_order_new">최신등록순</string>
     <string name="main_list_order_upcoming">날짜임박순</string>
 
     <!-- home view Type -->

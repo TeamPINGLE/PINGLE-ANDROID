@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import org.sopt.pingle.databinding.ItemMainListPingleCardBinding
 import org.sopt.pingle.domain.model.PingleEntity
+import org.sopt.pingle.presentation.model.MainListPingleModel
 import org.sopt.pingle.util.view.ItemDiffCallback
 
 class MainListAdapter(
@@ -13,10 +14,10 @@ class MainListAdapter(
     private val showPingleJoinModalDialogFragment: (PingleEntity) -> Unit,
     private val showPingleCancelModalDialogFragment: (PingleEntity) -> Unit,
     private val showPingleDeleteModalDialogFragment: (PingleEntity) -> Unit
-) : ListAdapter<PingleEntity, MainListViewHolder>(
-    ItemDiffCallback<PingleEntity>(
+) : ListAdapter<MainListPingleModel, MainListViewHolder>(
+    ItemDiffCallback<MainListPingleModel>(
         onContentsTheSame = { old, new -> old == new },
-        onItemsTheSame = { old, new -> old.id == new.id }
+        onItemsTheSame = { old, new -> old.pingleEntity.id == new.pingleEntity.id }
     )
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainListViewHolder =
@@ -35,6 +36,6 @@ class MainListAdapter(
         )
 
     override fun onBindViewHolder(holder: MainListViewHolder, position: Int) {
-        holder.onBind(pingleEntity = currentList[position])
+        holder.onBind(mainListPingleModel = currentList[position])
     }
 }

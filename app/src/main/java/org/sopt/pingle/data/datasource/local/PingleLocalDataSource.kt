@@ -7,10 +7,5 @@ interface PingleLocalDataSource {
     var refreshToken: String
     var groupId: Int
     var groupName: String
-    var meetingCount: String
-    var participantCount: String
-    var isOwner: Boolean
-    var groupKeyword: String
-    var code: String
     fun clear(): Unit
 }

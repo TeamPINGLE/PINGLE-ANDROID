@@ -3,9 +3,12 @@ package org.sopt.pingle.presentation.ui.main.home.mainlist
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -16,6 +19,7 @@ import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.PingleCardUtils
+import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
 class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragment_main_list) {
@@ -66,13 +70,8 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                 )
             }
         )
-        binding.rvMainList.adapter = mainListAdapter
-        mainListAdapter.submitList(homeViewModel.dummyPingleList)
 
-        // TODO 서버통신 구현 후 collectData 함수로 해당 로직 이동
-        with(homeViewModel.dummyPingleList) {
-            binding.tvMainListEmpty.visibility = if (isEmpty()) View.VISIBLE else View.INVISIBLE
-        }
+        binding.rvMainList.adapter = mainListAdapter
     }
 
     private fun addListeners() {
@@ -101,32 +100,87 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
     }
 
     private fun collectData() {
-        homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { searchWord ->
-                (!searchWord.isNullOrBlank()).let { isSearching ->
-                    with(binding.tvMainListSearchCount) {
-                        visibility = if (isSearching) View.VISIBLE else View.INVISIBLE
-                        text = getString(
-                            R.string.main_list_search_count,
-                            homeViewModel.dummyPingleList.size
-                        )
+        combine(
+            homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .distinctUntilChanged(),
+            homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .distinctUntilChanged(),
+            homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .distinctUntilChanged()
+        ) { _, _, _ ->
+        }.onEach {
+            homeViewModel.getMainListPingleList()
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        homeViewModel.mainListPingleListState.flowWithLifecycle(
+            viewLifecycleOwner.lifecycle,
+            Lifecycle.State.CREATED
+        )
+            .onEach { mainListPingleListUiState ->
+                when (mainListPingleListUiState) {
+                    is UiState.Success -> {
+                        mainListPingleListUiState.data.let { mainListPingleList ->
+                            mainListAdapter.submitList(mainListPingleList)
+                            with(binding) {
+                                rvMainList.smoothScrollToPosition(TOP)
+                                tvMainListEmpty.visibility =
+                                    if (mainListPingleList.isEmpty()) View.VISIBLE else View.INVISIBLE
+                            }
+                        }
+
+                        binding.tvMainListOrderType.text =
+                            stringOf(homeViewModel.mainListOrderType.value.mainListOrderStringRes)
+
+                        (!homeViewModel.searchWord.value.isNullOrEmpty()).let { isSearching ->
+                            with(binding.tvMainListSearchCount) {
+                                visibility = if (isSearching) View.VISIBLE else View.INVISIBLE
+                                text = getString(
+                                    R.string.main_list_search_count,
+                                    mainListPingleListUiState.data.size
+                                )
+                            }
+
+                            binding.tvMainListEmpty.text =
+                                if (isSearching) {
+                                    stringOf(R.string.main_list_empty_search)
+                                } else {
+                                    stringOf(
+                                        R.string.main_list_empty_pingle
+                                    )
+                                }
+                        }
                     }
 
-                    binding.tvMainListEmpty.text =
-                        if (isSearching) {
-                            stringOf(R.string.main_list_empty_search)
-                        } else {
-                            stringOf(
-                                R.string.main_list_empty_pingle
-                            )
-                        }
+                    else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { mainListOrderType ->
-                binding.tvMainListOrderType.text =
-                    stringOf(mainListOrderType.mainListOrderStringRes)
+        homeViewModel.pingleParticipationState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { pingleParticipationUiState ->
+                when (pingleParticipationUiState) {
+                    is UiState.Success -> {
+                        with(mainListAdapter) {
+                            submitList(currentList.map { mainListPingleModel -> if (mainListPingleModel.pingleEntity.id == pingleParticipationUiState.data) mainListPingleModel.updateMainListPingleModel() else mainListPingleModel })
+                        }
+                    }
+
+                    else -> Unit
+                }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        homeViewModel.pingleDeleteState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { pingleDeleteState ->
+                when (pingleDeleteState) {
+                    is UiState.Success -> {
+                        homeViewModel.getMainListPingleList()
+                    }
+
+                    else -> Unit
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    companion object {
+        private const val TOP = 0
     }
 }

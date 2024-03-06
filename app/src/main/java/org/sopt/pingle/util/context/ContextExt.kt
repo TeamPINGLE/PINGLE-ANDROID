@@ -1,8 +1,6 @@
 package org.sopt.pingle.util.context
 
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -28,17 +26,19 @@ fun Context.navigateToWebView(link: String) = Intent(this, WebViewActivity::clas
 }
 
 fun Context.sharePingle(shareContent: String) {
-    Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+    val sendIntent = Intent().apply {
+        action = Intent.ACTION_SEND
+        type = SHARE_TYPE
+        putExtra(Intent.EXTRA_TEXT, shareContent)
+    }
+    val shareIntent = Intent.createChooser(sendIntent, null)
+    startActivity(shareIntent)
+
+    /*Intent(Intent.ACTION_SEND_MULTIPLE).apply {
         type = SHARE_TYPE
         putExtra(Intent.EXTRA_TEXT, shareContent)
         startActivity(Intent.createChooser(this, null))
-    }
-}
-
-fun Context.copyGroupCode(copyCode: String) {
-    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val clip: ClipData = ClipData.newPlainText(GROUP_CODE_COPY, copyCode)
-    clipboard.setPrimaryClip(clip)
+    }*/
 }
 
 const val PINGLE_PLAY_STORE_LINK =
@@ -46,3 +46,4 @@ const val PINGLE_PLAY_STORE_LINK =
 const val PINGLE_SHARE_CODE = "초대코드 : "
 const val SHARE_TYPE = "text/plain"
 const val GROUP_CODE_COPY = "CopyGroupCode"
+const val SNACKBAR_BOTTOM_MARGIN = 57

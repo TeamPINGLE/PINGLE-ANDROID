@@ -22,6 +22,7 @@ class RankingViewModel @Inject constructor(
 
     fun getRanking() {
         viewModelScope.launch {
+            _rankingState.value = UiState.Loading
             getRankingUseCase(teamId = pingleLocalDataSource.groupId.toLong()).onSuccess { rankingEntity ->
                 _rankingState.value = UiState.Success(rankingEntity)
             }.onFailure { throwable ->

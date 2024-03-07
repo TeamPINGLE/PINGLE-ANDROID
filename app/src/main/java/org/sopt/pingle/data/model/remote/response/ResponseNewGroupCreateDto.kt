@@ -7,7 +7,7 @@ import org.sopt.pingle.domain.model.NewGroupCreateEntity
 @Serializable
 data class ResponseNewGroupCreateDto(
     @SerialName("id")
-    val id: String,
+    val id: Int,
     @SerialName("name")
     val name: String,
     @SerialName("email")

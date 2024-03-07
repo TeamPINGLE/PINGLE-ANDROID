@@ -113,6 +113,7 @@
 
     <!-- new group input -->
     <string name="new_group_input_title">속해있는 단체의\n이름을 알려주세요!</string>
+    <string name="new_group_keyword_title">단체를 설명하는\n키워드를 선택해주세요</string>
     <string name="new_group_input_name_hint">단체명을 입력해주세요</string>
     <string name="new_group_input_name_title">단체명</string>
     <string name="new_group_input_email_hint">ex. 단체 공식 이메일, 개설자님의 이메일</string>

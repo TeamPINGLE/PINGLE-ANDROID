@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.newgroup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.data.model.remote.request.RequestNewGroupCreateDto
 import org.sopt.pingle.domain.model.NewGroupCheckNameEntity
 import org.sopt.pingle.domain.model.NewGroupCreateEntity
@@ -20,10 +22,10 @@ import org.sopt.pingle.domain.usecase.PostNewGroupCreateUseCase
 import org.sopt.pingle.presentation.type.NewGroupType
 import org.sopt.pingle.util.flow.combineAll
 import org.sopt.pingle.util.view.UiState
-import javax.inject.Inject
 
 @HiltViewModel
 class NewGroupViewModel @Inject constructor(
+    private val localStorage: PingleLocalDataSource,
     private val getNewGroupCheckNameUseCase: GetNewGroupCheckNameUseCase,
     private val getNewGroupKeywordsUserCase: GetNewGroupKeywordsUserCase,
     private val postNewGroupCreateUseCase: PostNewGroupCreateUseCase
@@ -63,8 +65,8 @@ class NewGroupViewModel @Inject constructor(
         val newGroupKeyword = values[4] as String
 
         (currentPage == NewGroupType.INPUT.position && newGroupName.isNotBlank() && newGroupEmail.isNotBlank() && isNewGroupBtnCheckName) ||
-                (currentPage == NewGroupType.KEYWORD.position && newGroupKeyword.isNotBlank()) ||
-                (currentPage == NewGroupType.CREATE.position)
+            (currentPage == NewGroupType.KEYWORD.position && newGroupKeyword.isNotBlank()) ||
+            (currentPage == NewGroupType.CREATE.position)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), true)
 
     fun setCurrentPage(position: Int) {
@@ -107,7 +109,7 @@ class NewGroupViewModel @Inject constructor(
     fun postNewGroupCreate() {
         viewModelScope.launch {
             _newGroupCreateState.emit(UiState.Loading)
-            postNewGroupCreateUseCase.invoke(
+            postNewGroupCreateUseCase(
                 requestNewGroupCreateDto = RequestNewGroupCreateDto(
                     name = newGroupName.value,
                     email = newGroupEmail.value,
@@ -115,6 +117,7 @@ class NewGroupViewModel @Inject constructor(
                 )
             ).onSuccess { newGroupCreateData ->
                 _newGroupCreateState.value = UiState.Success(newGroupCreateData)
+                localStorage.groupId = newGroupCreateData.id
             }.onFailure { throwable ->
                 _newGroupCreateState.value = UiState.Error(throwable.message)
             }
@@ -123,6 +126,6 @@ class NewGroupViewModel @Inject constructor(
 
     companion object {
         const val FIRST_PAGE_POSITION = 0
-        val EMAIL_PATTERN = """[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,64}""".toRegex()
+        val EMAIL_PATTERN = android.util.Patterns.EMAIL_ADDRESS.toRegex()
     }
 }

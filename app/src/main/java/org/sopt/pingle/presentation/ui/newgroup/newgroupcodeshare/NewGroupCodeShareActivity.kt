@@ -18,8 +18,7 @@ import org.sopt.pingle.util.context.stringOf
 @AndroidEntryPoint
 class NewGroupCodeShareActivity :
     BindingActivity<ActivityNewGroupCodeShareBinding>(R.layout.activity_new_group_code_share) {
-    private val newGroupModel =
-        intent.getCompatibleParcelableExtra(NEW_GROUP_CODE) ?: NewGroupModel("", "")
+    private lateinit var newGroupModel: NewGroupModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +28,8 @@ class NewGroupCodeShareActivity :
     }
 
     private fun initLayout() {
+        newGroupModel = intent.getCompatibleParcelableExtra(NEW_GROUP_CODE) ?: NewGroupModel("", "")
+
         with(binding) {
             etNewGroupCodeCopy.editText.setText(newGroupModel.code)
             etNewGroupCodeCopy.editText.isEnabled = false

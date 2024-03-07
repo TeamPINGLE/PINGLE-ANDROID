@@ -4,10 +4,6 @@
 
     <data>
 
-        <variable
-            name="NewGroupViewModel"
-            type="org.sopt.pingle.presentation.ui.newgroup.NewGroupViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

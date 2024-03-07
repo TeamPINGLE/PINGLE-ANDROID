@@ -44,7 +44,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
     private fun initLayout() {
         navigateToNewGroupInfo()
         setPlanFragmentStateAdapter()
-        onBackPressedBtn()
+        onBackPressedCallBack()
     }
 
     private fun addListeners() {
@@ -158,7 +158,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
         }
     }
 
-    private fun onBackPressedBtn() {
+    private fun onBackPressedCallBack() {
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {

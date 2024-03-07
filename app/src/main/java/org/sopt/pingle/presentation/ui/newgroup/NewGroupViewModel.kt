@@ -108,7 +108,7 @@ class NewGroupViewModel @Inject constructor(
 
     fun postNewGroupCreate() {
         viewModelScope.launch {
-            _newGroupCreateState.emit(UiState.Loading)
+            _newGroupCreateState.value = UiState.Loading
             postNewGroupCreateUseCase(
                 requestNewGroupCreateDto = RequestNewGroupCreateDto(
                     name = newGroupName.value,
@@ -117,7 +117,10 @@ class NewGroupViewModel @Inject constructor(
                 )
             ).onSuccess { newGroupCreateData ->
                 _newGroupCreateState.value = UiState.Success(newGroupCreateData)
-                localStorage.groupId = newGroupCreateData.id
+                with(localStorage) {
+                    groupId = newGroupCreateData.id
+                    groupName = newGroupCreateData.name
+                }
             }.onFailure { throwable ->
                 _newGroupCreateState.value = UiState.Error(throwable.message)
             }

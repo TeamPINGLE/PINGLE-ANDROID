@@ -46,7 +46,7 @@ class NewGroupAnnouncementActivity :
         Intent(this, NewGroupCodeShareActivity::class.java).apply {
             putExtra(
                 NEW_GROUP_CODE,
-                newGroupModel.code
+                newGroupModel
             )
             startActivity(this)
         }

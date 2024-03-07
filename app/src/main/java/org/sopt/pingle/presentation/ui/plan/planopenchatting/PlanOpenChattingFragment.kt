@@ -33,8 +33,8 @@ class PlanOpenChattingFragment :
     }
 
     private fun collectData() {
-        planViewModel.planOpenChattingLink.flowWithLifecycle(lifecycle).onEach { openChattingLink ->
+        planViewModel.planOpenChattingLink.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { openChattingLink ->
             planViewModel.validityOpenChattingLink()
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }

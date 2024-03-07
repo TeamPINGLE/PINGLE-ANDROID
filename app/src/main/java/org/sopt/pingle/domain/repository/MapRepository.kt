@@ -5,6 +5,6 @@ import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.domain.model.PingleEntity
 
 interface MapRepository {
-    suspend fun getPinListWithoutFiltering(teamId: Long, category: String?): Flow<List<PinEntity>>
-    suspend fun getPingleList(teamId: Long, pinId: Long, category: String?): Flow<List<PingleEntity>>
+    suspend fun getPinListWithoutFiltering(teamId: Long, category: String?, searchWord: String?): Flow<List<PinEntity>>
+    suspend fun getMapPingleList(teamId: Long, pinId: Long, category: String?): Flow<List<PingleEntity>>
 }

@@ -24,6 +24,7 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -31,6 +32,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMapBinding
 import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.presentation.mapper.toMarkerModel
+import org.sopt.pingle.presentation.type.HomeViewType
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel.Companion.DEFAULT_SELECTED_MARKER_POSITION
 import org.sopt.pingle.util.base.BindingFragment
@@ -82,7 +84,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
             setOnMapClickListener { _, _ ->
                 homeViewModel.clearSelectedMarkerPosition()
-                mapCardAdapter.clearData()
+                homeViewModel.initMapPingleListState()
             }
         }
 
@@ -171,11 +173,22 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun collectData() {
+        combine(
+            homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .distinctUntilChanged(),
+            homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .distinctUntilChanged()
+        ) { _, _ ->
+        }.onEach {
+            homeViewModel.getPinListWithoutFilter()
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
         homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { markerModelData ->
                 (markerModelData.first == DEFAULT_SELECTED_MARKER_POSITION).let { isMarkerUnselected ->
                     with(binding) {
-                        fabMapHere.visibility = if (isMarkerUnselected) View.VISIBLE else View.INVISIBLE
+                        fabMapHere.visibility =
+                            if (isMarkerUnselected) View.VISIBLE else View.INVISIBLE
                     }
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -190,19 +203,40 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                             mapCardAdapter.clearData()
                             homeViewModel.clearSelectedMarkerPosition()
                         }
+
+                        homeViewModel.searchWord.value?.let { searchWord ->
+                            when {
+                                uiState.data.isEmpty() -> homeViewModel.setHomeViewType(HomeViewType.MAIN_LIST)
+                                else -> moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
+                            }
+                        }
                     }
 
                     else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        homeViewModel.pingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+        homeViewModel.mapPingleListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { uiState ->
                 when (uiState) {
+                    is UiState.Empty -> {
+                        binding.fabMapHere.visibility = View.VISIBLE
+                        mapCardAdapter.clearData()
+                    }
+
                     is UiState.Success -> {
-                        with(mapCardAdapter) {
-                            setPinId(uiState.data.first)
-                            submitList(uiState.data.second)
+                        uiState.data.first.let { pinId ->
+                            mapCardAdapter.setPinId(pinId = pinId)
+                            homeViewModel.markerModelData.value.second.withIndex().firstOrNull { markerModel -> markerModel.value.id == pinId }?.let { (position, markerModel) ->
+                                moveMapCamera(markerModel.marker.position)
+                                homeViewModel.updateMarkerModelListSelectedValue(position = position)
+                            }
+                        }
+
+                        uiState.data.second.let { mapPingleList ->
+                            mapCardAdapter.submitList(mapPingleList)
+                            binding.fabMapHere.visibility =
+                                if (mapPingleList.isNotEmpty()) View.INVISIBLE else View.VISIBLE
                         }
                     }
 
@@ -215,7 +249,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 when (uiState) {
                     is UiState.Success -> {
                         mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
-                            homeViewModel.getPingleList(pinId = pinId)
+                            homeViewModel.getMapPingleList(pinId = pinId)
                         }
                     }
 
@@ -230,7 +264,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         homeViewModel.getPinListWithoutFilter()
 
                         mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
-                            homeViewModel.getPingleList(pinId = pinId)
+                            homeViewModel.getMapPingleList(pinId = pinId)
                         }
                     }
 
@@ -286,9 +320,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 this.marker.apply {
                     map = naverMap
                     setOnClickListener {
-                        homeViewModel.updateMarkerModelListSelectedValue(index)
-                        homeViewModel.getPingleList(pinEntity.id)
-                        moveMapCamera(position)
+                        homeViewModel.getMapPingleList(pinEntity.id)
                         return@setOnClickListener true
                     }
                 }
@@ -298,6 +330,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     companion object {
+        private const val FIRST_INDEX = 0
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
         private val LOCATION_PERMISSIONS = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,

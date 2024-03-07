@@ -13,12 +13,14 @@ class MapRepositoryImpl @Inject constructor(
 ) : MapRepository {
     override suspend fun getPinListWithoutFiltering(
         teamId: Long,
-        category: String?
+        category: String?,
+        searchWord: String?
     ): Flow<List<PinEntity>> = flow {
         val result = runCatching {
             mapRemoteDataSource.getPinListWithoutFiltering(
                 teamId = teamId,
-                category = category
+                category = category,
+                searchWord = searchWord
             ).data.map { pin ->
                 pin.toPinEntity()
             }
@@ -26,9 +28,9 @@ class MapRepositoryImpl @Inject constructor(
         emit(result.getOrThrow())
     }
 
-    override suspend fun getPingleList(teamId: Long, pinId: Long, category: String?): Flow<List<PingleEntity>> = flow {
+    override suspend fun getMapPingleList(teamId: Long, pinId: Long, category: String?): Flow<List<PingleEntity>> = flow {
         val result = runCatching {
-            mapRemoteDataSource.getPingleList(
+            mapRemoteDataSource.getMapPingleList(
                 teamId = teamId,
                 pinId = pinId,
                 category = category

@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.domain.repository.MapRepository
 
-class GetPingleListUseCase(
+class GetMapPingleListUseCase(
     private val mapRepository: MapRepository
 ) {
     suspend operator fun invoke(
@@ -12,5 +12,5 @@ class GetPingleListUseCase(
         pinId: Long,
         category: String?
     ): Flow<List<PingleEntity>> =
-        mapRepository.getPingleList(teamId = teamId, pinId = pinId, category = category)
+        mapRepository.getMapPingleList(teamId = teamId, pinId = pinId, category = category)
 }

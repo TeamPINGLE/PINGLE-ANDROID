@@ -11,9 +11,9 @@ import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
 import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
-import org.sopt.pingle.util.context.copyGroupCode
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf
+import org.sopt.pingle.util.view.copyGroupCode
 
 @AndroidEntryPoint
 class NewGroupCodeShareActivity :
@@ -41,7 +41,7 @@ class NewGroupCodeShareActivity :
             includeNewGroupCodeShareTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener { finish() }
 
             etNewGroupCodeCopy.setOnClickListener {
-                copyGroupCode(copyCode = newGroupModel.code)
+                root.copyGroupCode(copyCode = newGroupModel.code)
                 PingleSnackbar.makeSnackbar(
                     view = binding.root,
                     message = stringOf(R.string.my_group_snack_bar_code_copy_complete),

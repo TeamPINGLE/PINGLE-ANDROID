@@ -50,10 +50,12 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = false
+            buildConfigField("String", "AMPLITUDE_API_KEY", properties["amplitude.dev.api.key"].toString())
         }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            buildConfigField("String", "AMPLITUDE_API_KEY", properties["amplitude.prod.api.key"].toString())
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -115,6 +117,9 @@ dependencies {
 
     // Kakao
     implementation(libs.kakao)
+
+    // Amplitude
+    implementation(libs.amplitude)
 }
 
 ktlint {

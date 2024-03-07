@@ -97,9 +97,8 @@ class PlanViewModel @Inject constructor(
                 (currentPage == PlanType.DATETIME.position && planDate.isNotBlank() && startTime.isNotBlank() && endTime.isNotBlank()) ||
                 (currentPage == PlanType.LOCATION.position && selectedLocation != null) ||
                 (
-                    currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() && checkRecruitment(
-                        selectedRecruitment
-                    )
+                    currentPage == PlanType.RECRUITMENT.position && selectedRecruitment.isNotBlank() &&
+                        checkRecruitment(selectedRecruitment)
                     ) ||
                 (currentPage == PlanType.OPENCHATTING.position && planOpenChattingLink.isNotBlank()) ||
                 (currentPage == PlanType.SUMMARY.position)
@@ -245,6 +244,12 @@ class PlanViewModel @Inject constructor(
         }
     }
 
+    fun validityOpenChattingLink() {
+        openChattingLinkRegexPattern.find(planOpenChattingLink.value)?.value?.let { matchedString ->
+            planOpenChattingLink.value = matchedString
+        }
+    }
+
     companion object {
         const val FIRST_PAGE_POSITION = 0
         const val DEFAULT_OLD_POSITION = -1
@@ -252,5 +257,7 @@ class PlanViewModel @Inject constructor(
         const val START_RECRUITMENT = 2
         const val END_RECRUITMENT = 99
         const val BLANK_STRING = " "
+        val openChattingLinkRegexPattern =
+            """https://open.kakao.com/o/[A-Za-z0-9]+""".toRegex()
     }
 }

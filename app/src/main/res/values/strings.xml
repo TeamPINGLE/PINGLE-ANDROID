@@ -15,7 +15,7 @@
     <string name="category_others_description">다른 활동이 하고 싶다면?</string>
 
     <!-- main list order Type -->
-    <string name="main_list_order_new">최신순</string>
+    <string name="main_list_order_new">최신등록순</string>
     <string name="main_list_order_upcoming">날짜임박순</string>
 
     <!-- home view Type -->
@@ -197,6 +197,7 @@
     <string name="plan_open_chatting_title">오픈채팅방 링크를\n추가해주세요!</string>
     <string name="plan_open_chatting_hint">링크를 입력해주세요</string>
     <string name="plan_open_chatting_text_title">채팅방 링크</string>
+    <string name="plan_open_chatting_snackbar">유효하지 않은 오픈채팅방 링크입니다.</string>
 
     <!-- plan summary confirmation -->
     <string name="plan_summary_confirmation_title">핑글을 개최할\n준비 되었나요?</string>

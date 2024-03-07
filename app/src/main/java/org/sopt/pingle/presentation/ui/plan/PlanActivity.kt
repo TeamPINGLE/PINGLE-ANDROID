@@ -82,13 +82,8 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
     private fun addListeners() {
         binding.btnPlan.setOnClickListener {
             when (binding.vpPlan.currentItem) {
-                fragmentList.size - SUB_LIST_SIZE -> {
-                    planViewModel.postPlanMeeting()
-                }
-
-                else -> {
-                    binding.vpPlan.currentItem++
-                }
+                fragmentList.size - SUB_LIST_SIZE -> planViewModel.postPlanMeeting()
+                else -> binding.vpPlan.currentItem++
             }
         }
         binding.toolbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
@@ -136,13 +131,8 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
     private fun navigateToPreviousPage() {
         when (binding.vpPlan.currentItem) {
-            FIRST_PAGE -> {
-                navigateToPlanAnnouncement()
-            }
-
-            else -> {
-                binding.vpPlan.currentItem--
-            }
+            FIRST_PAGE -> navigateToPlanAnnouncement()
+            else -> binding.vpPlan.currentItem--
         }
     }
 

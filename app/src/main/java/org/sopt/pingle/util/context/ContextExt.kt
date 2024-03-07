@@ -26,24 +26,15 @@ fun Context.navigateToWebView(link: String) = Intent(this, WebViewActivity::clas
 }
 
 fun Context.sharePingle(shareContent: String) {
-    val sendIntent = Intent().apply {
-        action = Intent.ACTION_SEND
-        type = SHARE_TYPE
-        putExtra(Intent.EXTRA_TEXT, shareContent)
-    }
-    val shareIntent = Intent.createChooser(sendIntent, null)
-    startActivity(shareIntent)
-
-    /*Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+    Intent(Intent.ACTION_SEND).apply {
         type = SHARE_TYPE
         putExtra(Intent.EXTRA_TEXT, shareContent)
         startActivity(Intent.createChooser(this, null))
-    }*/
+    }
 }
 
 const val PINGLE_PLAY_STORE_LINK =
     "앱 링크 : https://play.google.com/store/apps/details?id=org.sopt.pingle&pcampaignid=web_share"
-const val PINGLE_SHARE_CODE = "초대코드 : "
 const val SHARE_TYPE = "text/plain"
 const val GROUP_CODE_COPY = "CopyGroupCode"
 const val SNACKBAR_BOTTOM_MARGIN = 57

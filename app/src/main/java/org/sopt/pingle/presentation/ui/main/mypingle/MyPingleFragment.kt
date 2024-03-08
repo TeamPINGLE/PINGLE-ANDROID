@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -53,6 +54,20 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             navigateToParticipation = ::navigateToParticipation
         )
         binding.rvMyPingle.adapter = myPingleAdapter
+
+        binding.rvMyPingle.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // SCROLL_STATE_IDLE -> 스크롤하고 화면에서 손을 뗐을 때
+                    // SCROLL_STATE_DRAGGING -> 스크롤하자마자
+                    when (viewModel.myPingleType.value) {
+                        MyPingleType.SOON -> AmplitudeUtils.trackEvent(SCROLL_SOONPINGLE)
+                        MyPingleType.DONE -> AmplitudeUtils.trackEvent(SCROLL_DONEPINGLE)
+                    }
+                }
+            }
+        })
     }
 
     private fun addListeners() {
@@ -165,10 +180,10 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     }
 
     companion object {
-        private const val SNACKBAR_BOTTOM_MARGIN = 76
-        private const val DELETED_PINGLE_MESSAGE = "존재하지 않는 유저미팅입니다."
-        private const val MY_PINGLE_CANCEL_MODAL = "MyPingleCancelModal"
-        private const val MY_PINGLE_DELETE_MODAL = "MyPingleDeleteModal"
+        const val SNACKBAR_BOTTOM_MARGIN = 76
+        const val DELETED_PINGLE_MESSAGE = "존재하지 않는 유저미팅입니다."
+        const val MY_PINGLE_CANCEL_MODAL = "MyPingleCancelModal"
+        const val MY_PINGLE_DELETE_MODAL = "MyPingleDeleteModal"
         private const val CLICK_SOONPINGLE = "click_soonpingle"
         private const val SCROLL_SOONPINGLE = "scroll_soonpingle"
         private const val CLICK_SOONPINGLE_MORE_CANCEL_BACK = "click_soonpingle_more_cancel_back"

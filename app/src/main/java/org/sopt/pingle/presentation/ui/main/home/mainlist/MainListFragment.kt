@@ -175,7 +175,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                             PingleCardErrorType.DELETED.code -> {
                                 if (DELETED_PINGLE_MESSAGE.contains(pingleParticipationUiState.message)) {
                                     homeViewModel.getMainListPingleList()
-                                    showErrorSnackbar(PingleCardErrorType.DELETED)
+                                    showErrorSnackbar(errorType = PingleCardErrorType.DELETED)
                                 }
                             }
 
@@ -183,7 +183,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                                 with(mainListAdapter) {
                                     submitList(currentList.map { mainListPingleModel -> if (mainListPingleModel.pingleEntity.id == pingleParticipationUiState.data) mainListPingleModel.updateMainListPingleModelCompleted() else mainListPingleModel })
                                 }
-                                showErrorSnackbar(PingleCardErrorType.COMPLETED)
+                                showErrorSnackbar(errorType = PingleCardErrorType.COMPLETED)
                             }
 
                             else -> Timber.d(pingleParticipationUiState.message)

@@ -270,14 +270,14 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                                 homeViewModel.clearSelectedMarkerPosition()
                                 homeViewModel.initMapPingleListState()
                                 homeViewModel.getPinListWithoutFilter()
-                                showErrorSnackbar(PingleCardErrorType.DELETED)
+                                showErrorSnackbar(errorType = PingleCardErrorType.DELETED)
                             }
 
                             PingleCardErrorType.COMPLETED.code -> {
                                 mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
                                     homeViewModel.getMapPingleList(pinId = pinId)
                                 }
-                                showErrorSnackbar(PingleCardErrorType.COMPLETED)
+                                showErrorSnackbar(errorType = PingleCardErrorType.COMPLETED)
                             }
                         }
                     }

@@ -12,6 +12,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentNewGroupInputBinding
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.newgroup.NewGroupViewModel
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.fragment.stringOf
@@ -67,6 +68,7 @@ class NewGroupInputFragment :
                             SnackbarType.WARNING
                         )
                     }
+                    AmplitudeUtils.trackEventWithProperty(COMPLETE_DOUBLECHECK, GROUP_NAME, binding.etNewGroupInputGroupName.editText.text)
                 }
 
                 else -> {}
@@ -76,5 +78,7 @@ class NewGroupInputFragment :
 
     companion object {
         const val SNACKBAR_BOTTOM_MARGIN = 97
+        private const val COMPLETE_DOUBLECHECK = "complete_doublecheck"
+        private const val GROUP_NAME = "groupname"
     }
 }

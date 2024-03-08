@@ -14,6 +14,7 @@ import org.sopt.pingle.databinding.ActivityNewGroupAnnouncementBinding
 import org.sopt.pingle.presentation.model.NewGroupModel
 import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.presentation.ui.newgroup.newgroupcodeshare.NewGroupCodeShareActivity
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.Intent.getCompatibleParcelableExtra
 import org.sopt.pingle.util.base.BindingActivity
 
@@ -36,8 +37,14 @@ class NewGroupAnnouncementActivity :
 
     private fun addListeners() {
         with(binding) {
-            btnNewGroupAnnouncementInvitation.setOnClickListener { navigateToNewGroupShare() }
-            tvNewGroupAnnouncementHome.setOnClickListener { navigateToHome() }
+            btnNewGroupAnnouncementInvitation.setOnClickListener {
+                navigateToNewGroupShare()
+                AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_INVITE)
+            }
+            tvNewGroupAnnouncementHome.setOnClickListener {
+                navigateToHome()
+                AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_START)
+            }
         }
         onBackPressedCallBack()
     }
@@ -101,5 +108,7 @@ class NewGroupAnnouncementActivity :
     companion object {
         const val NEW_GROUP_CODE = "NewGroupCode"
         const val GROUP_NAME_START = 0
+        private const val CLICK_CREATEGROUP_INVITE = "click_creategroup_invite"
+        private const val CLICK_CREATEGROUP_START = "click_creategroup_start"
     }
 }

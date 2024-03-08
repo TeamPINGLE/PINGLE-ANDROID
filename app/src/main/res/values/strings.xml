@@ -277,7 +277,7 @@
     <string name="my_group_snack_bar_chage_group_complete">단체가 변경되었습니다!</string>
     <string name="my_group_menu_copy">초대코드 복사하기</string>
     <string name="my_group_menu_share">공유하기</string>
-    <string name="my_group_share_pingle">Ready to PINGLE?\n구성원 모두를 위한 위치기반 네트워킹 서비스, PINGLE\n\n%s에서 초대 메시지를 보냈습니다.\n핑글 앱을 다운받고, %s 사람들을 만나보세요!\n\n초대코드 : %s\n%s</string>
+    <string name="my_group_share_pingle">Ready to PINGLE?\n구성원 모두를 위한 위치기반 네트워킹 서비스, PINGLE\n\n%s에서 초대 메시지를 보냈습니다.\n핑글 앱을 다운받고, %s 사람들을 만나보세요!\n\n초대코드 : %s\n앱 링크 : https://play.google.com/store/apps/details?id=org.sopt.pingle&amp;pcampaignid=web_share</string>
 
     <!-- pingle edit text -->
     <string name="view_text_with_title_button_text">중복 확인</string>

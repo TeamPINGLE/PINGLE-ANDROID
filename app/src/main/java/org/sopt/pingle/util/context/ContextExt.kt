@@ -33,8 +33,6 @@ fun Context.sharePingle(shareContent: String) {
     }
 }
 
-const val PINGLE_PLAY_STORE_LINK =
-    "앱 링크 : https://play.google.com/store/apps/details?id=org.sopt.pingle&pcampaignid=web_share"
 const val SHARE_TYPE = "text/plain"
 const val GROUP_CODE_COPY = "CopyGroupCode"
 const val SNACKBAR_BOTTOM_MARGIN = 57

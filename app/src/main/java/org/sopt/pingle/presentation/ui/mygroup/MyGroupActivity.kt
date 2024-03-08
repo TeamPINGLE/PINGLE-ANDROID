@@ -16,7 +16,6 @@ import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
-import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.view.UiState
@@ -127,7 +126,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
 
     private fun shareGroupCode() {
         binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
-        this.sharePingle(getString(R.string.my_group_share_pingle, viewModel.getGroupName(), viewModel.getGroupName(), viewModel.getGroupCode(), PINGLE_PLAY_STORE_LINK))
+        this.sharePingle(getString(R.string.my_group_share_pingle, viewModel.getGroupName(), viewModel.getGroupName(), viewModel.getGroupCode()))
     }
 
     private fun navigateToNewGroupInfo() {

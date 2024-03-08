@@ -208,6 +208,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         private const val SINGLE_SELECTION = 0
         const val SEARCH_MODEL = "searchModel"
         const val SNACKBAR_BOTTOM_MARGIN = 76
-        val DELETED_PINGLE_MESSAGE = listOf("존재하지 않는 번개입니다", "존재하지 않는 유저미팅입니다")
+        val DELETED_PINGLE_MESSAGE = listOf("존재하지 않는 번개입니다", "존재하지 않는 유저미팅입니다.")
     }
 }

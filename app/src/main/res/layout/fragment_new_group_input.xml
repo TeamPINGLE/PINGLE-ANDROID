@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="NewGroupViewModel"
+            type="org.sopt.pingle.presentation.ui.newgroup.NewGroupViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +45,8 @@
             app:layout_constraintTop_toBottomOf="@id/gl_top" />
 
         <org.sopt.pingle.util.component.PingleEditText
-            android:id="@+id/et_new_group_input_name"
+            android:id="@+id/et_new_group_input_group_name"
+            etText="@={NewGroupViewModel.newGroupName}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
@@ -51,16 +55,18 @@
             app:layout_constraintTop_toBottomOf="@id/tv_new_group_input_title"
             app:pingleEditTextCheckVisibility="visible"
             app:pingleEditTextHint="@string/new_group_input_name_hint"
+            app:pingleEditTextMaxLength="20"
             app:pingleEditTextTitle="@string/new_group_input_name_title" />
 
         <org.sopt.pingle.util.component.PingleEditText
             android:id="@+id/include_new_group_input_email"
+            etText="@={NewGroupViewModel.newGroupEmail}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toEndOf="@id/gl_start"
-            app:layout_constraintTop_toBottomOf="@id/et_new_group_input_name"
+            app:layout_constraintTop_toBottomOf="@id/et_new_group_input_group_name"
             app:pingleEditTextHint="@string/new_group_input_email_hint"
             app:pingleEditTextTitle="@string/new_group_input_email_title" />
 

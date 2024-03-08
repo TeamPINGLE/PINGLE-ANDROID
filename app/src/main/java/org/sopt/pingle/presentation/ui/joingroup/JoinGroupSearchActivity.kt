@@ -83,7 +83,7 @@ class JoinGroupSearchActivity :
                     binding.tvJoinGroupSearchEmpty.visibility = View.INVISIBLE
                     AmplitudeUtils.trackEventWithProperty(
                         COMPLETE_SEARCH_GROUP,
-                        OPTION,
+                        KEYWORD,
                         binding.pingleSearchJoinGroupSearch.binding.etSearchPingleEditText.text
                     )
                 }
@@ -136,6 +136,6 @@ class JoinGroupSearchActivity :
         const val TEAM_ID = "teamId"
         const val CLICK_EXISTINGGROUP_CREATEGROUP = "click_existinggroup_creategroup"
         const val COMPLETE_SEARCH_GROUP = "complete_search_group"
-        const val OPTION = "option"
+        const val KEYWORD = "keyword"
     }
 }

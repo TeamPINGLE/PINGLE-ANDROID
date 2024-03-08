@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.main.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -25,6 +24,8 @@ import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.HomeViewType
 import org.sopt.pingle.presentation.type.MainListOrderType
 import org.sopt.pingle.util.view.UiState
+import retrofit2.HttpException
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -154,14 +155,18 @@ class HomeViewModel @Inject constructor(
     fun deletePingleCancel(meetingId: Long) {
         viewModelScope.launch {
             _pingleParticipationState.emit(UiState.Loading)
-            runCatching {
-                deletePingleCancelUseCase(
-                    meetingId = meetingId
-                ).collect() {
-                    _pingleParticipationState.emit(UiState.Success(meetingId))
-                }
+            deletePingleCancelUseCase(
+                meetingId = meetingId
+            ).onSuccess {
+                _pingleParticipationState.emit(UiState.Success(meetingId))
             }.onFailure { exception: Throwable ->
-                _pingleParticipationState.emit(UiState.Error(exception.message))
+                _pingleParticipationState.emit(
+                    UiState.Error(
+                        message = (exception as? HttpException)?.response()?.message()
+                            ?: exception.message,
+                        code = (exception as? HttpException)?.response()?.code()
+                    )
+                )
             }
         }
     }
@@ -243,11 +248,18 @@ class HomeViewModel @Inject constructor(
             runCatching {
                 postPingleJoinUseCase(
                     meetingId = meetingId
-                ).collect() {
+                ).onSuccess {
                     _pingleParticipationState.emit(UiState.Success(meetingId))
+                }.onFailure { exception: Throwable ->
+                    _pingleParticipationState.emit(
+                        UiState.Error(
+                            message = (exception as? HttpException)?.response()?.message()
+                                ?: exception.message,
+                            code = (exception as? HttpException)?.response()?.code(),
+                            data = meetingId
+                        )
+                    )
                 }
-            }.onFailure { exception: Throwable ->
-                _pingleParticipationState.emit(UiState.Error(exception.message))
             }
         }
     }

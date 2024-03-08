@@ -92,7 +92,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
                             mapOf(
                                 GROUP_NAME to newGroupViewModel.newGroupName.value,
                                 EMAIL to newGroupViewModel.newGroupEmail.value,
-                                KEYWORD to newGroupViewModel.newGroupKeywordName.value
+                                KEYWORD to newGroupViewModel.newGroupKeywordValue.value
                             )
                         )
                     }

@@ -17,7 +17,6 @@ import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.MyPingleType
 import org.sopt.pingle.presentation.type.PingleCardErrorType
 import org.sopt.pingle.presentation.type.SnackbarType
-import org.sopt.pingle.presentation.ui.main.home.HomeFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment.Companion.MEETING_ID
 import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.AmplitudeUtils
@@ -116,12 +115,13 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
                                 PingleSnackbar.makeSnackbar(
                                     view = requireView(),
                                     message = stringOf(PingleCardErrorType.DELETED.snackbarStringRes),
-                                    bottomMarin = HomeFragment.SNACKBAR_BOTTOM_MARGIN,
+                                    bottomMarin = SNACKBAR_BOTTOM_MARGIN,
                                     snackbarType = SnackbarType.GUIDE
                                 )
                             }
                         }
                     }
+
                     else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -169,7 +169,6 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         private const val DELETED_PINGLE_MESSAGE = "존재하지 않는 유저미팅입니다."
         const val MY_PINGLE_CANCEL_MODAL = "MyPingleCancelModal"
         const val MY_PINGLE_DELETE_MODAL = "MyPingleDeleteModal"
-
         const val CLICK_SOONPINGLE = "click_soonpingle"
         const val SCROLL_SOONPINGLE = "scroll_soonpingle"
         const val CLICK_SOONPINGLE_MORE_CANCEL_BACK = "click_soonpingle_more_cancel_back"

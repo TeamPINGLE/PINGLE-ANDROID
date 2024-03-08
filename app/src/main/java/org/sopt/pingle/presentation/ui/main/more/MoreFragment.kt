@@ -96,7 +96,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                 }
 
                 is UiState.Error -> {
-                    when (withDrawState.message) {
+                    when (withDrawState.code) {
                         FAILURE_OWNER -> {
                             PingleSnackbar.makeSnackbar(
                                 requireView(),
@@ -166,7 +166,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     companion object {
-        private const val FAILURE_OWNER = "400"
+        private const val FAILURE_OWNER = 400
         private const val SNACKBAR_BOTTOM_MARGIN = 76
         private const val FAILURE_LOGOUT = "로그아웃 실패"
         private const val LOGOUT_MODAL = "logoutModal"

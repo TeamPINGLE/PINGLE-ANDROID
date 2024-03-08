@@ -62,11 +62,8 @@ class MoreViewModel @Inject constructor(
                 }.onFailure { throwable ->
                     _withDrawState.emit(
                         UiState.Error(
-                            if (throwable is HttpException) {
-                                throwable.response()?.code().toString()
-                            } else {
-                                throwable.message
-                            }
+                            message = throwable.message,
+                            code = (throwable as? HttpException)?.response()?.code()
                         )
                     )
                 }

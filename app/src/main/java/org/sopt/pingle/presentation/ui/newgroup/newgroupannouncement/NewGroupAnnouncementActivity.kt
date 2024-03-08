@@ -108,7 +108,7 @@ class NewGroupAnnouncementActivity :
     companion object {
         const val NEW_GROUP_CODE = "NewGroupCode"
         const val GROUP_NAME_START = 0
-        const val CLICK_CREATEGROUP_INVITE = "click_creategroup_invite"
-        const val CLICK_CREATEGROUP_START = "click_creategroup_start"
+        private const val CLICK_CREATEGROUP_INVITE = "click_creategroup_invite"
+        private const val CLICK_CREATEGROUP_START = "click_creategroup_start"
     }
 }

@@ -75,6 +75,6 @@ class JoinGroupSuccessActivity :
 
     companion object {
         const val GROUP_NAME_START = 0
-        const val CLICK_EXISTINGGROUP_START = "click_existinggroup_start"
+        private const val CLICK_EXISTINGGROUP_START = "click_existinggroup_start"
     }
 }

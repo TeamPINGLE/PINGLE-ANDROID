@@ -78,7 +78,7 @@ class NewGroupInputFragment :
 
     companion object {
         const val SNACKBAR_BOTTOM_MARGIN = 97
-        const val COMPLETE_DOUBLECHECK = "complete_doublecheck"
-        const val GROUP_NAME = "groupname"
+        private const val COMPLETE_DOUBLECHECK = "complete_doublecheck"
+        private const val GROUP_NAME = "groupname"
     }
 }

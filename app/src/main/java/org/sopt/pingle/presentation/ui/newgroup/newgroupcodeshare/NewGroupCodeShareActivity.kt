@@ -38,7 +38,7 @@ class NewGroupCodeShareActivity :
         with(binding) {
             includeNewGroupCodeShareTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener { finish() }
 
-            etNewGroupCodeCopy.setOnClickListener {
+            etNewGroupCodeCopy.ivEditTextCopy.setOnClickListener {
                 root.copyGroupCode(copyCode = newGroupModel.code)
                 AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_INVITE_COPY)
             }
@@ -61,7 +61,7 @@ class NewGroupCodeShareActivity :
     companion object {
         const val NEW_GROUP_CODE = "NewGroupCode"
         const val SNACKBAR_BOTTOM_MARGIN = 97
-        const val CLICK_CREATEGROUP_INVITE_COPY = "click_creategroup_invite_copy"
-        const val CLICK_CREATEGROUP_INVITE_SHARE = "click_creategroup_invite_share"
+        private const val CLICK_CREATEGROUP_INVITE_COPY = "click_creategroup_invite_copy"
+        private const val CLICK_CREATEGROUP_INVITE_SHARE = "click_creategroup_invite_share"
     }
 }

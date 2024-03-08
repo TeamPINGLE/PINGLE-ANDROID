@@ -203,17 +203,17 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
         const val NEW_GROUP_INPUT_PAGE = 0
         const val NEW_GROUP_INFO_PAGE = 1
         const val NEW_GROUP_CREATE_PAGE = 2
-        const val CLICK_STEP1_NEXT = "click_step1_next"
-        const val STATUS = "status"
-        const val STATUS_SUCCESS = "유효성검사성공"
-        const val STATUS_FAILURE = "유효성검사실패"
-        const val CLICK_STEP1_INFO = "click_step1_info"
-        const val CLICK_STEP2_INFO = "click_step2_info"
-        const val CLICK_STEP3_INFO = "click_step3_info"
-        const val CLICK_CREATEGROUP_MAKE = "click_creategroup_make"
-        const val COMPLETE_CREATEGROUP = "complete_creategroup"
-        const val GROUP_NAME = "groupname"
-        const val EMAIL = "email"
-        const val KEYWORD = "keyword"
+        private const val CLICK_STEP1_NEXT = "click_step1_next"
+        private const val STATUS = "status"
+        private const val STATUS_SUCCESS = "유효성검사성공"
+        private const val STATUS_FAILURE = "유효성검사실패"
+        private const val CLICK_STEP1_INFO = "click_step1_info"
+        private const val CLICK_STEP2_INFO = "click_step2_info"
+        private const val CLICK_STEP3_INFO = "click_step3_info"
+        private const val CLICK_CREATEGROUP_MAKE = "click_creategroup_make"
+        private const val COMPLETE_CREATEGROUP = "complete_creategroup"
+        private const val GROUP_NAME = "groupname"
+        private const val EMAIL = "email"
+        private const val KEYWORD = "keyword"
     }
 }

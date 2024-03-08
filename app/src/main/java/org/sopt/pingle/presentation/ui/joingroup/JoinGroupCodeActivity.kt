@@ -149,8 +149,8 @@ class JoinGroupCodeActivity :
         const val JOIN_GROUP_CODE_ACTIVITY = "JoinGroupCodeActivity"
         const val SNACKBAR_BOTTOM_MARGIN = 97
         const val CODE_409 = 409.toString()
-        const val CLICK_EXISTINGGROUP_ENTER = "click_existinggroup_enter"
-        const val COMPLETE_EXISTINGGROUP = "complete_existinggroup"
-        const val KEYWORD = "keyword"
+        private const val CLICK_EXISTINGGROUP_ENTER = "click_existinggroup_enter"
+        private const val COMPLETE_EXISTINGGROUP = "complete_existinggroup"
+        private const val KEYWORD = "keyword"
     }
 }

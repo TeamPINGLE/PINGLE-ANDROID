@@ -85,10 +85,9 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
         const val USER_INFO_LOADING = "User Info Loading..."
         const val USER_INFO_EMPTY = "User Info Empty"
         const val USER_INFO_ERROR = "User Info Error : "
-
-        const val START_SIGNUP = "start_signup"
-        const val SIGNUP_TYPE = "signup type"
-        const val KAKAO = "kakao"
-        const val COMPLETE_SIGNUP = "complete_signup"
+        private const val START_SIGNUP = "start_signup"
+        private const val SIGNUP_TYPE = "signup type"
+        private const val KAKAO = "kakao"
+        private const val COMPLETE_SIGNUP = "complete_signup"
     }
 }

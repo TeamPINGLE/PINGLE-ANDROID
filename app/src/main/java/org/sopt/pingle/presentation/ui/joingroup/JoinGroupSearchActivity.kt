@@ -134,8 +134,8 @@ class JoinGroupSearchActivity :
 
     companion object {
         const val TEAM_ID = "teamId"
-        const val CLICK_EXISTINGGROUP_CREATEGROUP = "click_existinggroup_creategroup"
-        const val COMPLETE_SEARCH_GROUP = "complete_search_group"
-        const val KEYWORD = "keyword"
+        private const val CLICK_EXISTINGGROUP_CREATEGROUP = "click_existinggroup_creategroup"
+        private const val COMPLETE_SEARCH_GROUP = "complete_search_group"
+        private const val KEYWORD = "keyword"
     }
 }

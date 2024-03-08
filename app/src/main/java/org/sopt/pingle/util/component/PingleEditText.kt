@@ -21,6 +21,7 @@ class PingleEditText @JvmOverloads constructor(
     private var binding: EditTextPingleBinding
     val editText get() = binding.etEditText
     val btnEditTextCheck get() = binding.btnEditTextCheck
+    val ivEditTextCopy get() = binding.ivEditTextCopy
 
     init {
         binding = DataBindingUtil.inflate(

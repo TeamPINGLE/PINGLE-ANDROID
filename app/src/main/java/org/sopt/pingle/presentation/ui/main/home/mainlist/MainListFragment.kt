@@ -14,12 +14,18 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMainListBinding
 import org.sopt.pingle.presentation.type.MainListOrderType
+import org.sopt.pingle.presentation.type.PingleCardErrorType
+import org.sopt.pingle.presentation.type.SnackbarType
+import org.sopt.pingle.presentation.ui.main.home.HomeFragment.Companion.DELETED_PINGLE_MESSAGE
+import org.sopt.pingle.presentation.ui.main.home.HomeFragment.Companion.SNACKBAR_BOTTOM_MARGIN
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.util.base.BindingFragment
+import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.PingleCardUtils
 import org.sopt.pingle.util.view.UiState
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragment_main_list) {
@@ -164,6 +170,24 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                         }
                     }
 
+                    is UiState.Error -> {
+                        when (pingleParticipationUiState.code) {
+                            PingleCardErrorType.DELETED.code -> if (DELETED_PINGLE_MESSAGE.contains(pingleParticipationUiState.message)) {
+                                homeViewModel.getMainListPingleList()
+                                showErrorSnackbar(PingleCardErrorType.DELETED)
+                            }
+
+                            PingleCardErrorType.COMPLETED.code -> {
+                                with(mainListAdapter) {
+                                    submitList(currentList.map { mainListPingleModel -> if (mainListPingleModel.pingleEntity.id == pingleParticipationUiState.data) mainListPingleModel.updateMainListPingleModelCompleted() else mainListPingleModel })
+                                }
+                                showErrorSnackbar(PingleCardErrorType.COMPLETED)
+                            }
+
+                            else -> Timber.d(pingleParticipationUiState.message)
+                        }
+                    }
+
                     else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -178,6 +202,15 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                     else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun showErrorSnackbar(errorType: PingleCardErrorType) {
+        PingleSnackbar.makeSnackbar(
+            view = requireView(),
+            message = stringOf(errorType.snackbarStringRes),
+            bottomMarin = SNACKBAR_BOTTOM_MARGIN,
+            snackbarType = SnackbarType.GUIDE
+        )
     }
 
     companion object {

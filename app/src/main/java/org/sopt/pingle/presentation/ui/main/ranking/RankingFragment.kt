@@ -5,11 +5,13 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentRankingBinding
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.view.UiState
 
@@ -31,10 +33,21 @@ class RankingFragment : BindingFragment<FragmentRankingBinding>(R.layout.fragmen
     }
 
     private fun initLayout() {
-        rankingAdapter = RankingAdapter()
-        binding.rvRanking.adapter = rankingAdapter
-
         rankingViewModel.getRanking()
+
+        rankingAdapter = RankingAdapter()
+
+        with(binding.rvRanking) {
+            adapter = rankingAdapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        AmplitudeUtils.trackEvent(SCROLL_RANKING)
+                    }
+                }
+            })
+        }
     }
 
     private fun collectData() {
@@ -58,5 +71,6 @@ class RankingFragment : BindingFragment<FragmentRankingBinding>(R.layout.fragmen
 
     companion object {
         const val RANKING_VISIBLE_THRESHOLD = 30
+        private const val SCROLL_RANKING = "scroll_ranking"
     }
 }

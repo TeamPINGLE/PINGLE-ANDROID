@@ -245,21 +245,19 @@ class HomeViewModel @Inject constructor(
     fun postPingleJoin(meetingId: Long) {
         viewModelScope.launch {
             _pingleParticipationState.emit(UiState.Loading)
-            runCatching {
-                postPingleJoinUseCase(
-                    meetingId = meetingId
-                ).onSuccess {
-                    _pingleParticipationState.emit(UiState.Success(meetingId))
-                }.onFailure { exception: Throwable ->
-                    _pingleParticipationState.emit(
-                        UiState.Error(
-                            message = (exception as? HttpException)?.response()?.message()
-                                ?: exception.message,
-                            code = (exception as? HttpException)?.response()?.code(),
-                            data = meetingId
-                        )
+            postPingleJoinUseCase(
+                meetingId = meetingId
+            ).onSuccess {
+                _pingleParticipationState.emit(UiState.Success(meetingId))
+            }.onFailure { exception: Throwable ->
+                _pingleParticipationState.emit(
+                    UiState.Error(
+                        message = (exception as? HttpException)?.response()?.message()
+                            ?: exception.message,
+                        code = (exception as? HttpException)?.response()?.code(),
+                        data = meetingId
                     )
-                }
+                )
             }
         }
     }

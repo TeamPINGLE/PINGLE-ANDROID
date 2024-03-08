@@ -43,12 +43,6 @@ class NewGroupCodeShareActivity :
 
             etNewGroupCodeCopy.setOnClickListener {
                 root.copyGroupCode(copyCode = newGroupModel.code)
-                PingleSnackbar.makeSnackbar(
-                    view = binding.root,
-                    message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
-                    bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-                    snackbarType = SnackbarType.GUIDE
-                )
                 AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_INVITE_COPY)
             }
 

@@ -18,6 +18,13 @@
     <string name="main_list_order_new">최신등록순</string>
     <string name="main_list_order_upcoming">날짜임박순</string>
 
+    <!-- pingle card error Type -->
+    <string name="pingle_card_error_deleted_pingle_at_join_message">존재하지 않는 번개입니다.</string>
+    <string name="pingle_card_error_completed_pingle_at_join_message">리소스 충돌</string>
+    <string name="pingle_card_error_deleted_pingle_at_cancel_message">존재하지 않는 유저 미팅입니다.</string>
+    <string name="pingle_card_error_delete_snackbar">삭제된 핑글이에요!</string>
+    <string name="pingle_card_error_completed_snackbar">모집이 마감된 핑글이에요!</string>
+
     <!-- home view Type -->
     <string name="home_view_map_search_hint">장소 이름 검색</string>
     <string name="home_view_main_list_search_hint">핑글 이름, 장소 이름 검색</string>

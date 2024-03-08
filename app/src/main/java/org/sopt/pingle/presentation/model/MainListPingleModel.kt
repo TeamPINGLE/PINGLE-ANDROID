@@ -14,6 +14,12 @@ data class MainListPingleModel(
         )
     )
 
+    fun updateMainListPingleModelCompleted() = this.copy(
+        pingleEntity = this.pingleEntity.copy(
+            curParticipants = this.pingleEntity.maxParticipants
+        )
+    )
+
     companion object {
         private const val PARTICIPANT_COUNT_STEP = 1
     }

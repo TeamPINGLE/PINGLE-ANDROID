@@ -33,10 +33,16 @@ import org.sopt.pingle.databinding.FragmentMapBinding
 import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.presentation.mapper.toMarkerModel
 import org.sopt.pingle.presentation.type.HomeViewType
+import org.sopt.pingle.presentation.type.PingleCardErrorType
+import org.sopt.pingle.presentation.type.SnackbarType
+import org.sopt.pingle.presentation.ui.main.home.HomeFragment
+import org.sopt.pingle.presentation.ui.main.home.HomeFragment.Companion.DELETED_PINGLE_MESSAGE
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel.Companion.DEFAULT_SELECTED_MARKER_POSITION
 import org.sopt.pingle.util.base.BindingFragment
+import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.fragment.navigateToWebView
+import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.toPx
 import org.sopt.pingle.util.view.PingleCardUtils
 import org.sopt.pingle.util.view.UiState
@@ -227,10 +233,12 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                     is UiState.Success -> {
                         uiState.data.first.let { pinId ->
                             mapCardAdapter.setPinId(pinId = pinId)
-                            homeViewModel.markerModelData.value.second.withIndex().firstOrNull { markerModel -> markerModel.value.id == pinId }?.let { (position, markerModel) ->
-                                moveMapCamera(markerModel.marker.position)
-                                homeViewModel.updateMarkerModelListSelectedValue(position = position)
-                            }
+                            homeViewModel.markerModelData.value.second.withIndex()
+                                .firstOrNull { markerModel -> markerModel.value.id == pinId }
+                                ?.let { (position, markerModel) ->
+                                    moveMapCamera(markerModel.marker.position)
+                                    homeViewModel.updateMarkerModelListSelectedValue(position = position)
+                                }
                         }
 
                         uiState.data.second.let { mapPingleList ->
@@ -250,6 +258,26 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                     is UiState.Success -> {
                         mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
                             homeViewModel.getMapPingleList(pinId = pinId)
+                        }
+                    }
+
+                    is UiState.Error -> {
+                        when (uiState.code) {
+                            PingleCardErrorType.DELETED.code -> if (DELETED_PINGLE_MESSAGE.contains(
+                                    uiState.message
+                                )
+                            ) {
+                                homeViewModel.clearSelectedMarkerPosition()
+                                homeViewModel.initMapPingleListState()
+                                showErrorSnackbar(PingleCardErrorType.DELETED)
+                            }
+
+                            PingleCardErrorType.COMPLETED.code -> {
+                                mapCardAdapter.pinId.takeIf { it != DEFAULT_VALUE }?.let { pinId ->
+                                    homeViewModel.getMapPingleList(pinId = pinId)
+                                }
+                                showErrorSnackbar(PingleCardErrorType.COMPLETED)
+                            }
                         }
                     }
 
@@ -275,11 +303,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun setLocationTrackingMode() {
         if (LOCATION_PERMISSIONS.any { permission ->
-            ContextCompat.checkSelfPermission(
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
-        }
+            }
         ) {
             locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
@@ -327,6 +355,15 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 homeViewModel.addMarkerModelList(this)
             }
         }
+    }
+
+    private fun showErrorSnackbar(errorType: PingleCardErrorType) {
+        PingleSnackbar.makeSnackbar(
+            view = requireView(),
+            message = stringOf(errorType.snackbarStringRes),
+            bottomMarin = HomeFragment.SNACKBAR_BOTTOM_MARGIN,
+            snackbarType = SnackbarType.GUIDE
+        )
     }
 
     companion object {

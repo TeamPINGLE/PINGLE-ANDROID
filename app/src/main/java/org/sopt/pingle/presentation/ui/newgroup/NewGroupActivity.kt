@@ -88,7 +88,8 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
                             )
                         )
                         AmplitudeUtils.trackEventWithProperties(
-                            COMPLETE_CREATEGROUP, mapOf(
+                            COMPLETE_CREATEGROUP,
+                            mapOf(
                                 GROUP_NAME to newGroupViewModel.newGroupName.value,
                                 EMAIL to newGroupViewModel.newGroupEmail.value,
                                 KEYWORD to newGroupViewModel.newGroupKeywordName.value
@@ -115,12 +116,12 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
             isUserInputEnabled = false
 
             registerOnPageChangeCallback(object :
-                ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    newGroupViewModel.setCurrentPage(position)
-                }
-            })
+                    ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        newGroupViewModel.setCurrentPage(position)
+                    }
+                })
         }
     }
 

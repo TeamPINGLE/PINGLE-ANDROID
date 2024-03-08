@@ -5,15 +5,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityNewGroupCodeShareBinding
 import org.sopt.pingle.presentation.model.NewGroupModel
-import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.Intent.getCompatibleParcelableExtra
 import org.sopt.pingle.util.base.BindingActivity
-import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
 import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
 import org.sopt.pingle.util.context.sharePingle
-import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.view.copyGroupCode
 
 @AndroidEntryPoint

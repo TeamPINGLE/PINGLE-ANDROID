@@ -17,6 +17,7 @@ import org.sopt.pingle.databinding.FragmentMoreBinding
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.mygroup.MyGroupActivity
 import org.sopt.pingle.presentation.ui.onboarding.onboardingexplanation.OnboardingExplanationActivity
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.component.PingleSnackbar
@@ -68,7 +69,8 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
         binding.tvMoreWithdrawTitle.setOnClickListener {
             showWithDrawLogoutDialogFragment()
         }
-        binding.ivMoreMoveToMyGroup.setOnClickListener {
+        binding.layoutMoreMyGroup.setOnClickListener {
+            AmplitudeUtils.trackEvent(START_MYGROUP)
             navigateToMyGroup()
         }
     }
@@ -175,5 +177,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             "https://pinglepingle.notion.site/585c13c92e1842c7ada334e78b731303?pvs=4"
         private const val NOTICE =
             "https://pinglepingle.notion.site/38d504b943a4479695b7ca9206c7b732?pvs=4"
+
+        const val START_MYGROUP = "start_mygroup"
     }
 }

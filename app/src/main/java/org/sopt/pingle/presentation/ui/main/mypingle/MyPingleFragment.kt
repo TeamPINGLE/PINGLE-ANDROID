@@ -102,8 +102,8 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
                 when (uiState) {
                     is UiState.Success -> viewModel.getPingleParticipationList()
                     is UiState.Error -> {
-                        when(uiState.code) {
-                            PingleCardErrorType.DELETED.code -> if( uiState.message == DELETED_PINGLE_MESSAGE) {
+                        when (uiState.code) {
+                            PingleCardErrorType.DELETED.code -> if (uiState.message == DELETED_PINGLE_MESSAGE) {
                                 viewModel.getPingleParticipationList()
                                 PingleSnackbar.makeSnackbar(
                                     view = requireView(),

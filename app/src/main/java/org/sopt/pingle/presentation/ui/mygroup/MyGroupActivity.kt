@@ -14,6 +14,7 @@ import org.sopt.pingle.databinding.ActivityMyGroupBinding
 import org.sopt.pingle.domain.model.MyGroupEntity
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
@@ -86,6 +87,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun showMyGroupMenu() {
+        AmplitudeUtils.trackEvent(CLICK_INVITECODE)
         with(binding) {
             if (layoutMyGroupSelectedMenu.visibility == View.VISIBLE) {
                 layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
@@ -96,6 +98,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun showChangeGroupModal(clickedEntity: MyGroupEntity) {
+        AmplitudeUtils.trackEvent(CLICK_OTHERGROUP)
         binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
         MyGroupModalDialogFragment(
             title = getString(
@@ -110,6 +113,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun changeMyGroup(clickedEntity: MyGroupEntity) {
+        AmplitudeUtils.trackEvent(CLICK_OTHERGROUP_CHANGE)
         viewModel.changeMyGroupInfo(clickedEntity)
         PingleSnackbar.makeSnackbar(
             view = binding.root,
@@ -120,6 +124,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun copyGroupCode() {
+        AmplitudeUtils.trackEvent(CLICK_INVITECODE_COPY)
         with(binding) {
             layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
             root.copyGroupCode(viewModel.getGroupCode())
@@ -127,6 +132,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun shareGroupCode() {
+        AmplitudeUtils.trackEvent(CLICK_INVITECODE_SHARE)
         // TODO 콘텐츠 내용 알려주면 ContextExt와 함께 수정
         binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
         this.sharePingle(
@@ -141,6 +147,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     }
 
     private fun navigateToNewGroupInfo() {
+        AmplitudeUtils.trackEvent(CLICK_NEWGROUP)
         Intent(this, OnboardingActivity::class.java).apply {
             startActivity(this)
         }
@@ -149,5 +156,12 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     companion object {
         private const val CHANGE_MODAL = "ChangeGroupModal"
         private const val SNACKBAR_BOTTOM_MARGIN = 57
+
+        const val CLICK_INVITECODE = "click_invitecode"
+        const val CLICK_INVITECODE_COPY = "click_invitecode_copy"
+        const val CLICK_INVITECODE_SHARE = "click_invitecode_share"
+        const val CLICK_OTHERGROUP = "click_othergroup"
+        const val CLICK_OTHERGROUP_CHANGE = "click_othergroup_change"
+        const val CLICK_NEWGROUP = "click_newgroup"
     }
 }

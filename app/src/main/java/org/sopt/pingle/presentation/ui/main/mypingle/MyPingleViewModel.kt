@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.main.mypingle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -16,6 +15,8 @@ import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
 import org.sopt.pingle.presentation.type.MyPingleType
 import org.sopt.pingle.util.view.UiState
+import retrofit2.HttpException
+import javax.inject.Inject
 
 @HiltViewModel
 class MyPingleViewModel @Inject constructor(
@@ -108,12 +109,16 @@ class MyPingleViewModel @Inject constructor(
     fun deletePingleCancel(meetingId: Long) {
         viewModelScope.launch {
             _myPingleState.emit(UiState.Loading)
-            runCatching {
-                deletePingleCancelUseCase(meetingId = meetingId).collect { data ->
-                    _myPingleState.emit(UiState.Success(data))
-                }
+            deletePingleCancelUseCase(meetingId = meetingId).onSuccess { data ->
+                _myPingleState.emit(UiState.Success(data))
             }.onFailure { exception: Throwable ->
-                _myPingleState.emit(UiState.Error(exception.message))
+                _myPingleState.emit(
+                    UiState.Error(
+                        message = (exception as? HttpException)?.response()?.message()
+                            ?: exception.message,
+                        code = (exception as? HttpException)?.response()?.code()
+                    )
+                )
             }
         }
     }

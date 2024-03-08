@@ -17,7 +17,6 @@ import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.MyPingleType
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment.Companion.MEETING_ID
 import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
-import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
 import org.sopt.pingle.util.fragment.stringOf
@@ -56,15 +55,8 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         binding.tlMyPingle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    MyPingleType.SOON.tabPosition -> {
-                        viewModel.setMyPingleType(MyPingleType.SOON)
-                        AmplitudeUtils.trackEvent(CLICK_SOONPINGLE)
-                    }
-
-                    MyPingleType.DONE.tabPosition -> {
-                        viewModel.setMyPingleType(MyPingleType.DONE)
-                        AmplitudeUtils.trackEvent(CLICK_DONEPINGLE)
-                    }
+                    MyPingleType.SOON.tabPosition -> viewModel.setMyPingleType(MyPingleType.SOON)
+                    MyPingleType.DONE.tabPosition -> viewModel.setMyPingleType(MyPingleType.DONE)
                 }
             }
 
@@ -117,7 +109,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             buttonText = stringOf(R.string.cancel_modal_button_text),
             textButtonText = stringOf(R.string.cancel_modal_text_button_text),
             clickBtn = { viewModel.deletePingleCancel(meetingId = myPingleEntity.id.toLong()) },
-            clickTextBtn = { AmplitudeUtils.trackEvent(CLICK_SOONPINGLE_MORE_CANCEL_BACK) }
+            clickTextBtn = { }
         ).show(childFragmentManager, MY_PINGLE_CANCEL_MODAL)
     }
 
@@ -150,11 +142,5 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     companion object {
         const val MY_PINGLE_CANCEL_MODAL = "MyPingleCancelModal"
         const val MY_PINGLE_DELETE_MODAL = "MyPingleDeleteModal"
-
-        const val CLICK_SOONPINGLE = "click_soonpingle"
-        const val SCROLL_SOONPINGLE = "scroll_soonpingle"
-        const val CLICK_SOONPINGLE_MORE_CANCEL_BACK = "click_soonpingle_more_cancel_back"
-        const val CLICK_DONEPINGLE = "click_donepingle"
-        const val SCROLL_DONEPINGLE = "scroll_donepingle"
     }
 }

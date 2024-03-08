@@ -160,7 +160,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                 when (pingleParticipationUiState) {
                     is UiState.Success -> {
                         with(mainListAdapter) {
-                            submitList(currentList.map { mainListPingleModel -> if (mainListPingleModel.pingleEntity.id == pingleParticipationUiState.data) mainListPingleModel.updateMainListPingleModel() else mainListPingleModel })
+                            submitList(currentList.map { mainListPingleModel -> if (mainListPingleModel.pingleEntity.id == pingleParticipationUiState.data) mainListPingleModel.updateMainListPingleModelJoin() else mainListPingleModel })
                         }
                     }
 

@@ -7,7 +7,7 @@ data class MainListPingleModel(
     val pingleEntity: PingleEntity,
     var isExpanded: ObservableBoolean = ObservableBoolean(false)
 ) {
-    fun updateMainListPingleModel() = this.copy(
+    fun updateMainListPingleModelJoin() = this.copy(
         pingleEntity = this.pingleEntity.copy(
             curParticipants = this.pingleEntity.curParticipants + if (this.pingleEntity.isParticipating) -PARTICIPANT_COUNT_STEP else PARTICIPANT_COUNT_STEP,
             isParticipating = !this.pingleEntity.isParticipating

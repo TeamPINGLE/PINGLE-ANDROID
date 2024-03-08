@@ -172,9 +172,11 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
 
                     is UiState.Error -> {
                         when (pingleParticipationUiState.code) {
-                            PingleCardErrorType.DELETED.code -> if (DELETED_PINGLE_MESSAGE.contains(pingleParticipationUiState.message)) {
-                                homeViewModel.getMainListPingleList()
-                                showErrorSnackbar(PingleCardErrorType.DELETED)
+                            PingleCardErrorType.DELETED.code -> {
+                                if (DELETED_PINGLE_MESSAGE.contains(pingleParticipationUiState.message)) {
+                                    homeViewModel.getMainListPingleList()
+                                    showErrorSnackbar(PingleCardErrorType.DELETED)
+                                }
                             }
 
                             PingleCardErrorType.COMPLETED.code -> {

@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.main.mypingle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -18,7 +19,6 @@ import org.sopt.pingle.presentation.type.MyPingleType
 import org.sopt.pingle.util.base.NullableBaseResponse
 import org.sopt.pingle.util.view.UiState
 import retrofit2.HttpException
-import javax.inject.Inject
 
 @HiltViewModel
 class MyPingleViewModel @Inject constructor(
@@ -116,10 +116,14 @@ class MyPingleViewModel @Inject constructor(
             }.onFailure { exception: Throwable ->
                 _myPingleState.emit(
                     UiState.Error(
-                        message = if (exception is HttpException) exception.response()?.errorBody()
-                            ?.byteString()?.utf8()?.let { errorBodyJson ->
-                                Json.decodeFromString<NullableBaseResponse<Unit>>(errorBodyJson).message
-                            } else exception.message,
+                        message = if (exception is HttpException) {
+                            exception.response()?.errorBody()
+                                ?.byteString()?.utf8()?.let { errorBodyJson ->
+                                    Json.decodeFromString<NullableBaseResponse<Unit>>(errorBodyJson).message
+                                }
+                        } else {
+                            exception.message
+                        },
                         code = (exception as? HttpException)?.response()?.code()
                     )
                 )

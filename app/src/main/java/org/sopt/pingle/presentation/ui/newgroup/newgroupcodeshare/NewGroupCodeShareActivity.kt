@@ -6,6 +6,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityNewGroupCodeShareBinding
 import org.sopt.pingle.presentation.model.NewGroupModel
 import org.sopt.pingle.presentation.type.SnackbarType
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.Intent.getCompatibleParcelableExtra
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
@@ -48,6 +49,7 @@ class NewGroupCodeShareActivity :
                     bottomMarin = SNACKBAR_BOTTOM_MARGIN,
                     snackbarType = SnackbarType.GUIDE
                 )
+                AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_INVITE_COPY)
             }
 
             btnNewGroupCodeShare.setOnClickListener {
@@ -60,6 +62,7 @@ class NewGroupCodeShareActivity :
                         PINGLE_PLAY_STORE_LINK
                     )
                 )
+                AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_INVITE_SHARE)
             }
         }
     }
@@ -67,5 +70,7 @@ class NewGroupCodeShareActivity :
     companion object {
         const val NEW_GROUP_CODE = "NewGroupCode"
         const val SNACKBAR_BOTTOM_MARGIN = 97
+        const val CLICK_CREATEGROUP_INVITE_COPY = "click_creategroup_invite_copy"
+        const val CLICK_CREATEGROUP_INVITE_SHARE = "click_creategroup_invite_share"
     }
 }

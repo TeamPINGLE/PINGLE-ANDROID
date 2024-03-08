@@ -21,6 +21,7 @@ import org.sopt.pingle.presentation.ui.newgroup.newgroupcreate.NewGroupCreateFra
 import org.sopt.pingle.presentation.ui.newgroup.newgroupinfo.NewGroupInfoActivity
 import org.sopt.pingle.presentation.ui.newgroup.newgroupinput.NewGroupInputFragment
 import org.sopt.pingle.presentation.ui.newgroup.newgroupkeyword.NewGroupKeywordFragment
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.stringOf
@@ -51,7 +52,10 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
         with(binding) {
             btnNewGroupNext.setOnClickListener { replaceFragment() }
             includeNewGroupTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener { navigateToPreviousPage() }
-            ivNewGroupTopbarInfo.setOnClickListener { navigateToNewGroupInfo() }
+            ivNewGroupTopbarInfo.setOnClickListener {
+                navigateToNewGroupInfo()
+                trackEventInfo()
+            }
         }
     }
 
@@ -76,12 +80,21 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
         newGroupViewModel.newGroupCreateState.flowWithLifecycle(lifecycle)
             .onEach { newGroupCreateState ->
                 when (newGroupCreateState) {
-                    is UiState.Success -> navigateToNewGroupAnnouncement(
-                        NewGroupModel(
-                            name = newGroupCreateState.data.name,
-                            code = newGroupCreateState.data.code
+                    is UiState.Success -> {
+                        navigateToNewGroupAnnouncement(
+                            NewGroupModel(
+                                name = newGroupCreateState.data.name,
+                                code = newGroupCreateState.data.code
+                            )
                         )
-                    )
+                        AmplitudeUtils.trackEventWithProperties(
+                            COMPLETE_CREATEGROUP, mapOf(
+                                GROUP_NAME to newGroupViewModel.newGroupName.value,
+                                EMAIL to newGroupViewModel.newGroupEmail.value,
+                                KEYWORD to newGroupViewModel.newGroupKeywordName.value
+                            )
+                        )
+                    }
 
                     else -> {}
                 }
@@ -102,20 +115,21 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
             isUserInputEnabled = false
 
             registerOnPageChangeCallback(object :
-                    ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                        newGroupViewModel.setCurrentPage(position)
-                    }
-                })
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    newGroupViewModel.setCurrentPage(position)
+                }
+            })
         }
     }
 
     private fun replaceFragment() {
         when (binding.vpNewGroup.currentItem) {
-            NEW_GROUP_INPUT_FRAGMENT_INDEX -> {
+            NEW_GROUP_INPUT_PAGE -> {
                 if (newGroupViewModel.isEmailValid()) {
                     binding.vpNewGroup.currentItem++
+                    AmplitudeUtils.trackEventWithProperty(CLICK_STEP1_NEXT, STATUS, STATUS_SUCCESS)
                 } else {
                     PingleSnackbar.makeSnackbar(
                         binding.root,
@@ -123,10 +137,14 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
                         SNACKBAR_BOTTOM_MARGIN,
                         SnackbarType.WARNING
                     )
+                    AmplitudeUtils.trackEventWithProperty(CLICK_STEP1_NEXT, STATUS, STATUS_FAILURE)
                 }
             }
 
-            fragmentList.size - LAST_INDEX_OFFSET -> newGroupViewModel.postNewGroupCreate()
+            fragmentList.size - LAST_INDEX_OFFSET -> {
+                newGroupViewModel.postNewGroupCreate()
+                AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_MAKE)
+            }
 
             else -> binding.vpNewGroup.currentItem++
         }
@@ -152,7 +170,7 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
 
     private fun navigateToPreviousPage() {
         when (binding.vpNewGroup.currentItem) {
-            FIRST_PAGE -> finish()
+            NEW_GROUP_INPUT_PAGE -> finish()
 
             else -> binding.vpNewGroup.currentItem--
         }
@@ -169,11 +187,32 @@ class NewGroupActivity : BindingActivity<ActivityNewGroupBinding>(R.layout.activ
         )
     }
 
+    private fun trackEventInfo() {
+        when (newGroupViewModel.currentPage.value) {
+            NEW_GROUP_INPUT_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP1_INFO)
+            NEW_GROUP_INFO_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP2_INFO)
+            NEW_GROUP_CREATE_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP3_INFO)
+        }
+    }
+
     companion object {
-        const val FIRST_PAGE = 0
         const val LAST_INDEX_OFFSET = 1
-        const val NEW_GROUP_INPUT_FRAGMENT_INDEX = 0
         const val SNACKBAR_BOTTOM_MARGIN = 97
         const val NEW_GROUP_CODE = "NewGroupCode"
+        const val NEW_GROUP_INPUT_PAGE = 0
+        const val NEW_GROUP_INFO_PAGE = 1
+        const val NEW_GROUP_CREATE_PAGE = 2
+        const val CLICK_STEP1_NEXT = "click_step1_next"
+        const val STATUS = "status"
+        const val STATUS_SUCCESS = "유효성검사성공"
+        const val STATUS_FAILURE = "유효성검사실패"
+        const val CLICK_STEP1_INFO = "click_step1_info"
+        const val CLICK_STEP2_INFO = "click_step2_info"
+        const val CLICK_STEP3_INFO = "click_step3_info"
+        const val CLICK_CREATEGROUP_MAKE = "click_creategroup_make"
+        const val COMPLETE_CREATEGROUP = "complete_creategroup"
+        const val GROUP_NAME = "groupname"
+        const val EMAIL = "email"
+        const val KEYWORD = "keyword"
     }
 }

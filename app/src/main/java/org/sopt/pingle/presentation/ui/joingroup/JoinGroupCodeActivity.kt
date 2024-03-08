@@ -12,6 +12,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupCodeBinding
 import org.sopt.pingle.domain.model.JoinGroupCodeEntity
 import org.sopt.pingle.presentation.type.SnackbarType
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.hideKeyboard
@@ -47,9 +48,11 @@ class JoinGroupCodeActivity :
 
         binding.btnJoinGroupCodeNext.setOnClickListener {
             viewModel.joinGroupCodeState(
-                teamId,
-                JoinGroupCodeEntity(viewModel.joinGroupCodeEditText.value.toString())
+                teamId = teamId,
+                joinGroupEntity = JoinGroupCodeEntity(viewModel.joinGroupCodeEditText.value.toString())
             )
+
+            AmplitudeUtils.trackEvent(CLICK_EXISTINGGROUP_ENTER)
         }
 
         binding.includeJoinGroupCodeTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
@@ -93,7 +96,14 @@ class JoinGroupCodeActivity :
 
         viewModel.joinGroupCodeState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Success -> navigateToJoinGroupSuccess()
+                is UiState.Success -> {
+                    navigateToJoinGroupSuccess()
+                    AmplitudeUtils.trackEventWithProperty(
+                        COMPLETE_EXISTINGGROUP,
+                        KEYWORD,
+                        binding.tvJoinGroupCodeTag.text
+                    )
+                }
 
                 is UiState.Error -> {
                     when (uiState.message) {
@@ -139,5 +149,8 @@ class JoinGroupCodeActivity :
         const val JOIN_GROUP_CODE_ACTIVITY = "JoinGroupCodeActivity"
         const val SNACKBAR_BOTTOM_MARGIN = 97
         const val CODE_409 = 409.toString()
+        const val CLICK_EXISTINGGROUP_ENTER = "click_existinggroup_enter"
+        const val COMPLETE_EXISTINGGROUP = "complete_existinggroup"
+        const val KEYWORD = "keyword"
     }
 }

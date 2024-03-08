@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -14,9 +13,11 @@ import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.ActivityAuthBinding
 import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth) {
@@ -34,13 +35,18 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     private fun addListeners() {
         binding.btnAuthKakao.setOnClickListener {
             kakaoAuthService.loginKakao(viewModel::login, viewModel::saveAccount)
+            AmplitudeUtils.trackEventWithProperty(START_SIGNUP, SIGNUP_TYPE, KAKAO)
         }
     }
 
     private fun collectData() {
         viewModel.loginState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Success -> viewModel.getUserInfo()
+                is UiState.Success -> {
+                    viewModel.getUserInfo()
+                    AmplitudeUtils.trackEvent(COMPLETE_SIGNUP)
+                }
+
                 is UiState.Error -> Timber.tag(TAG).d(KAKAO_LOGIN_ERROR + "${uiState.message}")
                 is UiState.Loading -> Timber.tag(TAG).d(KAKAO_LOGIN_LOADING)
                 is UiState.Empty -> Timber.tag(TAG).d(KAKAO_LOGIN_EMPTY)
@@ -79,5 +85,10 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
         const val USER_INFO_LOADING = "User Info Loading..."
         const val USER_INFO_EMPTY = "User Info Empty"
         const val USER_INFO_ERROR = "User Info Error : "
+
+        const val START_SIGNUP = "start_signup"
+        const val SIGNUP_TYPE = "signup type"
+        const val KAKAO = "kakao"
+        const val COMPLETE_SIGNUP = "complete_signup"
     }
 }

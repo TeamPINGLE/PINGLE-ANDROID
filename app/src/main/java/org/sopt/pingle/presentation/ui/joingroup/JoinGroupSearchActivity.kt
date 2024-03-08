@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupSearchBinding
 import org.sopt.pingle.presentation.ui.newgroup.NewGroupActivity
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.context.hideKeyboard
 import org.sopt.pingle.util.view.UiState
@@ -53,9 +54,7 @@ class JoinGroupSearchActivity :
                 searchEditText.setOnKeyListener { _, keyCode, event ->
                     if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                         if (searchEditText.text.isNotBlank()) {
-                            viewModel.getJoinGroupSearch(
-                                searchEditText.text.toString()
-                            )
+                            viewModel.getJoinGroupSearch(searchEditText.text.toString())
                         }
                         hideKeyboard(searchEditText)
                         return@setOnKeyListener true
@@ -66,6 +65,7 @@ class JoinGroupSearchActivity :
 
             tvJoinGroupSearchCreate.setOnClickListener {
                 navigateToNewGroup()
+                AmplitudeUtils.trackEvent(CLICK_EXISTINGGROUP_CREATEGROUP)
             }
 
             btnJoinGroupCodeNext.setOnClickListener {
@@ -81,6 +81,11 @@ class JoinGroupSearchActivity :
                     joinGroupSearchAdapter.submitList(uiState.data)
                     joinGroupSearchAdapter.currentList
                     binding.tvJoinGroupSearchEmpty.visibility = View.INVISIBLE
+                    AmplitudeUtils.trackEventWithProperty(
+                        COMPLETE_SEARCH_GROUP,
+                        OPTION,
+                        binding.pingleSearchJoinGroupSearch.binding.etSearchPingleEditText.text
+                    )
                 }
 
                 is UiState.Error -> Timber.tag(JoinGroupCodeActivity.JOIN_GROUP_CODE_ACTIVITY)
@@ -129,5 +134,8 @@ class JoinGroupSearchActivity :
 
     companion object {
         const val TEAM_ID = "teamId"
+        const val CLICK_EXISTINGGROUP_CREATEGROUP = "click_existinggroup_creategroup"
+        const val COMPLETE_SEARCH_GROUP = "complete_search_group"
+        const val OPTION = "option"
     }
 }

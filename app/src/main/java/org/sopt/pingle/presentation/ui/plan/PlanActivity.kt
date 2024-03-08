@@ -137,23 +137,23 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
     private fun trackEventCancelStay() {
         when (planViewModel.currentPage.value) {
-            0 -> AmplitudeUtils.trackEvent(CLICK_STEP1_CANCEL_STAY)
-            1 -> AmplitudeUtils.trackEvent(CLICK_STEP2_CANCEL_STAY)
-            2 -> AmplitudeUtils.trackEvent(CLICK_STEP3_CANCEL_STAY)
-            3 -> AmplitudeUtils.trackEvent(CLICK_STEP4_CANCEL_STAY)
-            4 -> AmplitudeUtils.trackEvent(CLICK_STEP5_CANCEL_STAY)
-            5 -> AmplitudeUtils.trackEvent(CLICK_STEP6_CANCEL_STAY)
+            FIRST_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP1_CANCEL_STAY)
+            SECOND_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP2_CANCEL_STAY)
+            THIRD_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP3_CANCEL_STAY)
+            FOURTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP4_CANCEL_STAY)
+            FIFTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP5_CANCEL_STAY)
+            SIXTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP6_CANCEL_STAY)
         }
     }
 
     private fun trackEventCancelOut() {
         when (planViewModel.currentPage.value) {
-            0 -> AmplitudeUtils.trackEvent(CLICK_STEP1_CANCEL_OUT)
-            1 -> AmplitudeUtils.trackEvent(CLICK_STEP2_CANCEL_OUT)
-            2 -> AmplitudeUtils.trackEvent(CLICK_STEP3_CANCEL_OUT)
-            3 -> AmplitudeUtils.trackEvent(CLICK_STEP4_CANCEL_OUT)
-            4 -> AmplitudeUtils.trackEvent(CLICK_STEP5_CANCEL_OUT)
-            5 -> AmplitudeUtils.trackEvent(CLICK_STEP6_CANCEL_OUT)
+            FIRST_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP1_CANCEL_OUT)
+            SECOND_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP2_CANCEL_OUT)
+            THIRD_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP3_CANCEL_OUT)
+            FOURTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP4_CANCEL_OUT)
+            FIFTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP5_CANCEL_OUT)
+            SIXTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP6_CANCEL_OUT)
         }
         finish()
     }
@@ -206,9 +206,17 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
     companion object {
         private const val EXIT_MODAL = "exitModal"
-        const val FIRST_PAGE = 0
         const val DEFAULT_PROGRESSBAR = 1f
         const val SUB_LIST_SIZE = 1
+
+        const val FIRST_PAGE = 0
+        const val SECOND_PAGE = 1
+        const val THIRD_PAGE = 2
+        const val FOURTH_PAGE = 3
+        const val FIFTH_PAGE = 4
+        const val SIXTH_PAGE = 5
+        const val SEVENTH_PAGE = 6
+
         const val CLICK_MEETINGHOLD = "click_meetinghold"
         const val COMPLETE_MEETINGHOLD = "complete_meetinghold"
         const val CATEGORY = "category"

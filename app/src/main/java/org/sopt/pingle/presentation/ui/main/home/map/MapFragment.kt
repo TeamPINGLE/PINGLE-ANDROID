@@ -269,6 +269,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                             ) {
                                 homeViewModel.clearSelectedMarkerPosition()
                                 homeViewModel.initMapPingleListState()
+                                homeViewModel.getPinListWithoutFilter()
                                 showErrorSnackbar(PingleCardErrorType.DELETED)
                             }
 

@@ -109,10 +109,10 @@ class MyPingleViewHolder(
     companion object {
         const val DONE = "Done"
         const val EMPTY = ""
-        const val CLICK_SOONPINGLE_MORE_CHAT = "click_soonpingle_more_chat"
-        const val CLICK_SOONPINGLE_MORE_CANCEL = "click_soonpingle_more_cancel"
-        const val CLICK_SOONPINGLE_MORE_DELETE = "click_soonpingle_more_delete"
-        const val CLICK_SOONPINGLE_PARTICIPANTS = "click_soonpingle_participants"
-        const val CLICK_DONEPINGLE_PARTICIPANTS = "click_donepingle_participants"
+        private const val CLICK_SOONPINGLE_MORE_CHAT = "click_soonpingle_more_chat"
+        private const val CLICK_SOONPINGLE_MORE_CANCEL = "click_soonpingle_more_cancel"
+        private const val CLICK_SOONPINGLE_MORE_DELETE = "click_soonpingle_more_delete"
+        private const val CLICK_SOONPINGLE_PARTICIPANTS = "click_soonpingle_participants"
+        private const val CLICK_DONEPINGLE_PARTICIPANTS = "click_donepingle_participants"
     }
 }

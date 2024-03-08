@@ -167,12 +167,12 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     companion object {
         private const val SNACKBAR_BOTTOM_MARGIN = 76
         private const val DELETED_PINGLE_MESSAGE = "존재하지 않는 유저미팅입니다."
-        const val MY_PINGLE_CANCEL_MODAL = "MyPingleCancelModal"
-        const val MY_PINGLE_DELETE_MODAL = "MyPingleDeleteModal"
-        const val CLICK_SOONPINGLE = "click_soonpingle"
-        const val SCROLL_SOONPINGLE = "scroll_soonpingle"
-        const val CLICK_SOONPINGLE_MORE_CANCEL_BACK = "click_soonpingle_more_cancel_back"
-        const val CLICK_DONEPINGLE = "click_donepingle"
-        const val SCROLL_DONEPINGLE = "scroll_donepingle"
+        private const val MY_PINGLE_CANCEL_MODAL = "MyPingleCancelModal"
+        private const val MY_PINGLE_DELETE_MODAL = "MyPingleDeleteModal"
+        private const val CLICK_SOONPINGLE = "click_soonpingle"
+        private const val SCROLL_SOONPINGLE = "scroll_soonpingle"
+        private const val CLICK_SOONPINGLE_MORE_CANCEL_BACK = "click_soonpingle_more_cancel_back"
+        private const val CLICK_DONEPINGLE = "click_donepingle"
+        private const val SCROLL_DONEPINGLE = "scroll_donepingle"
     }
 }

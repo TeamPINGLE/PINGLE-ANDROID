@@ -15,10 +15,14 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.MyPingleType
+import org.sopt.pingle.presentation.type.PingleCardErrorType
+import org.sopt.pingle.presentation.type.SnackbarType
+import org.sopt.pingle.presentation.ui.main.home.HomeFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment.Companion.MEETING_ID
 import org.sopt.pingle.presentation.ui.participant.ParticipantActivity
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
+import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
 
@@ -97,6 +101,19 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             .onEach { uiState ->
                 when (uiState) {
                     is UiState.Success -> viewModel.getPingleParticipationList()
+                    is UiState.Error -> {
+                        when(uiState.code) {
+                            PingleCardErrorType.DELETED.code -> if( uiState.message == DELETED_PINGLE_MESSAGE) {
+                                viewModel.getPingleParticipationList()
+                                PingleSnackbar.makeSnackbar(
+                                    view = requireView(),
+                                    message = stringOf(PingleCardErrorType.DELETED.snackbarStringRes),
+                                    bottomMarin = HomeFragment.SNACKBAR_BOTTOM_MARGIN,
+                                    snackbarType = SnackbarType.GUIDE
+                                )
+                            }
+                        }
+                    }
                     else -> Unit
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -140,6 +157,8 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
     }
 
     companion object {
+        private const val SNACKBAR_BOTTOM_MARGIN = 76
+        private const val DELETED_PINGLE_MESSAGE = "존재하지 않는 유저미팅입니다."
         const val MY_PINGLE_CANCEL_MODAL = "MyPingleCancelModal"
         const val MY_PINGLE_DELETE_MODAL = "MyPingleDeleteModal"
     }

@@ -59,8 +59,6 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    // SCROLL_STATE_IDLE -> 스크롤하고 화면에서 손을 뗐을 때
-                    // SCROLL_STATE_DRAGGING -> 스크롤하자마자
                     when (viewModel.myPingleType.value) {
                         MyPingleType.SOON -> AmplitudeUtils.trackEvent(SCROLL_SOONPINGLE)
                         MyPingleType.DONE -> AmplitudeUtils.trackEvent(SCROLL_DONEPINGLE)
@@ -148,7 +146,10 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             detail = stringOf(R.string.cancel_modal_detail),
             buttonText = stringOf(R.string.cancel_modal_button_text),
             textButtonText = stringOf(R.string.cancel_modal_text_button_text),
-            clickBtn = { viewModel.deletePingleCancel(meetingId = myPingleEntity.id.toLong()) },
+            clickBtn = {
+                viewModel.deletePingleCancel(meetingId = myPingleEntity.id.toLong())
+                AmplitudeUtils.trackEvent(CLICK_SOONPINGLE_MORE_CANCEL)
+            },
             clickTextBtn = { AmplitudeUtils.trackEvent(CLICK_SOONPINGLE_MORE_CANCEL_BACK) }
         ).show(childFragmentManager, MY_PINGLE_CANCEL_MODAL)
     }
@@ -159,7 +160,10 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
             detail = stringOf(R.string.delete_modal_detail),
             buttonText = stringOf(R.string.delete_modal_button_text),
             textButtonText = stringOf(R.string.delete_modal_text_button_text),
-            clickBtn = { viewModel.deletePingleDelete(meetingId = myPingleEntity.id.toLong()) },
+            clickBtn = {
+                viewModel.deletePingleDelete(meetingId = myPingleEntity.id.toLong())
+                AmplitudeUtils.trackEvent(CLICK_SOONPINGLE_MORE_DELETE)
+            },
             clickTextBtn = {}
         ).show(childFragmentManager, MY_PINGLE_DELETE_MODAL)
     }
@@ -186,7 +190,9 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         const val MY_PINGLE_DELETE_MODAL = "MyPingleDeleteModal"
         private const val CLICK_SOONPINGLE = "click_soonpingle"
         private const val SCROLL_SOONPINGLE = "scroll_soonpingle"
+        private const val CLICK_SOONPINGLE_MORE_CANCEL = "click_soonpingle_more_cancel"
         private const val CLICK_SOONPINGLE_MORE_CANCEL_BACK = "click_soonpingle_more_cancel_back"
+        private const val CLICK_SOONPINGLE_MORE_DELETE = "click_soonpingle_more_delete"
         private const val CLICK_DONEPINGLE = "click_donepingle"
         private const val SCROLL_DONEPINGLE = "scroll_donepingle"
     }

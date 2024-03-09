@@ -57,14 +57,12 @@ class MyPingleViewHolder(
                 tvMyPingleMenuTrash.text = context.stringOf(R.string.my_pingle_delete)
                 layoutMyPingleMenuTrash.setOnClickListener {
                     showDeleteModalDialogFragment(myPingleEntity)
-                    AmplitudeUtils.trackEvent(CLICK_SOONPINGLE_MORE_DELETE)
                 }
             } else {
                 ivMyPingleOwner.visibility = View.INVISIBLE
                 tvMyPingleMenuTrash.text = context.stringOf(R.string.my_pingle_cancel)
                 layoutMyPingleMenuTrash.setOnClickListener {
                     showCancelModalDialogFragment(myPingleEntity)
-                    AmplitudeUtils.trackEvent(CLICK_SOONPINGLE_MORE_CANCEL)
                 }
             }
 
@@ -110,8 +108,6 @@ class MyPingleViewHolder(
         const val DONE = "Done"
         const val EMPTY = ""
         private const val CLICK_SOONPINGLE_MORE_CHAT = "click_soonpingle_more_chat"
-        private const val CLICK_SOONPINGLE_MORE_CANCEL = "click_soonpingle_more_cancel"
-        private const val CLICK_SOONPINGLE_MORE_DELETE = "click_soonpingle_more_delete"
         private const val CLICK_SOONPINGLE_PARTICIPANTS = "click_soonpingle_participants"
         private const val CLICK_DONEPINGLE_PARTICIPANTS = "click_donepingle_participants"
     }

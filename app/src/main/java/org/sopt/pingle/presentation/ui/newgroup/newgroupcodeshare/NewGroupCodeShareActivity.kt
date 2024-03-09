@@ -47,7 +47,7 @@ class NewGroupCodeShareActivity :
                         R.string.my_group_share_pingle,
                         newGroupModel.name,
                         newGroupModel.name,
-                        newGroupModel.code,
+                        newGroupModel.code
                     )
                 )
                 AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_INVITE_SHARE)

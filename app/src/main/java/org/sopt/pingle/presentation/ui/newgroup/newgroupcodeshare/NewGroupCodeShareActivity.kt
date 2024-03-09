@@ -8,8 +8,6 @@ import org.sopt.pingle.presentation.model.NewGroupModel
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.Intent.getCompatibleParcelableExtra
 import org.sopt.pingle.util.base.BindingActivity
-import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
-import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.view.copyGroupCode
 
@@ -48,9 +46,8 @@ class NewGroupCodeShareActivity :
                     getString(
                         R.string.my_group_share_pingle,
                         newGroupModel.name,
-                        PINGLE_SHARE_CODE,
+                        newGroupModel.name,
                         newGroupModel.code,
-                        PINGLE_PLAY_STORE_LINK
                     )
                 )
                 AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_INVITE_SHARE)

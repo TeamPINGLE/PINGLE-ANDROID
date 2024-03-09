@@ -183,6 +183,6 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
         private const val LOGOUT_APP = "logout_app"
         private const val WITHDRAW_APP = "withdraw_app"
 
-        const val START_MYGROUP = "start_mygroup"
+        private const val START_MYGROUP = "start_mygroup"
     }
 }

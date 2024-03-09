@@ -19,7 +19,7 @@
             android:id="@+id/layout_my_group_owner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_border_radius_12"
+            android:background="@drawable/shape_border_radius_12_13"
             android:backgroundTint="@color/g_10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,6 +71,7 @@
                 android:text="@{groupListEntity.name}"
                 android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
                 android:textColor="@color/g_01"
+                android:maxLines="2"
                 app:layout_constraintBottom_toTopOf="@id/gl_bottom"
                 app:layout_constraintEnd_toStartOf="@id/gl_end"
                 app:layout_constraintStart_toEndOf="@id/gl_start"
@@ -82,7 +83,7 @@
             android:id="@+id/iv_my_group_owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_my_group_selected_owner_58"
+            android:src="@drawable/ic_my_group_owner_57"
             app:layout_constraintBottom_toBottomOf="@id/layout_my_group_owner"
             app:layout_constraintEnd_toEndOf="@id/layout_my_group_owner" />
     </androidx.constraintlayout.widget.ConstraintLayout>

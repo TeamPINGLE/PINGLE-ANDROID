@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityJoinGroupSuccessBinding
 import org.sopt.pingle.presentation.ui.main.MainActivity
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.activity.setDoubleBackPressToExit
 import org.sopt.pingle.util.base.BindingActivity
 
@@ -60,6 +61,7 @@ class JoinGroupSuccessActivity :
     private fun addListeners() {
         binding.btnJoinGroupSuccess.setOnClickListener {
             navigateToMain()
+            AmplitudeUtils.trackEvent(CLICK_EXISTINGGROUP_START)
         }
     }
 
@@ -73,5 +75,6 @@ class JoinGroupSuccessActivity :
 
     companion object {
         const val GROUP_NAME_START = 0
+        private const val CLICK_EXISTINGGROUP_START = "click_existinggroup_start"
     }
 }

@@ -5,14 +5,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityNewGroupCodeShareBinding
 import org.sopt.pingle.presentation.model.NewGroupModel
-import org.sopt.pingle.presentation.type.SnackbarType
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.Intent.getCompatibleParcelableExtra
 import org.sopt.pingle.util.base.BindingActivity
-import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
 import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
 import org.sopt.pingle.util.context.sharePingle
-import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.view.copyGroupCode
 
 @AndroidEntryPoint
@@ -40,14 +38,9 @@ class NewGroupCodeShareActivity :
         with(binding) {
             includeNewGroupCodeShareTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener { finish() }
 
-            etNewGroupCodeCopy.setOnClickListener {
+            etNewGroupCodeCopy.ivEditTextCopy.setOnClickListener {
                 root.copyGroupCode(copyCode = newGroupModel.code)
-                PingleSnackbar.makeSnackbar(
-                    view = binding.root,
-                    message = stringOf(R.string.my_group_snack_bar_code_copy_complete),
-                    bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-                    snackbarType = SnackbarType.GUIDE
-                )
+                AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_INVITE_COPY)
             }
 
             btnNewGroupCodeShare.setOnClickListener {
@@ -60,6 +53,7 @@ class NewGroupCodeShareActivity :
                         PINGLE_PLAY_STORE_LINK
                     )
                 )
+                AmplitudeUtils.trackEvent(CLICK_CREATEGROUP_INVITE_SHARE)
             }
         }
     }
@@ -67,5 +61,7 @@ class NewGroupCodeShareActivity :
     companion object {
         const val NEW_GROUP_CODE = "NewGroupCode"
         const val SNACKBAR_BOTTOM_MARGIN = 97
+        private const val CLICK_CREATEGROUP_INVITE_COPY = "click_creategroup_invite_copy"
+        private const val CLICK_CREATEGROUP_INVITE_SHARE = "click_creategroup_invite_share"
     }
 }

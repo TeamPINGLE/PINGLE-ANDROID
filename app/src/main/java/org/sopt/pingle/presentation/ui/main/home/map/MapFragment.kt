@@ -39,6 +39,7 @@ import org.sopt.pingle.presentation.ui.main.home.HomeFragment
 import org.sopt.pingle.presentation.ui.main.home.HomeFragment.Companion.DELETED_PINGLE_MESSAGE
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel.Companion.DEFAULT_SELECTED_MARKER_POSITION
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.fragment.navigateToWebView
@@ -119,26 +120,39 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         it,
                         id
                     )
+                    AmplitudeUtils.trackEvent(CLICK_PIN_PARTICIPANTS)
                 }
             },
-            navigateToWebViewWithChatLink = { chatLink -> startActivity(navigateToWebView(chatLink)) },
+            navigateToWebViewWithChatLink = { chatLink ->
+                startActivity(navigateToWebView(chatLink))
+                AmplitudeUtils.trackEvent(CLICK_PIN_CHAT)
+            },
             showPingleJoinModalDialogFragment = { pingleEntity ->
                 PingleCardUtils.showPingleJoinModalDialogFragment(
                     fragment = this,
-                    postPingleJoin = { homeViewModel.postPingleJoin(pingleEntity.id) },
+                    postPingleJoin = {
+                        homeViewModel.postPingleJoin(pingleEntity.id)
+                        AmplitudeUtils.trackEvent(CLICK_PIN_PARTICIPATE)
+                    },
                     pingleEntity = pingleEntity
                 )
             },
             showPingleCancelModalDialogFragment = { pingleEntity ->
                 PingleCardUtils.showPingleCancelModalDialogFragment(
                     fragment = this,
-                    deletePingleCancel = { homeViewModel.deletePingleCancel(pingleEntity.id) }
+                    deletePingleCancel = {
+                        homeViewModel.deletePingleCancel(pingleEntity.id)
+                        AmplitudeUtils.trackEvent(CLICK_PIN_CANCEL)
+                    }
                 )
             },
             showPingleDeleteModalDialogFragment = { pingleEntity ->
                 PingleCardUtils.showMapDeleteModalDialogFragment(
                     fragment = this,
-                    deletePingleDelete = { homeViewModel.deletePingleDelete(pingleEntity.id) }
+                    deletePingleDelete = {
+                        homeViewModel.deletePingleDelete(pingleEntity.id)
+                        AmplitudeUtils.trackEvent(CLICK_PIN_DELETE)
+                    }
                 )
             }
         )
@@ -165,6 +179,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
 
     private fun addListeners() {
         binding.fabMapHere.setOnClickListener {
+            AmplitudeUtils.trackEvent(CLICK_CURRENTLOCATION)
             if (::locationSource.isInitialized) {
                 locationSource.lastLocation?.let { location ->
                     moveMapCamera(
@@ -211,6 +226,11 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         }
 
                         homeViewModel.searchWord.value?.let { searchWord ->
+                            AmplitudeUtils.trackEventWithProperty(
+                                eventName = COMPLETE_SEARCH_MAP,
+                                propertyName = KEYWORD,
+                                propertyValue = searchWord
+                            )
                             when {
                                 uiState.data.isEmpty() -> homeViewModel.setHomeViewType(HomeViewType.MAIN_LIST)
                                 else -> moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
@@ -350,6 +370,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                     map = naverMap
                     setOnClickListener {
                         homeViewModel.getMapPingleList(pinEntity.id)
+                        AmplitudeUtils.trackEvent(CLICK_PIN_MAP)
                         return@setOnClickListener true
                     }
                 }
@@ -398,5 +419,15 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
         private const val VIEWPAGER_PAGE_TRANSFORMER = -40
 
         const val MEETING_ID = "meetingId"
+
+        private const val COMPLETE_SEARCH_MAP = "complete_search_map"
+        private const val KEYWORD = "keyword"
+        private const val CLICK_CURRENTLOCATION = "click_currentlocation"
+        private const val CLICK_PIN_MAP = "click_pin_map"
+        private const val CLICK_PIN_PARTICIPANTS = "click_pin_participants"
+        private const val CLICK_PIN_CHAT = "click_pin_chat"
+        private const val CLICK_PIN_PARTICIPATE = "click_pin_participate"
+        private const val CLICK_PIN_CANCEL = "click_pin_cancel"
+        private const val CLICK_PIN_DELETE = "click_pin_delete"
     }
 }

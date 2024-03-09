@@ -7,6 +7,7 @@ import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ItemMyPingleBinding
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.presentation.type.CategoryType
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.context.colorOf
 import org.sopt.pingle.util.context.navigateToWebView
 import org.sopt.pingle.util.context.stringOf
@@ -90,10 +91,15 @@ class MyPingleViewHolder(
 
             layoutMyPingleMenuChat.setOnClickListener {
                 context.startActivity(context.navigateToWebView(myPingleEntity.chatLink))
+                AmplitudeUtils.trackEvent(CLICK_SOONPINGLE_MORE_CHAT)
             }
 
             binding.layoutMyPingleRecruitment.setOnClickListener {
                 navigateToParticipation(myPingleEntity.id.toLong())
+                when (myPingleEntity.dDay) {
+                    DONE -> AmplitudeUtils.trackEvent(CLICK_DONEPINGLE_PARTICIPANTS)
+                    else -> AmplitudeUtils.trackEvent(CLICK_SOONPINGLE_PARTICIPANTS)
+                }
             }
         }
     }
@@ -101,5 +107,8 @@ class MyPingleViewHolder(
     companion object {
         const val DONE = "Done"
         const val EMPTY = ""
+        private const val CLICK_SOONPINGLE_MORE_CHAT = "click_soonpingle_more_chat"
+        private const val CLICK_SOONPINGLE_PARTICIPANTS = "click_soonpingle_participants"
+        private const val CLICK_DONEPINGLE_PARTICIPANTS = "click_donepingle_participants"
     }
 }

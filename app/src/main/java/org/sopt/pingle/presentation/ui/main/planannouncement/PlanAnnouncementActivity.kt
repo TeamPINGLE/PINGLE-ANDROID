@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityPlanAnnouncementBinding
 import org.sopt.pingle.presentation.ui.plan.PlanActivity
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 
 class PlanAnnouncementActivity :
@@ -74,10 +75,12 @@ class PlanAnnouncementActivity :
 
     private fun addListeners() {
         binding.ivPlanAnnouncementExitBtn.setOnClickListener {
+            AmplitudeUtils.trackEvent(CLICK_MEETINGCANCEL)
             finish()
         }
 
         binding.btnPlanAnnouncement.setOnClickListener {
+            AmplitudeUtils.trackEvent(START_MEETINGHOLD)
             navigateToPlan()
         }
     }
@@ -94,5 +97,7 @@ class PlanAnnouncementActivity :
         const val MINGLE = "MINGLE"
         const val PIN_START = 0
         const val MINGLE_START = 5
+        const val START_MEETINGHOLD = "start_meetinghold"
+        const val CLICK_MEETINGCANCEL = "click_meetingcancel"
     }
 }

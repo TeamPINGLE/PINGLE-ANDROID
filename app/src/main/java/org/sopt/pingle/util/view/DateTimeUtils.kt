@@ -10,6 +10,7 @@ object DateTimeUtils {
     private const val NEW_LINE = "\n"
     private const val TIME_SEPARATOR = " ~ "
     private const val WIDTH_BAR = " | "
+    private const val BLANK_STRING = " "
 
     private fun convertToDateFormat(localDate: LocalDate): String = localDate.format(
         DateTimeFormatter.ofPattern(
@@ -37,5 +38,12 @@ object DateTimeUtils {
             append(convertToTimeFormat(LocalTime.parse(startAt, DateTimeFormatter.ISO_LOCAL_TIME)))
             append(TIME_SEPARATOR)
             append(convertToTimeFormat(LocalTime.parse(endAt, DateTimeFormatter.ISO_LOCAL_TIME)))
+        }
+
+    fun convertToAmplitudeFormat(date: String, time: String): String =
+        buildString {
+            append(convertToDateFormat(LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE)))
+            append(BLANK_STRING)
+            append(convertToTimeFormat(LocalTime.parse(time, DateTimeFormatter.ISO_LOCAL_TIME)))
         }
 }

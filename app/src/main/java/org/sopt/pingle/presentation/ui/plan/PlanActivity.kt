@@ -23,8 +23,10 @@ import org.sopt.pingle.presentation.ui.plan.planopenchatting.PlanOpenChattingFra
 import org.sopt.pingle.presentation.ui.plan.planrecruitment.PlanRecruitmentFragment
 import org.sopt.pingle.presentation.ui.plan.plansummaryconfirmation.PlanSummaryConfirmationFragment
 import org.sopt.pingle.presentation.ui.plan.plantitle.PlanTitleFragment
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.AllModalDialogFragment
+import org.sopt.pingle.util.view.DateTimeUtils
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter
 import org.sopt.pingle.util.view.UiState
 
@@ -82,7 +84,10 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
     private fun addListeners() {
         binding.btnPlan.setOnClickListener {
             when (binding.vpPlan.currentItem) {
-                fragmentList.size - SUB_LIST_SIZE -> planViewModel.postPlanMeeting()
+                fragmentList.size - SUB_LIST_SIZE -> {
+                    planViewModel.postPlanMeeting()
+                    AmplitudeUtils.trackEvent(CLICK_MEETINGHOLD)
+                }
                 else -> binding.vpPlan.currentItem++
             }
         }
@@ -102,7 +107,6 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
                     binding.btnPlan.text = getString(R.string.plan_pingle)
                     binding.layoutClose.visibility = View.INVISIBLE
                 }
-                // TODO 다른 다음으로 스트링과 합치기
                 else -> {
                     binding.btnPlan.text = getString(R.string.plan_next)
                     binding.layoutClose.visibility = View.VISIBLE
@@ -112,7 +116,10 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
         planViewModel.planMeetingState.flowWithLifecycle(lifecycle).onEach { uiState ->
             when (uiState) {
-                is UiState.Success -> navigateToHome()
+                is UiState.Success -> {
+                    trackEventCompleteMeetingHold()
+                    navigateToHome()
+                }
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
@@ -124,9 +131,32 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             detail = getString(R.string.plan_exit_modal_dialog_detail),
             buttonText = getString(R.string.plan_exit_modal_dialog_btn_text),
             textButtonText = getString(R.string.plan_exit_modal_dialog_text_btn_text),
-            clickBtn = {},
-            clickTextBtn = { finish() }
+            clickBtn = { trackEventCancelStay() },
+            clickTextBtn = { trackEventCancelOut() }
         ).show(supportFragmentManager, EXIT_MODAL)
+    }
+
+    private fun trackEventCancelStay() {
+        when (planViewModel.currentPage.value) {
+            FIRST_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP1_CANCEL_STAY)
+            SECOND_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP2_CANCEL_STAY)
+            THIRD_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP3_CANCEL_STAY)
+            FOURTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP4_CANCEL_STAY)
+            FIFTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP5_CANCEL_STAY)
+            SIXTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP6_CANCEL_STAY)
+        }
+    }
+
+    private fun trackEventCancelOut() {
+        when (planViewModel.currentPage.value) {
+            FIRST_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP1_CANCEL_OUT)
+            SECOND_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP2_CANCEL_OUT)
+            THIRD_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP3_CANCEL_OUT)
+            FOURTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP4_CANCEL_OUT)
+            FIFTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP5_CANCEL_OUT)
+            SIXTH_PAGE -> AmplitudeUtils.trackEvent(CLICK_STEP6_CANCEL_OUT)
+        }
+        finish()
     }
 
     private fun navigateToPreviousPage() {
@@ -160,10 +190,55 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
         onBackPressedDispatcher.addCallback(this, onBackPressed)
     }
 
+    private fun trackEventCompleteMeetingHold() {
+        AmplitudeUtils.trackEventWithProperties(
+            COMPLETE_MEETINGHOLD,
+            mapOf(
+                CATEGORY to planViewModel.selectedCategory.value.toString(),
+                NAME to planViewModel.planTitle.value,
+                START_AT to DateTimeUtils.convertToAmplitudeFormat(planViewModel.planDate.value, planViewModel.startTime.value),
+                END_AT to planViewModel.planDate.value + PlanViewModel.BLANK_STRING + planViewModel.endTime.value,
+                ROAD_ADDRESS to (planViewModel.selectedLocation.value?.roadAddress ?: ""),
+                LOCATION to (planViewModel.selectedLocation.value?.location ?: ""),
+                MAX_PARTICIPANTS to planViewModel.selectedRecruitment.value
+            )
+        )
+    }
+
     companion object {
         private const val EXIT_MODAL = "exitModal"
-        const val FIRST_PAGE = 0
-        const val DEFAULT_PROGRESSBAR = 1f
-        const val SUB_LIST_SIZE = 1
+        private const val DEFAULT_PROGRESSBAR = 1f
+        private const val SUB_LIST_SIZE = 1
+
+        private const val FIRST_PAGE = 0
+        private const val SECOND_PAGE = 1
+        private const val THIRD_PAGE = 2
+        private const val FOURTH_PAGE = 3
+        private const val FIFTH_PAGE = 4
+        private const val SIXTH_PAGE = 5
+
+        private const val CLICK_MEETINGHOLD = "click_meetinghold"
+        private const val COMPLETE_MEETINGHOLD = "complete_meetinghold"
+        private const val CATEGORY = "category"
+        private const val NAME = "name"
+        private const val START_AT = "startAt"
+        private const val END_AT = "endAt"
+        private const val ROAD_ADDRESS = "roadAddress"
+        private const val LOCATION = "location"
+        private const val MAX_PARTICIPANTS = "maxParticipants"
+
+        private const val CLICK_STEP1_CANCEL_STAY = "click_step1_cancel_stay"
+        private const val CLICK_STEP2_CANCEL_STAY = "click_step2_cancel_stay"
+        private const val CLICK_STEP3_CANCEL_STAY = "click_step3_cancel_stay"
+        private const val CLICK_STEP4_CANCEL_STAY = "click_step4_cancel_stay"
+        private const val CLICK_STEP5_CANCEL_STAY = "click_step5_cancel_stay"
+        private const val CLICK_STEP6_CANCEL_STAY = "click_step6_cancel_stay"
+
+        private const val CLICK_STEP1_CANCEL_OUT = "click_step1_cancel_out"
+        private const val CLICK_STEP2_CANCEL_OUT = "click_step2_cancel_out"
+        private const val CLICK_STEP3_CANCEL_OUT = "click_step3_cancel_out"
+        private const val CLICK_STEP4_CANCEL_OUT = "click_step4_cancel_out"
+        private const val CLICK_STEP5_CANCEL_OUT = "click_step5_cancel_out"
+        private const val CLICK_STEP6_CANCEL_OUT = "click_step6_cancel_out"
     }
 }

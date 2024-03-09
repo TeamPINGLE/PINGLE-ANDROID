@@ -56,7 +56,7 @@
             app:layout_constraintTop_toTopOf="@id/et_edit_text">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_edit_check"
+                android:id="@+id/btn_edit_text_check"
                 style="@style/Theme.Pingle.Button.Check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_edit_copy"
+                android:id="@+id/iv_edit_text_copy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

@@ -23,6 +23,7 @@ import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
 import org.sopt.pingle.presentation.ui.search.SearchActivity
 import org.sopt.pingle.presentation.ui.search.SearchActivity.Companion.SEARCH_WORD
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.PingleChip
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter
@@ -81,6 +82,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         with(binding) {
             ivHomeSearch.setOnClickListener {
                 navigateToSearch()
+
+                when (homeViewModel.homeViewType.value) {
+                    HomeViewType.MAP -> AmplitudeUtils.trackEvent(CLICK_SEARCH_MAP)
+                    HomeViewType.MAIN_LIST -> AmplitudeUtils.trackEvent(CLICK_SEARCH_LIST)
+                }
             }
 
             cgHomeCategory.setOnCheckedStateChangeListener { group, checkedIds ->
@@ -88,13 +94,39 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     category = checkedIds.getOrNull(SINGLE_SELECTION)
                         ?.let { group.findViewById<PingleChip>(it).categoryType }
                 )
+
+                checkedIds.getOrNull(SINGLE_SELECTION)
+                    ?.let {
+                        group.findViewById<PingleChip>(it).categoryType.let { categoryType ->
+                            when (homeViewModel.homeViewType.value) {
+                                HomeViewType.MAP -> AmplitudeUtils.trackEventWithProperty(
+                                    eventName = CLICK_CATEGORY_MAP,
+                                    propertyName = CATEGORY,
+                                    propertyValue = categoryType.name
+                                )
+
+                                HomeViewType.MAIN_LIST -> AmplitudeUtils.trackEventWithProperty(
+                                    eventName = CLICK_CATEGORY_LIST,
+                                    propertyName = CATEGORY,
+                                    propertyValue = categoryType.name
+                                )
+                            }
+                        }
+                    }
             }
 
             fabHomeChange.setOnClickListener {
                 with(homeViewModel) {
                     when (homeViewType.value) {
-                        HomeViewType.MAP -> setHomeViewType(HomeViewType.MAIN_LIST)
-                        HomeViewType.MAIN_LIST -> setHomeViewType(HomeViewType.MAP)
+                        HomeViewType.MAP -> {
+                            AmplitudeUtils.trackEvent(CLICK_LIST_MAP)
+                            setHomeViewType(HomeViewType.MAIN_LIST)
+                        }
+
+                        HomeViewType.MAIN_LIST -> {
+                            AmplitudeUtils.trackEvent(CLICK_MAP_LIST)
+                            setHomeViewType(HomeViewType.MAP)
+                        }
                     }
                 }
             }
@@ -207,5 +239,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     companion object {
         private const val SINGLE_SELECTION = 0
         const val SEARCH_MODEL = "searchModel"
+        const val SNACKBAR_BOTTOM_MARGIN = 76
+        val DELETED_PINGLE_MESSAGE = listOf("존재하지 않는 번개입니다", "존재하지 않는 유저미팅입니다.")
+
+        private const val CLICK_SEARCH_MAP = "click_search_map"
+        private const val CLICK_SEARCH_LIST = "click_search_list"
+        private const val CLICK_CATEGORY_MAP = "click_category_map"
+        private const val CLICK_CATEGORY_LIST = "click_category_list"
+        private const val CATEGORY = "category"
+        private const val CLICK_LIST_MAP = "click_list_map"
+        private const val CLICK_MAP_LIST = "click_map_list"
     }
 }

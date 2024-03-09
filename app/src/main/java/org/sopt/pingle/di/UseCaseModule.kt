@@ -10,6 +10,7 @@ import org.sopt.pingle.domain.repository.JoinGroupRepository
 import org.sopt.pingle.domain.repository.MainListRepository
 import org.sopt.pingle.domain.repository.MapRepository
 import org.sopt.pingle.domain.repository.MyGroupListRepository
+import org.sopt.pingle.domain.repository.NewGroupRepository
 import org.sopt.pingle.domain.repository.ParticipantRepository
 import org.sopt.pingle.domain.repository.PingleRepository
 import org.sopt.pingle.domain.repository.PlanRepository
@@ -22,12 +23,15 @@ import org.sopt.pingle.domain.usecase.GetMainListPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetMapPingleListUseCase
 import org.sopt.pingle.domain.usecase.GetMyGroupListUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
+import org.sopt.pingle.domain.usecase.GetNewGroupCheckNameUseCase
+import org.sopt.pingle.domain.usecase.GetNewGroupKeywordsUserCase
 import org.sopt.pingle.domain.usecase.GetParticipantListUseCase
 import org.sopt.pingle.domain.usecase.GetPinListWithoutFilteringUseCase
 import org.sopt.pingle.domain.usecase.GetPlanLocationListUseCase
 import org.sopt.pingle.domain.usecase.GetRankingUseCase
 import org.sopt.pingle.domain.usecase.GetUserInfoUseCase
 import org.sopt.pingle.domain.usecase.PostJoinGroupCodeUseCase
+import org.sopt.pingle.domain.usecase.PostNewGroupCreateUseCase
 import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.domain.usecase.PostPlanMeetingUseCase
 
@@ -113,4 +117,19 @@ class UseCaseModule {
     @Singleton
     fun providesGetMyGroupListUseCase(myGroupListRepository: MyGroupListRepository): GetMyGroupListUseCase =
         GetMyGroupListUseCase(myGroupListRepository = myGroupListRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetNewGroupKeywordsUseCase(newGroupRepository: NewGroupRepository): GetNewGroupKeywordsUserCase =
+        GetNewGroupKeywordsUserCase(newGroupRepository = newGroupRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetNewGroupCheckNameUseCase(newGroupRepository: NewGroupRepository): GetNewGroupCheckNameUseCase =
+        GetNewGroupCheckNameUseCase(newGroupRepository = newGroupRepository)
+
+    @Provides
+    @Singleton
+    fun providesPostNewGroupCreateUseCase(newGroupRepository: NewGroupRepository): PostNewGroupCreateUseCase =
+        PostNewGroupCreateUseCase(newGroupRepository = newGroupRepository)
 }

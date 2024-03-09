@@ -37,6 +37,7 @@ class PingleSearch @JvmOverloads constructor(
             }
 
             etSearchPingleEditText.doAfterTextChanged { text ->
+                if (!etSearchPingleEditText.hasFocus()) etSearchPingleEditText.requestFocus()
                 _binding.ivSearchPingleSearch.visibility =
                     if (text.isNullOrEmpty()) View.VISIBLE else View.GONE
                 _binding.ivSearchPingleClear.visibility =

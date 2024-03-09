@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="46dp"
                 android:gravity="center"
+                android:maxLines="3"
                 android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.18"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@id/gl_end"

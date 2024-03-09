@@ -20,6 +20,8 @@ class PingleEditText @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     private var binding: EditTextPingleBinding
     val editText get() = binding.etEditText
+    val btnEditTextCheck get() = binding.btnEditTextCheck
+    val ivEditTextCopy get() = binding.ivEditTextCopy
 
     init {
         binding = DataBindingUtil.inflate(
@@ -54,8 +56,8 @@ class PingleEditText @JvmOverloads constructor(
                 getInt(R.styleable.PingleEditText_pingleEditTextCheckVisibility, View.GONE)
             val copyVisibilityValue =
                 getInt(R.styleable.PingleEditText_pingleEditTextCopyVisibility, View.GONE)
-            binding.btnEditCheck.visibility = visibility(checkVisibilityValue)
-            binding.ivEditCopy.visibility = visibility(copyVisibilityValue)
+            binding.btnEditTextCheck.visibility = visibility(checkVisibilityValue)
+            binding.ivEditTextCopy.visibility = visibility(copyVisibilityValue)
         }
     }
 

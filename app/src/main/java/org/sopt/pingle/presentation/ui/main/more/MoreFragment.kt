@@ -79,6 +79,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
         moreViewModel.logoutState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { logoutState ->
             when (logoutState) {
                 is UiState.Success -> {
+                    AmplitudeUtils.trackEvent(LOGOUT_APP)
                     navigateToOnboardingExplanation()
                 }
 
@@ -93,12 +94,13 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
         moreViewModel.withDrawState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { withDrawState ->
             when (withDrawState) {
                 is UiState.Success -> {
+                    AmplitudeUtils.trackEvent(WITHDRAW_APP)
                     kakaoAuthService.withdrawKakao()
                     navigateToOnboardingExplanation()
                 }
 
                 is UiState.Error -> {
-                    when (withDrawState.message) {
+                    when (withDrawState.code) {
                         FAILURE_OWNER -> {
                             PingleSnackbar.makeSnackbar(
                                 requireView(),
@@ -168,7 +170,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     companion object {
-        private const val FAILURE_OWNER = "400"
+        private const val FAILURE_OWNER = 400
         private const val SNACKBAR_BOTTOM_MARGIN = 76
         private const val FAILURE_LOGOUT = "로그아웃 실패"
         private const val LOGOUT_MODAL = "logoutModal"
@@ -177,6 +179,9 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             "https://pinglepingle.notion.site/585c13c92e1842c7ada334e78b731303?pvs=4"
         private const val NOTICE =
             "https://pinglepingle.notion.site/38d504b943a4479695b7ca9206c7b732?pvs=4"
+
+        private const val LOGOUT_APP = "logout_app"
+        private const val WITHDRAW_APP = "withdraw_app"
 
         const val START_MYGROUP = "start_mygroup"
     }

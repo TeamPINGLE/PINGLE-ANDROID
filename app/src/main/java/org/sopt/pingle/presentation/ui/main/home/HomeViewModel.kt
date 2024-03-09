@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.PinEntity
 import org.sopt.pingle.domain.model.PingleEntity
@@ -24,7 +25,9 @@ import org.sopt.pingle.presentation.model.MarkerModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.HomeViewType
 import org.sopt.pingle.presentation.type.MainListOrderType
+import org.sopt.pingle.util.base.NullableBaseResponse
 import org.sopt.pingle.util.view.UiState
+import retrofit2.HttpException
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -154,14 +157,24 @@ class HomeViewModel @Inject constructor(
     fun deletePingleCancel(meetingId: Long) {
         viewModelScope.launch {
             _pingleParticipationState.emit(UiState.Loading)
-            runCatching {
-                deletePingleCancelUseCase(
-                    meetingId = meetingId
-                ).collect() {
-                    _pingleParticipationState.emit(UiState.Success(meetingId))
-                }
+            deletePingleCancelUseCase(
+                meetingId = meetingId
+            ).onSuccess {
+                _pingleParticipationState.emit(UiState.Success(meetingId))
             }.onFailure { exception: Throwable ->
-                _pingleParticipationState.emit(UiState.Error(exception.message))
+                _pingleParticipationState.emit(
+                    UiState.Error(
+                        message = if (exception is HttpException) {
+                            exception.response()?.errorBody()
+                                ?.byteString()?.utf8()?.let { errorBodyJson ->
+                                    Json.decodeFromString<NullableBaseResponse<Unit>>(errorBodyJson).message
+                                }
+                        } else {
+                            exception.message
+                        },
+                        code = (exception as? HttpException)?.response()?.code()
+                    )
+                )
             }
         }
     }
@@ -240,14 +253,25 @@ class HomeViewModel @Inject constructor(
     fun postPingleJoin(meetingId: Long) {
         viewModelScope.launch {
             _pingleParticipationState.emit(UiState.Loading)
-            runCatching {
-                postPingleJoinUseCase(
-                    meetingId = meetingId
-                ).collect() {
-                    _pingleParticipationState.emit(UiState.Success(meetingId))
-                }
+            postPingleJoinUseCase(
+                meetingId = meetingId
+            ).onSuccess {
+                _pingleParticipationState.emit(UiState.Success(meetingId))
             }.onFailure { exception: Throwable ->
-                _pingleParticipationState.emit(UiState.Error(exception.message))
+                _pingleParticipationState.emit(
+                    UiState.Error(
+                        message = if (exception is HttpException) {
+                            exception.response()?.errorBody()
+                                ?.byteString()?.utf8()?.let { errorBodyJson ->
+                                    Json.decodeFromString<NullableBaseResponse<Unit>>(errorBodyJson).message
+                                }
+                        } else {
+                            exception.message
+                        },
+                        code = (exception as? HttpException)?.response()?.code(),
+                        data = meetingId
+                    )
+                )
             }
         }
     }

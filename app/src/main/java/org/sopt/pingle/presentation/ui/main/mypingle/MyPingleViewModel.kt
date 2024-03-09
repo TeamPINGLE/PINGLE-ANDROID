@@ -9,13 +9,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
 import org.sopt.pingle.domain.model.MyPingleEntity
 import org.sopt.pingle.domain.usecase.DeletePingleCancelUseCase
 import org.sopt.pingle.domain.usecase.DeletePingleDeleteUseCase
 import org.sopt.pingle.domain.usecase.GetMyPingleListUseCase
 import org.sopt.pingle.presentation.type.MyPingleType
+import org.sopt.pingle.util.base.NullableBaseResponse
 import org.sopt.pingle.util.view.UiState
+import retrofit2.HttpException
 
 @HiltViewModel
 class MyPingleViewModel @Inject constructor(
@@ -108,12 +111,22 @@ class MyPingleViewModel @Inject constructor(
     fun deletePingleCancel(meetingId: Long) {
         viewModelScope.launch {
             _myPingleState.emit(UiState.Loading)
-            runCatching {
-                deletePingleCancelUseCase(meetingId = meetingId).collect { data ->
-                    _myPingleState.emit(UiState.Success(data))
-                }
+            deletePingleCancelUseCase(meetingId = meetingId).onSuccess { data ->
+                _myPingleState.emit(UiState.Success(data))
             }.onFailure { exception: Throwable ->
-                _myPingleState.emit(UiState.Error(exception.message))
+                _myPingleState.emit(
+                    UiState.Error(
+                        message = if (exception is HttpException) {
+                            exception.response()?.errorBody()
+                                ?.byteString()?.utf8()?.let { errorBodyJson ->
+                                    Json.decodeFromString<NullableBaseResponse<Unit>>(errorBodyJson).message
+                                }
+                        } else {
+                            exception.message
+                        },
+                        code = (exception as? HttpException)?.response()?.code()
+                    )
+                )
             }
         }
     }

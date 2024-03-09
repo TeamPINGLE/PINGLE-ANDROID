@@ -17,8 +17,6 @@ import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
-import org.sopt.pingle.util.context.PINGLE_PLAY_STORE_LINK
-import org.sopt.pingle.util.context.PINGLE_SHARE_CODE
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.view.UiState
@@ -119,7 +117,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             view = binding.root,
             message = stringOf(R.string.my_group_snack_bar_chage_group_complete),
             bottomMarin = SNACKBAR_BOTTOM_MARGIN,
-            snackbarType = SnackbarType.GUIDE
+            snackbarType = SnackbarType.CHECK
         )
     }
 
@@ -133,17 +131,8 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
 
     private fun shareGroupCode() {
         AmplitudeUtils.trackEvent(CLICK_INVITECODE_SHARE)
-        // TODO 콘텐츠 내용 알려주면 ContextExt와 함께 수정
         binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
-        this.sharePingle(
-            getString(
-                R.string.my_group_share_pingle,
-                viewModel.getGroupName(),
-                PINGLE_SHARE_CODE,
-                viewModel.getGroupCode(),
-                PINGLE_PLAY_STORE_LINK
-            )
-        )
+        this.sharePingle(getString(R.string.my_group_share_pingle, viewModel.getGroupName(), viewModel.getGroupName(), viewModel.getGroupCode()))
     }
 
     private fun navigateToNewGroupInfo() {

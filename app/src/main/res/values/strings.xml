@@ -18,6 +18,10 @@
     <string name="main_list_order_new">최신등록순</string>
     <string name="main_list_order_upcoming">날짜임박순</string>
 
+    <!-- pingle card error Type -->
+    <string name="pingle_card_error_deleted_snackbar">삭제된 핑글이에요!</string>
+    <string name="pingle_card_error_completed_snackbar">모집이 마감된 핑글이에요!</string>
+
     <!-- home view Type -->
     <string name="home_view_map_search_hint">장소 이름 검색</string>
     <string name="home_view_main_list_search_hint">핑글 이름, 장소 이름 검색</string>
@@ -102,6 +106,7 @@
     <string name="new_group_topbar">신규 단체 개설하기</string>
     <string name="new_group_next">다음으로</string>
     <string name="new_group_create">개설하기</string>
+    <string name="new_group_email_snackbar">"유효하지 않은 이메일입니다!"</string>
 
     <!-- new group info -->
     <string name="new_group_info_title">신규 단체 개설 안내</string>
@@ -112,11 +117,14 @@
 
     <!-- new group input -->
     <string name="new_group_input_title">속해있는 단체의\n이름을 알려주세요!</string>
+    <string name="new_group_keyword_title">단체를 설명하는\n키워드를 선택해주세요</string>
     <string name="new_group_input_name_hint">단체명을 입력해주세요</string>
     <string name="new_group_input_name_title">단체명</string>
     <string name="new_group_input_email_hint">ex. 단체 공식 이메일, 개설자님의 이메일</string>
     <string name="new_group_input_email_title">대표 이메일</string>
     <string name="new_group_input_guide">해당 이메일은 초대 코드 공유 및 단체 관리를 위해 사용될 예정입니다</string>
+    <string name="new_group_input_snackbar_guide">등록 가능한 단체명입니다.</string>
+    <string name="new_group_input_snackbar_warning">같은 이름을 가진 단체가 존재합니다!</string>
 
     <!-- new group announcement -->
     <string name="new_group_announcement_title">단체가\n개설되었어요!</string>
@@ -277,7 +285,7 @@
     <string name="my_group_snack_bar_chage_group_complete">단체가 변경되었습니다!</string>
     <string name="my_group_menu_copy">초대코드 복사하기</string>
     <string name="my_group_menu_share">공유하기</string>
-    <string name="my_group_share_pingle">핑글 앱을 다운받고, %s 사람들을 만나보세요!\n\n%s %s\n\n %s</string>
+    <string name="my_group_share_pingle">Ready to PINGLE?\n구성원 모두를 위한 위치기반 네트워킹 서비스, PINGLE\n\n%s에서 초대 메시지를 보냈습니다.\n핑글 앱을 다운받고, %s 사람들을 만나보세요!\n\n초대코드 : %s\n앱 링크 : https://play.google.com/store/apps/details?id=org.sopt.pingle&amp;pcampaignid=web_share</string>
 
     <!-- pingle edit text -->
     <string name="view_text_with_title_button_text">중복 확인</string>

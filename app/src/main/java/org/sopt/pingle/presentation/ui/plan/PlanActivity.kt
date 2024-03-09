@@ -26,6 +26,7 @@ import org.sopt.pingle.presentation.ui.plan.plantitle.PlanTitleFragment
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.AllModalDialogFragment
+import org.sopt.pingle.util.view.DateTimeUtils
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter
 import org.sopt.pingle.util.view.UiState
 
@@ -195,7 +196,7 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
             mapOf(
                 CATEGORY to planViewModel.selectedCategory.value.toString(),
                 NAME to planViewModel.planTitle.value,
-                START_AT to planViewModel.planDate.value + PlanViewModel.BLANK_STRING + planViewModel.startTime.value,
+                START_AT to DateTimeUtils.convertToAmplitudeFormat(planViewModel.planDate.value, planViewModel.startTime.value),
                 END_AT to planViewModel.planDate.value + PlanViewModel.BLANK_STRING + planViewModel.endTime.value,
                 ROAD_ADDRESS to (planViewModel.selectedLocation.value?.roadAddress ?: ""),
                 LOCATION to (planViewModel.selectedLocation.value?.location ?: ""),
@@ -206,39 +207,38 @@ class PlanActivity : BindingActivity<ActivityPlanBinding>(R.layout.activity_plan
 
     companion object {
         private const val EXIT_MODAL = "exitModal"
-        const val DEFAULT_PROGRESSBAR = 1f
-        const val SUB_LIST_SIZE = 1
+        private const val DEFAULT_PROGRESSBAR = 1f
+        private const val SUB_LIST_SIZE = 1
 
-        const val FIRST_PAGE = 0
-        const val SECOND_PAGE = 1
-        const val THIRD_PAGE = 2
-        const val FOURTH_PAGE = 3
-        const val FIFTH_PAGE = 4
-        const val SIXTH_PAGE = 5
-        const val SEVENTH_PAGE = 6
+        private const val FIRST_PAGE = 0
+        private const val SECOND_PAGE = 1
+        private const val THIRD_PAGE = 2
+        private const val FOURTH_PAGE = 3
+        private const val FIFTH_PAGE = 4
+        private const val SIXTH_PAGE = 5
 
-        const val CLICK_MEETINGHOLD = "click_meetinghold"
-        const val COMPLETE_MEETINGHOLD = "complete_meetinghold"
-        const val CATEGORY = "category"
-        const val NAME = "name"
-        const val START_AT = "startAt"
-        const val END_AT = "endAt"
-        const val ROAD_ADDRESS = "roadAddress"
-        const val LOCATION = "location"
-        const val MAX_PARTICIPANTS = "maxParticipants"
+        private const val CLICK_MEETINGHOLD = "click_meetinghold"
+        private const val COMPLETE_MEETINGHOLD = "complete_meetinghold"
+        private const val CATEGORY = "category"
+        private const val NAME = "name"
+        private const val START_AT = "startAt"
+        private const val END_AT = "endAt"
+        private const val ROAD_ADDRESS = "roadAddress"
+        private const val LOCATION = "location"
+        private const val MAX_PARTICIPANTS = "maxParticipants"
 
-        const val CLICK_STEP1_CANCEL_STAY = "click_step1_cancel_stay"
-        const val CLICK_STEP2_CANCEL_STAY = "click_step2_cancel_stay"
-        const val CLICK_STEP3_CANCEL_STAY = "click_step3_cancel_stay"
-        const val CLICK_STEP4_CANCEL_STAY = "click_step4_cancel_stay"
-        const val CLICK_STEP5_CANCEL_STAY = "click_step5_cancel_stay"
-        const val CLICK_STEP6_CANCEL_STAY = "click_step6_cancel_stay"
+        private const val CLICK_STEP1_CANCEL_STAY = "click_step1_cancel_stay"
+        private const val CLICK_STEP2_CANCEL_STAY = "click_step2_cancel_stay"
+        private const val CLICK_STEP3_CANCEL_STAY = "click_step3_cancel_stay"
+        private const val CLICK_STEP4_CANCEL_STAY = "click_step4_cancel_stay"
+        private const val CLICK_STEP5_CANCEL_STAY = "click_step5_cancel_stay"
+        private const val CLICK_STEP6_CANCEL_STAY = "click_step6_cancel_stay"
 
-        const val CLICK_STEP1_CANCEL_OUT = "click_step1_cancel_out"
-        const val CLICK_STEP2_CANCEL_OUT = "click_step2_cancel_out"
-        const val CLICK_STEP3_CANCEL_OUT = "click_step3_cancel_out"
-        const val CLICK_STEP4_CANCEL_OUT = "click_step4_cancel_out"
-        const val CLICK_STEP5_CANCEL_OUT = "click_step5_cancel_out"
-        const val CLICK_STEP6_CANCEL_OUT = "click_step6_cancel_out"
+        private const val CLICK_STEP1_CANCEL_OUT = "click_step1_cancel_out"
+        private const val CLICK_STEP2_CANCEL_OUT = "click_step2_cancel_out"
+        private const val CLICK_STEP3_CANCEL_OUT = "click_step3_cancel_out"
+        private const val CLICK_STEP4_CANCEL_OUT = "click_step4_cancel_out"
+        private const val CLICK_STEP5_CANCEL_OUT = "click_step5_cancel_out"
+        private const val CLICK_STEP6_CANCEL_OUT = "click_step6_cancel_out"
     }
 }

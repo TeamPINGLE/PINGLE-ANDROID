@@ -213,7 +213,7 @@
     <!-- ranking -->
     <string name="ranking_title">랭킹</string>
     <string name="ranking_latest_visited">최근방문</string>
-    <string name="ranking_date">%d년 %d월 %d일</string>
+    <string name="ranking_date" formatted="false">%d년 %d월 %d일</string>
     <string name="ranking_empty">우리 단체에서 핑글이 30회 이상 이루어지면\n랭킹을 확인할 수 있어요!</string>
 
     <!-- more -->
@@ -239,7 +239,7 @@
     <string name="my_pingle_chat">대화하기</string>
     <string name="my_pingle_cancel">참여 취소하기</string>
     <string name="my_pingle_delete">핑글 삭제하기</string>
-    <string name="my_pingle_topbar">마이핑글</string>
+    <string name="my_pingle_topbar" formatted="false">마이핑글</string>
     <string name="my_pingle_soon">홈으로 이동해\n내 주변 핑글을 찾아보세요!</string>
     <string name="my_pingle_done">아직 참여한 핑글이 없어요\n첫 핑글과 함께 네트워킹을 시작해보세요!</string>
     <string name="my_pingle_tab_soon">\t\t\t\t\t\t\t예정된\t\t\t\t\t\t\t\t</string>
@@ -281,7 +281,7 @@
     <string name="my_group_modal_move_question">\'%s\'(으)로\n변경하시겠어요?</string>
     <string name="my_group_modal_change">변경하기</string>
     <string name="my_group_modal_back"><u>돌아가기</u></string>
-    <string name="my_group_snack_bar_code_copy_complete">초대코드가 복사되었습니다!</string>
+    <string name="my_group_snack_bar_code_copy_complete" formatted="false">초대코드가 복사되었습니다!</string>
     <string name="my_group_snack_bar_chage_group_complete">단체가 변경되었습니다!</string>
     <string name="my_group_menu_copy">초대코드 복사하기</string>
     <string name="my_group_menu_share">공유하기</string>

@@ -19,6 +19,7 @@ import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.main.home.HomeFragment.Companion.DELETED_PINGLE_MESSAGE
 import org.sopt.pingle.presentation.ui.main.home.HomeFragment.Companion.SNACKBAR_BOTTOM_MARGIN
 import org.sopt.pingle.presentation.ui.main.home.HomeViewModel
+import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.fragment.navigateToWebView
@@ -54,25 +55,38 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                         id
                     )
                 }
+                AmplitudeUtils.trackEvent(CLICK_CARD_PARTICIPANTS)
             },
-            navigateToWebViewWithChatLink = { chatLink -> startActivity(navigateToWebView(chatLink)) },
+            navigateToWebViewWithChatLink = { chatLink ->
+                startActivity(navigateToWebView(chatLink))
+                AmplitudeUtils.trackEvent(CLICK_CARD_CHAT)
+            },
             showPingleJoinModalDialogFragment = { pingleEntity ->
                 PingleCardUtils.showPingleJoinModalDialogFragment(
                     fragment = this,
-                    postPingleJoin = { homeViewModel.postPingleJoin(pingleEntity.id) },
+                    postPingleJoin = {
+                        homeViewModel.postPingleJoin(pingleEntity.id)
+                        AmplitudeUtils.trackEvent(CLICK_CARD_PARTICIPATE)
+                    },
                     pingleEntity = pingleEntity
                 )
             },
             showPingleCancelModalDialogFragment = { pingleEntity ->
                 PingleCardUtils.showPingleCancelModalDialogFragment(
                     fragment = this,
-                    deletePingleCancel = { homeViewModel.deletePingleCancel(pingleEntity.id) }
+                    deletePingleCancel = {
+                        homeViewModel.deletePingleCancel(pingleEntity.id)
+                        AmplitudeUtils.trackEvent(CLICK_CARD_CANCEL)
+                    }
                 )
             },
             showPingleDeleteModalDialogFragment = { pingleEntity ->
                 PingleCardUtils.showMapDeleteModalDialogFragment(
                     fragment = this,
-                    deletePingleDelete = { homeViewModel.deletePingleDelete(pingleEntity.id) }
+                    deletePingleDelete = {
+                        homeViewModel.deletePingleDelete(pingleEntity.id)
+                        AmplitudeUtils.trackEvent(CLICK_CARD_DELETE)
+                    }
                 )
             }
         )
@@ -90,6 +104,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
             }
 
             tvMainListOrderMenuNew.setOnClickListener {
+                AmplitudeUtils.trackEvent(CLICK_DATESOONARRAY)
                 homeViewModel.setMainListOrderType(
                     MainListOrderType.NEW
                 )
@@ -97,6 +112,7 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
             }
 
             tvMainListOrderMenuUpcoming.setOnClickListener {
+                AmplitudeUtils.trackEvent(CLICK_RECENTCREATIONARRAY)
                 homeViewModel.setMainListOrderType(
                     MainListOrderType.UPCOMING
                 )
@@ -138,6 +154,11 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                             stringOf(homeViewModel.mainListOrderType.value.mainListOrderStringRes)
 
                         (!homeViewModel.searchWord.value.isNullOrEmpty()).let { isSearching ->
+                            AmplitudeUtils.trackEventWithProperty(
+                                eventName = COMPLETE_SEARCH_LIST,
+                                propertyName = KEYWORD,
+                                propertyValue = homeViewModel.searchWord.value
+                            )
                             with(binding.tvMainListSearchCount) {
                                 visibility = if (isSearching) View.VISIBLE else View.INVISIBLE
                                 text = getString(
@@ -217,5 +238,15 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
 
     companion object {
         private const val TOP = 0
+
+        private const val COMPLETE_SEARCH_LIST = "complete_search_list"
+        private const val KEYWORD = "keyword"
+        private const val CLICK_DATESOONARRAY = "click_datesoonarray"
+        private const val CLICK_RECENTCREATIONARRAY = "click_recentcreationarray"
+        private const val CLICK_CARD_PARTICIPANTS = "click_card_participants"
+        private const val CLICK_CARD_CHAT = "click_card_chat"
+        private const val CLICK_CARD_PARTICIPATE = "click_card_participate"
+        private const val CLICK_CARD_CANCEL = "click_card_cancel"
+        private const val CLICK_CARD_DELETE = "click_card_delete"
     }
 }

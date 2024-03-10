@@ -142,7 +142,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             startActivity(this)
         }
     }
-    
+
     private fun makeEllipsisGroupName(groupName: String): String {
         return if (groupName.length > GROUP_NAME_MAX_LENGTH) {
             "${groupName.substring(SUBSTRING_START_INDEX, SUBSTRING_END_INDEX) + ELLIPSIS}"

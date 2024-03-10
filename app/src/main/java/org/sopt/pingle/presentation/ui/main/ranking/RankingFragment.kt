@@ -42,7 +42,7 @@ class RankingFragment : BindingFragment<FragmentRankingBinding>(R.layout.fragmen
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                         AmplitudeUtils.trackEvent(SCROLL_RANKING)
                     }
                 }

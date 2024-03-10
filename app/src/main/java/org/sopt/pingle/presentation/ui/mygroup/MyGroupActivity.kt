@@ -159,11 +159,11 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         private const val GROUP_NAME_MAX_LENGTH = 13
         private const val ELLIPSIS = "..."
 
-        const val CLICK_INVITECODE = "click_invitecode"
-        const val CLICK_INVITECODE_COPY = "click_invitecode_copy"
-        const val CLICK_INVITECODE_SHARE = "click_invitecode_share"
-        const val CLICK_OTHERGROUP = "click_othergroup"
-        const val CLICK_OTHERGROUP_CHANGE = "click_othergroup_change"
-        const val CLICK_NEWGROUP = "click_newgroup"
+        private const val CLICK_INVITECODE = "click_invitecode"
+        private const val CLICK_INVITECODE_COPY = "click_invitecode_copy"
+        private const val CLICK_INVITECODE_SHARE = "click_invitecode_share"
+        private const val CLICK_OTHERGROUP = "click_othergroup"
+        private const val CLICK_OTHERGROUP_CHANGE = "click_othergroup_change"
+        private const val CLICK_NEWGROUP = "click_newgroup"
     }
 }

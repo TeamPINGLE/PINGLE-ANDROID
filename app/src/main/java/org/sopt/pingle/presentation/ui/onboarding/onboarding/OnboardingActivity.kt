@@ -22,7 +22,7 @@ class OnboardingActivity :
     }
 
     private fun initLayout() {
-        when(intent.getStringExtra(FROM_ACTIVITY)) {
+        when (intent.getStringExtra(FROM_ACTIVITY)) {
             MY_GROUP_ACTIVITY -> Unit
             else -> setDoubleBackPressToExit(binding.root)
         }

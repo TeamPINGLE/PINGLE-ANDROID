@@ -12,6 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -134,6 +136,20 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun collectData() {
+        combine(
+            homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged(),
+            homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged(),
+            homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged(),
+            homeViewModel.homeViewType.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged()
+        ) { _, _, _, homeViewType ->
+            homeViewType
+        }.onEach { homeViewType ->
+            when (homeViewType) {
+                HomeViewType.MAIN_LIST -> homeViewModel.getMainListPingleList()
+                HomeViewType.MAP -> homeViewModel.getPinListWithoutFilter()
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
         homeViewModel.homeViewType.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach {
             with(binding) {
                 vpHome.setCurrentItem(homeViewModel.homeViewType.value.index, false)

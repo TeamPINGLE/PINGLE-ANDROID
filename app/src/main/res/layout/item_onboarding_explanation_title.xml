@@ -14,7 +14,6 @@
             android:id="@+id/iv_onboarding_explanation_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="58dp"
             android:src="@drawable/img_onboarding_explanation_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

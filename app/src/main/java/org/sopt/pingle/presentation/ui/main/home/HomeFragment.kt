@@ -19,23 +19,28 @@ import org.sopt.pingle.databinding.FragmentHomeBinding
 import org.sopt.pingle.presentation.model.SearchModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.HomeViewType
+import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.main.home.mainlist.MainListFragment
 import org.sopt.pingle.presentation.ui.main.home.map.MapFragment
 import org.sopt.pingle.presentation.ui.search.SearchActivity
 import org.sopt.pingle.presentation.ui.search.SearchActivity.Companion.SEARCH_WORD
 import org.sopt.pingle.util.AmplitudeUtils
+import org.sopt.pingle.util.activity.FINISH_INTERVAL_TIME
+import org.sopt.pingle.util.activity.INIT_BACK_PRESSED_TIME
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.PingleChip
+import org.sopt.pingle.util.component.PingleSnackbar
+import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.PingleFragmentStateAdapter
 import org.sopt.pingle.util.view.UiState
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val homeViewModel: HomeViewModel by activityViewModels()
+    private var backPressedTime = INIT_BACK_PRESSED_TIME
     private lateinit var fragmentList: ArrayList<Fragment>
     private lateinit var fragmentStateAdapter: PingleFragmentStateAdapter
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var stopSearchCallback: OnBackPressedCallback
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,11 +50,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         collectData()
         setFragmentStateAdapter()
         setResultLauncher()
-        setStopSearchCallback()
     }
 
     override fun onResume() {
         super.onResume()
+
+        setOnBackPressedCallback()
         initChip()
     }
 
@@ -74,8 +80,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 navigateToSearch()
             }
         }
-
-        initChip()
     }
 
     private fun addListeners() {
@@ -151,7 +155,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                             if (isSearching) View.VISIBLE else View.INVISIBLE
                         tvHomeGroup.visibility = if (isSearching) View.INVISIBLE else View.VISIBLE
                         ivHomeSearch.visibility = if (isSearching) View.INVISIBLE else View.VISIBLE
-                        if (isSearching) setStopSearchCallback() else stopSearchCallback.remove()
                     }
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -197,18 +200,29 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             }
     }
 
-    private fun setStopSearchCallback() {
-        stopSearchCallback =
-            object : OnBackPressedCallback(!homeViewModel.searchWord.value.isNullOrEmpty()) {
+    private fun setOnBackPressedCallback() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this.viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    homeViewModel.clearSearchWord()
-                    navigateToSearch()
+                    if (homeViewModel.searchWord.value.isNullOrEmpty()) {
+                        if (System.currentTimeMillis() - backPressedTime <= FINISH_INTERVAL_TIME) {
+                            requireActivity().finish()
+                        } else {
+                            backPressedTime = System.currentTimeMillis()
+                            PingleSnackbar.makeSnackbar(
+                                view = requireView(),
+                                message = stringOf(R.string.all_on_back_pressed_snackbar),
+                                bottomMarin = org.sopt.pingle.util.activity.SNACKBAR_BOTTOM_MARGIN,
+                                snackbarType = SnackbarType.GUIDE
+                            )
+                        }
+                    } else {
+                        homeViewModel.clearSearchWord()
+                        navigateToSearch()
+                    }
                 }
             }
-
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            stopSearchCallback
         )
     }
 

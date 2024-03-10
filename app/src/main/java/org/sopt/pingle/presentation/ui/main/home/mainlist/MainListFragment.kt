@@ -7,8 +7,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -122,18 +120,6 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
     }
 
     private fun collectData() {
-        combine(
-            homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .distinctUntilChanged(),
-            homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .distinctUntilChanged(),
-            homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .distinctUntilChanged()
-        ) { _, _, _ ->
-        }.onEach {
-            homeViewModel.getMainListPingleList()
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
-
         homeViewModel.mainListPingleListState.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
             Lifecycle.State.CREATED

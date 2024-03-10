@@ -1,8 +1,11 @@
 package org.sopt.pingle.presentation.ui.mygroup
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +17,7 @@ import org.sopt.pingle.databinding.ActivityMyGroupBinding
 import org.sopt.pingle.domain.model.MyGroupEntity
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
+import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity.Companion.FROM_ACTIVITY
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
@@ -28,6 +32,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
 
     private val viewModel by viewModels<MyGroupViewModel>()
     private lateinit var adapter: MyGroupAdapter
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,6 +143,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     private fun navigateToNewGroupInfo() {
         AmplitudeUtils.trackEvent(CLICK_NEWGROUP)
         Intent(this, OnboardingActivity::class.java).apply {
+            putExtra(FROM_ACTIVITY, MY_GROUP_ACTIVITY)
             startActivity(this)
         }
     }
@@ -145,6 +151,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     companion object {
         private const val CHANGE_MODAL = "ChangeGroupModal"
         private const val SNACKBAR_BOTTOM_MARGIN = 57
+        const val MY_GROUP_ACTIVITY = "MyGroupActivity"
 
         const val CLICK_INVITECODE = "click_invitecode"
         const val CLICK_INVITECODE_COPY = "click_invitecode_copy"

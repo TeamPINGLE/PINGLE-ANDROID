@@ -5,6 +5,7 @@ import android.os.Bundle
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.ActivityOnboardingBinding
 import org.sopt.pingle.presentation.ui.joingroup.JoinGroupSearchActivity
+import org.sopt.pingle.presentation.ui.mygroup.MyGroupActivity.Companion.MY_GROUP_ACTIVITY
 import org.sopt.pingle.presentation.ui.newgroup.NewGroupActivity
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.activity.setDoubleBackPressToExit
@@ -16,8 +17,15 @@ class OnboardingActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initLayout()
         addListeners()
-        setDoubleBackPressToExit(binding.root)
+    }
+
+    private fun initLayout() {
+        when(intent.getStringExtra(FROM_ACTIVITY)) {
+            MY_GROUP_ACTIVITY -> Unit
+            else -> setDoubleBackPressToExit(binding.root)
+        }
     }
 
     private fun addListeners() {
@@ -49,5 +57,7 @@ class OnboardingActivity :
         const val OPTION = "option"
         const val EXISTING_GROUP = "existing_group"
         const val CREATE_GROUP = "create_group"
+
+        const val FROM_ACTIVITY = "fromActivity"
     }
 }

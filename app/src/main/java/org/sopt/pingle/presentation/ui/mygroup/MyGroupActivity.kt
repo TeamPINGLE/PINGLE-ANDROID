@@ -98,10 +98,11 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     private fun showChangeGroupModal(clickedEntity: MyGroupEntity) {
         AmplitudeUtils.trackEvent(CLICK_OTHERGROUP)
         binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
+
         MyGroupModalDialogFragment(
             title = getString(
                 R.string.my_group_modal_move_question,
-                clickedEntity.name
+                makeEllipsisGroupName(clickedEntity.name)
             ),
             buttonText = stringOf(R.string.my_group_modal_change),
             textButtonText = stringOf(R.string.my_group_modal_back),
@@ -141,10 +142,22 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
             startActivity(this)
         }
     }
+    
+    private fun makeEllipsisGroupName(groupName: String): String {
+        return if (groupName.length > GROUP_NAME_MAX_LENGTH) {
+            "${groupName.substring(SUBSTRING_START_INDEX, SUBSTRING_END_INDEX) + ELLIPSIS}"
+        } else {
+            groupName
+        }
+    }
 
     companion object {
         private const val CHANGE_MODAL = "ChangeGroupModal"
         private const val SNACKBAR_BOTTOM_MARGIN = 57
+        private const val SUBSTRING_START_INDEX = 0
+        private const val SUBSTRING_END_INDEX = 12
+        private const val GROUP_NAME_MAX_LENGTH = 13
+        private const val ELLIPSIS = "..."
 
         const val CLICK_INVITECODE = "click_invitecode"
         const val CLICK_INVITECODE_COPY = "click_invitecode_copy"

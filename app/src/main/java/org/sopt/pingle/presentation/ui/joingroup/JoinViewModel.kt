@@ -45,7 +45,7 @@ class JoinViewModel @Inject constructor(
         MutableStateFlow<UiState<GroupEntity>>(UiState.Empty)
 
     val joinGroupCodeState get() = _joinGroupCodeState
-    val joinGroupCodeEditText = MutableLiveData<String>()
+    val joinGroupCodeEditText = MutableStateFlow<String>("")
 
     private var oldPosition = DEFAULT_OLD_POSITION
 

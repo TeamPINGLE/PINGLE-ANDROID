@@ -61,9 +61,9 @@ class JoinGroupCodeActivity :
     }
 
     private fun addObservers() {
-        viewModel.joinGroupCodeEditText.observe(this) { editText ->
+        viewModel.joinGroupCodeEditText.flowWithLifecycle(lifecycle).onEach { editText ->
             binding.btnJoinGroupCodeNext.isEnabled = editText.isNotEmpty()
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun collectData() {

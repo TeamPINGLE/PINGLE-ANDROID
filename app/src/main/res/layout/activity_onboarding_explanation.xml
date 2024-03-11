@@ -14,20 +14,22 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_onboarding_explanation"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_onboarding_explanation_skip" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_onboarding_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vp_onboarding_explanation"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btn_onboarding_explanation_next"
             android:layout_marginBottom="18dp"
+            android:background="@null"
+            app:layout_constraintBottom_toTopOf="@id/btn_onboarding_explanation_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vp_onboarding_explanation"
             app:tabBackground="@drawable/selector_indicator_onboarding"
             app:tabIndicatorHeight="0dp"
             app:tabPaddingStart="@dimen/spacing4" />

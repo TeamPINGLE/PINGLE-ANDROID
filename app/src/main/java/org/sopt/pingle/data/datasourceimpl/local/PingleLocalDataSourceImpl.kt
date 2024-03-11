@@ -31,6 +31,9 @@ class PingleLocalDataSourceImpl @Inject constructor(
             )
         }
 
+    override val sharedPreference: SharedPreferences
+        get() = pref
+
     override var isLogin: Boolean
         get() = pref.getBoolean(AUTO_LOGIN, false)
         set(value) = pref.edit { putBoolean(AUTO_LOGIN, value) }

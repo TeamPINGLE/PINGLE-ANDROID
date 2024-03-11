@@ -30,7 +30,6 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
 
     private val viewModel by viewModels<MyGroupViewModel>()
     private lateinit var adapter: MyGroupAdapter
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

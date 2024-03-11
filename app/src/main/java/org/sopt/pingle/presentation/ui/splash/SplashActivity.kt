@@ -36,7 +36,9 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
             delay(SPLASH_SCREEN_DELAY_TIME)
             if (authViewModel.isLocalToken()) {
                 if (authViewModel.isLocalGroupId()) navigateToMain() else authViewModel.getUserInfo()
-            } else navigateToOnboardingExplanation()
+            } else {
+                navigateToOnboardingExplanation()
+            }
         }
     }
 

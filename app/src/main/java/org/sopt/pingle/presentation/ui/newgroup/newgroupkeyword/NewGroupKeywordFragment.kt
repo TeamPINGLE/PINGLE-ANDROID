@@ -28,6 +28,18 @@ class NewGroupKeywordFragment :
         collectData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (newGroupViewModel.newGroupKeywordValue.value.isNotEmpty()) {
+            for (i in 0 until binding.cgNewGroupKeyword.childCount) {
+                val childChip = binding.cgNewGroupKeyword.getChildAt(i) as Chip
+                if (childChip.text == newGroupViewModel.newGroupKeywordValue.value) {
+                    childChip.isChecked = true
+                }
+            }
+        }
+    }
+
     private fun initLayout() {
         newGroupViewModel.getNewGroupKeywords()
     }

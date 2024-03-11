@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.home
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,6 +40,26 @@ class HomeViewModel @Inject constructor(
     private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase,
     private val postPingleJoinUseCase: PostPingleJoinUseCase
 ) : ViewModel() {
+    private val sharedPreferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == GROUP_ID) {
+                setHomeViewType(HomeViewType.MAP)
+                clearCategory()
+                clearSearchWord()
+                clearMarkerModelData()
+                clearSelectedMarkerPosition()
+            }
+        }
+
+    init {
+        localStorage.sharedPreference.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+    }
+
+    override fun onCleared() {
+        localStorage.sharedPreference.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        super.onCleared()
+    }
+
     private val _category = MutableStateFlow<CategoryType?>(null)
     val category get() = _category.asStateFlow()
 
@@ -277,6 +298,7 @@ class HomeViewModel @Inject constructor(
     }
 
     companion object {
+        private const val GROUP_ID = "GroupId"
         const val DEFAULT_SELECTED_MARKER_POSITION = -1
     }
 }

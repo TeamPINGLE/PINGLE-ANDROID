@@ -52,31 +52,35 @@ class NewGroupInputFragment :
         newGroupViewModel.newGroupCheckNameState.flowWithLifecycle(lifecycle)
             .distinctUntilChanged()
             .onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> {
-                    if (uiState.data.result) {
-                        PingleSnackbar.makeSnackbar(
-                            binding.root,
-                            stringOf(R.string.new_group_input_snackbar_guide),
-                            SNACKBAR_BOTTOM_MARGIN,
-                            SnackbarType.GUIDE
-                        )
-                        binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = false
-                        newGroupViewModel.setIsNewGroupBtnCheckName(true)
-                    } else {
-                        PingleSnackbar.makeSnackbar(
-                            binding.root,
-                            stringOf(R.string.new_group_input_snackbar_warning),
-                            SNACKBAR_BOTTOM_MARGIN,
-                            SnackbarType.WARNING
+                when (uiState) {
+                    is UiState.Success -> {
+                        if (uiState.data.result) {
+                            PingleSnackbar.makeSnackbar(
+                                binding.root,
+                                stringOf(R.string.new_group_input_snackbar_guide),
+                                SNACKBAR_BOTTOM_MARGIN,
+                                SnackbarType.GUIDE
+                            )
+                            binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = false
+                            newGroupViewModel.setIsNewGroupBtnCheckName(true)
+                        } else {
+                            PingleSnackbar.makeSnackbar(
+                                binding.root,
+                                stringOf(R.string.new_group_input_snackbar_warning),
+                                SNACKBAR_BOTTOM_MARGIN,
+                                SnackbarType.WARNING
+                            )
+                        }
+                        AmplitudeUtils.trackEventWithProperty(
+                            COMPLETE_DOUBLECHECK,
+                            GROUP_NAME,
+                            binding.etNewGroupInputGroupName.editText.text
                         )
                     }
-                    AmplitudeUtils.trackEventWithProperty(COMPLETE_DOUBLECHECK, GROUP_NAME, binding.etNewGroupInputGroupName.editText.text)
-                }
 
-                else -> {}
-            }
-        }.launchIn(lifecycleScope)
+                    else -> {}
+                }
+            }.launchIn(lifecycleScope)
     }
 
     companion object {

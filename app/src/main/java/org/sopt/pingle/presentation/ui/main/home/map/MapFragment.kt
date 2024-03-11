@@ -215,7 +215,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                         }
 
                         if (uiState.data.first) {
-                            homeViewModel.searchWord.value?.let { searchWord ->
+                            homeViewModel.pingleFilter.value.searchWord?.let { searchWord ->
                                 AmplitudeUtils.trackEventWithProperty(
                                     eventName = COMPLETE_SEARCH_MAP,
                                     propertyName = KEYWORD,

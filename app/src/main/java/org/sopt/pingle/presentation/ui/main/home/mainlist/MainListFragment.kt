@@ -137,13 +137,13 @@ class MainListFragment : BindingFragment<FragmentMainListBinding>(R.layout.fragm
                         }
 
                         binding.tvMainListOrderType.text =
-                            stringOf(homeViewModel.mainListOrderType.value.mainListOrderStringRes)
+                            stringOf(homeViewModel.pingleFilter.value.mainListOrderType.mainListOrderStringRes)
 
-                        (!homeViewModel.searchWord.value.isNullOrEmpty()).let { isSearching ->
+                        (!homeViewModel.pingleFilter.value.searchWord.isNullOrEmpty()).let { isSearching ->
                             AmplitudeUtils.trackEventWithProperty(
                                 eventName = COMPLETE_SEARCH_LIST,
                                 propertyName = KEYWORD,
-                                propertyValue = homeViewModel.searchWord.value
+                                propertyValue = homeViewModel.pingleFilter.value.searchWord
                             )
                             with(binding.tvMainListSearchCount) {
                                 visibility = if (isSearching) View.VISIBLE else View.INVISIBLE

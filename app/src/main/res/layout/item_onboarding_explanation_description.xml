@@ -32,7 +32,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="center"
-            android:paddingBottom="@dimen/spacing8"
             android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
             android:textColor="@color/white"
             android:text="@{context.getString(onboardingExplanationType.description)}" />

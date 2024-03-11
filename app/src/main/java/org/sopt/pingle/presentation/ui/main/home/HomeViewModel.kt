@@ -52,11 +52,15 @@ class HomeViewModel @Inject constructor(
         }
 
     init {
-        localStorage.sharedPreference.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        localStorage.sharedPreference.registerOnSharedPreferenceChangeListener(
+            sharedPreferenceChangeListener
+        )
     }
 
     override fun onCleared() {
-        localStorage.sharedPreference.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        localStorage.sharedPreference.unregisterOnSharedPreferenceChangeListener(
+            sharedPreferenceChangeListener
+        )
         super.onCleared()
     }
 
@@ -69,7 +73,11 @@ class HomeViewModel @Inject constructor(
     private var _searchWord = MutableStateFlow<String?>(null)
     val searchWord get() = _searchWord.asStateFlow()
 
-    private val _pinEntityListState = MutableStateFlow<UiState<List<PinEntity>>>(UiState.Empty)
+    private var _lastSearchWord: String? = null
+    val lastSearchWord get() = _lastSearchWord
+
+    private val _pinEntityListState =
+        MutableStateFlow<UiState<Pair<Boolean, List<PinEntity>>>>(UiState.Empty)
     val pinEntityListState get() = _pinEntityListState.asStateFlow()
 
     private var _markerModelData =
@@ -115,6 +123,11 @@ class HomeViewModel @Inject constructor(
 
     fun clearSearchWord() {
         _searchWord.value = null
+        _lastSearchWord = null
+    }
+
+    fun setLastSearchWord(searchWord: String?) {
+        _lastSearchWord = searchWord
     }
 
     private fun setMarkerModelListIsSelected(position: Int) {
@@ -250,11 +263,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getPinListWithoutFilter() {
+    fun getPinListWithoutFilter(isSearching: Boolean = false) {
         viewModelScope.launch {
             _pinEntityListState.value = UiState.Loading
             if (_searchWord.value?.isBlank() == true) {
-                _pinEntityListState.emit(UiState.Success(emptyList()))
+                _pinEntityListState.emit(UiState.Success(Pair(isSearching, emptyList())))
             } else {
                 runCatching {
                     getPinListWithoutFilteringUseCase(
@@ -262,7 +275,7 @@ class HomeViewModel @Inject constructor(
                         category = _category.value?.name,
                         searchWord = _searchWord.value
                     ).collect() { pinList ->
-                        _pinEntityListState.value = UiState.Success(pinList)
+                        _pinEntityListState.value = UiState.Success(Pair(isSearching, pinList))
                     }
                 }.onFailure { exception: Throwable ->
                     _pinEntityListState.value = UiState.Error(exception.message)

@@ -145,13 +145,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged(),
             homeViewModel.mainListOrderType.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged(),
             homeViewModel.homeViewType.flowWithLifecycle(viewLifecycleOwner.lifecycle).distinctUntilChanged()
-        ) { _, _, _, homeViewType ->
-            homeViewType
-        }.onEach { homeViewType ->
-            when (homeViewType) {
+        ) { _, searchWord, _, homeViewType ->
+            Pair(searchWord != homeViewModel.lastSearchWord, homeViewType)
+        }.onEach { searchStatusAndHomeViewType ->
+            when (searchStatusAndHomeViewType.second) {
                 HomeViewType.MAIN_LIST -> homeViewModel.getMainListPingleList()
-                HomeViewType.MAP -> homeViewModel.getPinListWithoutFilter()
+                HomeViewType.MAP -> homeViewModel.getPinListWithoutFilter(isSearching = searchStatusAndHomeViewType.first)
             }
+            homeViewModel.setLastSearchWord(homeViewModel.searchWord.value)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         homeViewModel.homeViewType.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach {

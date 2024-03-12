@@ -2,6 +2,7 @@ package org.sopt.pingle.presentation.ui.newgroup.newgroupkeyword
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.forEach
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +27,20 @@ class NewGroupKeywordFragment :
 
         initLayout()
         collectData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        with(newGroupViewModel.newGroupKeywordValue.value) {
+            if (isNotEmpty()) {
+                binding.cgNewGroupKeyword.forEach { childChip ->
+                    (childChip as Chip).let { chip ->
+                        if (chip.text == this) chip.isChecked = true
+                    }
+                }
+            }
+        }
     }
 
     private fun initLayout() {

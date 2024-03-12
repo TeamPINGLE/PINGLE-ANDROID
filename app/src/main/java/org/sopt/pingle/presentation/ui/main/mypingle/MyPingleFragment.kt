@@ -58,7 +58,7 @@ class MyPingleFragment : BindingFragment<FragmentMyPingleBinding>(R.layout.fragm
         binding.rvMyPingle.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                     when (viewModel.myPingleType.value) {
                         MyPingleType.SOON -> AmplitudeUtils.trackEvent(SCROLL_SOONPINGLE)
                         MyPingleType.DONE -> AmplitudeUtils.trackEvent(SCROLL_DONEPINGLE)

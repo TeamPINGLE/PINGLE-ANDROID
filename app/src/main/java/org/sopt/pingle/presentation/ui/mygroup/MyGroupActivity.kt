@@ -20,6 +20,7 @@ import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf
+import org.sopt.pingle.util.makeEllipsisGroupName
 import org.sopt.pingle.util.view.UiState
 import org.sopt.pingle.util.view.copyGroupCode
 import timber.log.Timber
@@ -102,7 +103,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         MyGroupModalDialogFragment(
             title = getString(
                 R.string.my_group_modal_move_question,
-                clickedEntity.name
+                clickedEntity.name.makeEllipsisGroupName()
             ),
             buttonText = stringOf(R.string.my_group_modal_change),
             textButtonText = stringOf(R.string.my_group_modal_back),

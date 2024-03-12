@@ -13,10 +13,10 @@ import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.activity.setDoubleBackPressToExit
 import org.sopt.pingle.util.base.BindingActivity
+import org.sopt.pingle.util.makeEllipsisGroupName
 
 class JoinGroupSuccessActivity :
     BindingActivity<ActivityJoinGroupSuccessBinding>(R.layout.activity_join_group_success) {
-    private lateinit var groupName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,33 +27,33 @@ class JoinGroupSuccessActivity :
     }
 
     private fun initLayout() {
-        groupName = intent.getStringExtra(JoinGroupCodeActivity.GROUP_NAME).toString()
+        val groupName = intent.getStringExtra(JoinGroupCodeActivity.GROUP_NAME).toString().makeEllipsisGroupName()
 
         binding.tvJoinGroupSuccessDescriptionGroupName.text = SpannableString(
             getString(
                 R.string.join_group_success_description_group_name,
-                groupName
-            )
+                groupName,
+            ),
         ).apply {
             setSpan(
                 TextAppearanceSpan(
                     this@JoinGroupSuccessActivity,
-                    R.style.TextAppearance_Pingle_Sub_Semi_16
+                    R.style.TextAppearance_Pingle_Sub_Semi_16,
                 ),
                 GROUP_NAME_START,
                 groupName.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
             )
             setSpan(
                 ForegroundColorSpan(
                     ContextCompat.getColor(
                         this@JoinGroupSuccessActivity,
-                        R.color.g_01
-                    )
+                        R.color.g_01,
+                    ),
                 ),
                 GROUP_NAME_START,
                 groupName.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
             )
         }
     }

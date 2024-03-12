@@ -32,6 +32,13 @@ class NewGroupInputFragment :
         collectData()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled =
+            newGroupViewModel.isNewGroupBtnCheckName.value
+    }
+
     private fun addListeners() {
         binding.etNewGroupInputGroupName.btnEditTextCheck.setOnClickListener { newGroupViewModel.getNewGroupCheckName() }
     }

@@ -2,6 +2,7 @@ package org.sopt.pingle.presentation.ui.newgroup.newgroupkeyword
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.forEach
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -30,11 +31,13 @@ class NewGroupKeywordFragment :
 
     override fun onResume() {
         super.onResume()
-        if (newGroupViewModel.newGroupKeywordValue.value.isNotEmpty()) {
-            for (i in 0 until binding.cgNewGroupKeyword.childCount) {
-                val childChip = binding.cgNewGroupKeyword.getChildAt(i) as Chip
-                if (childChip.text == newGroupViewModel.newGroupKeywordValue.value) {
-                    childChip.isChecked = true
+
+        with(newGroupViewModel.newGroupKeywordValue.value) {
+            if(isNotEmpty()) {
+                binding.cgNewGroupKeyword.forEach { childChip ->
+                    (childChip as Chip).let {  chip ->
+                        if (chip.text == this) chip.isChecked = true
+                    }
                 }
             }
         }

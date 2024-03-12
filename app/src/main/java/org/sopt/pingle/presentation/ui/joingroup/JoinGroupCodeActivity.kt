@@ -32,7 +32,6 @@ class JoinGroupCodeActivity :
 
         initLayout()
         addListeners()
-        addObservers()
         collectData()
     }
 
@@ -58,12 +57,6 @@ class JoinGroupCodeActivity :
         binding.includeJoinGroupCodeTopbar.ivAllTopbarArrowWithTitleArrowLeft.setOnClickListener {
             finish()
         }
-    }
-
-    private fun addObservers() {
-        viewModel.joinGroupCodeEditText.flowWithLifecycle(lifecycle).onEach { editText ->
-            binding.btnJoinGroupCodeNext.isEnabled = editText.isNotEmpty()
-        }.launchIn(lifecycleScope)
     }
 
     private fun collectData() {
@@ -130,6 +123,10 @@ class JoinGroupCodeActivity :
 
                 is UiState.Empty -> Timber.tag(JOIN_GROUP_CODE_ACTIVITY).d(EMPTY)
             }
+        }.launchIn(lifecycleScope)
+
+        viewModel.joinGroupCodeEditText.flowWithLifecycle(lifecycle).onEach { editText ->
+            binding.btnJoinGroupCodeNext.isEnabled = editText.isNotEmpty()
         }.launchIn(lifecycleScope)
     }
 

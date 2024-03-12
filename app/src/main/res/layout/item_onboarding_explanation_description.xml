@@ -16,7 +16,6 @@
         <ImageView
             android:id="@+id/iv_onboarding_explanation"
             android:layout_width="match_parent"
-            android:layout_marginTop="58dp"
             android:layout_height="wrap_content"
             android:src="@{context.getDrawable(onboardingExplanationType.image)}"
             app:layout_constraintBottom_toTopOf="@id/tv_onboarding_explanation_description"
@@ -33,7 +32,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="center"
-            android:paddingBottom="@dimen/spacing8"
             android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
             android:textColor="@color/white"
             android:text="@{context.getString(onboardingExplanationType.description)}" />

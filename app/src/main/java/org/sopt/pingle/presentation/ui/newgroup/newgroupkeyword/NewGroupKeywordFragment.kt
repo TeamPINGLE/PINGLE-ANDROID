@@ -33,9 +33,9 @@ class NewGroupKeywordFragment :
         super.onResume()
 
         with(newGroupViewModel.newGroupKeywordValue.value) {
-            if(isNotEmpty()) {
+            if (isNotEmpty()) {
                 binding.cgNewGroupKeyword.forEach { childChip ->
-                    (childChip as Chip).let {  chip ->
+                    (childChip as Chip).let { chip ->
                         if (chip.text == this) chip.isChecked = true
                     }
                 }

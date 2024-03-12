@@ -17,6 +17,7 @@ import org.sopt.pingle.databinding.FragmentMoreBinding
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.auth.AuthActivity
 import org.sopt.pingle.presentation.ui.mygroup.MyGroupActivity
+import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity.Companion.FROM_ACTIVITY
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
@@ -135,6 +136,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     private fun navigateToAuth() {
         Intent(requireContext(), AuthActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            putExtra(FROM_ACTIVITY, MORE_FRAGMENT)
             startActivity(this)
         }
     }
@@ -186,5 +188,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
         private const val WITHDRAW_APP = "withdraw_app"
 
         private const val START_MYGROUP = "start_mygroup"
+
+        const val MORE_FRAGMENT = "MoreFragment"
     }
 }

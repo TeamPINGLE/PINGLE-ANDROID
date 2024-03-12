@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
@@ -31,6 +32,13 @@ class NewGroupInputFragment :
         collectData()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled =
+            newGroupViewModel.isNewGroupBtnCheckName.value
+    }
+
     private fun addListeners() {
         binding.etNewGroupInputGroupName.btnEditTextCheck.setOnClickListener { newGroupViewModel.getNewGroupCheckName() }
     }
@@ -48,32 +56,38 @@ class NewGroupInputFragment :
     }
 
     private fun collectNewGroupCheckNameState() {
-        newGroupViewModel.newGroupCheckNameState.flowWithLifecycle(lifecycle).onEach { uiState ->
-            when (uiState) {
-                is UiState.Success -> {
-                    if (uiState.data.result) {
-                        PingleSnackbar.makeSnackbar(
-                            binding.root,
-                            stringOf(R.string.new_group_input_snackbar_guide),
-                            SNACKBAR_BOTTOM_MARGIN,
-                            SnackbarType.GUIDE
-                        )
-                        binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = false
-                        newGroupViewModel.setIsNewGroupBtnCheckName(true)
-                    } else {
-                        PingleSnackbar.makeSnackbar(
-                            binding.root,
-                            stringOf(R.string.new_group_input_snackbar_warning),
-                            SNACKBAR_BOTTOM_MARGIN,
-                            SnackbarType.WARNING
+        newGroupViewModel.newGroupCheckNameState.flowWithLifecycle(lifecycle)
+            .distinctUntilChanged()
+            .onEach { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        if (uiState.data.result) {
+                            PingleSnackbar.makeSnackbar(
+                                binding.root,
+                                stringOf(R.string.new_group_input_snackbar_guide),
+                                SNACKBAR_BOTTOM_MARGIN,
+                                SnackbarType.GUIDE
+                            )
+                            binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = false
+                            newGroupViewModel.setIsNewGroupBtnCheckName(true)
+                        } else {
+                            PingleSnackbar.makeSnackbar(
+                                binding.root,
+                                stringOf(R.string.new_group_input_snackbar_warning),
+                                SNACKBAR_BOTTOM_MARGIN,
+                                SnackbarType.WARNING
+                            )
+                        }
+                        AmplitudeUtils.trackEventWithProperty(
+                            COMPLETE_DOUBLECHECK,
+                            GROUP_NAME,
+                            binding.etNewGroupInputGroupName.editText.text
                         )
                     }
-                    AmplitudeUtils.trackEventWithProperty(COMPLETE_DOUBLECHECK, GROUP_NAME, binding.etNewGroupInputGroupName.editText.text)
-                }
 
-                else -> {}
-            }
-        }.launchIn(lifecycleScope)
+                    else -> {}
+                }
+            }.launchIn(lifecycleScope)
     }
 
     companion object {

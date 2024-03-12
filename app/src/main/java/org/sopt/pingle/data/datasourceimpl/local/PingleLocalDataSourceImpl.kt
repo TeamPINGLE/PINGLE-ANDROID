@@ -72,10 +72,5 @@ class PingleLocalDataSourceImpl @Inject constructor(
         const val REFRESH_TOKEN = "RefreshToken"
         const val GROUP_ID = "GroupId"
         const val GROUP_NAME = "GroupName"
-        const val MEETING_COUNT = "MeetingCount"
-        const val PARTICIPANTS_COUNT = "ParticipantsCount"
-        const val GROUP_KEYWORD = "GroupKeyWord"
-        const val IS_OWNER = "IsOwner"
-        const val GROUP_CODE = "GroupCode"
     }
 }

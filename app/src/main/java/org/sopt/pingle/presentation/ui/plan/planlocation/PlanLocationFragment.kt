@@ -30,6 +30,11 @@ class PlanLocationFragment :
         collectData()
     }
 
+    override fun onDestroyView() {
+        binding.rvPlanLocationList.adapter = null
+        super.onDestroyView()
+    }
+
     private fun initLayout() {
         binding.rvPlanLocationList.adapter = planLocationAdapter
     }
@@ -76,10 +81,5 @@ class PlanLocationFragment :
 
     private fun deleteOldPosition(position: Int) {
         planLocationViewModel.updatePlanLocationList(position)
-    }
-
-    override fun onDestroyView() {
-        binding.rvPlanLocationList.adapter = null
-        super.onDestroyView()
     }
 }

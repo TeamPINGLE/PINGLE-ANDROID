@@ -32,28 +32,28 @@ class JoinGroupSuccessActivity :
         binding.tvJoinGroupSuccessDescriptionGroupName.text = SpannableString(
             getString(
                 R.string.join_group_success_description_group_name,
-                groupName,
-            ),
+                groupName
+            )
         ).apply {
             setSpan(
                 TextAppearanceSpan(
                     this@JoinGroupSuccessActivity,
-                    R.style.TextAppearance_Pingle_Sub_Semi_16,
+                    R.style.TextAppearance_Pingle_Sub_Semi_16
                 ),
                 GROUP_NAME_START,
                 groupName.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             setSpan(
                 ForegroundColorSpan(
                     ContextCompat.getColor(
                         this@JoinGroupSuccessActivity,
-                        R.color.g_01,
-                    ),
+                        R.color.g_01
+                    )
                 ),
                 GROUP_NAME_START,
                 groupName.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
     }

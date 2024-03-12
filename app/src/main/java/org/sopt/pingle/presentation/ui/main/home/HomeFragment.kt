@@ -3,6 +3,7 @@ package org.sopt.pingle.presentation.ui.main.home
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -12,7 +13,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.FragmentHomeBinding
@@ -87,7 +90,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             ivHomeSearch.setOnClickListener {
                 navigateToSearch()
 
-                when (homeViewModel.homeViewType.value) {
+                when (homeViewModel.pingleFilter.value.homeViewType) {
                     HomeViewType.MAP -> AmplitudeUtils.trackEvent(CLICK_SEARCH_MAP)
                     HomeViewType.MAIN_LIST -> AmplitudeUtils.trackEvent(CLICK_SEARCH_LIST)
                 }
@@ -102,7 +105,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 checkedIds.getOrNull(SINGLE_SELECTION)
                     ?.let {
                         group.findViewById<PingleChip>(it).categoryType.let { categoryType ->
-                            when (homeViewModel.homeViewType.value) {
+                            when (homeViewModel.pingleFilter.value.homeViewType) {
                                 HomeViewType.MAP -> AmplitudeUtils.trackEventWithProperty(
                                     eventName = CLICK_CATEGORY_MAP,
                                     propertyName = CATEGORY,
@@ -121,7 +124,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
             fabHomeChange.setOnClickListener {
                 with(homeViewModel) {
-                    when (homeViewType.value) {
+                    when (pingleFilter.value.homeViewType) {
                         HomeViewType.MAP -> {
                             AmplitudeUtils.trackEvent(CLICK_LIST_MAP)
                             setHomeViewType(HomeViewType.MAIN_LIST)
@@ -138,17 +141,34 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun collectData() {
-        homeViewModel.homeViewType.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach {
-            with(binding) {
-                vpHome.setCurrentItem(homeViewModel.homeViewType.value.index, false)
-                fabHomeChange.setImageResource(homeViewModel.homeViewType.value.fabDrawableRes)
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        homeViewModel.pingleFilter.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .distinctUntilChanged()
+            .onEach { pingleFilter ->
+                Log.e("ㅋㅋ", pingleFilter.toString())
+                with(pingleFilter) {
+                    when (homeViewType) {
+                        HomeViewType.MAIN_LIST -> homeViewModel.getMainListPingleList()
+                        HomeViewType.MAP -> homeViewModel.getPinListWithoutFilter(isSearching = searchWord != homeViewModel.lastSearchWord)
+                    }
+                    homeViewModel.setLastSearchWord(searchWord)
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+        homeViewModel.pingleFilter.map { pingleFilter -> pingleFilter.homeViewType }
+            .distinctUntilChanged()
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { homeViewType ->
+                with(binding) {
+                    vpHome.setCurrentItem(homeViewType.index, false)
+                    fabHomeChange.setImageResource(homeViewType.fabDrawableRes)
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        homeViewModel.pingleFilter.map { pingleFilter -> pingleFilter.searchWord }
+            .distinctUntilChanged()
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { searchWord ->
                 with(binding) {
-                    pingleSearchHomeSearch.binding.etSearchPingleEditText.setText(homeViewModel.searchWord.value)
+                    pingleSearchHomeSearch.binding.etSearchPingleEditText.setText(searchWord)
 
                     (!searchWord.isNullOrEmpty()).let { isSearching ->
                         pingleSearchHomeSearch.visibility =
@@ -192,7 +212,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
                 if (activityResult.resultCode == RESULT_OK) {
-                    homeViewModel.clearCategory()
                     homeViewModel.setSearchWord(
                         activityResult.data?.getStringExtra(SEARCH_WORD)
                     )
@@ -205,7 +224,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             this.viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (homeViewModel.searchWord.value.isNullOrEmpty()) {
+                    if (homeViewModel.pingleFilter.value.searchWord.isNullOrEmpty()) {
                         if (System.currentTimeMillis() - backPressedTime <= FINISH_INTERVAL_TIME) {
                             requireActivity().finish()
                         } else {
@@ -228,7 +247,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun initChip() {
         with(binding) {
-            homeViewModel.category.value.let { selectedCategory ->
+            homeViewModel.pingleFilter.value.category.let { selectedCategory ->
                 chipHomeCategoryPlay.isChecked = selectedCategory == CategoryType.PLAY
                 chipHomeCategoryStudy.isChecked = selectedCategory == CategoryType.STUDY
                 chipHomeCategoryMulti.isChecked = selectedCategory == CategoryType.MULTI
@@ -239,13 +258,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun navigateToSearch() {
         Intent(requireContext(), SearchActivity::class.java).apply {
-            putExtra(
-                SEARCH_MODEL,
-                SearchModel(
-                    homeViewType = homeViewModel.homeViewType.value,
-                    searchWord = homeViewModel.searchWord.value
+            with(homeViewModel.pingleFilter.value) {
+                putExtra(
+                    SEARCH_MODEL,
+                    SearchModel(
+                        homeViewType = homeViewType,
+                        searchWord = searchWord
+                    )
                 )
-            )
+            }
             resultLauncher.launch(this)
         }
     }

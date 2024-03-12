@@ -14,11 +14,13 @@ import org.sopt.pingle.databinding.ActivityMyGroupBinding
 import org.sopt.pingle.domain.model.MyGroupEntity
 import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
+import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity.Companion.FROM_ACTIVITY
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.sharePingle
 import org.sopt.pingle.util.context.stringOf
+import org.sopt.pingle.util.makeEllipsisGroupName
 import org.sopt.pingle.util.view.UiState
 import org.sopt.pingle.util.view.copyGroupCode
 import timber.log.Timber
@@ -101,7 +103,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         MyGroupModalDialogFragment(
             title = getString(
                 R.string.my_group_modal_move_question,
-                clickedEntity.name
+                clickedEntity.name.makeEllipsisGroupName()
             ),
             buttonText = stringOf(R.string.my_group_modal_change),
             textButtonText = stringOf(R.string.my_group_modal_back),
@@ -138,6 +140,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     private fun navigateToNewGroupInfo() {
         AmplitudeUtils.trackEvent(CLICK_NEWGROUP)
         Intent(this, OnboardingActivity::class.java).apply {
+            putExtra(FROM_ACTIVITY, MY_GROUP_ACTIVITY)
             startActivity(this)
         }
     }
@@ -145,6 +148,7 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     companion object {
         private const val CHANGE_MODAL = "ChangeGroupModal"
         private const val SNACKBAR_BOTTOM_MARGIN = 57
+        const val MY_GROUP_ACTIVITY = "MyGroupActivity"
 
         const val CLICK_INVITECODE = "click_invitecode"
         const val CLICK_INVITECODE_COPY = "click_invitecode_copy"

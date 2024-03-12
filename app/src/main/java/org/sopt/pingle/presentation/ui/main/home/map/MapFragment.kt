@@ -24,7 +24,6 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -194,16 +193,6 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     }
 
     private fun collectData() {
-        combine(
-            homeViewModel.category.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .distinctUntilChanged(),
-            homeViewModel.searchWord.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .distinctUntilChanged()
-        ) { _, _ ->
-        }.onEach {
-            homeViewModel.getPinListWithoutFilter()
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
-
         homeViewModel.markerModelData.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { markerModelData ->
                 (markerModelData.first == DEFAULT_SELECTED_MARKER_POSITION).let { isMarkerUnselected ->
@@ -220,20 +209,25 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 when (uiState) {
                     is UiState.Success -> {
                         if (::naverMap.isInitialized) {
-                            makeMarkers(uiState.data)
+                            makeMarkers(uiState.data.second)
                             mapCardAdapter.clearData()
                             homeViewModel.clearSelectedMarkerPosition()
                         }
 
-                        homeViewModel.searchWord.value?.let { searchWord ->
-                            AmplitudeUtils.trackEventWithProperty(
-                                eventName = COMPLETE_SEARCH_MAP,
-                                propertyName = KEYWORD,
-                                propertyValue = searchWord
-                            )
-                            when {
-                                uiState.data.isEmpty() -> homeViewModel.setHomeViewType(HomeViewType.MAIN_LIST)
-                                else -> moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
+                        if (uiState.data.first) {
+                            homeViewModel.pingleFilter.value.searchWord?.let { searchWord ->
+                                AmplitudeUtils.trackEventWithProperty(
+                                    eventName = COMPLETE_SEARCH_MAP,
+                                    propertyName = KEYWORD,
+                                    propertyValue = searchWord
+                                )
+                                when {
+                                    uiState.data.second.isEmpty() -> homeViewModel.setHomeViewType(
+                                        HomeViewType.MAIN_LIST
+                                    )
+
+                                    else -> moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
+                                }
                             }
                         }
                     }

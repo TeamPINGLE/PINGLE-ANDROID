@@ -44,6 +44,10 @@ class PingleSearch @JvmOverloads constructor(
                     if (text.isNullOrEmpty()) View.GONE else View.VISIBLE
             }
 
+            etSearchPingleEditText.setOnEditorActionListener { textView, _, _ ->
+                textView.text.isEmpty()
+            }
+
             ivSearchPingleClear.setOnClickListener {
                 _binding.etSearchPingleEditText.text.clear()
             }

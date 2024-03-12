@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/dialog_all_modal_horizontal_margin" />
+                app:layout_constraintGuide_end="@dimen/dialog_my_group_modal_horizontal_margin" />
 
             <TextView
                 android:id="@+id/tv_my_group_modal_title"

@@ -13,8 +13,11 @@ import org.sopt.pingle.R
 import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.ActivityAuthBinding
 import org.sopt.pingle.presentation.ui.main.MainActivity
+import org.sopt.pingle.presentation.ui.main.more.MoreFragment.Companion.MORE_FRAGMENT
 import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
+import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity.Companion.FROM_ACTIVITY
 import org.sopt.pingle.util.AmplitudeUtils
+import org.sopt.pingle.util.activity.setDoubleBackPressToExit
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.view.UiState
 import timber.log.Timber
@@ -28,8 +31,16 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initLayout()
         addListeners()
         collectData()
+    }
+
+    private fun initLayout() {
+        when (intent.getStringExtra(FROM_ACTIVITY)) {
+            MORE_FRAGMENT -> setDoubleBackPressToExit(binding.root)
+            else -> Unit
+        }
     }
 
     private fun addListeners() {

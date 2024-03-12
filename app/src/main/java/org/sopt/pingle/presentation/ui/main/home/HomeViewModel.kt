@@ -1,5 +1,6 @@
 package org.sopt.pingle.presentation.ui.main.home
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.sopt.pingle.data.datasource.local.PingleLocalDataSource
@@ -22,6 +24,7 @@ import org.sopt.pingle.domain.usecase.PostPingleJoinUseCase
 import org.sopt.pingle.presentation.mapper.toMainListPingleModel
 import org.sopt.pingle.presentation.model.MainListPingleModel
 import org.sopt.pingle.presentation.model.MarkerModel
+import org.sopt.pingle.presentation.model.PingleFilterModel
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.presentation.type.HomeViewType
 import org.sopt.pingle.presentation.type.MainListOrderType
@@ -39,16 +42,36 @@ class HomeViewModel @Inject constructor(
     private val getPinListWithoutFilteringUseCase: GetPinListWithoutFilteringUseCase,
     private val postPingleJoinUseCase: PostPingleJoinUseCase
 ) : ViewModel() {
-    private val _category = MutableStateFlow<CategoryType?>(null)
-    val category get() = _category.asStateFlow()
+    private val sharedPreferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == GROUP_ID) {
+                clearPingleFilter()
+                clearMarkerModelData()
+                clearSelectedMarkerPosition()
+            }
+        }
 
-    private val _homeViewType = MutableStateFlow<HomeViewType>(HomeViewType.MAP)
-    val homeViewType get() = _homeViewType.asStateFlow()
+    init {
+        localStorage.sharedPreference.registerOnSharedPreferenceChangeListener(
+            sharedPreferenceChangeListener
+        )
+    }
 
-    private var _searchWord = MutableStateFlow<String?>(null)
-    val searchWord get() = _searchWord.asStateFlow()
+    override fun onCleared() {
+        localStorage.sharedPreference.unregisterOnSharedPreferenceChangeListener(
+            sharedPreferenceChangeListener
+        )
+        super.onCleared()
+    }
 
-    private val _pinEntityListState = MutableStateFlow<UiState<List<PinEntity>>>(UiState.Empty)
+    private var _pingleFilter = MutableStateFlow<PingleFilterModel>(PingleFilterModel())
+    val pingleFilter get() = _pingleFilter.asStateFlow()
+
+    private var _lastSearchWord: String? = null
+    val lastSearchWord get() = _lastSearchWord
+
+    private val _pinEntityListState =
+        MutableStateFlow<UiState<Pair<Boolean, List<PinEntity>>>>(UiState.Empty)
     val pinEntityListState get() = _pinEntityListState.asStateFlow()
 
     private var _markerModelData =
@@ -70,30 +93,46 @@ class HomeViewModel @Inject constructor(
     private val _pingleDeleteState = MutableSharedFlow<UiState<Unit?>>()
     val pingleDeleteState get() = _pingleDeleteState.asSharedFlow()
 
-    private val _mainListOrderType = MutableStateFlow(MainListOrderType.NEW)
-    val mainListOrderType get() = _mainListOrderType.asStateFlow()
-
     private val _mainListPingleListState = MutableSharedFlow<UiState<List<MainListPingleModel>>>()
     val mainListPingleListState get() = _mainListPingleListState.asSharedFlow()
 
-    fun setCategory(category: CategoryType?) {
-        _category.value = category
+    private fun clearPingleFilter() {
+        _pingleFilter.value = PingleFilterModel()
     }
 
-    fun clearCategory() {
-        _category.value = null
+    fun setCategory(category: CategoryType?) {
+        _pingleFilter.update { pingleFilter ->
+            pingleFilter.copy(category = category)
+        }
     }
 
     fun setHomeViewType(homeViewType: HomeViewType) {
-        _homeViewType.value = homeViewType
+        _pingleFilter.update { pingleFilter ->
+            pingleFilter.copy(homeViewType = homeViewType)
+        }
     }
 
     fun setSearchWord(searchWord: String?) {
-        _searchWord.value = searchWord
+        _pingleFilter.update { pingleFilter ->
+            pingleFilter.copy(category = null, searchWord = searchWord)
+        }
     }
 
     fun clearSearchWord() {
-        _searchWord.value = null
+        _pingleFilter.update { pingleFilter ->
+            pingleFilter.copy(searchWord = null)
+        }
+        _lastSearchWord = null
+    }
+
+    fun setMainListOrderType(mainListOrderType: MainListOrderType) {
+        _pingleFilter.update { pingleFilter ->
+            pingleFilter.copy(mainListOrderType = mainListOrderType)
+        }
+    }
+
+    fun setLastSearchWord(searchWord: String?) {
+        _lastSearchWord = searchWord
     }
 
     private fun setMarkerModelListIsSelected(position: Int) {
@@ -148,10 +187,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun setMainListOrderType(mainListOrderType: MainListOrderType) {
-        _mainListOrderType.value = mainListOrderType
-    }
-
     fun getGroupName(): String = localStorage.groupName
 
     fun deletePingleCancel(meetingId: Long) {
@@ -193,16 +228,17 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getMainListPingleList() {
+        _pingleFilter.value.searchWord
         viewModelScope.launch {
             _mainListPingleListState.emit(UiState.Loading)
-            if (_searchWord.value?.isBlank() == true) {
+            if (_pingleFilter.value.searchWord?.isBlank() == true) {
                 _mainListPingleListState.emit(UiState.Success(emptyList()))
             } else {
                 getMainListPingleListUseCase(
-                    searchWord = _searchWord.value,
-                    category = _category.value?.name,
+                    searchWord = _pingleFilter.value.searchWord,
+                    category = _pingleFilter.value.category?.name,
                     teamId = localStorage.groupId.toLong(),
-                    order = _mainListOrderType.value.name
+                    order = _pingleFilter.value.mainListOrderType.name
                 ).onSuccess { mainListPingleList ->
                     _mainListPingleListState.emit(UiState.Success(mainListPingleList.map { pingleEntity -> pingleEntity.toMainListPingleModel() }))
                 }.onFailure { throwable ->
@@ -219,7 +255,7 @@ class HomeViewModel @Inject constructor(
                 getMapPingleListUseCase(
                     teamId = localStorage.groupId.toLong(),
                     pinId = pinId,
-                    category = _category.value?.name
+                    category = _pingleFilter.value.category?.name
                 ).collect() { mapPingleList ->
                     _mapPingleListState.emit(UiState.Success(Pair(pinId, mapPingleList)))
                 }
@@ -229,19 +265,19 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getPinListWithoutFilter() {
+    fun getPinListWithoutFilter(isSearching: Boolean = false) {
         viewModelScope.launch {
             _pinEntityListState.value = UiState.Loading
-            if (_searchWord.value?.isBlank() == true) {
-                _pinEntityListState.emit(UiState.Success(emptyList()))
+            if (_pingleFilter.value.searchWord?.isBlank() == true) {
+                _pinEntityListState.emit(UiState.Success(Pair(isSearching, emptyList())))
             } else {
                 runCatching {
                     getPinListWithoutFilteringUseCase(
                         teamId = localStorage.groupId.toLong(),
-                        category = _category.value?.name,
-                        searchWord = _searchWord.value
+                        category = _pingleFilter.value.category?.name,
+                        searchWord = _pingleFilter.value.searchWord
                     ).collect() { pinList ->
-                        _pinEntityListState.value = UiState.Success(pinList)
+                        _pinEntityListState.value = UiState.Success(Pair(isSearching, pinList))
                     }
                 }.onFailure { exception: Throwable ->
                     _pinEntityListState.value = UiState.Error(exception.message)
@@ -277,6 +313,7 @@ class HomeViewModel @Inject constructor(
     }
 
     companion object {
+        private const val GROUP_ID = "GroupId"
         const val DEFAULT_SELECTED_MARKER_POSITION = -1
     }
 }

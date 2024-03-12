@@ -209,20 +209,25 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
                 when (uiState) {
                     is UiState.Success -> {
                         if (::naverMap.isInitialized) {
-                            makeMarkers(uiState.data)
+                            makeMarkers(uiState.data.second)
                             mapCardAdapter.clearData()
                             homeViewModel.clearSelectedMarkerPosition()
                         }
 
-                        homeViewModel.searchWord.value?.let { searchWord ->
-                            AmplitudeUtils.trackEventWithProperty(
-                                eventName = COMPLETE_SEARCH_MAP,
-                                propertyName = KEYWORD,
-                                propertyValue = searchWord
-                            )
-                            when {
-                                uiState.data.isEmpty() -> homeViewModel.setHomeViewType(HomeViewType.MAIN_LIST)
-                                else -> moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
+                        if (uiState.data.first) {
+                            homeViewModel.pingleFilter.value.searchWord?.let { searchWord ->
+                                AmplitudeUtils.trackEventWithProperty(
+                                    eventName = COMPLETE_SEARCH_MAP,
+                                    propertyName = KEYWORD,
+                                    propertyValue = searchWord
+                                )
+                                when {
+                                    uiState.data.second.isEmpty() -> homeViewModel.setHomeViewType(
+                                        HomeViewType.MAIN_LIST
+                                    )
+
+                                    else -> moveMapCamera(homeViewModel.markerModelData.value.second[FIRST_INDEX].marker.position)
+                                }
                             }
                         }
                     }

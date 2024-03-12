@@ -19,7 +19,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:minWidth="22dp"
-            android:textAppearance="@style/TextAppearance.Pingle.Cap.Bold.12"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Bold.16"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

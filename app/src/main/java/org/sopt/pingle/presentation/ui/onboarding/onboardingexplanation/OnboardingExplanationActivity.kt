@@ -18,6 +18,7 @@ import org.sopt.pingle.presentation.type.SnackbarType
 import org.sopt.pingle.presentation.ui.auth.AuthActivity
 import org.sopt.pingle.presentation.ui.auth.AuthViewModel
 import org.sopt.pingle.presentation.ui.main.MainActivity
+import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
 import org.sopt.pingle.presentation.ui.onboarding.onboardingexplanation.OnboardingExplanationAdapter.Companion.ONBOARDING_SIZE
 import org.sopt.pingle.presentation.ui.onboarding.onboardingexplanation.OnboardingExplanationAdapter.Companion.POSITION_MINUS
 import org.sopt.pingle.util.activity.FINISH_INTERVAL_TIME
@@ -54,7 +55,12 @@ class OnboardingExplanationActivity :
 
     private fun initLayout() {
         if (authViewModel.isLocalToken()) {
-            if (authViewModel.isLocalGroupId()) navigateToMain() else authViewModel.getUserInfo()
+            if (authViewModel.isLocalGroupId()) {
+                navigateToMain()
+            } else {
+                authViewModel.getUserInfo()
+                navigateToOnboarding()
+            }
         }
 
         initAdapter()
@@ -144,6 +150,13 @@ class OnboardingExplanationActivity :
 
     private fun navigateToMain() {
         Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(this)
+        }
+    }
+
+    private fun navigateToOnboarding() {
+        Intent(this, OnboardingActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(this)
         }

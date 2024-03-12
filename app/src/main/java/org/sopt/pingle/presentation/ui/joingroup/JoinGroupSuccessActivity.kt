@@ -13,10 +13,10 @@ import org.sopt.pingle.presentation.ui.main.MainActivity
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.activity.setDoubleBackPressToExit
 import org.sopt.pingle.util.base.BindingActivity
+import org.sopt.pingle.util.makeEllipsisGroupName
 
 class JoinGroupSuccessActivity :
     BindingActivity<ActivityJoinGroupSuccessBinding>(R.layout.activity_join_group_success) {
-    private lateinit var groupName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class JoinGroupSuccessActivity :
     }
 
     private fun initLayout() {
-        groupName = intent.getStringExtra(JoinGroupCodeActivity.GROUP_NAME).toString()
+        val groupName = intent.getStringExtra(JoinGroupCodeActivity.GROUP_NAME).toString().makeEllipsisGroupName()
 
         binding.tvJoinGroupSuccessDescriptionGroupName.text = SpannableString(
             getString(

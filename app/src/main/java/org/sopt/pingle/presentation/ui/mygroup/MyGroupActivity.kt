@@ -100,7 +100,6 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
     private fun showChangeGroupModal(clickedEntity: MyGroupEntity) {
         AmplitudeUtils.trackEvent(CLICK_OTHERGROUP)
         binding.layoutMyGroupSelectedMenu.visibility = View.INVISIBLE
-
         MyGroupModalDialogFragment(
             title = getString(
                 R.string.my_group_modal_move_question,
@@ -151,11 +150,11 @@ class MyGroupActivity : BindingActivity<ActivityMyGroupBinding>(R.layout.activit
         private const val SNACKBAR_BOTTOM_MARGIN = 57
         const val MY_GROUP_ACTIVITY = "MyGroupActivity"
 
-        private const val CLICK_INVITECODE = "click_invitecode"
-        private const val CLICK_INVITECODE_COPY = "click_invitecode_copy"
-        private const val CLICK_INVITECODE_SHARE = "click_invitecode_share"
-        private const val CLICK_OTHERGROUP = "click_othergroup"
-        private const val CLICK_OTHERGROUP_CHANGE = "click_othergroup_change"
-        private const val CLICK_NEWGROUP = "click_newgroup"
+        const val CLICK_INVITECODE = "click_invitecode"
+        const val CLICK_INVITECODE_COPY = "click_invitecode_copy"
+        const val CLICK_INVITECODE_SHARE = "click_invitecode_share"
+        const val CLICK_OTHERGROUP = "click_othergroup"
+        const val CLICK_OTHERGROUP_CHANGE = "click_othergroup_change"
+        const val CLICK_NEWGROUP = "click_newgroup"
     }
 }

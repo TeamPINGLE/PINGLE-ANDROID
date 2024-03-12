@@ -3,7 +3,6 @@ package org.sopt.pingle.presentation.ui.main.home
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -144,7 +143,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         homeViewModel.pingleFilter.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .distinctUntilChanged()
             .onEach { pingleFilter ->
-                Log.e("ㅋㅋ", pingleFilter.toString())
                 with(pingleFilter) {
                     when (homeViewType) {
                         HomeViewType.MAIN_LIST -> homeViewModel.getMainListPingleList()

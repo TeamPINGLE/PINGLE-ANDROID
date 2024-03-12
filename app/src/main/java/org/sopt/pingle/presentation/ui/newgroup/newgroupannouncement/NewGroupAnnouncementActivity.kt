@@ -17,6 +17,7 @@ import org.sopt.pingle.presentation.ui.newgroup.newgroupcodeshare.NewGroupCodeSh
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.Intent.getCompatibleParcelableExtra
 import org.sopt.pingle.util.base.BindingActivity
+import org.sopt.pingle.util.makeEllipsisGroupName
 
 @AndroidEntryPoint
 class NewGroupAnnouncementActivity :
@@ -78,8 +79,10 @@ class NewGroupAnnouncementActivity :
     }
 
     private fun spannableGroupName() {
+        val newGroupName = newGroupModel.name.makeEllipsisGroupName()
+
         binding.tvNewGroupAnnouncementGroupName.text = SpannableString(
-            getString(R.string.new_group_announcement_group_name, newGroupModel.name)
+            getString(R.string.new_group_announcement_group_name, newGroupName)
         ).apply {
             setSpan(
                 TextAppearanceSpan(
@@ -87,7 +90,7 @@ class NewGroupAnnouncementActivity :
                     R.style.TextAppearance_Pingle_Sub_Semi_16
                 ),
                 GROUP_NAME_START,
-                newGroupModel.name.length,
+                newGroupName.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
 
@@ -99,7 +102,7 @@ class NewGroupAnnouncementActivity :
                     )
                 ),
                 GROUP_NAME_START,
-                newGroupModel.name.length,
+                newGroupName.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }

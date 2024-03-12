@@ -44,6 +44,16 @@ object ServiceModule {
 
     @Provides
     @Singleton
+    fun providesMyGroupListService(@Pingle retrofit: Retrofit): MyGroupListService =
+        retrofit.create(MyGroupListService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesNewGroupService(@Pingle retrofit: Retrofit): NewGroupService =
+        retrofit.create(NewGroupService::class.java)
+
+    @Provides
+    @Singleton
     fun providesParticipantService(@Pingle retrofit: Retrofit): ParticipantService =
         retrofit.create(ParticipantService::class.java)
 
@@ -61,14 +71,4 @@ object ServiceModule {
     @Singleton
     fun providesRankingService(@Pingle retrofit: Retrofit): RankingService =
         retrofit.create(RankingService::class.java)
-
-    @Provides
-    @Singleton
-    fun providesMyGroupListService(@Pingle retrofit: Retrofit): MyGroupListService =
-        retrofit.create(MyGroupListService::class.java)
-
-    @Provides
-    @Singleton
-    fun providesNewGroupService(@Pingle retrofit: Retrofit): NewGroupService =
-        retrofit.create(NewGroupService::class.java)
 }

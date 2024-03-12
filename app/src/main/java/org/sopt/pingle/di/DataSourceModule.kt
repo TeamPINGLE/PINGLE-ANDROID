@@ -53,6 +53,14 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
+    abstract fun bindsMyGroupListRemoteDataSource(myGroupListRemoteDataSourceImpl: MyGroupListRemoteDataSourceImpl): MyGroupListRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsNewGroupRemoteDataSource(newGroupRemoteDataSourceImpl: NewGroupRemoteDataSourceImpl): NewGroupRemoteDataSource
+
+    @Binds
+    @Singleton
     abstract fun bindsParticipantRemoteDataSource(participantRemoteDataSourceImpl: ParticipantRemoteDataSourceImpl): ParticipantRemoteDataSource
 
     @Binds
@@ -66,12 +74,4 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsRankingRemoteDataSource(rankingRemoteDataSourceImpl: RankingRemoteDataSourceImpl): RankingRemoteDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindsMyGroupListRemoteDataSource(myGroupListRemoteDataSourceImpl: MyGroupListRemoteDataSourceImpl): MyGroupListRemoteDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindsNewGroupRemoteDataSource(newGroupRemoteDataSourceImpl: NewGroupRemoteDataSourceImpl): NewGroupRemoteDataSource
 }

@@ -57,8 +57,7 @@ class OnboardingExplanationActivity :
         if (authViewModel.isLocalToken()) {
             if (authViewModel.isLocalGroupId()) {
                 navigateToMain()
-            }
-            else {
+            } else {
                 authViewModel.getUserInfo()
                 navigateToOnboarding()
             }

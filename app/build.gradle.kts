@@ -30,8 +30,6 @@ android {
         versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "BASE_URL", properties["base.url"].toString())
-        buildConfigField("String", "ACCESS_TOKEN", properties["access.token"].toString())
         buildConfigField(
             "String",
             "NAVER_MAP_CLIENT_ID",
@@ -50,11 +48,13 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", properties["dev.base.url"].toString())
             buildConfigField("String", "AMPLITUDE_API_KEY", properties["amplitude.dev.api.key"].toString())
         }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            buildConfigField("String", "BASE_URL", properties["prod.base.url"].toString())
             buildConfigField("String", "AMPLITUDE_API_KEY", properties["amplitude.prod.api.key"].toString())
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

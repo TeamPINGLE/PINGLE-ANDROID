@@ -45,7 +45,7 @@ class HomeViewModel @Inject constructor(
     private val sharedPreferenceChangeListener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             if (key == GROUP_ID) {
-                clearPingleFiler()
+                clearPingleFilter()
                 clearMarkerModelData()
                 clearSelectedMarkerPosition()
             }
@@ -96,7 +96,7 @@ class HomeViewModel @Inject constructor(
     private val _mainListPingleListState = MutableSharedFlow<UiState<List<MainListPingleModel>>>()
     val mainListPingleListState get() = _mainListPingleListState.asSharedFlow()
 
-    private fun clearPingleFiler() {
+    private fun clearPingleFilter() {
         _pingleFilter.value = PingleFilterModel()
     }
 

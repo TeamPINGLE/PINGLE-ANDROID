@@ -7,13 +7,13 @@
       android:pathData="M0,13C0,5.82 5.82,0 13,0H57L29,28L0,57V13Z"
       android:fillColor="#363E45"/>
   <path
-      android:pathData="M57,44C57,51.18 51.18,57 44,57L0,57L28,29L57,0L57,44Z"
+      android:pathData="M57,57L0,57L28,29L57,0L57,57Z"
       android:fillColor="#15181B"/>
   <group>
     <clip-path
-        android:pathData="M3.029,19l16.971,-16.971l16.971,16.971l-16.971,16.971z"/>
+        android:pathData="M3,18.971l16.971,-16.971l16.971,16.971l-16.971,16.971z"/>
     <path
-        android:pathData="M16.506,15.464L22.241,16.8L22.634,11.693L27.427,18.686L19.727,26.385L12.735,21.593L17.841,21.2L16.506,15.464Z"
+        android:pathData="M16.477,15.435L22.212,16.771L22.605,11.664L27.398,18.656L19.698,26.356L12.706,21.563L17.813,21.17L16.477,15.435Z"
         android:strokeLineJoin="round"
         android:strokeWidth="1.5"
         android:fillColor="#00000000"

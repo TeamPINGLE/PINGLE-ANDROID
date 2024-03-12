@@ -14,8 +14,8 @@ import org.sopt.pingle.R
 import org.sopt.pingle.data.service.KakaoAuthService
 import org.sopt.pingle.databinding.FragmentMoreBinding
 import org.sopt.pingle.presentation.type.SnackbarType
+import org.sopt.pingle.presentation.ui.auth.AuthActivity
 import org.sopt.pingle.presentation.ui.mygroup.MyGroupActivity
-import org.sopt.pingle.presentation.ui.onboarding.onboarding.OnboardingActivity
 import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.base.BindingFragment
 import org.sopt.pingle.util.component.AllModalDialogFragment
@@ -81,7 +81,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                 when (logoutState) {
                     is UiState.Success -> {
                         AmplitudeUtils.trackEvent(LOGOUT_APP)
-                        navigateToOnboarding()
+                        navigateToAuth()
                     }
 
                     is UiState.Error -> {
@@ -98,7 +98,7 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
                     is UiState.Success -> {
                         AmplitudeUtils.trackEvent(WITHDRAW_APP)
                         kakaoAuthService.withdrawKakao()
-                        navigateToOnboarding()
+                        navigateToAuth()
                     }
 
                     is UiState.Error -> {
@@ -132,8 +132,8 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun navigateToOnboarding() {
-        Intent(requireContext(), OnboardingActivity::class.java).apply {
+    private fun navigateToAuth() {
+        Intent(requireContext(), AuthActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(this)
         }

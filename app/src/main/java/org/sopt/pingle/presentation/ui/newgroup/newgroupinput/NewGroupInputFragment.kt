@@ -32,31 +32,39 @@ class NewGroupInputFragment :
         collectData()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled =
-            newGroupViewModel.isNewGroupBtnCheckName.value
-    }
-
     private fun addListeners() {
-        binding.etNewGroupInputGroupName.btnEditTextCheck.setOnClickListener { newGroupViewModel.getNewGroupCheckName() }
+        binding.etNewGroupInputGroupName.btnEditTextCheck.setOnClickListener {
+            with(newGroupViewModel) {
+                newGroupName.apply { value = value.trim() }
+                getNewGroupCheckName()
+            }
+        }
     }
 
     private fun collectData() {
-        collectNewGroupTeamNameIsEnabled()
+        collectIsGroupNameDuplicatedCheck()
+        collectNewGroupName()
         collectNewGroupCheckNameState()
     }
 
-    private fun collectNewGroupTeamNameIsEnabled() {
-        newGroupViewModel.newGroupName.flowWithLifecycle(lifecycle).onEach { newGroupName ->
-            binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = newGroupName.isNotBlank()
-            newGroupViewModel.setIsNewGroupBtnCheckName(false)
-        }.launchIn(lifecycleScope)
+    private fun collectIsGroupNameDuplicatedCheck() {
+        newGroupViewModel.isGroupNameDuplicatedCheck.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { isGroupNameDuplicatedCheck ->
+                binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled =
+                    !isGroupNameDuplicatedCheck && newGroupViewModel.newGroupName.value.isNotBlank()
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun collectNewGroupName() {
+        newGroupViewModel.newGroupName.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .distinctUntilChanged().onEach { newGroupName ->
+                binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = newGroupName.isNotBlank()
+                newGroupViewModel.setIsGroupNameDuplicatedCheck(false)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun collectNewGroupCheckNameState() {
-        newGroupViewModel.newGroupCheckNameState.flowWithLifecycle(lifecycle)
+        newGroupViewModel.newGroupCheckNameState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .distinctUntilChanged()
             .onEach { uiState ->
                 when (uiState) {
@@ -68,8 +76,7 @@ class NewGroupInputFragment :
                                 SNACKBAR_BOTTOM_MARGIN,
                                 SnackbarType.GUIDE
                             )
-                            binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = false
-                            newGroupViewModel.setIsNewGroupBtnCheckName(true)
+                            newGroupViewModel.setIsGroupNameDuplicatedCheck(true)
                         } else {
                             PingleSnackbar.makeSnackbar(
                                 binding.root,
@@ -77,6 +84,7 @@ class NewGroupInputFragment :
                                 SNACKBAR_BOTTOM_MARGIN,
                                 SnackbarType.WARNING
                             )
+                            newGroupViewModel.setIsGroupNameDuplicatedCheck(false)
                         }
                         AmplitudeUtils.trackEventWithProperty(
                             COMPLETE_DOUBLECHECK,
@@ -87,7 +95,7 @@ class NewGroupInputFragment :
 
                     else -> {}
                 }
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     companion object {

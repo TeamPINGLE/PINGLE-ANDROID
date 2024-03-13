@@ -41,7 +41,12 @@ class NewGroupInputFragment :
     }
 
     private fun addListeners() {
-        binding.etNewGroupInputGroupName.btnEditTextCheck.setOnClickListener { newGroupViewModel.getNewGroupCheckName() }
+        binding.etNewGroupInputGroupName.btnEditTextCheck.setOnClickListener {
+            with(newGroupViewModel) {
+                newGroupName.apply { value = value.trim() }
+                getNewGroupCheckName()
+            }
+        }
     }
 
     private fun collectData() {

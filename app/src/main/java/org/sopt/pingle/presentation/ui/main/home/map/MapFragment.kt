@@ -358,7 +358,7 @@ class MapFragment : BindingFragment<FragmentMapBinding>(R.layout.fragment_map), 
     private fun makeMarkers(pinEntityList: List<PinEntity>) {
         homeViewModel.clearMarkerModelData()
 
-        pinEntityList.mapIndexed { index, pinEntity ->
+        pinEntityList.mapIndexed { _, pinEntity ->
             pinEntity.toMarkerModel().apply {
                 this.marker.apply {
                     map = naverMap

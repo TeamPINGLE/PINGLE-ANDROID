@@ -18,6 +18,7 @@ import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.context.hideKeyboard
 import org.sopt.pingle.util.context.stringOf
 import org.sopt.pingle.util.view.UiState
+import org.sopt.pingle.util.view.setOnSingleClickListener
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -45,10 +46,10 @@ class JoinGroupCodeActivity :
             hideKeyboard(binding.etJoinGroupCodeInvitation)
         }
 
-        binding.btnJoinGroupCodeNext.setOnClickListener {
+        binding.btnJoinGroupCodeNext.setOnSingleClickListener {
             viewModel.joinGroupCodeState(
                 teamId = teamId,
-                joinGroupEntity = JoinGroupCodeEntity(viewModel.joinGroupCodeEditText.value.toString())
+                joinGroupEntity = JoinGroupCodeEntity(viewModel.joinGroupCodeEditText.value)
             )
 
             AmplitudeUtils.trackEvent(CLICK_EXISTINGGROUP_ENTER)
@@ -141,7 +142,7 @@ class JoinGroupCodeActivity :
     companion object {
         const val TEAM_ID = "teamId"
         const val GROUP_NAME = "groupName"
-        const val LOADING = "Loding"
+        const val LOADING = "Loading"
         const val EMPTY = "Empty"
         const val JOIN_GROUP_CODE_ACTIVITY = "JoinGroupCodeActivity"
         const val SNACKBAR_BOTTOM_MARGIN = 97

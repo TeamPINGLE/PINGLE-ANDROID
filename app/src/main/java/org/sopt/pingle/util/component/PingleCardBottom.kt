@@ -10,6 +10,7 @@ import org.sopt.pingle.databinding.BottomCardPingleBinding
 import org.sopt.pingle.domain.model.PingleEntity
 import org.sopt.pingle.presentation.mapper.isCompleted
 import org.sopt.pingle.util.view.DateTimeUtils
+import org.sopt.pingle.util.view.setOnSingleClickListener
 import org.sopt.pingle.util.view.stringOf
 
 @SuppressLint("CustomViewStyleable")
@@ -31,11 +32,11 @@ class PingleCardBottom @JvmOverloads constructor(
     }
 
     private fun addListeners() {
-        binding.btnCardBottomMapChat.setOnClickListener {
+        binding.btnCardBottomMapChat.setOnSingleClickListener {
             onChatButtonClick()
         }
 
-        binding.btnCardBottomMapParticipate.setOnClickListener {
+        binding.btnCardBottomMapParticipate.setOnClickListener() {
             onParticipateButtonClick(pinId)
         }
     }

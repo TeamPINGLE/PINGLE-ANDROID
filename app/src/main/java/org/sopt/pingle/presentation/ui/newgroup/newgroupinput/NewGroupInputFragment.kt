@@ -33,13 +33,6 @@ class NewGroupInputFragment :
         collectData()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled =
-            newGroupViewModel.isNewGroupBtnCheckName.value
-    }
-
     private fun addListeners() {
         binding.etNewGroupInputGroupName.btnEditTextCheck.setOnClickListener {
             with(newGroupViewModel) {
@@ -50,12 +43,22 @@ class NewGroupInputFragment :
     }
 
     private fun collectData() {
-        collectNewGroupTeamNameIsEnabled()
+        collectIsGroupNameDuplicatedCheck()
+        collectNewGroupName()
         collectNewGroupCheckNameState()
     }
 
-    private fun collectNewGroupTeamNameIsEnabled() {
-        newGroupViewModel.newGroupName.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { newGroupName ->
+    private fun collectIsGroupNameDuplicatedCheck() {
+        newGroupViewModel.isGroupNameDuplicatedCheck.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { isGroupNameDuplicatedCheck ->
+                binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled =
+                    !isGroupNameDuplicatedCheck && newGroupViewModel.newGroupName.value.isNotBlank()
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun collectNewGroupName() {
+        newGroupViewModel.newGroupName.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .distinctUntilChanged().onEach { newGroupName ->
             binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = newGroupName.isNotBlank()
             newGroupViewModel.setIsGroupNameDuplicatedCheck(false)
         }.launchIn(viewLifecycleOwner.lifecycleScope)

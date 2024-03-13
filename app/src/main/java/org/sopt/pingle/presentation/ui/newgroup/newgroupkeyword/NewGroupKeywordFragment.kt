@@ -48,13 +48,12 @@ class NewGroupKeywordFragment :
     }
 
     private fun collectData() {
-        newGroupViewModel.newGroupKeywordsState.flowWithLifecycle(lifecycle).onEach { uiState ->
+        newGroupViewModel.newGroupKeywordsState.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { uiState ->
             when (uiState) {
                 is UiState.Success -> setChipKeyword(uiState.data)
-
-                else -> {}
+                else -> Unit
             }
-        }.launchIn(lifecycleScope)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun setChipKeyword(keywords: List<NewGroupKeywordEntity>) {

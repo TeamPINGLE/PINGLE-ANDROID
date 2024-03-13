@@ -1,6 +1,7 @@
 package org.sopt.pingle.presentation.ui.newgroup.newgroupinput
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -49,14 +50,14 @@ class NewGroupInputFragment :
     }
 
     private fun collectNewGroupTeamNameIsEnabled() {
-        newGroupViewModel.newGroupName.flowWithLifecycle(lifecycle).onEach { newGroupName ->
+        newGroupViewModel.newGroupName.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach { newGroupName ->
             binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = newGroupName.isNotBlank()
             newGroupViewModel.setIsGroupNameDuplicatedCheck(false)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun collectNewGroupCheckNameState() {
-        newGroupViewModel.newGroupCheckNameState.flowWithLifecycle(lifecycle)
+        newGroupViewModel.newGroupCheckNameState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .distinctUntilChanged()
             .onEach { uiState ->
                 when (uiState) {
@@ -87,7 +88,7 @@ class NewGroupInputFragment :
 
                     else -> {}
                 }
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     companion object {

@@ -20,6 +20,7 @@ import org.sopt.pingle.util.AmplitudeUtils
 import org.sopt.pingle.util.activity.setDoubleBackPressToExit
 import org.sopt.pingle.util.base.BindingActivity
 import org.sopt.pingle.util.view.UiState
+import org.sopt.pingle.util.view.setOnSingleClickListener
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -44,7 +45,7 @@ class AuthActivity : BindingActivity<ActivityAuthBinding>(R.layout.activity_auth
     }
 
     private fun addListeners() {
-        binding.btnAuthKakao.setOnClickListener {
+        binding.btnAuthKakao.setOnSingleClickListener {
             kakaoAuthService.loginKakao(viewModel::login, viewModel::saveAccount)
             AmplitudeUtils.trackEventWithProperty(START_SIGNUP, SIGNUP_TYPE, KAKAO)
         }

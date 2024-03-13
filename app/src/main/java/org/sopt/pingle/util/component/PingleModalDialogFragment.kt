@@ -8,6 +8,7 @@ import org.sopt.pingle.databinding.DialogPingleModalBinding
 import org.sopt.pingle.presentation.type.CategoryType
 import org.sopt.pingle.util.base.BindingDialogFragment
 import org.sopt.pingle.util.fragment.colorOf
+import org.sopt.pingle.util.view.setOnSingleClickListener
 
 class PingleModalDialogFragment(
     private val category: CategoryType,
@@ -39,12 +40,12 @@ class PingleModalDialogFragment(
     }
 
     private fun addListeners() {
-        binding.btnPingleModal.setOnClickListener {
+        binding.btnPingleModal.setOnSingleClickListener {
             clickBtn()
             dismiss()
         }
 
-        binding.layoutPingleModalBackground.setOnClickListener {
+        binding.layoutPingleModalBackground.setOnSingleClickListener {
             dismiss()
         }
     }

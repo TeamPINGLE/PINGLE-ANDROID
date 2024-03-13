@@ -7,6 +7,7 @@ import android.view.View
 import org.sopt.pingle.R
 import org.sopt.pingle.databinding.DialogAllModalBinding
 import org.sopt.pingle.util.base.BindingDialogFragment
+import org.sopt.pingle.util.view.setOnSingleClickListener
 
 class AllModalDialogFragment(
     private val title: String,
@@ -42,12 +43,12 @@ class AllModalDialogFragment(
     }
 
     private fun addListeners() {
-        binding.btnAllModalButton.setOnClickListener {
+        binding.btnAllModalButton.setOnSingleClickListener {
             clickBtn()
             dismiss()
         }
 
-        binding.tvAllModalTextButton.setOnClickListener {
+        binding.tvAllModalTextButton.setOnSingleClickListener {
             clickTextBtn()
             dismiss()
         }

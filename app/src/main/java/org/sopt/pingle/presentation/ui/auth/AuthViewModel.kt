@@ -32,11 +32,11 @@ class AuthViewModel @Inject constructor(
             authRepository.postLogin(
                 kakaoAccessToken,
                 RequestAuthDto(LOGIN_PLATFORM)
-            ).onSuccess { authEntitiy ->
+            ).onSuccess { authEntity ->
                 with(localStorage) {
                     isLogin = true
-                    accessToken = (HEADER_BEARER + authEntitiy.accessToken)
-                    refreshToken = (HEADER_BEARER + authEntitiy.refreshToken)
+                    accessToken = (HEADER_BEARER + authEntity.accessToken)
+                    refreshToken = (HEADER_BEARER + authEntity.refreshToken)
                 }
                 _loginState.value = UiState.Success(Unit)
             }.onFailure {

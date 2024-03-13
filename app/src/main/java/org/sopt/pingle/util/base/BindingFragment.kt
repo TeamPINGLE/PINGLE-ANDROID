@@ -24,8 +24,4 @@ abstract class BindingFragment<T : ViewDataBinding>(@LayoutRes private val layou
         binding.lifecycleOwner = this.viewLifecycleOwner
         return binding.root
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 }

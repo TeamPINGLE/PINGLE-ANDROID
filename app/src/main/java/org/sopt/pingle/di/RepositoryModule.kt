@@ -47,6 +47,14 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
+    abstract fun bindsMyGroupListRepository(myGroupListRepositoryImpl: MyGroupListRepositoryImpl): MyGroupListRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsNewGroupRepository(newGroupRepositoryImpl: NewGroupRepositoryImpl): NewGroupRepository
+
+    @Binds
+    @Singleton
     abstract fun bindsParticipantRepository(participantRepositoryImpl: ParticipantRepositoryImpl): ParticipantRepository
 
     @Binds
@@ -60,12 +68,4 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsRankingRepository(rankingRepositoryImpl: RankingRepositoryImpl): RankingRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindsMyGroupListRepository(myGroupListRepositoryImpl: MyGroupListRepositoryImpl): MyGroupListRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindsNewGroupRepository(newGroupRepositoryImpl: NewGroupRepositoryImpl): NewGroupRepository
 }

@@ -45,7 +45,7 @@ jobs:
       - name: Access BASE_URL
         env:
           HFM_BASE_URL: ${{ secrets.BASE_URL }}
-        run: echo "base.url=\"$BASE_URL\"" >> local.properties
+        run: echo "dev.base.url=\"$BASE_URL\"" >> local.properties
 
       - name: Access IO_SENTRY_DSN
         env:

@@ -25,6 +25,7 @@ import org.sopt.pingle.util.component.PingleSnackbar
 import org.sopt.pingle.util.fragment.navigateToWebView
 import org.sopt.pingle.util.fragment.stringOf
 import org.sopt.pingle.util.view.UiState
+import org.sopt.pingle.util.view.setOnSingleClickListener
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -55,11 +56,11 @@ class MoreFragment : BindingFragment<FragmentMoreBinding>(R.layout.fragment_more
     }
 
     private fun addListeners() {
-        binding.tvMoreContactTitle.setOnClickListener {
+        binding.tvMoreContactTitle.setOnSingleClickListener {
             startActivity(navigateToWebView(CONTACT))
         }
 
-        binding.tvMoreNoticeTitle.setOnClickListener {
+        binding.tvMoreNoticeTitle.setOnSingleClickListener {
             startActivity(navigateToWebView(NOTICE))
         }
 

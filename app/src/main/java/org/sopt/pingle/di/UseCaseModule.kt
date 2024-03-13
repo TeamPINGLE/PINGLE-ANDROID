@@ -70,8 +70,23 @@ class UseCaseModule {
 
     @Provides
     @Singleton
+    fun providesGetMyGroupListUseCase(myGroupListRepository: MyGroupListRepository): GetMyGroupListUseCase =
+        GetMyGroupListUseCase(myGroupListRepository = myGroupListRepository)
+
+    @Provides
+    @Singleton
     fun providesGetMyPingleListUseCase(pingleRepository: PingleRepository): GetMyPingleListUseCase =
         GetMyPingleListUseCase(pingleRepository = pingleRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetNewGroupCheckNameUseCase(newGroupRepository: NewGroupRepository): GetNewGroupCheckNameUseCase =
+        GetNewGroupCheckNameUseCase(newGroupRepository = newGroupRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetNewGroupKeywordsUseCase(newGroupRepository: NewGroupRepository): GetNewGroupKeywordsUserCase =
+        GetNewGroupKeywordsUserCase(newGroupRepository = newGroupRepository)
 
     @Provides
     @Singleton
@@ -105,6 +120,11 @@ class UseCaseModule {
 
     @Provides
     @Singleton
+    fun providesPostNewGroupCreateUseCase(newGroupRepository: NewGroupRepository): PostNewGroupCreateUseCase =
+        PostNewGroupCreateUseCase(newGroupRepository = newGroupRepository)
+
+    @Provides
+    @Singleton
     fun providesPostPingleJoinUseCase(pingleRepository: PingleRepository): PostPingleJoinUseCase =
         PostPingleJoinUseCase(pingleRepository = pingleRepository)
 
@@ -112,24 +132,4 @@ class UseCaseModule {
     @Singleton
     fun providesPostPlanMeetingUseCase(planRepository: PlanRepository): PostPlanMeetingUseCase =
         PostPlanMeetingUseCase(planRepository = planRepository)
-
-    @Provides
-    @Singleton
-    fun providesGetMyGroupListUseCase(myGroupListRepository: MyGroupListRepository): GetMyGroupListUseCase =
-        GetMyGroupListUseCase(myGroupListRepository = myGroupListRepository)
-
-    @Provides
-    @Singleton
-    fun providesGetNewGroupKeywordsUseCase(newGroupRepository: NewGroupRepository): GetNewGroupKeywordsUserCase =
-        GetNewGroupKeywordsUserCase(newGroupRepository = newGroupRepository)
-
-    @Provides
-    @Singleton
-    fun providesGetNewGroupCheckNameUseCase(newGroupRepository: NewGroupRepository): GetNewGroupCheckNameUseCase =
-        GetNewGroupCheckNameUseCase(newGroupRepository = newGroupRepository)
-
-    @Provides
-    @Singleton
-    fun providesPostNewGroupCreateUseCase(newGroupRepository: NewGroupRepository): PostNewGroupCreateUseCase =
-        PostNewGroupCreateUseCase(newGroupRepository = newGroupRepository)
 }

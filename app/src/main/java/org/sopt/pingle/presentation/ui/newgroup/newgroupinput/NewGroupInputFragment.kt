@@ -51,8 +51,8 @@ class NewGroupInputFragment :
     private fun collectNewGroupTeamNameIsEnabled() {
         newGroupViewModel.newGroupName.flowWithLifecycle(lifecycle).onEach { newGroupName ->
             binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = newGroupName.isNotBlank()
-            newGroupViewModel.setIsNewGroupBtnCheckName(false)
-        }.launchIn(lifecycleScope)
+            newGroupViewModel.setIsGroupNameDuplicatedCheck(false)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun collectNewGroupCheckNameState() {
@@ -68,8 +68,7 @@ class NewGroupInputFragment :
                                 SNACKBAR_BOTTOM_MARGIN,
                                 SnackbarType.GUIDE
                             )
-                            binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = false
-                            newGroupViewModel.setIsNewGroupBtnCheckName(true)
+                            newGroupViewModel.setIsGroupNameDuplicatedCheck(true)
                         } else {
                             PingleSnackbar.makeSnackbar(
                                 binding.root,
@@ -77,6 +76,7 @@ class NewGroupInputFragment :
                                 SNACKBAR_BOTTOM_MARGIN,
                                 SnackbarType.WARNING
                             )
+                            newGroupViewModel.setIsGroupNameDuplicatedCheck(false)
                         }
                         AmplitudeUtils.trackEventWithProperty(
                             COMPLETE_DOUBLECHECK,

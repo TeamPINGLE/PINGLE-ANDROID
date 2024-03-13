@@ -47,7 +47,7 @@ class NewGroupViewModel @Inject constructor(
 
     val newGroupName = MutableStateFlow<String>("")
     val newGroupEmail = MutableStateFlow<String>("")
-    val isNewGroupBtnCheckName = MutableStateFlow<Boolean>(false)
+    val isGroupNameDuplicatedCheck = MutableStateFlow<Boolean>(false)
     val newGroupKeywordName = MutableStateFlow<String>("")
     val newGroupKeywordValue = MutableStateFlow<String>("")
 
@@ -55,7 +55,7 @@ class NewGroupViewModel @Inject constructor(
         currentPage,
         newGroupName,
         newGroupEmail,
-        isNewGroupBtnCheckName,
+        isGroupNameDuplicatedCheck,
         newGroupKeywordValue
     ).combineAll().map { values ->
         val currentPage = values[0] as Int
@@ -78,8 +78,8 @@ class NewGroupViewModel @Inject constructor(
         newGroupKeywordValue.value = keywordValue
     }
 
-    fun setIsNewGroupBtnCheckName(boolean: Boolean) {
-        isNewGroupBtnCheckName.value = boolean
+    fun setIsGroupNameDuplicatedCheck(boolean: Boolean) {
+        isGroupNameDuplicatedCheck.value = boolean
     }
 
     fun isEmailValid() = EMAIL_PATTERN.matches(newGroupEmail.value)

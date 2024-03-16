@@ -59,7 +59,7 @@ class PlanDateTimeFragment :
         if (selectedLocalDate != null) {
             if (selectedLocalDate.before(todayLocalDate)) {
                 PingleSnackbar.makeSnackbar(
-                    binding.root,
+                    requireView(),
                     getString(R.string.plan_future_date_snackbar),
                     SNACKBAR_BOTTOM_MARGIN
                 )
@@ -84,7 +84,7 @@ class PlanDateTimeFragment :
             START_TIME -> {
                 if (planViewModel.endTime.value.isNotBlank() && time24Hour > planViewModel.endTime.value) {
                     PingleSnackbar.makeSnackbar(
-                        binding.root,
+                        requireView(),
                         getString(R.string.plan_later_time_snackbar),
                         SNACKBAR_BOTTOM_MARGIN
                     )
@@ -98,7 +98,7 @@ class PlanDateTimeFragment :
             END_TIME -> {
                 if (planViewModel.startTime.value.isNotBlank() && time24Hour < planViewModel.startTime.value) {
                     PingleSnackbar.makeSnackbar(
-                        binding.root,
+                        requireView(),
                         getString(R.string.plan_later_time_snackbar),
                         SNACKBAR_BOTTOM_MARGIN
                     )

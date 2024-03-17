@@ -58,7 +58,8 @@ class NewGroupInputFragment :
     private fun collectNewGroupName() {
         newGroupViewModel.newGroupName.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .distinctUntilChanged().onEach { newGroupName ->
-                binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled = newGroupName.isNotBlank()
+                binding.etNewGroupInputGroupName.btnEditTextCheck.isEnabled =
+                    newGroupName.isNotBlank()
                 newGroupViewModel.setIsGroupNameDuplicatedCheck(false)
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
@@ -71,18 +72,18 @@ class NewGroupInputFragment :
                     is UiState.Success -> {
                         if (uiState.data.result) {
                             PingleSnackbar.makeSnackbar(
-                                binding.root,
-                                stringOf(R.string.new_group_input_snackbar_guide),
-                                SNACKBAR_BOTTOM_MARGIN,
-                                SnackbarType.GUIDE
+                                view = requireView(),
+                                message = stringOf(R.string.new_group_input_snackbar_guide),
+                                bottomMarin = SNACKBAR_BOTTOM_MARGIN,
+                                snackbarType = SnackbarType.GUIDE
                             )
                             newGroupViewModel.setIsGroupNameDuplicatedCheck(true)
                         } else {
                             PingleSnackbar.makeSnackbar(
-                                binding.root,
-                                stringOf(R.string.new_group_input_snackbar_warning),
-                                SNACKBAR_BOTTOM_MARGIN,
-                                SnackbarType.WARNING
+                                view = requireView(),
+                                message = stringOf(R.string.new_group_input_snackbar_warning),
+                                bottomMarin = SNACKBAR_BOTTOM_MARGIN,
+                                snackbarType = SnackbarType.WARNING
                             )
                             newGroupViewModel.setIsGroupNameDuplicatedCheck(false)
                         }

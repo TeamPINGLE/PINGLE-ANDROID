@@ -10,15 +10,15 @@ import retrofit2.http.Query
 interface MapService {
     @GET("$VERSION/$TEAMS/{$TEAM_ID}/$PINS")
     suspend fun getPinListWithoutFiltering(
-        @Path("$TEAM_ID") teamId: Long,
+        @Path(TEAM_ID) teamId: Long,
         @Query(CATEGORY) category: String?,
         @Query(SEARCH_WORD) searchWord: String?
     ): BaseResponse<List<ResponsePinDto>>
 
     @GET("$VERSION/$TEAMS/{$TEAM_ID}/$PINS/{$PIN_ID}/$MEETINGS")
     suspend fun getMapPingleList(
-        @Path("$TEAM_ID") teamId: Long,
-        @Path("$PIN_ID") pinId: Long,
+        @Path(TEAM_ID) teamId: Long,
+        @Path(PIN_ID) pinId: Long,
         @Query(CATEGORY) category: String?
     ): BaseResponse<List<ResponsePingleDto>>
 

@@ -31,7 +31,7 @@ class AuthInterceptor @Inject constructor(
             CODE_TOKEN_EXPIRE -> {
                 response.close()
                 val refreshTokenRequest = originalRequest.newBuilder().get()
-                    .url("${BuildConfig.BASE_URL}/v1/auth/reissue")
+                    .url("${BuildConfig.BASE_URL}v1/auth/reissue")
                     .post("".toRequestBody(null))
                     .addHeader(AUTHORIZATION, localStorage.refreshToken)
                     .build()

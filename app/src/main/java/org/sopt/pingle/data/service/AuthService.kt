@@ -14,7 +14,7 @@ import retrofit2.http.POST
 interface AuthService {
     @POST("$VERSION/$AUTH/$LOGIN")
     suspend fun postLogin(
-        @Header("$X_PROVIDER_TOKEN") header: String,
+        @Header(X_PROVIDER_TOKEN) header: String,
         @Body body: RequestAuthDto
     ): BaseResponse<ResponseAuthDto>
 

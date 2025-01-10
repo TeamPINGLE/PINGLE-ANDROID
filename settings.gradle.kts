@@ -10,7 +10,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { setUrl("https://naver.jfrog.io/artifactory/maven/") }
+        // NaverMapSDK
+        maven(url = "https://repository.map.naver.com/archive/maven")
 
         // KakaoSDK repository
         maven(url = "https://devrepo.kakao.com/nexus/content/groups/public/")

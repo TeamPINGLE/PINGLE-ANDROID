@@ -1,4 +1,3 @@
-
 import java.util.Properties
 
 plugins {
@@ -20,14 +19,14 @@ val properties = Properties().apply {
 
 android {
     namespace = "org.sopt.pingle"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "org.sopt.pingle"
         minSdk = 28
-        targetSdk = 34
-        versionCode = 18
-        versionName = "2.0.1"
+        targetSdk = 35
+        versionCode = 19
+        versionName = "2.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField(

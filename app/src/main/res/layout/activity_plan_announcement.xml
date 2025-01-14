@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.main.planannouncement.PlanAnnouncementActivity">
+
+        <ImageView
+            android:id="@+id/iv_plan_announcement_exit_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing26"
+            android:layout_marginEnd="@dimen/spacing12"
+            android:padding="@dimen/spacing6"
+            android:src="@drawable/ic_all_x_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_plan_announcement_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="48dp"
+            android:text="@string/plan_announcement_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.32"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_plan_announcement_exit_btn" />
+
+        <TextView
+            android:id="@+id/tv_plan_announcement_detail_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="16dp"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"
+            android:textColor="@color/g_04"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_announcement_title"
+            tools:text="@string/plan_announcement_detail_top" />
+
+        <TextView
+            android:id="@+id/tv_plan_announcement_detail_bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="@dimen/spacing4"
+            android:text="@string/plan_announcement_detail_bottom"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.16"
+            android:textColor="@color/g_04"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_announcement_detail_top" />
+
+        <ImageView
+            android:id="@+id/iv_plan_announcement_graphic"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/img_plan_announcement_graphic"
+            app:layout_constraintBottom_toTopOf="@id/btn_plan_announcement"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_announcement_detail_bottom" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_plan_announcement"
+            style="@style/Theme.Pingle.Button.L"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing16"
+            android:layout_marginTop="@dimen/spacing28"
+            android:layout_marginBottom="54dp"
+            android:backgroundTint="@color/g_01"
+            android:text="@string/plan_announcement_btn"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_plan_announcement_graphic" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

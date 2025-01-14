@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="joinViewModel"
+            type="org.sopt.pingle.presentation.ui.joingroup.JoinViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.joingroup.JoinGroupCodeActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing16" />
+
+        <include
+            android:id="@+id/include_join_group_code_topbar"
+            layout="@layout/view_all_topbar_arrow_with_title"
+            text="@{@string/join_group_topbar}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_join_group_code_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing8"
+            android:layout_marginTop="@dimen/spacing16"
+            android:text="@string/join_group_code_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/include_join_group_code_topbar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_join_group_code_group_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/spacing20"
+            android:background="@drawable/shape_border_radius_12"
+            android:backgroundTint="@color/g_01"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_join_group_code_title">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_group_info_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/spacing24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_group_info_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/spacing24" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_group_info_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/spacing20" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_group_info_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/spacing20" />
+
+
+            <TextView
+                android:id="@+id/tv_join_group_code_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/shape_border_radius_50"
+                android:backgroundTint="@color/g_10"
+                android:paddingHorizontal="@dimen/spacing10"
+                android:paddingVertical="@dimen/spacing4"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Semi.12"
+                android:textColor="@color/pingle_green"
+                app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
+                app:layout_constraintTop_toBottomOf="@id/gl_group_info_top"
+                tools:text="연합동아리" />
+
+            <TextView
+                android:id="@+id/tv_join_group_code_group_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/gl_group_info_end"
+                app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_join_group_code_tag"
+                tools:text="SOPT" />
+
+            <TextView
+                android:id="@+id/tv_join_group_code_meeting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing10"
+                android:text="@string/join_group_code_meeting"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+                android:textColor="@color/g_11"
+                app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_join_group_code_group_name" />
+
+            <TextView
+                android:id="@+id/tv_join_group_code_participant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing4"
+                android:text="@string/join_group_code_participant"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Semi.14"
+                android:textColor="@color/g_11"
+                app:layout_constraintBottom_toTopOf="@id/gl_group_info_bottom"
+                app:layout_constraintStart_toEndOf="@id/gl_group_info_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_join_group_code_meeting_count" />
+
+            <TextView
+                android:id="@+id/tv_join_group_code_meeting_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing18"
+                android:text="@string/join_group_code_meeting_count"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_08"
+                app:layout_constraintBottom_toBottomOf="@id/tv_join_group_code_meeting"
+                app:layout_constraintStart_toEndOf="@id/tv_join_group_code_meeting"
+                app:layout_constraintTop_toTopOf="@id/tv_join_group_code_meeting" />
+
+            <TextView
+                android:id="@+id/tv_join_group_code_participant_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/join_group_code_participant_count"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+                android:textColor="@color/g_08"
+                app:layout_constraintBottom_toBottomOf="@id/tv_join_group_code_participant"
+                app:layout_constraintStart_toStartOf="@id/tv_join_group_code_meeting_count"
+                app:layout_constraintTop_toTopOf="@id/tv_join_group_code_participant" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <org.sopt.pingle.util.component.PingleEditText
+            android:id="@+id/et_join_group_code_invitation"
+            etText="@={joinViewModel.joinGroupCodeEditText}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing16"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/layout_join_group_code_group_info"
+            app:pingleEditTextHint="@string/join_group_code_invitation_hint"
+            app:pingleEditTextTitle="@string/join_group_code_invitation" />
+
+        <TextView
+            android:id="@+id/tv_join_group_code_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing8"
+            android:drawableStart="@drawable/ic_all_info_14"
+            android:drawablePadding="@dimen/spacing4"
+            android:text="@string/join_group_code_guide"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.10"
+            android:textColor="@color/g_04"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/et_join_group_code_invitation" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_join_group_code_next"
+            style="@style/Theme.Pingle.Button.L"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing25"
+            android:enabled="false"
+            android:text="@string/join_group_code_next"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PingleEditText">
+        <attr name="pingleEditTextTitle" format="reference|string" />
+        <attr name="pingleEditTextHint" format="reference|string" />
+        <attr name="pingleEditTextMaxLength" format="integer" />
+        <attr name="pingleEditTextCheckVisibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+        <attr name="pingleEditTextCopyVisibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="PingleSearch">
+        <attr name="pingleSearchHint" format="reference|string" />
+    </declare-styleable>
+</resources>

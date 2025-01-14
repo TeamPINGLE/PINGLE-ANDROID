@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.main.HomeFragment">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing16" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_home"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_home_topbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_home_group"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="104dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.20"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/pingle_search_home_search"
+                app:layout_constraintEnd_toStartOf="@id/iv_home_search"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/pingle_search_home_search"
+                tools:text="SOPT" />
+
+            <ImageView
+                android:id="@+id/iv_home_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_all_search_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_home_group" />
+
+            <org.sopt.pingle.util.component.PingleSearch
+                android:id="@+id/pingle_search_home_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_home_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:chipSpacingHorizontal="@dimen/chip_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_home_topbar"
+            app:singleSelection="true">
+
+            <org.sopt.pingle.util.component.PingleChip
+                android:id="@+id/chip_home_category_play"
+                style="@style/Theme.Pingle.Chip.All"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="PLAY" />
+
+            <org.sopt.pingle.util.component.PingleChip
+                android:id="@+id/chip_home_category_study"
+                style="@style/Theme.Pingle.Chip.All"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="STUDY" />
+
+            <org.sopt.pingle.util.component.PingleChip
+                android:id="@+id/chip_home_category_multi"
+                style="@style/Theme.Pingle.Chip.All"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="MULTI" />
+
+            <org.sopt.pingle.util.component.PingleChip
+                android:id="@+id/chip_home_category_others"
+                style="@style/Theme.Pingle.Chip.All"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/category_others" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_home_change"
+            style="@style/Theme.Pingle.Fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            tools:src="@drawable/ic_map_list_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

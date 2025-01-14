@@ -1,0 +1,288 @@
+<resources>
+    <string name="app_name">PINGLE</string>
+
+    <!-- on back pressed -->
+    <string name="all_on_back_pressed_snackbar">뒤로가기를 한 번 더 누르면 종료됩니다!</string>
+
+    <!--  category Type  -->
+    <string name="category_play">PLAY</string>
+    <string name="category_study">STUDY</string>
+    <string name="category_multi">MULTI</string>
+    <string name="category_others">OTHERS</string>
+    <string name="category_play_description">노는게 제일 좋아!</string>
+    <string name="category_study_description">열공, 열작업 할 사람 모여라!</string>
+    <string name="category_multi_description">놀 땐 놀고, 일할 땐 일하자!</string>
+    <string name="category_others_description">다른 활동이 하고 싶다면?</string>
+
+    <!-- main list order Type -->
+    <string name="main_list_order_new">최신등록순</string>
+    <string name="main_list_order_upcoming">날짜임박순</string>
+
+    <!-- pingle card error Type -->
+    <string name="pingle_card_error_deleted_snackbar">삭제된 핑글이에요!</string>
+    <string name="pingle_card_error_completed_snackbar">모집이 마감된 핑글이에요!</string>
+
+    <!-- home view Type -->
+    <string name="home_view_map_search_hint">장소 이름 검색</string>
+    <string name="home_view_main_list_search_hint">핑글 이름, 장소 이름 검색</string>
+    <string name="home_view_map_search_description">지도</string>
+    <string name="home_view_main_list_search_description">리스트</string>
+
+    <!--  all navi title -->
+    <string name="all_navi_home">홈</string>
+    <string name="all_navi_ranking">랭킹</string>
+    <string name="all_navi_plan">개최</string>
+    <string name="all_navi_mypingle">마이핑글</string>
+    <string name="all_navi_more">더보기</string>
+
+    <!-- pingle card -->
+    <string name="pingle_card_participation_status">참여현황</string>
+    <string name="pingle_card_participant_detail_slash">/</string>
+    <string name="pingle_card_calender">일시</string>
+    <string name="pingle_card_map">장소</string>
+    <string name="pingle_card_chat">대화하기</string>
+    <string name="pingle_card_participate">참여하기</string>
+    <string name="pingle_card_cancel">취소하기</string>
+    <string name="pingle_card_delete">삭제하기</string>
+    <string name="pingle_card_completed">모집완료</string>
+
+    <!-- auth -->
+    <string name="auth_kakao_login">카카오로 시작하기</string>
+    <string name="auth_title">Ready to\nPINGLE?</string>
+    <string name="auth_description_1">가볍고 재미있는 모임 문화,</string>
+    <string name="auth_description_2">핑글과 함께 만들어요!</string>
+
+    <!-- join group code -->
+    <string name="join_group_topbar">단체 입장하기</string>
+    <string name="join_group_code_title">단체 정보를 확인하고\n초대 코드를 입력해주세요!</string>
+    <string name="join_group_code_meeting">개최된 핑글 수</string>
+    <string name="join_group_code_participant">참여자 수</string>
+    <string name="join_group_code_meeting_count">%d개</string>
+    <string name="join_group_code_participant_count">%d명</string>
+    <string name="join_group_code_invitation_hint">초대 코드를 입력해주세요</string>
+    <string name="join_group_code_invitation">초대 코드</string>
+    <string name="join_group_code_guide">단체 개설자로부터 받은 초대 코드를 입력해주세요</string>
+    <string name="join_group_code_next">입장하기</string>
+    <string name="join_group_code_snackbar_warning_message">초대 코드를 다시 확인해주세요!</string>
+    <string name="join_group_code_snackbar_guide_message">이미 가입된 단체입니다!</string>
+
+    <!-- join group search -->
+    <string name="join_group_search_create_text">찾는 단체가 없나요?</string>
+    <string name="join_group_search_create"><u>단체를 직접 추가해주세요</u></string>
+    <string name="join_group_search_empty">검색 결과가 없어요</string>
+    <string name="join_group_search_title">속해있는 단체의\n이름을 알려주세요!</string>
+    <string name="join_group_search_hint">단체 이름을 검색해보세요</string>
+
+    <!-- join group success -->
+    <string name="join_group_success_btn">시작하기</string>
+    <string name="join_group_success_title">모든 준비가\n끝났어요!</string>
+    <string name="join_group_success_description_group_name">%s에서</string>
+    <string name="join_group_success_description">핑글 여정을 함께해보세요!</string>
+
+    <!-- map -->
+    <string name="map_participate">참여하기</string>
+
+    <!-- pingle modal -->
+    <string name="pingle_modal_description">이 핑글에 참여할까요?</string>
+
+    <!-- cancel dialog -->
+    <string name="cancel_modal_title">참여를 취소하시겠어요?</string>
+    <string name="cancel_modal_detail">취소한 모임은 언제든 다시 신청할 수 있어요</string>
+    <string name="cancel_modal_button_text">취소하기</string>
+    <string name="cancel_modal_text_button_text">돌아가기</string>
+
+    <!-- delete dialog -->
+    <string name="delete_modal_title">핑글을 삭제하시겠어요?</string>
+    <string name="delete_modal_detail">삭제된 핑글은 다시 되돌릴 수 없어요</string>
+    <string name="delete_modal_button_text">삭제하기</string>
+    <string name="delete_modal_text_button_text">돌아가기</string>
+
+    <!-- main list -->
+    <string name="main_list_search_count">총 %d건</string>
+    <string name="main_list_empty_pingle">현재 개최된 핑글이 없어요\n핑글을 직접 개최해보세요!</string>
+    <string name="main_list_empty_search">검색 결과가 없어요</string>
+
+    <!-- new group -->
+    <string name="new_group_topbar">신규 단체 개설하기</string>
+    <string name="new_group_next">다음으로</string>
+    <string name="new_group_create">개설하기</string>
+    <string name="new_group_email_snackbar">"유효하지 않은 이메일입니다!"</string>
+
+    <!-- new group info -->
+    <string name="new_group_info_title">신규 단체 개설 안내</string>
+    <string name="new_group_info_impossible_title">단체 개설자는 탈퇴할 수 없어요</string>
+    <string name="new_group_info_impossible_description1">해당 단체의 초대코드 및 구성원을\n관리할 책임자가 없어지기 때문이에요.</string>
+    <string name="new_group_info_impossible_description2">탈퇴를 원할 경우, 핑글에게 문의하기를 통해\n개설자를 변경해주셔야 해요.</string>
+    <string name="new_group_info_reissues_title">초대 코드가 유출되었다면\n핑글에게 문의 후\n재발급할 수 있어요</string>
+
+    <!-- new group input -->
+    <string name="new_group_input_title">속해있는 단체의\n이름을 알려주세요!</string>
+    <string name="new_group_keyword_title">단체를 설명하는\n키워드를 선택해주세요</string>
+    <string name="new_group_input_name_hint">단체명을 입력해주세요</string>
+    <string name="new_group_input_name_title">단체명</string>
+    <string name="new_group_input_email_hint">ex. 단체 공식 이메일, 개설자님의 이메일</string>
+    <string name="new_group_input_email_title">대표 이메일</string>
+    <string name="new_group_input_guide">해당 이메일은 초대 코드 공유 및 단체 관리를 위해 사용될 예정입니다</string>
+    <string name="new_group_input_snackbar_guide">등록 가능한 단체명입니다.</string>
+    <string name="new_group_input_snackbar_warning">같은 이름을 가진 단체가 존재합니다!</string>
+
+    <!-- new group announcement -->
+    <string name="new_group_announcement_title">단체가\n개설되었어요!</string>
+    <string name="new_group_announcement_group_name">%s에 친구들을 초대하고</string>
+    <string name="new_group_announcement_description">핑글 여정을 함께해보세요!</string>
+    <string name="new_group_announcement_invitation">친구 초대하러 가기</string>
+    <string name="new_group_announcement_home">홈으로 시작하기</string>
+
+    <!-- new group create -->
+    <string name="new_group_create_title">단체 정보를\n확인해주세요</string>
+    <string name="new_group_create_email">대표 이메일</string>
+
+    <!-- new group code share -->
+    <string name="new_group_code_share_topbar">친구 초대하기</string>
+    <string name="new_group_code_share_title">초대 코드를\n확인하세요</string>
+    <string name="new_group_code_share_guide">초대코드는 나의 단체 페이지에서 다시 확인할 수 있어요</string>
+    <string name="new_group_code_share">공유하기</string>
+
+    <!-- plan -->
+    <string name="plan_later_des">나중에 만드시겠어요?</string>
+    <string name="plan_close"><u>나가기</u></string>
+    <string name="plan_next">다음으로</string>
+    <string name="plan_pingle">핑글 개최하기</string>
+
+    <!-- plan announcement -->
+    <string name="plan_announcement_title">What is\nPINGLE?</string>
+    <string name="plan_announcement_detail_top">%1$s과 %2$s의 합성어로,</string>
+    <string name="plan_announcement_detail_bottom">원하는 장소에서 사람들과 갖는 모임을 뜻해요</string>
+    <string name="plan_announcement_btn">핑글 개최하러 가기</string>
+
+    <!-- plan modal -->
+    <string name="plan_exit_modal_dialog_title">잠깐! 나가실건가요?</string>
+    <string name="plan_exit_modal_dialog_detail">지금까지 입력한 정보는 전부 사라져요</string>
+    <string name="plan_exit_modal_dialog_btn_text">이어서 작성하기</string>
+    <string name="plan_exit_modal_dialog_text_btn_text">그만두기</string>
+
+    <!-- plan category -->
+    <string name="plan_category_title">개최할 핑글을\n선택해주세요!</string>
+
+    <!-- plan title -->
+    <string name="plan_et_title">한줄 소개</string>
+    <string name="plan_title">개최할 핑글을\n소개해주세요!</string>
+    <string name="plan_et_hint">ex. 강남역에서 각잡고 공부할 사람?</string>
+
+    <!-- plan time -->
+    <string name="plan_time_am">오전</string>
+    <string name="plan_time_pm">오후</string>
+    <string name="plan_date_time_title">함께할 친구들과\n언제 만날까요?</string>
+    <string name="plan_date_title">핑글 날짜</string>
+    <string name="plan_date_hint">만날 날짜를 선택해주세요</string>
+    <string name="plan_start_time_title">시작 시각</string>
+    <string name="plan_time_hint">00:00</string>
+    <string name="plan_end_time_title">종료 시각</string>
+    <string name="plan_future_date_snackbar">미래 날짜를 선택해주세요!</string>
+
+    <!-- plan location -->
+    <string name="plan_location_title">함께할 친구들과\n어디서 만날까요?</string>
+    <string name="plan_location_hint">핑글이 열릴 장소 이름을 검색해보세요</string>
+    <string name="plan_location_next">다음으로</string>
+    <string name="plan_location_ask">나중에 만드시겠어요?</string>
+    <string name="plan_location_quit"><u>나가기</u></string>
+    <string name="plan_location_empty">검색 결과가 없어요</string>
+    <string name="plan_location_empty_info">다른 장소로 검색해보세요</string>
+
+    <!-- plan recruitment -->
+    <string name="plan_recruitment_title">몇 명의 친구들과\n만날까요?</string>
+    <string name="plan_recruitment_description">본인을 포함하여,\n최소 1명부터 참여 인원을 선택해주세요</string>
+    <string name="plan_recruitment_minus">-</string>
+    <string name="plan_recruitment_plus">+</string>
+    <string name="plan_recruitment_snackbar">최대 선택 가능 인원은 99명이에요!</string>
+    <string name="plan_later_time_snackbar">종료 시각은 시작 시각 이후로 선택해주세요!</string>
+
+    <!-- plan open chatting -->
+    <string name="plan_open_chatting_title">오픈채팅방 링크를\n추가해주세요!</string>
+    <string name="plan_open_chatting_hint">링크를 입력해주세요</string>
+    <string name="plan_open_chatting_text_title">채팅방 링크</string>
+    <string name="plan_open_chatting_snackbar">유효하지 않은 오픈채팅방 링크입니다.</string>
+
+    <!-- plan summary confirmation -->
+    <string name="plan_summary_confirmation_title">핑글을 개최할\n준비 되었나요?</string>
+    <string name="plan_summary_confirmation_date">일시</string>
+    <string name="plan_summary_confirmation_location">장소</string>
+    <string name="plan_summary_confirmation_recruitment">모집인원</string>
+    <string name="plan_summary_confirmation_recruitment_number">%s명</string>
+
+    <!-- ranking -->
+    <string name="ranking_title">랭킹</string>
+    <string name="ranking_latest_visited">최근방문</string>
+    <string name="ranking_date">%1$d년 %2$d월 %3$d일</string>
+    <string name="ranking_empty">우리 단체에서 핑글이 30회 이상 이루어지면\n랭킹을 확인할 수 있어요!</string>
+
+    <!-- more -->
+    <string name="more_contact_title">문의하기</string>
+    <string name="more_notice_title">공지사항</string>
+    <string name="more_version_title">버전</string>
+    <string name="more_logout_title">로그아웃</string>
+    <string name="more_withdraw_title"><u>탈퇴하기</u></string>
+    <string name="more_title">더보기</string>
+    <string name="more_my_group">나의 단체</string>
+    <string name="more_snackbar_failure">단체 개설자는 탈퇴할 수 없어요!</string>
+
+    <!-- setting modal -->
+    <string name="setting_logout_modal_title">정말로 로그아웃 하실건가요?</string>
+    <string name="setting_logout_modal_detail">카카오 계정을 로그아웃합니다</string>
+    <string name="setting_modal_back">돌아가기</string>
+    <string name="setting_logout_modal_btn_text">로그아웃</string>
+    <string name="setting_withdraw_modal_title">정말로 탈퇴하실건가요?</string>
+    <string name="setting_withdraw_modal_detail">탈퇴 시 계정은 삭제되며 복구할 수 없어요</string>
+    <string name="setting_withdraw_modal_btn_text">탈퇴하기</string>
+
+    <!-- my pingle -->
+    <string name="my_pingle_chat">대화하기</string>
+    <string name="my_pingle_cancel">참여 취소하기</string>
+    <string name="my_pingle_delete">핑글 삭제하기</string>
+    <string name="my_pingle_topbar">마이핑글</string>
+    <string name="my_pingle_soon">홈으로 이동해\n내 주변 핑글을 찾아보세요!</string>
+    <string name="my_pingle_done">아직 참여한 핑글이 없어요\n첫 핑글과 함께 네트워킹을 시작해보세요!</string>
+    <string name="my_pingle_tab_soon">\t\t\t\t\t\t\t예정된\t\t\t\t\t\t\t\t</string>
+    <string name="my_pingle_tab_done">\t\t\t\t\t\t참여완료\t\t\t\t\t\t</string>
+    <string name="my_pingle_participant">%d/%d명</string>
+
+    <!-- on boarding -->
+    <string name="on_boarding_title">핑글에 오신걸\n환영합니다!</string>
+    <string name="on_boarding_original_group">이미 등록된\n 단체가 있어요</string>
+    <string name="on_boarding_new_group">새로운 단체를\n등록하고 싶어요</string>
+
+    <!-- on boarding explanation -->
+    <string name="on_boarding_explanation_logo_title">우리의 모임, PINGLE</string>
+    <string name="on_boarding_explanation_logo_description">원하는 장소에서 사람들과 갖는\n나만의 모임을 뜻해요</string>
+    <string name="on_boarding_explanation_group_description">속해있는 단체를 선택하거나\n직접 개설해봐요!</string>
+    <string name="on_boarding_explanation_pingle_description">내 주변에서 열리는 핑글을\n간편하게 찾고 참여해봐요!</string>
+    <string name="on_boarding_explanation_category_description">원하는 테마로 간편하게\n핑글을 개최할 수 있어요!</string>
+    <string name="on_boarding_explanation_next_button">다음으로</string>
+    <string name="on_boarding_explanation_skip_button">건너뛰기</string>
+
+    <!-- participant -->
+    <string name="participant_topbar">참여현황</string>
+    <string name="participant_owner">개최자</string>
+
+    <!-- search -->
+    <string name="search_description">원하는 핑글을 %s에서 찾아보세요!</string>
+
+    <!-- my group -->
+    <string name="my_group_title">나의 단체</string>
+    <string name="my_group_meeting">개최된 핑글 수</string>
+    <string name="my_group_member">참여자 수</string>
+    <string name="my_group_meeting_count">%s개</string>
+    <string name="my_group_member_count">%s명</string>
+    <string name="my_group_move_new_group"><u>새로운 단체 추가하러 가기</u></string>
+    <string name="my_group_modal_move_question">\'%s\'(으)로\n변경하시겠어요?</string>
+    <string name="my_group_modal_change">변경하기</string>
+    <string name="my_group_modal_back"><u>돌아가기</u></string>
+    <string name="my_group_snack_bar_code_copy_complete">초대코드가 복사되었습니다!</string>
+    <string name="my_group_snack_bar_chage_group_complete">단체가 변경되었습니다!</string>
+    <string name="my_group_menu_copy">초대코드 복사하기</string>
+    <string name="my_group_menu_share">공유하기</string>
+    <string name="my_group_share_pingle">Ready to PINGLE?\n구성원 모두를 위한 위치기반 네트워킹 서비스, PINGLE\n\n%s에서 초대 메시지를 보냈습니다.\n핑글 앱을 다운받고, %s 사람들을 만나보세요!\n\n초대코드 : %s\n앱 링크 : https://play.google.com/store/apps/details?id=org.sopt.pingle&amp;pcampaignid=web_share</string>
+
+    <!-- pingle edit text -->
+    <string name="view_text_with_title_button_text">중복 확인</string>
+</resources>

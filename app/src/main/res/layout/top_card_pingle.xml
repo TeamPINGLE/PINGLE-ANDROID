@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_card_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_card_top_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/layout_card_top_participation_status"
+            app:layout_constraintEnd_toStartOf="@id/layout_card_top_participation_status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/layout_card_top_participation_status">
+
+            <org.sopt.pingle.util.component.PingleBadge
+                android:id="@+id/badge_card_top_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="STUDY" />
+
+            <TextView
+                android:id="@+id/tv_card_top_info_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="@style/TextAppearance.Pingle.Body.Bold.14"
+                android:textColor="@color/pingle_orange"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/badge_card_top_info"
+                tools:text="강남 모각작팟" />
+
+            <TextView
+                android:id="@+id/tv_card_top_info_owner_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+                android:textColor="@color/g_03"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_card_top_info_name"
+                tools:text="박소현" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_card_top_participation_status"
+            android:layout_width="@dimen/card_participant_size"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_oval"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_card_top_info_participation_status_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:gravity="center"
+                android:text="@string/pingle_card_participation_status"
+                android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@id/tv_card_top_info_participation_status_current_participants"
+                app:layout_constraintEnd_toStartOf="@id/iv_card_top_info_participation_status_arrow"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <ImageView
+                android:id="@+id/iv_card_top_info_participation_status_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_card_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@id/tv_card_top_info_participation_status_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_card_top_info_participation_status_title"
+                app:layout_constraintTop_toTopOf="@id/tv_card_top_info_participation_status_title" />
+
+            <TextView
+                android:id="@+id/tv_card_top_info_participation_completed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pingle_card_completed"
+                android:textAppearance="@style/TextAppearance.Pingle.Sub.Bold.16"
+                android:textColor="@color/g_06"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_card_top_info_participation_status_slash"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_card_top_info_participation_status_slash" />
+
+            <TextView
+                android:id="@+id/tv_card_top_info_participation_status_current_participants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+                android:textColor="@color/pingle_orange"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_card_top_info_participation_status_slash"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_card_top_info_participation_status_title"
+                tools:text="99" />
+
+            <TextView
+                android:id="@+id/tv_card_top_info_participation_status_slash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pingle_card_participant_detail_slash"
+                android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+                android:textColor="@color/g_06"
+                app:layout_constraintBottom_toBottomOf="@id/tv_card_top_info_participation_status_current_participants"
+                app:layout_constraintEnd_toStartOf="@id/tv_card_top_info_participation_status_max_participants"
+                app:layout_constraintStart_toEndOf="@id/tv_card_top_info_participation_status_current_participants"
+                app:layout_constraintTop_toTopOf="@id/tv_card_top_info_participation_status_current_participants" />
+
+            <TextView
+                android:id="@+id/tv_card_top_info_participation_status_max_participants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:textAppearance="@style/TextAppearance.Pingle.Sub.Semi.16"
+                android:textColor="@color/g_06"
+                app:layout_constraintBottom_toBottomOf="@id/tv_card_top_info_participation_status_current_participants"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_card_top_info_participation_status_slash"
+                app:layout_constraintTop_toTopOf="@id/tv_card_top_info_participation_status_current_participants"
+                tools:text="99" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

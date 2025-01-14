@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="planViewModel"
+            type="org.sopt.pingle.presentation.ui.plan.PlanViewModel" />
+
+        <variable
+            name="planCategory"
+            type="org.sopt.pingle.presentation.type.CategoryType" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.plan.PlanLocationFragment">
+
+        <TextView
+            android:id="@+id/tv_plan_location_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing8"
+            android:text="@string/plan_category_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/include_plan_category_type_play"
+            layout="@layout/view_plan_category_type"
+            selection="@{planViewModel.selectedCategory == planCategory.PLAY}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.PLAY)}"
+            app:categoryType="@{planCategory.PLAY}"
+            app:layout_constraintEnd_toStartOf="@id/include_plan_category_type_study"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_location_title" />
+
+        <include
+            android:id="@+id/include_plan_category_type_study"
+            layout="@layout/view_plan_category_type"
+            selection="@{planViewModel.selectedCategory == planCategory.STUDY}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing9"
+            android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.STUDY)}"
+            app:categoryType="@{planCategory.STUDY}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/include_plan_category_type_play"
+            app:layout_constraintTop_toTopOf="@id/include_plan_category_type_play" />
+
+        <include
+            android:id="@+id/include_plan_category_type_multi"
+            layout="@layout/view_plan_category_type"
+            selection="@{planViewModel.selectedCategory == planCategory.MULTI}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.MULTI)}"
+            app:categoryType="@{planCategory.MULTI}"
+            app:layout_constraintEnd_toStartOf="@+id/include_plan_category_type_others"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_plan_category_type_play" />
+
+        <include
+            android:id="@+id/include_plan_category_type_others"
+            layout="@layout/view_plan_category_type"
+            selection="@{planViewModel.selectedCategory == planCategory.OTHERS}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing9"
+            android:onClick="@{()->planViewModel.setSelectedCategory(planCategory.OTHERS)}"
+            app:categoryType="@{planCategory.OTHERS}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/include_plan_category_type_multi"
+            app:layout_constraintTop_toTopOf="@id/include_plan_category_type_multi" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

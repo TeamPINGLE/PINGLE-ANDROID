@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="categoryType"
+            type="org.sopt.pingle.presentation.type.CategoryType" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_border_radius_10"
+        android:backgroundTint="@color/g_10"
+        android:foreground="@drawable/selector_plan_category_type_background">
+
+        <ImageView
+            android:id="@+id/iv_plan_category_type"
+            image="@{categoryType.categoryIconRes}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing13"
+            android:src="@drawable/img_plan_cat_play_1000_4"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_plan_category_name"
+            color="@{categoryType.textColor}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing3"
+            android:text="@{categoryType.categoryNameRes}"
+            android:textAppearance="@style/TextAppearance.Pingle.Sub.Bold.18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_plan_category_type"
+            tools:text="PLAY" />
+
+        <TextView
+            android:id="@+id/tv_plan_category_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing3"
+            android:layout_marginBottom="20dp"
+            android:text="@{categoryType.categoryDescriptionRes}"
+            android:textAppearance="@style/TextAppearance.Pingle.Cap.Med.12"
+            android:textColor="@color/g_04"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_category_name"
+            tools:text="설명 텍스트 미정" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="planViewModel"
+            type="org.sopt.pingle.presentation.ui.plan.PlanViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_plan_recruitment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.plan.planrecruitment.PlanRecruitmentFragment">
+
+        <TextView
+            android:id="@+id/tv_plan_recruitment_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing8"
+            android:text="@string/plan_recruitment_title"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.24"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_plan_recruitment_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/spacing12"
+            android:text="@string/plan_recruitment_description"
+            android:textAppearance="@style/TextAppearance.Pingle.Body.Med.14"
+            android:textColor="@color/g_05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_recruitment_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_plan_recruitment_minus"
+            style="@style/Theme.Pingle.Button.Number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing20"
+            android:enabled="false"
+            android:text="@string/plan_recruitment_minus"
+            app:layout_constraintBottom_toBottomOf="@id/et_plan_recruitment_input_number"
+            app:layout_constraintEnd_toStartOf="@id/et_plan_recruitment_input_number"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_plan_recruitment_input_number" />
+
+        <EditText
+            android:id="@+id/et_plan_recruitment_input_number"
+            android:layout_width="81dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/shape_border_radius_12"
+            android:backgroundTint="@color/g_10"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="2"
+            android:paddingVertical="@dimen/spacing28"
+            android:text="@={planViewModel.selectedRecruitment}"
+            android:textAppearance="@style/TextAppearance.Pingle.Title.Semi.32"
+            android:textColor="@color/white"
+            android:textCursorDrawable="@drawable/shape_pingle_green_solid_width_1"
+            app:layout_constraintEnd_toStartOf="@id/btn_plan_recruitment_plus"
+            app:layout_constraintStart_toEndOf="@id/btn_plan_recruitment_minus"
+            app:layout_constraintTop_toBottomOf="@id/tv_plan_recruitment_description" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_plan_recruitment_plus"
+            style="@style/Theme.Pingle.Button.Number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing20"
+            android:enabled="true"
+            android:text="@string/plan_recruitment_plus"
+            app:layout_constraintBottom_toBottomOf="@+id/et_plan_recruitment_input_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/et_plan_recruitment_input_number"
+            app:layout_constraintTop_toTopOf="@+id/et_plan_recruitment_input_number" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
